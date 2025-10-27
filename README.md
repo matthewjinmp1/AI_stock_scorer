@@ -1,15 +1,28 @@
-# Grok LLM API Client
+# AI Stock Scorer
 
-A Python program that integrates with xAI's Grok language model API, providing an easy-to-use interface for querying Grok models.
+An intelligent competitive moat analysis tool powered by xAI's Grok that evaluates companies across 7 key competitive advantage metrics. Uses AI to provide quantitative competitive moat scoring for any company.
+
+## Overview
+
+This tool uses Grok LLM to analyze companies and provides competitive moat scores across 7 dimensions:
+- **Competitive Moat** (0-10): Overall competitive advantage strength
+- **Barriers to Entry** (0-10): Difficulty for new competitors to enter the market
+- **Disruption Risk** (0-10): Vulnerability to technological disruption
+- **Switching Cost** (0-10): Cost for customers to switch to competitors
+- **Brand Strength** (0-10): Brand recognition, loyalty, and premium pricing ability
+- **Competition Intensity** (0-10): Aggressiveness and number of competitors
+- **Network Effect** (0-10): Value increase with more users/customers
+
+All scores are persisted in `moat_scores.json` to avoid redundant API calls.
 
 ## Features
 
-- Simple query interface for quick questions
-- Conversational chat support with context
-- Interactive mode for real-time conversations
-- Support for multiple Grok models (grok-4-latest, grok-3-latest, grok-2-latest)
-- Error handling for common API issues
-- Environment variable configuration for security
+- **AI-Powered Analysis**: Uses Grok-4 to evaluate companies across competitive metrics
+- **Persistent Storage**: Saves all scores to avoid duplicate queries
+- **Interactive Mode**: Enter company names to get instant moat analysis
+- **Credit Management**: Built-in tool to check API credit availability
+- **Comprehensive Scoring**: 7-dimensional analysis of competitive positioning
+- **Fast & Efficient**: Uses `grok-4-fast` model for quick responses
 
 ## Prerequisites
 
@@ -18,190 +31,172 @@ A Python program that integrates with xAI's Grok language model API, providing a
 
 ## Installation
 
-1. Clone or download this repository
-2. Install the required dependencies:
+1. Clone this repository:
+```bash
+git clone https://github.com/matthewjinmp1/AI_stock_scorer.git
+cd AI_stock_scorer
+```
 
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configuration
-
-### Option 1: Environment Variable (Recommended)
-
-Set your xAI API key as an environment variable:
-
-**On Windows:**
-```cmd
-set XAI_API_KEY=your_api_key_here
-```
-
-**On macOS/Linux:**
+3. Copy the config template and add your API key:
 ```bash
-export XAI_API_KEY=your_api_key_here
+cp config_template.py config.py
 ```
 
-### Option 2: Direct Configuration
-
-You can also pass the API key directly when initializing the client:
-
+4. Edit `config.py` and add your xAI API key:
 ```python
-from grok_client import GrokClient
-
-grok = GrokClient(api_key="your_api_key_here")
+XAI_API_KEY = "your_api_key_here"
 ```
+
+**Note**: `config.py` is already in `.gitignore` to protect your API key.
 
 ## Usage
 
-### Basic Usage
+### Main Application: Company Moat Scorer
 
-Run the demo program:
+Run the main scoring application:
 
 ```bash
-python grok_client.py
+python moat_scorer.py
 ```
 
-This will run through several examples and then enter interactive mode.
+Then enter company names when prompted. The tool will:
+- Check if the company has been scored before
+- Query Grok for missing scores
+- Display all 7 metrics (0-10 scale)
+- Save scores to `moat_scores.json`
 
-### Programmatic Usage
+**Example interaction:**
+```
+Enter company name (or 'quit' to exit): Tesla
 
-```python
-from grok_client import GrokClient
-
-# Initialize the client
-grok = GrokClient()
-
-# Simple query
-response = grok.simple_query("What is artificial intelligence?")
-print(response)
-
-# Conversational chat
-conversation = [
-    {"role": "user", "content": "Tell me about Python programming."},
-    {"role": "assistant", "content": "Python is a high-level programming language..."}
-]
-
-response = grok.conversational_chat(
-    conversation, 
-    "What are its main advantages?"
-)
-print(response)
-
-# Custom chat completion
-messages = [
-    {"role": "system", "content": "You are a helpful coding assistant."},
-    {"role": "user", "content": "How do I create a Python class?"}
-]
-
-response = grok.chat_completion(
-    messages=messages,
-    model="grok-4-latest",
-    temperature=0.7,
-    max_tokens=500
-)
-print(response)
+Querying competitive moat score...
+Competitive Moat Score: 8/10
+Barriers to Entry Score: 9/10
+Disruption Risk Score: 7/10
+Switching Cost Score: 6/10
+Brand Strength Score: 9/10
+Competition Intensity Score: 8/10
+Network Effect Score: 8/10
 ```
 
-## Available Models
+### Check API Credits
 
-- `grok-4-latest` - Latest Grok-4 model (recommended)
-- `grok-3-latest` - Latest Grok-3 model
-- `grok-2-latest` - Latest Grok-2 model
+Monitor your xAI API credit availability:
 
-## API Parameters
-
-The `chat_completion` method supports various parameters:
-
-- `messages`: List of message dictionaries
-- `model`: Grok model to use (default: "grok-4-latest")
-- `temperature`: Controls randomness (0.0 to 1.0, default: 0.7)
-- `max_tokens`: Maximum tokens to generate (default: 1000)
-- Additional OpenAI-compatible parameters
-
-## Error Handling
-
-The client includes comprehensive error handling for:
-
-- Missing API key
-- Invalid API key (401 error)
-- Rate limiting (429 error)
-- General API errors
-- Network issues
-
-## Examples
-
-### Example 1: Simple Query
-```python
-grok = GrokClient()
-response = grok.simple_query("Explain quantum computing in simple terms")
-print(response)
+```bash
+python check_credits.py
 ```
 
-### Example 2: Multi-turn Conversation
-```python
-grok = GrokClient()
+This will attempt API calls to verify credits are available.
 
-# Start a conversation
-conversation = [
-    {"role": "system", "content": "You are a helpful science tutor."},
-    {"role": "user", "content": "What is photosynthesis?"},
-    {"role": "assistant", "content": "Photosynthesis is the process by which plants..."}
-]
+### Basic Examples
 
-# Continue the conversation
-response = grok.conversational_chat(
-    conversation, 
-    "What are the main components needed for photosynthesis?"
-)
-print(response)
+Try example queries to the Grok API:
+
+```bash
+python examples.py
 ```
 
-### Example 3: Custom Configuration
-```python
-grok = GrokClient()
+## Project Structure
 
-messages = [
-    {"role": "system", "content": "You are a creative writing assistant."},
-    {"role": "user", "content": "Write a short story about a robot learning to paint."}
-]
+- `moat_scorer.py` - Main application for company competitive analysis
+- `grok_client.py` - Grok API client wrapper
+- `check_credits.py` - Tool to verify API credit availability
+- `examples.py` - Basic usage examples
+- `moat_scores.json` - Persistent storage of all company scores
+- `config.py` - Your API key (not in repo, see config_template.py)
+- `config_template.py` - Template for configuration
 
-response = grok.chat_completion(
-    messages=messages,
-    model="grok-4-latest",
-    temperature=0.9,  # More creative
-    max_tokens=800
-)
-print(response)
+## Competitive Moat Scoring Details
+
+### What are Competitive Moats?
+
+A competitive moat refers to a company's sustainable competitive advantages that protect it from competitors. This tool evaluates:
+
+1. **Competitive Moat** - Overall strength across all dimensions
+2. **Barriers to Entry** - Regulatory, capital, or technological hurdles
+3. **Disruption Risk** - Vulnerability to new technologies or business models
+4. **Switching Cost** - Lock-in effects (vendor switching, retraining, data migration)
+5. **Brand Strength** - Customer loyalty, recognition, and pricing power
+6. **Competition Intensity** - Market competition level and aggressiveness
+7. **Network Effect** - Platform, marketplace, or ecosystem benefits
+
+### Interpreting Scores
+
+- **0-3**: Weak competitive position
+- **4-6**: Moderate competitive position
+- **7-8**: Strong competitive position
+- **9-10**: Exceptional competitive position (rare)
+
+## API Usage & Costs
+
+This tool uses xAI's Grok API. Each company analysis requires multiple API calls (one per metric), so:
+- Use credit checking script to monitor availability
+- Consider costs when analyzing many companies
+- Scores are cached to avoid duplicate API calls
+
+## Example Scores
+
+Sample scores from `moat_scores.json`:
+
+```json
+{
+  "tesla": {
+    "moat_score": "8",
+    "barriers_score": "9",
+    "disruption_risk": "7",
+    "switching_cost": "6",
+    "brand_strength": "9",
+    "competition_intensity": "8",
+    "network_effect": "8"
+  },
+  "microsoft": {
+    "moat_score": "9",
+    "barriers_score": "9",
+    "disruption_risk": "5",
+    "switching_cost": "8",
+    "brand_strength": "9",
+    "competition_intensity": "8",
+    "network_effect": "9"
+  }
+}
 ```
 
 ## Troubleshooting
 
-### Common Issues
+### "API key is required" error
+1. Check that `config.py` exists
+2. Verify your API key is set correctly
+3. Ensure you have API credits available at https://console.x.ai/
 
-1. **"API key is required" error**
-   - Make sure you've set the `XAI_API_KEY` environment variable
-   - Verify your API key is correct
+### Company scores not updating
+- Try deleting the company entry from `moat_scores.json`
+- Or manually edit the JSON to remove specific score fields
 
-2. **"Rate limit exceeded" error**
-   - Wait a moment before making another request
-   - Consider implementing exponential backoff for production use
-
-3. **"Invalid API key" error**
-   - Check that your API key is valid and active
-   - Ensure you're using the correct API key format
-
-4. **Import errors**
-   - Make sure you've installed the requirements: `pip install -r requirements.txt`
-   - Verify you're using Python 3.7 or higher
-
-## License
-
-This project is open source and available under the MIT License.
+### API Rate Limiting
+- Wait between queries if you hit rate limits
+- The tool uses `grok-4-fast` for speed and cost efficiency
 
 ## Contributing
 
-Feel free to submit issues, feature requests, or pull requests to improve this client.
+Contributions welcome! Areas for improvement:
+- Additional scoring dimensions
+- Historical score tracking
+- Batch analysis of multiple companies
+- Export to CSV/Excel
+- Web interface
+
+## License
+
+MIT License - See LICENSE file for details.
 
 ## Support
 
-For issues related to the Grok API itself, please refer to the [xAI documentation](https://docs.x.ai/) or contact xAI support.
+For issues or questions:
+- Open an issue on GitHub
+- For xAI API issues, see [xAI documentation](https://docs.x.ai/)
