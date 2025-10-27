@@ -7,7 +7,8 @@
       "switching_cost": "6",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "9"
     },
     "microsoft": {
       "moat_score": "9",
@@ -16,7 +17,8 @@
       "switching_cost": "8",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "9"
+      "network_effect": "9",
+      "product_differentiation": "8"
     },
     "google": {
       "moat_score": "9",
@@ -25,7 +27,8 @@
       "switching_cost": "7",
       "brand_strength": "10",
       "competition_intensity": "7",
-      "network_effect": "9"
+      "network_effect": "9",
+      "product_differentiation": "9"
     },
     "nvidia": {
       "moat_score": "9",
@@ -34,7 +37,8 @@
       "switching_cost": "8",
       "brand_strength": "10",
       "competition_intensity": "8",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "9"
     },
     "asml": {
       "moat_score": "10",
@@ -43,7 +47,8 @@
       "switching_cost": "9",
       "brand_strength": "9",
       "competition_intensity": "2",
-      "network_effect": "4"
+      "network_effect": "4",
+      "product_differentiation": "9"
     },
     "meta": {
       "moat_score": "9",
@@ -52,7 +57,8 @@
       "switching_cost": "8",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "10"
+      "network_effect": "10",
+      "product_differentiation": "8"
     },
     "apple": {
       "moat_score": "9",
@@ -61,7 +67,8 @@
       "switching_cost": "8",
       "brand_strength": "10",
       "competition_intensity": "8",
-      "network_effect": "9"
+      "network_effect": "9",
+      "product_differentiation": "9"
     },
     "adobe": {
       "moat_score": "9",
@@ -70,7 +77,8 @@
       "switching_cost": "8",
       "brand_strength": "10",
       "competition_intensity": "7",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "9"
     },
     "amazon": {
       "moat_score": "9",
@@ -79,7 +87,8 @@
       "switching_cost": "8",
       "brand_strength": "10",
       "competition_intensity": "8",
-      "network_effect": "9"
+      "network_effect": "9",
+      "product_differentiation": "8"
     },
     "salesforce": {
       "moat_score": "8",
@@ -88,7 +97,8 @@
       "switching_cost": "9",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "8"
     },
     "broadcom": {
       "moat_score": "9",
@@ -97,7 +107,8 @@
       "switching_cost": "9",
       "brand_strength": "8",
       "competition_intensity": "8",
-      "network_effect": "2"
+      "network_effect": "2",
+      "product_differentiation": "8"
     },
     "tsmc": {
       "moat_score": "9",
@@ -106,7 +117,8 @@
       "switching_cost": "9",
       "brand_strength": "9",
       "competition_intensity": "7",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "9"
     },
     "oracle": {
       "moat_score": "8",
@@ -115,7 +127,8 @@
       "switching_cost": "9",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "5"
+      "network_effect": "5",
+      "product_differentiation": "7"
     },
     "lululemon": {
       "moat_score": "7",
@@ -124,7 +137,8 @@
       "switching_cost": "0",
       "brand_strength": "9",
       "competition_intensity": "8",
-      "network_effect": "1"
+      "network_effect": "1",
+      "product_differentiation": "9"
     },
     "paypal": {
       "moat_score": "8",
@@ -133,7 +147,8 @@
       "switching_cost": "6",
       "brand_strength": "8",
       "competition_intensity": "9",
-      "network_effect": "8"
+      "network_effect": "8",
+      "product_differentiation": "7"
     },
     "prologis": {
       "moat_score": "8",
@@ -142,7 +157,8 @@
       "switching_cost": "8",
       "brand_strength": "8",
       "competition_intensity": "6",
-      "network_effect": "2"
+      "network_effect": "2",
+      "product_differentiation": "7"
     },
     "netease": {
       "moat_score": "8",
@@ -151,7 +167,8 @@
       "switching_cost": "7",
       "brand_strength": "7",
       "competition_intensity": "8",
-      "network_effect": "7"
+      "network_effect": "7",
+      "product_differentiation": "8"
     },
     "dino polska": {
       "moat_score": "7",
@@ -160,7 +177,8 @@
       "switching_cost": "0",
       "brand_strength": "6",
       "competition_intensity": "8",
-      "network_effect": "0"
+      "network_effect": "0",
+      "product_differentiation": "2"
     },
     "coca cola": {
       "moat_score": "9",
@@ -169,7 +187,8 @@
       "switching_cost": "0",
       "brand_strength": "10",
       "competition_intensity": "8",
-      "network_effect": "2"
+      "network_effect": "2",
+      "product_differentiation": "9"
     }
   }
 }

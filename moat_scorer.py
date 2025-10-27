@@ -169,6 +169,27 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
+    },
+    'product_differentiation': {
+        'display_name': 'Product Differentiation',
+        'field_name': 'product_differentiation',
+        'prompt': """Rate the product differentiation (vs commoditization) for {company_name} on a scale of 0-10, where:
+- 0 = Completely commoditized, interchangeable with competitors, price competition
+- 5 = Some differentiation, moderate pricing power
+- 10 = Highly differentiated, unique products/services with strong pricing power
+
+Consider factors like:
+- Product uniqueness and distinctiveness
+- Ability to command premium prices
+- Customer perception of differentiation
+- Brand differentiation and positioning
+- R&D and innovation creating uniqueness
+- Proprietary features or technology
+- Service or experience differentiation
+- Market positioning and specialization
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
     }
 }
 
@@ -349,13 +370,71 @@ def fill_missing_barriers_scores():
 
 
 def view_scores(score_type=None):
-    """Display all stored moat scores using SCORE_DEFINITIONS."""
+    """Display all stored moat scores using SCORE_DEFINITIONS.
+    
+    Args:
+        score_type: Can be None (show totals), a score type name (show specific score), 
+                    or a company name (show all scores for that company).
+    """
     scores_data = load_scores()
     
     if not scores_data["companies"]:
         print("No scores stored yet.")
         return
     
+    # Check if score_type is actually a company name
+    if score_type:
+        company_lower = score_type.lower()
+        if company_lower in scores_data["companies"]:
+            # Display all scores for this specific company
+            print(f"\n{score_type.capitalize()} Scores:")
+            print("=" * 80)
+            
+            data = scores_data["companies"][company_lower]
+            total = 0
+            all_present = True
+            scores_list = []
+            
+            for score_key in SCORE_DEFINITIONS:
+                score_def = SCORE_DEFINITIONS[score_key]
+                score_val = data.get(score_key, 'N/A')
+                
+                if score_val == 'N/A':
+                    score_display = 'N/A'
+                    all_present = False
+                    sort_value = 0  # Put N/A scores at the end
+                else:
+                    try:
+                        val = float(score_val)
+                        # For reverse scores, invert to get "goodness" value
+                        if score_def['is_reverse']:
+                            sort_value = 10 - val
+                            total += (10 - val)
+                        else:
+                            sort_value = val
+                            total += val
+                        score_display = score_val
+                    except (ValueError, TypeError):
+                        score_display = 'N/A'
+                        all_present = False
+                        sort_value = 0
+                
+                scores_list.append((sort_value, score_def['display_name'], score_display))
+            
+            # Sort by value descending
+            scores_list.sort(reverse=True, key=lambda x: x[0])
+            
+            # Display sorted scores
+            for sort_value, display_name, score_display in scores_list:
+                print(f"{display_name:25} {score_display:>8}")
+            
+            if all_present:
+                total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+                print(f"{'Total':25} {total_str:>8}")
+            
+            return
+    
+    # Helper function to calculate total score
     def get_total_score(item):
         data = item[1]
         total = 0
@@ -373,11 +452,12 @@ def view_scores(score_type=None):
                 else:
                     total += val
             except (ValueError, TypeError):
-                pass
+                    pass
         return total
     
     sorted_companies = sorted(scores_data["companies"].items(), key=get_total_score, reverse=True)
     
+    # If score_type not provided, show total scores for all companies
     if not score_type:
         print("\nStored Company Scores (Total only):")
         print("=" * 80)
@@ -408,6 +488,7 @@ def view_scores(score_type=None):
                 total_str = 'N/A'
             
             print(f"{company.capitalize():<{max_name_len}} {total_str:>8}")
+        return
     else:
         score_type_lower = score_type.lower()
         
@@ -458,7 +539,8 @@ def main():
     print("Commands:")
     print("  Enter company name to score")
     print("  Type 'view' to see total scores")
-    print("  Type 'view <type>' to see specific scores (moat, barriers, disrupt, switching, brand, competition, network)")
+    print("  Type 'view <type>' to see specific scores across companies")
+    print("  Type 'view <company>' to see all scores for a specific company")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
     print("  Type 'quit' or 'exit' to stop")
