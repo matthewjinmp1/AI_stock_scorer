@@ -189,6 +189,36 @@
       "competition_intensity": "8",
       "network_effect": "2",
       "product_differentiation": "9"
+    },
+    "dell": {
+      "moat_score": "6",
+      "barriers_score": "8",
+      "disruption_risk": "6",
+      "switching_cost": "5",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "5"
+    },
+    "micron": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "8",
+      "switching_cost": "6",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "0",
+      "product_differentiation": "4"
+    },
+    "applied materials": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "8"
     }
   }
 }
