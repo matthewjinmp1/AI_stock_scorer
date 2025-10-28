@@ -23,6 +23,102 @@ from datetime import datetime
 # JSON file to store moat scores
 SCORES_FILE = "moat_scores.json"
 
+# Stock ticker lookup file
+TICKER_FILE = "stock_tickers_clean.json"
+
+# Cache for ticker lookups
+_ticker_cache = None
+
+def load_ticker_lookup():
+    """Load ticker to company name lookup."""
+    global _ticker_cache
+    
+    if _ticker_cache is not None:
+        return _ticker_cache
+    
+    _ticker_cache = {}
+    
+    try:
+        if os.path.exists(TICKER_FILE):
+            with open(TICKER_FILE, 'r') as f:
+                data = json.load(f)
+                
+                for company in data.get('companies', []):
+                    ticker = company.get('ticker', '').strip().upper()
+                    name = company.get('name', '').strip()
+                    
+                    if ticker:
+                        _ticker_cache[ticker] = name
+        else:
+            print(f"Warning: {TICKER_FILE} not found. Ticker lookups will not work.")
+    except Exception as e:
+        print(f"Warning: Could not load ticker file: {e}")
+    
+    return _ticker_cache
+
+def resolve_to_company_name(input_str):
+    """
+    Resolve input to a company name.
+    Returns (company_name, ticker) tuple.
+    """
+    input_upper = input_str.strip().upper()
+    
+    # Check if it's a ticker symbol (uppercase, 1-5 chars)
+    if len(input_upper) >= 1 and len(input_upper) <= 5 and input_upper.isalpha():
+        ticker_lookup = load_ticker_lookup()
+        
+        if input_upper in ticker_lookup:
+            company_name = ticker_lookup[input_upper]
+            return (company_name, input_upper)
+    
+    # Otherwise treat as company name
+    return (input_str.strip(), None)
+
+def get_ticker_from_company_name(company_name):
+    """Reverse lookup: get ticker from company name."""
+    ticker_lookup = load_ticker_lookup()
+    
+    # Known mappings for common company names
+    aliases = {
+        'google': 'GOOGL',
+        'tsmc': 'TSM',
+        'meta': 'META',
+        'nvidia': 'NVDA',
+        'amazon': 'AMZN',
+        'apple': 'AAPL',
+        'microsoft': 'MSFT',
+        'tesla': 'TSLA',
+        'adobe': 'ADBE',
+        'salesforce': 'CRM',
+        'broadcom': 'AVGO',
+        'oracle': 'ORCL',
+        'lululemon': 'LULU',
+        'paypal': 'PYPL',
+        'prologis': 'PLD',
+        'dell': 'DELL',
+        'micron': 'MU',
+        'amd': 'AMD',
+    }
+    
+    # Check aliases first
+    company_lower = company_name.lower()
+    if company_lower in aliases:
+        ticker = aliases[company_lower]
+        if ticker in ticker_lookup:
+            return ticker
+    
+    # Try exact match (case insensitive)
+    for ticker, name in ticker_lookup.items():
+        if name.lower() == company_lower:
+            return ticker
+    
+    # Try partial match
+    for ticker, name in ticker_lookup.items():
+        if company_lower in name.lower() or name.lower() in company_lower:
+            return ticker
+    
+    return None
+
 # Define all score metrics - add new scores here to automatically integrate them everywhere!
 SCORE_DEFINITIONS = {
     'moat_score': {
@@ -219,15 +315,39 @@ def query_score(grok, company_name, score_key):
     return response.strip()
 
 
-def get_company_moat_score(company_name):
-    """Get all scores for a company using SCORE_DEFINITIONS."""
+def get_company_moat_score(input_str):
+    """Get all scores for a company using SCORE_DEFINITIONS.
+    
+    Accepts either a ticker symbol or company name.
+    Stores scores using ticker as key.
+    """
     try:
-        company_name_lower = company_name.lower()
+        # Resolve ticker to company name if needed
+        company_name, ticker = resolve_to_company_name(input_str)
+        
+        # If we got a company name without a ticker, try to look it up
+        if not ticker:
+            ticker = get_ticker_from_company_name(company_name)
+        
+        if ticker:
+            display_name = ticker
+        else:
+            display_name = company_name
+        
         scores_data = load_scores()
         
-        if company_name_lower in scores_data["companies"]:
-            existing_data = scores_data["companies"][company_name_lower]
-            
+        # Try to find existing scores (by ticker, then by company name for backwards compatibility)
+        existing_data = None
+        storage_key = None
+        
+        if ticker and ticker in scores_data["companies"]:
+            existing_data = scores_data["companies"][ticker]
+            storage_key = ticker
+        elif company_name.lower() in scores_data["companies"]:
+            existing_data = scores_data["companies"][company_name.lower()]
+            storage_key = company_name.lower()
+        
+        if existing_data:
             current_scores = {}
             for score_key in SCORE_DEFINITIONS:
                 if score_key == 'moat_score':
@@ -236,7 +356,10 @@ def get_company_moat_score(company_name):
                     current_scores[score_key] = existing_data.get(score_key)
             
             if all(current_scores.values()):
-                print(f"\n{company_name} already scored:")
+                if ticker:
+                    print(f"\n{ticker} already scored:")
+                else:
+                    print(f"\n{company_name} already scored:")
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
                     print(f"{score_def['display_name']}: {current_scores[score_key]}/10")
@@ -251,12 +374,14 @@ def get_company_moat_score(company_name):
                     current_scores[score_key] = query_score(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
             
-            scores_data["companies"][company_name_lower] = current_scores
+            # Use ticker for storage key if available, otherwise use company name
+            storage_key = ticker if ticker else company_name.lower()
+            scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
             print(f"\nScores updated in {SCORES_FILE}")
             return
         
-        print(f"Analyzing {company_name}...")
+        print(f"Analyzing {display_name}...")
         grok = GrokClient(api_key=XAI_API_KEY)
         
         all_scores = {}
@@ -266,7 +391,9 @@ def get_company_moat_score(company_name):
             all_scores[score_key] = query_score(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
         
-        scores_data["companies"][company_name_lower] = all_scores
+        # Use ticker for storage key if available, otherwise use company name
+        storage_key = ticker if ticker else company_name.lower()
+        scores_data["companies"][storage_key] = all_scores
         save_scores(scores_data)
         print(f"\nScores saved to {SCORES_FILE}")
         
@@ -374,7 +501,7 @@ def view_scores(score_type=None):
     
     Args:
         score_type: Can be None (show totals), a score type name (show specific score), 
-                    or a company name (show all scores for that company).
+                    or a ticker/company name (show all scores for that company).
     """
     scores_data = load_scores()
     
@@ -382,57 +509,87 @@ def view_scores(score_type=None):
         print("No scores stored yet.")
         return
     
-    # Check if score_type is actually a company name
+    # Helper function to get display name
+    def get_display_name(key):
+        # Check if it's already a ticker (uppercase, short)
+        if len(key) <= 5 and key.upper() == key:
+            return key
+        
+        # Try to find ticker for this company name
+        ticker = get_ticker_from_company_name(key)
+        if ticker:
+            company_name = load_ticker_lookup().get(ticker, key)
+            return f"{ticker} ({company_name})"
+        return key
+    
+    # Check if score_type is actually a ticker or company name
     if score_type:
-        company_lower = score_type.lower()
-        if company_lower in scores_data["companies"]:
-            # Display all scores for this specific company
-            print(f"\n{score_type.capitalize()} Scores:")
-            print("=" * 80)
+        # Try direct match
+        if score_type in scores_data["companies"]:
+            data = scores_data["companies"][score_type]
+        # Try uppercase (for ticker lookup)
+        elif score_type.upper() in scores_data["companies"]:
+            data = scores_data["companies"][score_type.upper()]
+        # Try lowercase (for company name lookup)
+        elif score_type.lower() in scores_data["companies"]:
+            data = scores_data["companies"][score_type.lower()]
+        else:
+            # Try to resolve as ticker to company name
+            resolved_name, ticker = resolve_to_company_name(score_type)
+            if ticker and ticker in scores_data["companies"]:
+                data = scores_data["companies"][ticker]
+            elif resolved_name.lower() in scores_data["companies"]:
+                data = scores_data["companies"][resolved_name.lower()]
+            else:
+                print(f"Company '{score_type}' not found in scores.")
+                return
+        
+        display_name = score_type.upper() if score_type.upper() in scores_data["companies"] else score_type
+        print(f"\n{display_name} Scores:")
+        print("=" * 80)
+        
+        total = 0
+        all_present = True
+        scores_list = []
+        
+        for score_key in SCORE_DEFINITIONS:
+            score_def = SCORE_DEFINITIONS[score_key]
+            score_val = data.get(score_key, 'N/A')
             
-            data = scores_data["companies"][company_lower]
-            total = 0
-            all_present = True
-            scores_list = []
-            
-            for score_key in SCORE_DEFINITIONS:
-                score_def = SCORE_DEFINITIONS[score_key]
-                score_val = data.get(score_key, 'N/A')
-                
-                if score_val == 'N/A':
+            if score_val == 'N/A':
+                score_display = 'N/A'
+                all_present = False
+                sort_value = 0  # Put N/A scores at the end
+            else:
+                try:
+                    val = float(score_val)
+                    # For reverse scores, invert to get "goodness" value
+                    if score_def['is_reverse']:
+                        sort_value = 10 - val
+                        total += (10 - val)
+                    else:
+                        sort_value = val
+                        total += val
+                    score_display = score_val
+                except (ValueError, TypeError):
                     score_display = 'N/A'
                     all_present = False
-                    sort_value = 0  # Put N/A scores at the end
-                else:
-                    try:
-                        val = float(score_val)
-                        # For reverse scores, invert to get "goodness" value
-                        if score_def['is_reverse']:
-                            sort_value = 10 - val
-                            total += (10 - val)
-                        else:
-                            sort_value = val
-                            total += val
-                        score_display = score_val
-                    except (ValueError, TypeError):
-                        score_display = 'N/A'
-                        all_present = False
-                        sort_value = 0
-                
-                scores_list.append((sort_value, score_def['display_name'], score_display))
+                    sort_value = 0
             
-            # Sort by value descending
-            scores_list.sort(reverse=True, key=lambda x: x[0])
-            
-            # Display sorted scores
-            for sort_value, display_name, score_display in scores_list:
-                print(f"{display_name:25} {score_display:>8}")
-            
-            if all_present:
-                total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
-                print(f"{'Total':25} {total_str:>8}")
-            
-            return
+            scores_list.append((sort_value, score_def['display_name'], score_display))
+        
+        # Sort by value descending
+        scores_list.sort(reverse=True, key=lambda x: x[0])
+        
+        # Display sorted scores
+        for sort_value, display_name, score_display in scores_list:
+            print(f"{display_name:25} {score_display:>8}")
+        
+        if all_present:
+            total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+            print(f"{'Total':25} {total_str:>8}")
+        
+        return
     
     # Helper function to calculate total score
     def get_total_score(item):
@@ -487,49 +644,59 @@ def view_scores(score_type=None):
             else:
                 total_str = 'N/A'
             
-            print(f"{company.capitalize():<{max_name_len}} {total_str:>8}")
+            # Display ticker if available, otherwise company name
+            display_key = get_display_name(company)
+            if len(display_key) > 30:
+                display_key = display_key[:30]
+            print(f"{display_key:<{min(max_name_len, 30)}} {total_str:>8}")
         return
-    else:
-        score_type_lower = score_type.lower()
-        
-        score_map = {name.lower() or key.lower(): key for key, val in SCORE_DEFINITIONS.items() 
-                    for name in [val['display_name'], key] + key.split('_')}
-        
-        matching_key = None
-        for name, key in score_map.items():
-            if score_type_lower in name or name in score_type_lower:
-                matching_key = key
-                break
-        
-        if not matching_key:
-            print(f"Unknown score type: {score_type}")
-            print(f"Available types: {', '.join([key.split('_')[0] for key in SCORE_DEFINITIONS.keys()])}")
-            return
-        
-        score_def = SCORE_DEFINITIONS[matching_key]
-        print(f"\nStored Company Scores ({score_def['display_name']}):")
-        print("=" * 80)
-        
-        def get_field_score(item):
-            data = item[1]
-            score = data.get(matching_key, 'N/A')
+    
+    # If we get here, score_type is a score type (not a company)
+    score_type_lower = score_type.lower()
+    
+    score_map = {name.lower() or key.lower(): key for key, val in SCORE_DEFINITIONS.items() 
+                for name in [val['display_name'], key] + key.split('_')}
+    
+    matching_key = None
+    for name, key in score_map.items():
+        if score_type_lower in name or name in score_type_lower:
+            matching_key = key
+            break
+    
+    if not matching_key:
+        print(f"Unknown score type: {score_type}")
+        print(f"Available types: {', '.join([key.split('_')[0] for key in SCORE_DEFINITIONS.keys()])}")
+        return
+    
+    score_def = SCORE_DEFINITIONS[matching_key]
+    print(f"\nStored Company Scores ({score_def['display_name']}):")
+    print("=" * 80)
+    
+    def get_field_score(item):
+        data = item[1]
+        score = data.get(matching_key, 'N/A')
+        try:
+            return float(score) if score != 'N/A' else 0
+        except (ValueError, TypeError):
+            return 0
+    
+    sorted_by_field = sorted(scores_data["companies"].items(), key=get_field_score, reverse=True)
+    max_name_len = max([len(get_display_name(company)) for company, data in sorted_by_field]) if sorted_by_field else 0
+    
+    for company, data in sorted_by_field:
+        score = data.get(matching_key, 'N/A')
+        if score != 'N/A':
             try:
-                return float(score) if score != 'N/A' else 0
+                score_float = float(score)
+                score = f"{int(score_float)}" if score_float == int(score_float) else f"{score_float:.1f}"
             except (ValueError, TypeError):
-                return 0
+                pass
         
-        sorted_by_field = sorted(scores_data["companies"].items(), key=get_field_score, reverse=True)
-        max_name_len = max([len(company.capitalize()) for company, data in sorted_by_field]) if sorted_by_field else 0
-        
-        for company, data in sorted_by_field:
-            score = data.get(matching_key, 'N/A')
-            if score != 'N/A':
-                try:
-                    score_float = float(score)
-                    score = f"{int(score_float)}" if score_float == int(score_float) else f"{score_float:.1f}"
-                except (ValueError, TypeError):
-                    pass
-            print(f"{company.capitalize():<{max_name_len}} {score:>8}")
+        # Display ticker if available, otherwise company name
+        display_key = get_display_name(company)
+        if len(display_key) > 30:
+            display_key = display_key[:30]
+        print(f"{display_key:<{min(max_name_len, 30)}} {score:>8}")
 
 
 def main():
@@ -537,7 +704,7 @@ def main():
     print("Company Competitive Moat Scorer")
     print("=" * 40)
     print("Commands:")
-    print("  Enter company name to score")
+    print("  Enter ticker symbol (e.g., AAPL) or company name to score")
     print("  Type 'view' to see total scores")
     print("  Type 'view <type>' to see specific scores across companies")
     print("  Type 'view <company>' to see all scores for a specific company")
@@ -548,7 +715,7 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter company name (or 'view'/'fill'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'fill'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -572,7 +739,7 @@ def main():
                 get_company_moat_score(user_input)
                 print()
             else:
-                print("Please enter a company name.")
+                print("Please enter a ticker symbol or company name.")
                 
         except KeyboardInterrupt:
             print("\nGoodbye!")

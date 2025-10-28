@@ -1,6 +1,6 @@
 {
   "companies": {
-    "tesla": {
+    "TSLA": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -10,7 +10,7 @@
       "network_effect": "8",
       "product_differentiation": "9"
     },
-    "microsoft": {
+    "MSFT": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -20,7 +20,7 @@
       "network_effect": "9",
       "product_differentiation": "8"
     },
-    "google": {
+    "GOOGL": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "7",
@@ -30,7 +30,7 @@
       "network_effect": "9",
       "product_differentiation": "9"
     },
-    "nvidia": {
+    "NVDA": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -40,7 +40,7 @@
       "network_effect": "8",
       "product_differentiation": "9"
     },
-    "asml": {
+    "ASML": {
       "moat_score": "10",
       "barriers_score": "10",
       "disruption_risk": "4",
@@ -50,7 +50,7 @@
       "network_effect": "4",
       "product_differentiation": "9"
     },
-    "meta": {
+    "META": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -60,7 +60,7 @@
       "network_effect": "10",
       "product_differentiation": "8"
     },
-    "apple": {
+    "AAPL": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -70,7 +70,7 @@
       "network_effect": "9",
       "product_differentiation": "9"
     },
-    "adobe": {
+    "ADBE": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -80,7 +80,7 @@
       "network_effect": "8",
       "product_differentiation": "9"
     },
-    "amazon": {
+    "AMZN": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -90,7 +90,7 @@
       "network_effect": "9",
       "product_differentiation": "8"
     },
-    "salesforce": {
+    "CRM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -100,7 +100,7 @@
       "network_effect": "8",
       "product_differentiation": "8"
     },
-    "broadcom": {
+    "AVGO": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -110,7 +110,7 @@
       "network_effect": "2",
       "product_differentiation": "8"
     },
-    "tsmc": {
+    "TSMC": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "4",
@@ -120,7 +120,7 @@
       "network_effect": "8",
       "product_differentiation": "9"
     },
-    "oracle": {
+    "ORCL": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -130,7 +130,7 @@
       "network_effect": "5",
       "product_differentiation": "7"
     },
-    "lululemon": {
+    "LULU": {
       "moat_score": "7",
       "barriers_score": "8",
       "disruption_risk": "5",
@@ -140,7 +140,7 @@
       "network_effect": "1",
       "product_differentiation": "9"
     },
-    "paypal": {
+    "PYPL": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "7",
@@ -150,7 +150,7 @@
       "network_effect": "8",
       "product_differentiation": "7"
     },
-    "prologis": {
+    "PLD": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "3",
@@ -160,7 +160,7 @@
       "network_effect": "2",
       "product_differentiation": "7"
     },
-    "netease": {
+    "NTES": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "7",
@@ -170,7 +170,7 @@
       "network_effect": "7",
       "product_differentiation": "8"
     },
-    "dino polska": {
+    "DNOPY": {
       "moat_score": "7",
       "barriers_score": "7",
       "disruption_risk": "5",
@@ -180,7 +180,7 @@
       "network_effect": "0",
       "product_differentiation": "2"
     },
-    "coca cola": {
+    "KO": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -190,7 +190,7 @@
       "network_effect": "2",
       "product_differentiation": "9"
     },
-    "dell": {
+    "DELL": {
       "moat_score": "6",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -200,7 +200,7 @@
       "network_effect": "1",
       "product_differentiation": "5"
     },
-    "micron": {
+    "MU": {
       "moat_score": "7",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -210,7 +210,7 @@
       "network_effect": "0",
       "product_differentiation": "4"
     },
-    "applied materials": {
+    "AMAT": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -219,6 +219,16 @@
       "competition_intensity": "8",
       "network_effect": "1",
       "product_differentiation": "8"
+    },
+    "AMD": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "8",
+      "switching_cost": "6",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "3",
+      "product_differentiation": "7"
     }
   }
 }
