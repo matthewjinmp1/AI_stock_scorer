@@ -110,7 +110,7 @@
       "network_effect": "2",
       "product_differentiation": "8"
     },
-    "TSMC": {
+    "TSM": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "4",
@@ -148,16 +148,6 @@
       "brand_strength": "8",
       "competition_intensity": "9",
       "network_effect": "8",
-      "product_differentiation": "7"
-    },
-    "PLD": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "3",
-      "switching_cost": "8",
-      "brand_strength": "8",
-      "competition_intensity": "6",
-      "network_effect": "2",
       "product_differentiation": "7"
     },
     "NTES": {
@@ -229,6 +219,76 @@
       "competition_intensity": "8",
       "network_effect": "3",
       "product_differentiation": "7"
+    },
+    "PLD": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "3",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "6",
+      "network_effect": "3",
+      "product_differentiation": "7"
+    },
+    "LRCX": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "8"
+    },
+    "KLAC": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "9",
+      "brand_strength": "9",
+      "competition_intensity": "7",
+      "network_effect": "1",
+      "product_differentiation": "9"
+    },
+    "SNPS": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "3",
+      "switching_cost": "9",
+      "brand_strength": "9",
+      "competition_intensity": "7",
+      "network_effect": "4",
+      "product_differentiation": "9"
+    },
+    "CDNS": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "5",
+      "product_differentiation": "9"
+    },
+    "WDAY": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "3",
+      "product_differentiation": "8"
+    },
+    "QCOM": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "8"
     }
   }
 }

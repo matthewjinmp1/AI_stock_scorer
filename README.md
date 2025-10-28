@@ -1,10 +1,10 @@
 # AI Stock Scorer
 
-An intelligent competitive moat analysis tool powered by xAI's Grok that evaluates companies across 7 key competitive advantage metrics. Uses AI to provide quantitative competitive moat scoring for any company.
+An intelligent competitive moat analysis tool powered by xAI's Grok that evaluates companies across 8 key competitive advantage metrics. Uses AI to provide quantitative competitive moat scoring for any company.
 
 ## Overview
 
-This tool uses Grok LLM to analyze companies and provides competitive moat scores across 7 dimensions:
+This tool uses Grok LLM to analyze companies and provides competitive moat scores across 8 dimensions:
 - **Competitive Moat** (0-10): Overall competitive advantage strength
 - **Barriers to Entry** (0-10): Difficulty for new competitors to enter the market
 - **Disruption Risk** (0-10): Vulnerability to technological disruption
@@ -12,8 +12,9 @@ This tool uses Grok LLM to analyze companies and provides competitive moat score
 - **Brand Strength** (0-10): Brand recognition, loyalty, and premium pricing ability
 - **Competition Intensity** (0-10): Aggressiveness and number of competitors
 - **Network Effect** (0-10): Value increase with more users/customers
+- **Product Differentiation** (0-10): Product uniqueness and pricing power
 
-All scores are persisted in `moat_scores.json` to avoid redundant API calls.
+All scores are persisted in `scores.json` to avoid redundant API calls.
 
 ## Features
 
@@ -61,27 +62,24 @@ XAI_API_KEY = "your_api_key_here"
 Run the main scoring application:
 
 ```bash
-python moat_scorer.py
+python scorer.py
 ```
 
-Then enter company names when prompted. The tool will:
+Then enter ticker symbols or company names when prompted. The tool will:
 - Check if the company has been scored before
 - Query Grok for missing scores
-- Display all 7 metrics (0-10 scale)
-- Save scores to `moat_scores.json`
+- Display all 8 metrics (0-10 scale)
+- Save scores to `scores.json`
 
 **Example interaction:**
 ```
-Enter company name (or 'quit' to exit): Tesla
-
-Querying competitive moat score...
+Enter ticker or company name (or 'view'/'fill'/'quit'): TSLA
+Analyzing TSLA...
+Querying Competitive Moat...
 Competitive Moat Score: 8/10
+Querying Barriers to Entry...
 Barriers to Entry Score: 9/10
-Disruption Risk Score: 7/10
-Switching Cost Score: 6/10
-Brand Strength Score: 9/10
-Competition Intensity Score: 8/10
-Network Effect Score: 8/10
+...
 ```
 
 ### Check API Credits
@@ -104,11 +102,12 @@ python examples.py
 
 ## Project Structure
 
-- `moat_scorer.py` - Main application for company competitive analysis
+- `scorer.py` - Main application for company competitive analysis
 - `grok_client.py` - Grok API client wrapper
 - `check_credits.py` - Tool to verify API credit availability
 - `examples.py` - Basic usage examples
-- `moat_scores.json` - Persistent storage of all company scores
+- `scores.json` - Persistent storage of all company scores
+- `stock_tickers_clean.json` - Ticker symbol database
 - `config.py` - Your API key (not in repo, see config_template.py)
 - `config_template.py` - Template for configuration
 
@@ -125,6 +124,7 @@ A competitive moat refers to a company's sustainable competitive advantages that
 5. **Brand Strength** - Customer loyalty, recognition, and pricing power
 6. **Competition Intensity** - Market competition level and aggressiveness
 7. **Network Effect** - Platform, marketplace, or ecosystem benefits
+8. **Product Differentiation** - Product uniqueness vs commoditization
 
 ### Interpreting Scores
 
@@ -142,27 +142,29 @@ This tool uses xAI's Grok API. Each company analysis requires multiple API calls
 
 ## Example Scores
 
-Sample scores from `moat_scores.json`:
+Sample scores from `scores.json`:
 
 ```json
 {
-  "tesla": {
-    "moat_score": "8",
-    "barriers_score": "9",
-    "disruption_risk": "7",
-    "switching_cost": "6",
-    "brand_strength": "9",
-    "competition_intensity": "8",
-    "network_effect": "8"
-  },
-  "microsoft": {
-    "moat_score": "9",
-    "barriers_score": "9",
-    "disruption_risk": "5",
-    "switching_cost": "8",
-    "brand_strength": "9",
-    "competition_intensity": "8",
-    "network_effect": "9"
+  "companies": {
+    "TSLA": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "6",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "8"
+    },
+    "MSFT": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "9"
+    }
   }
 }
 ```
@@ -175,7 +177,7 @@ Sample scores from `moat_scores.json`:
 3. Ensure you have API credits available at https://console.x.ai/
 
 ### Company scores not updating
-- Try deleting the company entry from `moat_scores.json`
+- Try deleting the company entry from `scores.json`
 - Or manually edit the JSON to remove specific score fields
 
 ### API Rate Limiting

@@ -9,8 +9,8 @@ Gets Grok to rate a company's competitive moat strength across 7 metrics (0-10 e
 - Brand Strength
 - Competition Intensity
 - Network Effect
-Usage: python moat_scorer.py
-Then enter company names interactively
+Usage: python scorer.py
+Then enter ticker symbols or company names interactively
 """
 
 from grok_client import GrokClient
@@ -21,7 +21,7 @@ import os
 from datetime import datetime
 
 # JSON file to store moat scores
-SCORES_FILE = "moat_scores.json"
+SCORES_FILE = "scores.json"
 
 # Stock ticker lookup file
 TICKER_FILE = "stock_tickers_clean.json"
@@ -322,17 +322,66 @@ def get_company_moat_score(input_str):
     Stores scores using ticker as key.
     """
     try:
-        # Resolve ticker to company name if needed
-        company_name, ticker = resolve_to_company_name(input_str)
+        # Check if input looks like a ticker (short, alphabetic, uppercase)
+        input_upper = input_str.strip().upper()
+        input_len = len(input_str.strip())
+        looks_like_ticker = (
+            input_len >= 1 and 
+            input_len <= 6 and 
+            input_upper.isalpha()
+        )
         
-        # If we got a company name without a ticker, try to look it up
+        ticker = None
+        company_name = None
+        
+        # If it looks like a ticker, check if it exists in our database
+        if looks_like_ticker:
+            ticker_lookup = load_ticker_lookup()
+            if input_upper not in ticker_lookup:
+                print(f"\nError: Ticker '{input_upper}' not found in ticker database.")
+                print("Please enter a valid NYSE or NASDAQ ticker symbol.")
+                return
+            # Valid ticker found
+            ticker = input_upper
+            company_name = ticker_lookup[ticker]
+        
+        # If it looked like a ticker but wasn't in database, reject it
+        if looks_like_ticker and not ticker:
+            print(f"\nError: '{input_str}' is not a valid ticker symbol.")
+            print("Please enter a valid NYSE or NASDAQ ticker symbol.")
+            return
+        
+        # If it doesn't look like a ticker, treat as company name
         if not ticker:
-            ticker = get_ticker_from_company_name(company_name)
+            company_name = input_str.strip()
+            # Validate company name is reasonable
+            if len(company_name) < 3:
+                print(f"\nError: '{input_str}' is too short to be a valid company name or ticker.")
+                print("Please enter a valid ticker symbol (1-6 characters) or full company name.")
+                return
+            
+            # Check for nonsensical repeating patterns
+            # If all characters are the same or mostly same, it's probably not valid
+            unique_chars = len(set(company_name.lower()))
+            if unique_chars <= 2 and len(company_name) > 5:
+                print(f"\nWarning: '{input_str}' doesn't look like a valid company name.")
+                print("Continuing anyway...")
+                print()
+            elif all(c.isalpha() for c in company_name) and len(company_name) > 8:
+                # Check if it has vowel patterns (real company names usually have vowels)
+                has_vowels = any(c.lower() in 'aeiou' for c in company_name)
+                if not has_vowels:
+                    print(f"\nWarning: '{input_str}' doesn't look like a valid company name.")
+                    print("Continuing anyway...")
+                    print()
         
+        # Display format: Ticker (Company Name) or just Company Name
         if ticker:
-            display_name = ticker
+            display_name = f"{ticker} ({company_name})"
+            print(f"Company: {company_name}")
         else:
             display_name = company_name
+            print(f"Company: {company_name}")
         
         scores_data = load_scores()
         
@@ -357,7 +406,7 @@ def get_company_moat_score(input_str):
             
             if all(current_scores.values()):
                 if ticker:
-                    print(f"\n{ticker} already scored:")
+                    print(f"\n{ticker} ({company_name}) already scored:")
                 else:
                     print(f"\n{company_name} already scored:")
                 for score_key in SCORE_DEFINITIONS:
@@ -381,7 +430,10 @@ def get_company_moat_score(input_str):
             print(f"\nScores updated in {SCORES_FILE}")
             return
         
-        print(f"Analyzing {display_name}...")
+        if ticker:
+            print(f"\nAnalyzing {ticker} ({company_name})...")
+        else:
+            print(f"\nAnalyzing {company_name}...")
         grok = GrokClient(api_key=XAI_API_KEY)
         
         all_scores = {}
