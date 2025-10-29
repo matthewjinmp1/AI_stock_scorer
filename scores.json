@@ -599,6 +599,56 @@
       "competition_intensity": "7",
       "network_effect": "8",
       "product_differentiation": "9"
+    },
+    "T": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "7",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "5",
+      "product_differentiation": "4"
+    },
+    "BLK": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "9",
+      "brand_strength": "9",
+      "competition_intensity": "7",
+      "network_effect": "5",
+      "product_differentiation": "8"
+    },
+    "SONY": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "6",
+      "brand_strength": "9",
+      "competition_intensity": "9",
+      "network_effect": "7",
+      "product_differentiation": "8"
+    },
+    "NEE": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "10",
+      "brand_strength": "6",
+      "competition_intensity": "5",
+      "network_effect": "0",
+      "product_differentiation": "7"
+    },
+    "BA": {
+      "moat_score": "8",
+      "barriers_score": "10",
+      "disruption_risk": "7",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "8"
     }
   }
 }

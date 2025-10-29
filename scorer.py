@@ -453,6 +453,21 @@ def get_company_moat_score(input_str):
             scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
             print(f"\nScores updated in {SCORES_FILE}")
+            
+            # Calculate and display total
+            total = 0
+            for score_key in SCORE_DEFINITIONS:
+                score_def = SCORE_DEFINITIONS[score_key]
+                try:
+                    score_value = float(current_scores[score_key])
+                    if score_def['is_reverse']:
+                        total += (10 - score_value)
+                    else:
+                        total += score_value
+                except (ValueError, TypeError):
+                    pass
+            total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+            print(f"Total Score: {total_str}")
             return
         
         if ticker:
@@ -473,6 +488,21 @@ def get_company_moat_score(input_str):
         scores_data["companies"][storage_key] = all_scores
         save_scores(scores_data)
         print(f"\nScores saved to {SCORES_FILE}")
+        
+        # Calculate and display total
+        total = 0
+        for score_key in SCORE_DEFINITIONS:
+            score_def = SCORE_DEFINITIONS[score_key]
+            try:
+                score_value = float(all_scores[score_key])
+                if score_def['is_reverse']:
+                    total += (10 - score_value)
+                else:
+                    total += score_value
+            except (ValueError, TypeError):
+                pass
+        total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+        print(f"Total Score: {total_str}")
         
     except ValueError as e:
         print(f"Error: {e}")
