@@ -649,6 +649,36 @@
       "competition_intensity": "8",
       "network_effect": "1",
       "product_differentiation": "8"
+    },
+    "APH": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "5",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "8"
+    },
+    "BKNG": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "2",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "7"
+    },
+    "ACN": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "7"
     }
   }
 }

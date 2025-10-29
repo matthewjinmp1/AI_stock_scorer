@@ -307,6 +307,42 @@ def save_scores(scores_data):
         json.dump(scores_data, f, indent=2)
 
 
+def calculate_total_score(scores_dict):
+    """Calculate total score from a dictionary of scores.
+    
+    Args:
+        scores_dict: Dictionary with score keys and their string values
+        
+    Returns:
+        float: The total score (handling reverse scores appropriately)
+    """
+    total = 0
+    for score_key in SCORE_DEFINITIONS:
+        score_def = SCORE_DEFINITIONS[score_key]
+        try:
+            score_value = float(scores_dict.get(score_key, 0))
+            # For reverse scores, invert to get "goodness" value
+            if score_def['is_reverse']:
+                total += (10 - score_value)
+            else:
+                total += score_value
+        except (ValueError, TypeError):
+            pass
+    return total
+
+
+def format_total_score(total):
+    """Format a total score as a string.
+    
+    Args:
+        total: The total score (float)
+        
+    Returns:
+        str: Formatted total score string
+    """
+    return f"{int(total)}" if total == int(total) else f"{total:.1f}"
+
+
 def query_score(grok, company_name, score_key):
     """Query a single score from Grok."""
     score_def = SCORE_DEFINITIONS[score_key]
@@ -412,16 +448,10 @@ def get_company_moat_score(input_str):
                 
                 # Create list of scores with their values for sorting
                 score_list = []
-                total = 0
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
                     try:
                         score_value = float(current_scores[score_key])
-                        # Calculate total (handling reverse scores)
-                        if score_def['is_reverse']:
-                            total += (10 - score_value)
-                        else:
-                            total += score_value
                         score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
                     except (ValueError, TypeError):
                         # Skip invalid scores
@@ -435,7 +465,8 @@ def get_company_moat_score(input_str):
                     print(f"{display_name:25} {score_val:>8}")
                 
                 # Print total at the bottom
-                total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+                total = calculate_total_score(current_scores)
+                total_str = format_total_score(total)
                 print(f"{'Total':25} {total_str:>8}")
                 return
             
@@ -455,18 +486,8 @@ def get_company_moat_score(input_str):
             print(f"\nScores updated in {SCORES_FILE}")
             
             # Calculate and display total
-            total = 0
-            for score_key in SCORE_DEFINITIONS:
-                score_def = SCORE_DEFINITIONS[score_key]
-                try:
-                    score_value = float(current_scores[score_key])
-                    if score_def['is_reverse']:
-                        total += (10 - score_value)
-                    else:
-                        total += score_value
-                except (ValueError, TypeError):
-                    pass
-            total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+            total = calculate_total_score(current_scores)
+            total_str = format_total_score(total)
             print(f"Total Score: {total_str}")
             return
         
@@ -490,18 +511,8 @@ def get_company_moat_score(input_str):
         print(f"\nScores saved to {SCORES_FILE}")
         
         # Calculate and display total
-        total = 0
-        for score_key in SCORE_DEFINITIONS:
-            score_def = SCORE_DEFINITIONS[score_key]
-            try:
-                score_value = float(all_scores[score_key])
-                if score_def['is_reverse']:
-                    total += (10 - score_value)
-                else:
-                    total += score_value
-            except (ValueError, TypeError):
-                pass
-        total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+        total = calculate_total_score(all_scores)
+        total_str = format_total_score(total)
         print(f"Total Score: {total_str}")
         
     except ValueError as e:
