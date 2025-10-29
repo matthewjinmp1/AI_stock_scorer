@@ -412,10 +412,16 @@ def get_company_moat_score(input_str):
                 
                 # Create list of scores with their values for sorting
                 score_list = []
+                total = 0
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
                     try:
                         score_value = float(current_scores[score_key])
+                        # Calculate total (handling reverse scores)
+                        if score_def['is_reverse']:
+                            total += (10 - score_value)
+                        else:
+                            total += score_value
                         score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
                     except (ValueError, TypeError):
                         # Skip invalid scores
@@ -427,6 +433,10 @@ def get_company_moat_score(input_str):
                 # Print sorted scores without /10, vertically aligned
                 for score_value, display_name, score_val in score_list:
                     print(f"{display_name:25} {score_val:>8}")
+                
+                # Print total at the bottom
+                total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+                print(f"{'Total':25} {total_str:>8}")
                 return
             
             grok = GrokClient(api_key=XAI_API_KEY)
