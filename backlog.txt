@@ -1,7 +1,7 @@
-input tickers and convert tickers to company names 
-
 more scores 
 
 asncy company scoring / entry 
 
 add financial scores
+
+clean up tickers -> names

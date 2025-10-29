@@ -409,9 +409,24 @@ def get_company_moat_score(input_str):
                     print(f"\n{ticker} ({company_name}) already scored:")
                 else:
                     print(f"\n{company_name} already scored:")
+                
+                # Create list of scores with their values for sorting
+                score_list = []
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"{score_def['display_name']}: {current_scores[score_key]}/10")
+                    try:
+                        score_value = float(current_scores[score_key])
+                        score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
+                    except (ValueError, TypeError):
+                        # Skip invalid scores
+                        pass
+                
+                # Sort by score value descending
+                score_list.sort(reverse=True, key=lambda x: x[0])
+                
+                # Print sorted scores without /10, vertically aligned
+                for score_value, display_name, score_val in score_list:
+                    print(f"{display_name:25} {score_val:>8}")
                 return
             
             grok = GrokClient(api_key=XAI_API_KEY)
@@ -758,8 +773,6 @@ def main():
     print("Commands:")
     print("  Enter ticker symbol (e.g., AAPL) or company name to score")
     print("  Type 'view' to see total scores")
-    print("  Type 'view <type>' to see specific scores across companies")
-    print("  Type 'view <company>' to see all scores for a specific company")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
     print("  Type 'quit' or 'exit' to stop")
@@ -772,13 +785,8 @@ def main():
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
-            elif user_input.lower().startswith('view'):
-                parts = user_input.lower().split()
-                if len(parts) == 1:
-                    view_scores()
-                else:
-                    score_type = parts[1]
-                    view_scores(score_type)
+            elif user_input.lower() == 'view':
+                view_scores()
                 print()
             elif user_input.lower() == 'fill':
                 fill_missing_barriers_scores()
