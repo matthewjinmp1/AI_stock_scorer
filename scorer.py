@@ -403,18 +403,67 @@ def calculate_total_score(scores_dict):
     return total
 
 
-def format_total_score(total):
-    """Format a total score as a percentage integer string.
+def calculate_percentile_rank(score, all_scores):
+    """Calculate percentile rank of a score among all scores.
+    
+    Args:
+        score: The score to calculate percentile for (float)
+        all_scores: List of all scores to compare against (list of floats)
+        
+    Returns:
+        int: Percentile rank (0-100), or None if no scores to compare
+    """
+    if not all_scores or len(all_scores) == 0:
+        return None
+    
+    # Count how many scores are less than or equal to this score
+    scores_less_or_equal = sum(1 for s in all_scores if s <= score)
+    
+    # Percentile rank = (number of scores <= this score) / total scores * 100
+    percentile = int((scores_less_or_equal / len(all_scores)) * 100)
+    return percentile
+
+
+def get_all_total_scores():
+    """Get all total scores from all companies.
+    
+    Returns:
+        list: List of all total scores (floats)
+    """
+    scores_data = load_scores()
+    all_totals = []
+    
+    for company, data in scores_data["companies"].items():
+        total = calculate_total_score(data)
+        all_totals.append(total)
+    
+    return all_totals
+
+
+def format_total_score(total, percentile=None):
+    """Format a total score as a percentage integer string with optional percentile.
     
     Args:
         total: The total score (float)
+        percentile: Optional percentile rank (int), if None will be calculated
         
     Returns:
-        str: Formatted total score as percentage integer (e.g., "87")
+        str: Formatted total score as percentage with percentile (e.g., "87 (75th percentile)")
     """
     max_score = len(SCORE_DEFINITIONS) * 10
     percentage = (total / max_score) * 100
-    return f"{int(percentage)}"
+    
+    if percentile is not None:
+        return f"{int(percentage)} ({percentile}th percentile)"
+    else:
+        # Calculate percentile automatically
+        all_totals = get_all_total_scores()
+        if len(all_totals) > 1:  # Need at least 2 scores to calculate percentile
+            percentile = calculate_percentile_rank(total, all_totals)
+            if percentile is not None:
+                return f"{int(percentage)} ({percentile}th percentile)"
+        
+        return f"{int(percentage)}"
 
 
 def query_score(grok, company_name, score_key):
@@ -541,7 +590,7 @@ def get_company_moat_score(input_str):
                 # Print total at the bottom
                 total = calculate_total_score(current_scores)
                 total_str = format_total_score(total)
-                print(f"{'Total':25} {total_str:>8}")
+                print(f"{'Total':25} {total_str:>30}")
                 return
             
             grok = GrokClient(api_key=XAI_API_KEY)
@@ -789,9 +838,7 @@ def view_scores(score_type=None):
             print(f"{display_name:25} {score_display:>8}")
         
         if all_present:
-            max_score = len(SCORE_DEFINITIONS) * 10
-            percentage = int((total / max_score) * 100)
-            total_str = f"{percentage}"
+            total_str = format_total_score(total)
             print(f"{'Total':25} {total_str:>8}")
         
         return
@@ -828,6 +875,9 @@ def view_scores(score_type=None):
         
         max_name_len = max([len(company.capitalize()) for company, data in sorted_companies]) if sorted_companies else 0
         
+        # Calculate all totals for percentile calculation
+        all_totals = []
+        company_totals = {}
         for company, data in sorted_companies:
             total = 0
             all_present = True
@@ -847,17 +897,35 @@ def view_scores(score_type=None):
                     break
             
             if all_present:
+                company_totals[company] = total
+                all_totals.append(total)
+        
+        # Print column headers
+        print(f"{'Company':<{min(max_name_len, 30)}} {'Score':>8} {'Percentile':>12}")
+        print("-" * (min(max_name_len, 30) + 8 + 12 + 2))
+        
+        # Display companies with percentiles
+        for company, data in sorted_companies:
+            if company in company_totals:
+                total = company_totals[company]
                 max_score = len(SCORE_DEFINITIONS) * 10
                 percentage = int((total / max_score) * 100)
-                total_str = f"{percentage}"
+                percentage_str = f"{percentage}"
+                
+                percentile = calculate_percentile_rank(total, all_totals) if len(all_totals) > 1 else None
+                if percentile is not None:
+                    percentile_str = f"{percentile}"
+                else:
+                    percentile_str = 'N/A'
             else:
-                total_str = 'N/A'
+                percentage_str = 'N/A'
+                percentile_str = 'N/A'
             
             # Display ticker if available, otherwise company name
             display_key = get_display_name(company)
             if len(display_key) > 30:
                 display_key = display_key[:30]
-            print(f"{display_key:<{min(max_name_len, 30)}} {total_str:>8}")
+            print(f"{display_key:<{min(max_name_len, 30)}} {percentage_str:>8} {percentile_str:>12}")
         return
     
     # If we get here, score_type is a score type (not a company)
