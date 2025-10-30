@@ -333,6 +333,31 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
+    },
+    'riskiness_score': {
+        'display_name': 'Riskiness',
+        'field_name': 'riskiness_score',
+        'prompt': """Rate the overall riskiness of investing in {company_name} on a scale of 0-10, where:
+- 0 = Very low risk, stable and predictable business model
+- 5 = Moderate risk, some uncertainty in business outlook
+- 10 = Very high risk, highly volatile or uncertain business model
+
+Consider factors like:
+- Financial risk and leverage/debt levels
+- Business model stability and predictability
+- Regulatory and legal risks
+- Market volatility and cyclicality
+- Management and execution risks
+- Competitive and market position risks
+- Technology and operational risks
+- Macroeconomic sensitivity
+- Dependency on key customers or suppliers
+- Liquidity and financing risks
+- Geographic and political risks
+- Concentration risks
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': True
     }
 }
 
