@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Competitive Moat Scorer
-Gets Grok to rate a company's competitive moat strength across 8 metrics (0-10 each):
+Gets Grok to rate a company's competitive moat strength across 9 metrics (0-10 each):
 - Competitive Moat
 - Barriers to Entry
 - Disruption Risk
@@ -10,6 +10,7 @@ Gets Grok to rate a company's competitive moat strength across 8 metrics (0-10 e
 - Competition Intensity
 - Network Effect
 - Innovativeness
+- Growth Opportunity
 Usage: python scorer.py
 Then enter ticker symbols or company names interactively
 """
@@ -308,6 +309,30 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
+    },
+    'growth_opportunity': {
+        'display_name': 'Growth Opportunity',
+        'field_name': 'growth_opportunity',
+        'prompt': """Rate the growth opportunity for {company_name} on a scale of 0-10, where:
+- 0 = Minimal growth opportunity, mature/declining market, limited expansion potential
+- 5 = Moderate growth opportunity, steady market growth, some expansion possibilities
+- 10 = Exceptional growth opportunity, rapidly expanding market, multiple growth vectors, high scalability
+
+Consider factors like:
+- Market size and growth rate of industry
+- Addressable market size (TAM/SAM/SOM)
+- Geographic expansion opportunities
+- Product/service expansion potential
+- Market penetration potential in existing segments
+- Adjacent market opportunities
+- Demographic and macroeconomic trends favoring growth
+- Ability to scale operations efficiently
+- Customer acquisition and retention growth potential
+- International expansion opportunities
+- Pricing power and margin expansion opportunities
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
     }
 }
 
@@ -354,15 +379,17 @@ def calculate_total_score(scores_dict):
 
 
 def format_total_score(total):
-    """Format a total score as a string.
+    """Format a total score as a percentage integer string.
     
     Args:
         total: The total score (float)
         
     Returns:
-        str: Formatted total score string
+        str: Formatted total score as percentage integer (e.g., "87")
     """
-    return f"{int(total)}" if total == int(total) else f"{total:.1f}"
+    max_score = len(SCORE_DEFINITIONS) * 10
+    percentage = (total / max_score) * 100
+    return f"{int(percentage)}"
 
 
 def query_score(grok, company_name, score_key):
@@ -405,7 +432,7 @@ def get_company_moat_score(input_str):
         
         # If it looked like a ticker but wasn't in database, reject it
         if looks_like_ticker and not ticker:
-            print(f"\nError: '{input_str}' is not a valid ticker symbol.")
+            print(f"\nError: '{input_upper}' is not a valid ticker symbol.")
             print("Please enter a valid NYSE or NASDAQ ticker symbol.")
             return
         
@@ -435,7 +462,7 @@ def get_company_moat_score(input_str):
         
         # Display format: Ticker (Company Name) or just Company Name
         if ticker:
-            display_name = f"{ticker} ({company_name})"
+            display_name = f"{ticker.upper()} ({company_name})"
             print(f"Company: {company_name}")
         else:
             display_name = company_name
@@ -464,7 +491,7 @@ def get_company_moat_score(input_str):
             
             if all(current_scores.values()):
                 if ticker:
-                    print(f"\n{ticker} ({company_name}) already scored:")
+                    print(f"\n{ticker.upper()} ({company_name}) already scored:")
                 else:
                     print(f"\n{company_name} already scored:")
                 
@@ -514,7 +541,7 @@ def get_company_moat_score(input_str):
             return
         
         if ticker:
-            print(f"\nAnalyzing {ticker} ({company_name})...")
+            print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
         else:
             print(f"\nAnalyzing {company_name}...")
         grok = GrokClient(api_key=XAI_API_KEY)
@@ -605,13 +632,17 @@ def fill_missing_barriers_scores():
         for company_name, company_scores in companies_to_score:
             moat = company_scores.get('moat_score', 'N/A')
             missing = [SCORE_DEFINITIONS[k]['display_name'] for k, v in company_scores.items() if not v]
-            print(f"{company_name.capitalize()}: Moat {moat}/10 - Missing: {', '.join(missing)}")
+            # Display ticker in uppercase if it looks like a ticker, otherwise capitalize
+            display_name = company_name.upper() if len(company_name) <= 5 and company_name.replace(' ', '').isalpha() else company_name.capitalize()
+            print(f"{display_name}: Moat {moat}/10 - Missing: {', '.join(missing)}")
         
         print(f"\nQuerying missing scores...")
         print("=" * 60)
         
         for i, (company_name, company_scores) in enumerate(companies_to_score, 1):
-            print(f"\n[{i}/{len(companies_to_score)}] Processing {company_name.capitalize()}...")
+            # Display ticker in uppercase if it looks like a ticker, otherwise capitalize
+            display_name = company_name.upper() if len(company_name) <= 5 and company_name.replace(' ', '').isalpha() else company_name.capitalize()
+            print(f"\n[{i}/{len(companies_to_score)}] Processing {display_name}...")
             
             for score_key in SCORE_DEFINITIONS:
                 if not company_scores[score_key]:
@@ -651,15 +682,15 @@ def view_scores(score_type=None):
     
     # Helper function to get display name
     def get_display_name(key):
-        # Check if it's already a ticker (uppercase, short)
-        if len(key) <= 5 and key.upper() == key:
-            return key
+        # Check if it looks like a ticker (short, alphabetic)
+        if len(key) <= 5 and key.replace(' ', '').isalpha():
+            return key.upper()
         
         # Try to find ticker for this company name
         ticker = get_ticker_from_company_name(key)
         if ticker:
             company_name = load_ticker_lookup().get(ticker, key)
-            return f"{ticker} ({company_name})"
+            return f"{ticker.upper()} ({company_name})"
         return key
     
     # Check if score_type is actually a ticker or company name
@@ -684,7 +715,14 @@ def view_scores(score_type=None):
                 print(f"Company '{score_type}' not found in scores.")
                 return
         
-        display_name = score_type.upper() if score_type.upper() in scores_data["companies"] else score_type
+        # Determine display name - capitalize if it's a ticker
+        if score_type.upper() in scores_data["companies"]:
+            display_name = score_type.upper()
+        elif len(score_type) <= 5 and score_type.replace(' ', '').isalpha():
+            # Looks like a ticker, capitalize it
+            display_name = score_type.upper()
+        else:
+            display_name = score_type
         print(f"\n{display_name} Scores:")
         print("=" * 80)
         
@@ -726,7 +764,9 @@ def view_scores(score_type=None):
             print(f"{display_name:25} {score_display:>8}")
         
         if all_present:
-            total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+            max_score = len(SCORE_DEFINITIONS) * 10
+            percentage = int((total / max_score) * 100)
+            total_str = f"{percentage}"
             print(f"{'Total':25} {total_str:>8}")
         
         return
@@ -782,7 +822,9 @@ def view_scores(score_type=None):
                     break
             
             if all_present:
-                total_str = f"{int(total)}" if total == int(total) else f"{total:.1f}"
+                max_score = len(SCORE_DEFINITIONS) * 10
+                percentage = int((total / max_score) * 100)
+                total_str = f"{percentage}"
             else:
                 total_str = 'N/A'
             
