@@ -8,7 +8,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "8",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "MSFT": {
       "moat_score": "9",
@@ -18,7 +19,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "9",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "9"
     },
     "GOOGL": {
       "moat_score": "9",
@@ -28,7 +30,8 @@
       "brand_strength": "10",
       "competition_intensity": "7",
       "network_effect": "9",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "NVDA": {
       "moat_score": "9",
@@ -38,7 +41,8 @@
       "brand_strength": "10",
       "competition_intensity": "8",
       "network_effect": "8",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "ASML": {
       "moat_score": "10",
@@ -48,7 +52,8 @@
       "brand_strength": "9",
       "competition_intensity": "2",
       "network_effect": "4",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "META": {
       "moat_score": "9",
@@ -58,7 +63,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "10",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "9"
     },
     "AAPL": {
       "moat_score": "9",
@@ -68,7 +74,8 @@
       "brand_strength": "10",
       "competition_intensity": "8",
       "network_effect": "9",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "ADBE": {
       "moat_score": "9",
@@ -78,7 +85,8 @@
       "brand_strength": "10",
       "competition_intensity": "7",
       "network_effect": "8",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "AMZN": {
       "moat_score": "9",
@@ -88,7 +96,8 @@
       "brand_strength": "10",
       "competition_intensity": "8",
       "network_effect": "9",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "9"
     },
     "CRM": {
       "moat_score": "8",
@@ -98,7 +107,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "8",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "8"
     },
     "AVGO": {
       "moat_score": "9",
@@ -108,7 +118,8 @@
       "brand_strength": "8",
       "competition_intensity": "8",
       "network_effect": "2",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "9"
     },
     "TSM": {
       "moat_score": "9",
@@ -118,7 +129,8 @@
       "brand_strength": "9",
       "competition_intensity": "7",
       "network_effect": "8",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "9"
     },
     "ORCL": {
       "moat_score": "8",
@@ -128,7 +140,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "5",
-      "product_differentiation": "7"
+      "product_differentiation": "7",
+      "innovativeness_score": "8"
     },
     "LULU": {
       "moat_score": "7",
@@ -138,7 +151,8 @@
       "brand_strength": "9",
       "competition_intensity": "8",
       "network_effect": "1",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "8"
     },
     "PYPL": {
       "moat_score": "8",
@@ -148,7 +162,8 @@
       "brand_strength": "8",
       "competition_intensity": "9",
       "network_effect": "8",
-      "product_differentiation": "7"
+      "product_differentiation": "7",
+      "innovativeness_score": "8"
     },
     "NTES": {
       "moat_score": "8",
@@ -158,7 +173,8 @@
       "brand_strength": "7",
       "competition_intensity": "8",
       "network_effect": "7",
-      "product_differentiation": "8"
+      "product_differentiation": "8",
+      "innovativeness_score": "8"
     },
     "DNOPY": {
       "moat_score": "7",
@@ -168,7 +184,8 @@
       "brand_strength": "6",
       "competition_intensity": "8",
       "network_effect": "0",
-      "product_differentiation": "2"
+      "product_differentiation": "2",
+      "innovativeness_score": "5"
     },
     "KO": {
       "moat_score": "9",
@@ -178,7 +195,8 @@
       "brand_strength": "10",
       "competition_intensity": "8",
       "network_effect": "2",
-      "product_differentiation": "9"
+      "product_differentiation": "9",
+      "innovativeness_score": "5"
     },
     "DELL": {
       "moat_score": "6",
@@ -188,7 +206,8 @@
       "brand_strength": "8",
       "competition_intensity": "8",
       "network_effect": "1",
-      "product_differentiation": "5"
+      "product_differentiation": "5",
+      "innovativeness_score": "6"
     },
     "MU": {
       "moat_score": "7",
@@ -198,7 +217,8 @@
       "brand_strength": "8",
       "competition_intensity": "8",
       "network_effect": "0",
-      "product_differentiation": "4"
+      "product_differentiation": "4",
+      "innovativeness_score": "8"
     },
     "AMAT": {
       "moat_score": "8",
@@ -679,6 +699,156 @@
       "competition_intensity": "8",
       "network_effect": "2",
       "product_differentiation": "7"
+    },
+    "TXN": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "8"
+    },
+    "SPGI": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "6",
+      "network_effect": "5",
+      "product_differentiation": "8"
+    },
+    "COF": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "6",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "5",
+      "product_differentiation": "7"
+    },
+    "SPOT": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "4",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "7",
+      "product_differentiation": "7"
+    },
+    "HOOD": {
+      "moat_score": "6",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "2",
+      "brand_strength": "7",
+      "competition_intensity": "8",
+      "network_effect": "5",
+      "product_differentiation": "6"
+    },
+    "UNP": {
+      "moat_score": "9",
+      "barriers_score": "10",
+      "disruption_risk": "3",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "5",
+      "network_effect": "4",
+      "product_differentiation": "7"
+    },
+    "DE": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "7",
+      "network_effect": "5",
+      "product_differentiation": "8"
+    },
+    "LOW": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "0",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "4"
+    },
+    "PGR": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "6",
+      "switching_cost": "2",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "2",
+      "product_differentiation": "7"
+    },
+    "IBKR": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "5",
+      "brand_strength": "7",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "7"
+    },
+    "MELI": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "9",
+      "product_differentiation": "8"
+    },
+    "ADP": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "5",
+      "product_differentiation": "8"
+    },
+    "DASH": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "8",
+      "switching_cost": "1",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "5"
+    },
+    "LMT": {
+      "moat_score": "9",
+      "barriers_score": "10",
+      "disruption_risk": "3",
+      "switching_cost": "9",
+      "brand_strength": "9",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "9"
+    },
+    "ROK": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "5",
+      "product_differentiation": "8"
     }
   }
 }

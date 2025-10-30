@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Competitive Moat Scorer
-Gets Grok to rate a company's competitive moat strength across 7 metrics (0-10 each):
+Gets Grok to rate a company's competitive moat strength across 8 metrics (0-10 each):
 - Competitive Moat
 - Barriers to Entry
 - Disruption Risk
@@ -9,6 +9,7 @@ Gets Grok to rate a company's competitive moat strength across 7 metrics (0-10 e
 - Brand Strength
 - Competition Intensity
 - Network Effect
+- Innovativeness
 Usage: python scorer.py
 Then enter ticker symbols or company names interactively
 """
@@ -283,6 +284,27 @@ Consider factors like:
 - Proprietary features or technology
 - Service or experience differentiation
 - Market positioning and specialization
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'innovativeness_score': {
+        'display_name': 'Innovativeness',
+        'field_name': 'innovativeness_score',
+        'prompt': """Rate the innovativeness of {company_name} on a scale of 0-10, where:
+- 0 = Not innovative, relies on existing technologies and practices, minimal R&D
+- 5 = Moderately innovative, some product improvements and incremental innovation
+- 10 = Extremely innovative, breakthrough technologies, disruptive innovation, industry-leading R&D
+
+Consider factors like:
+- R&D investment and spending as percentage of revenue
+- Patents, intellectual property, and technological breakthroughs
+- Track record of introducing new products and services
+- Innovation culture and ability to adapt to new technologies
+- Leadership in developing new solutions or business models
+- Speed of innovation cycles and time to market
+- Investment in emerging technologies (AI, automation, etc.)
+- Historical innovations and transformation initiatives
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -736,6 +758,8 @@ def view_scores(score_type=None):
     if not score_type:
         print("\nStored Company Scores (Total only):")
         print("=" * 80)
+        print(f"Number of stocks scored: {len(sorted_companies)}")
+        print()
         
         max_name_len = max([len(company.capitalize()) for company, data in sorted_companies]) if sorted_companies else 0
         
