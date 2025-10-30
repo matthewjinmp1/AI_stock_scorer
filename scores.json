@@ -11,7 +11,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "8"
+      "riskiness_score": "8",
+      "pricing_power": "7"
     },
     "MSFT": {
       "moat_score": "9",
@@ -24,7 +25,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "2"
+      "riskiness_score": "2",
+      "pricing_power": "9"
     },
     "GOOGL": {
       "moat_score": "9",
@@ -37,7 +39,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "NVDA": {
       "moat_score": "9",
@@ -50,7 +53,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "8"
+      "riskiness_score": "8",
+      "pricing_power": "9"
     },
     "ASML": {
       "moat_score": "10",
@@ -63,7 +67,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "9"
     },
     "META": {
       "moat_score": "9",
@@ -76,7 +81,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "AAPL": {
       "moat_score": "9",
@@ -89,7 +95,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "ADBE": {
       "moat_score": "9",
@@ -102,7 +109,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "AMZN": {
       "moat_score": "9",
@@ -115,7 +123,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "8"
     },
     "CRM": {
       "moat_score": "8",
@@ -128,7 +137,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "AVGO": {
       "moat_score": "9",
@@ -141,7 +151,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "9"
     },
     "TSM": {
       "moat_score": "9",
@@ -154,7 +165,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "9"
     },
     "ORCL": {
       "moat_score": "8",
@@ -167,7 +179,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "8"
     },
     "LULU": {
       "moat_score": "7",
@@ -180,7 +193,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "PYPL": {
       "moat_score": "8",
@@ -193,7 +207,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "7"
     },
     "NTES": {
       "moat_score": "8",
@@ -206,7 +221,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "7"
     },
     "KO": {
       "moat_score": "9",
@@ -219,7 +235,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "5",
       "growth_opportunity": "6",
-      "riskiness_score": "2"
+      "riskiness_score": "2",
+      "pricing_power": "9"
     },
     "DELL": {
       "moat_score": "6",
@@ -232,7 +249,8 @@
       "product_differentiation": "5",
       "innovativeness_score": "6",
       "growth_opportunity": "7",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "5"
     },
     "MU": {
       "moat_score": "7",
@@ -245,7 +263,8 @@
       "product_differentiation": "4",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "6"
     },
     "AMAT": {
       "moat_score": "8",
@@ -258,7 +277,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "8"
     },
     "AMD": {
       "moat_score": "7",
@@ -271,7 +291,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "6"
     },
     "PLD": {
       "moat_score": "9",
@@ -284,7 +305,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "7",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "8"
     },
     "LRCX": {
       "moat_score": "8",
@@ -297,7 +319,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "8"
     },
     "KLAC": {
       "moat_score": "9",
@@ -310,7 +333,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "8"
     },
     "SNPS": {
       "moat_score": "9",
@@ -323,7 +347,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "CDNS": {
       "moat_score": "9",
@@ -336,7 +361,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "9"
     },
     "WDAY": {
       "moat_score": "8",
@@ -349,7 +375,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "QCOM": {
       "moat_score": "8",
@@ -362,7 +389,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "8",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "MPWR": {
       "moat_score": "7",
@@ -375,7 +403,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "9",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "8"
     },
     "JPM": {
       "moat_score": "9",
@@ -388,7 +417,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "8"
     },
     "LLY": {
       "moat_score": "8",
@@ -401,7 +431,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "V": {
       "moat_score": "10",
@@ -414,7 +445,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "2"
+      "riskiness_score": "2",
+      "pricing_power": "9"
     },
     "MA": {
       "moat_score": "9",
@@ -427,7 +459,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "3"
+      "riskiness_score": "3",
+      "pricing_power": "9"
     },
     "XOM": {
       "moat_score": "8",
@@ -440,7 +473,8 @@
       "product_differentiation": "3",
       "innovativeness_score": "5",
       "growth_opportunity": "5",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "3"
     },
     "JNJ": {
       "moat_score": "8",
@@ -453,7 +487,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "2"
+      "riskiness_score": "2",
+      "pricing_power": "8"
     },
     "PLTR": {
       "moat_score": "8",
@@ -466,7 +501,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "8"
+      "riskiness_score": "8",
+      "pricing_power": "8"
     },
     "BABA": {
       "moat_score": "9",
@@ -479,7 +515,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "9",
       "growth_opportunity": "7",
-      "riskiness_score": "8"
+      "riskiness_score": "8",
+      "pricing_power": "7"
     },
     "COST": {
       "moat_score": "9",
@@ -492,7 +529,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "5",
       "growth_opportunity": "8",
-      "riskiness_score": "2"
+      "riskiness_score": "2",
+      "pricing_power": "8"
     },
     "HD": {
       "moat_score": "8",
@@ -505,7 +543,8 @@
       "product_differentiation": "6",
       "innovativeness_score": "6",
       "growth_opportunity": "7",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "7"
     },
     "PG": {
       "moat_score": "9",
@@ -518,7 +557,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "7",
       "growth_opportunity": "7",
-      "riskiness_score": "1"
+      "riskiness_score": "1",
+      "pricing_power": "8"
     },
     "UNH": {
       "moat_score": "8",
@@ -531,7 +571,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "8"
     },
     "SAP": {
       "moat_score": "8",
@@ -544,7 +585,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "8"
     },
     "IBM": {
       "moat_score": "8",
@@ -557,7 +599,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "3"
+      "riskiness_score": "3",
+      "pricing_power": "7"
     },
     "CSCO": {
       "moat_score": "8",
@@ -570,7 +613,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "3"
+      "riskiness_score": "3",
+      "pricing_power": "7"
     },
     "TM": {
       "moat_score": "8",
@@ -583,7 +627,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "7",
       "growth_opportunity": "7",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "6"
     },
     "TMUS": {
       "moat_score": "8",
@@ -596,7 +641,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "7"
     },
     "CAT": {
       "moat_score": "9",
@@ -609,7 +655,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "7",
       "growth_opportunity": "7",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "8"
     },
     "PM": {
       "moat_score": "8",
@@ -622,7 +669,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "6",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "9"
     },
     "SHOP": {
       "moat_score": "8",
@@ -635,7 +683,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "8"
     },
     "XYZ": {
       "moat_score": "7",
@@ -648,7 +697,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "5",
       "growth_opportunity": "5",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "5"
     },
     "MCD": {
       "moat_score": "9",
@@ -661,7 +711,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "5",
       "growth_opportunity": "7",
-      "riskiness_score": "3"
+      "riskiness_score": "3",
+      "pricing_power": "8"
     },
     "TMO": {
       "moat_score": "8",
@@ -674,7 +725,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "3"
+      "riskiness_score": "3",
+      "pricing_power": "8"
     },
     "DIS": {
       "moat_score": "9",
@@ -687,7 +739,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "INTC": {
       "moat_score": "7",
@@ -700,7 +753,8 @@
       "product_differentiation": "7",
       "innovativeness_score": "8",
       "growth_opportunity": "7",
-      "riskiness_score": "7"
+      "riskiness_score": "7",
+      "pricing_power": "5"
     },
     "ANET": {
       "moat_score": "8",
@@ -713,7 +767,8 @@
       "product_differentiation": "8",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "6"
+      "riskiness_score": "6",
+      "pricing_power": "8"
     },
     "NOW": {
       "moat_score": "8",
@@ -1130,6 +1185,45 @@
       "innovativeness_score": "6",
       "growth_opportunity": "7",
       "riskiness_score": "3"
+    },
+    "SE": {
+      "moat_score": "7",
+      "barriers_score": "8",
+      "disruption_risk": "8",
+      "switching_cost": "3",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "8"
+    },
+    "SNOW": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "6",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "8",
+      "innovativeness_score": "9",
+      "growth_opportunity": "9",
+      "riskiness_score": "6"
+    },
+    "NEM": {
+      "moat_score": "7",
+      "barriers_score": "9",
+      "disruption_risk": "3",
+      "switching_cost": "0",
+      "brand_strength": "7",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "2",
+      "innovativeness_score": "7",
+      "growth_opportunity": "6",
+      "riskiness_score": "7"
     }
   }
 }

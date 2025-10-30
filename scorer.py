@@ -358,6 +358,31 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': True
+    },
+    'pricing_power': {
+        'display_name': 'Pricing Power',
+        'field_name': 'pricing_power',
+        'prompt': """Rate the pricing power of {company_name} on a scale of 0-10, where:
+- 0 = No pricing power, commodity-like product with intense price competition
+- 5 = Moderate pricing power, some ability to set prices above cost
+- 10 = Exceptional pricing power, strong ability to raise prices without losing customers
+
+Consider factors like:
+- Ability to increase prices without significant demand loss
+- Customer price sensitivity and elasticity
+- Unique value proposition and differentiation
+- Market position and competitive advantage
+- Brand strength and customer loyalty
+- Product/service necessity and switching costs
+- Market concentration and competitive dynamics
+- Substitution availability and alternatives
+- Historical pricing power demonstrated
+- Gross and operating margin trends
+- Customer dependency and lock-in effects
+- Regulatory or contractual pricing protections
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
     }
 }
 
