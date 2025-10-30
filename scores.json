@@ -781,7 +781,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "8",
       "growth_opportunity": "8",
-      "riskiness_score": "5"
+      "riskiness_score": "5",
+      "pricing_power": "9"
     },
     "ISRG": {
       "moat_score": "9",
@@ -794,7 +795,8 @@
       "product_differentiation": "9",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
-      "riskiness_score": "4"
+      "riskiness_score": "4",
+      "pricing_power": "9"
     },
     "INTU": {
       "moat_score": "8",
