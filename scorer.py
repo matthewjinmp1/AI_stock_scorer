@@ -1033,6 +1033,10 @@ def handle_correl_command(tickers_input):
                 print(f"Warning: Could not calculate correlation for '{ticker_upper}' (zero variance). Skipping.")
                 continue
             
+            # Calculate total scores for display
+            light_total = calculate_total_score(light_data)
+            heavy_total = calculate_total_score(heavy_data)
+            
             results.append({
                 'ticker': ticker_upper,
                 'company_name': company_name,
@@ -1040,7 +1044,9 @@ def handle_correl_command(tickers_input):
                 'num_metrics': len(light_metric_scores),
                 'light_scores': light_metric_scores,
                 'heavy_scores': heavy_metric_scores,
-                'metric_names': metric_names
+                'metric_names': metric_names,
+                'light_total': light_total,
+                'heavy_total': heavy_total
             })
             
         except Exception as e:
@@ -1083,6 +1089,19 @@ def handle_correl_command(tickers_input):
             # Truncate long metric names
             display_name = metric_name[:33] if len(metric_name) <= 33 else metric_name[:30] + "..."
             print(f"{display_name:<35} {light_val:>10.1f} {heavy_val:>10.1f} {diff_str:>10}")
+        
+        # Calculate and display total scores
+        light_total = result['light_total']
+        heavy_total = result['heavy_total']
+        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+        light_pct = int((light_total / max_score) * 100)
+        heavy_pct = int((heavy_total / max_score) * 100)
+        total_diff = heavy_total - light_total
+        total_diff_pct = int((total_diff / max_score) * 100)
+        total_diff_str = f"{total_diff_pct:+d}%" if total_diff != 0 else "0%"
+        
+        print("-" * 80)
+        print(f"{'Total Score':<35} {light_pct:>9}% {heavy_pct:>9}% {total_diff_str:>10}")
         
         print(f"\nPearson Correlation Coefficient: {correlation:.4f}")
         
