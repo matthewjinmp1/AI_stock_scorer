@@ -32,6 +32,7 @@ SCORE_WEIGHTS = {
     'pricing_power': 10,
     'ambition_score': 10,
     'bargaining_power_of_customers': 10,
+    'bargaining_power_of_suppliers': 10,
 }
 
 from grok_client import GrokClient
@@ -98,37 +99,10 @@ def resolve_to_company_name(input_str):
     return (input_str.strip(), None)
 
 def get_ticker_from_company_name(company_name):
-    """Reverse lookup: get ticker from company name."""
+    """Reverse lookup: get ticker from company name using ticker JSON lookup."""
     ticker_lookup = load_ticker_lookup()
     
-    # Known mappings for common company names
-    aliases = {
-        'google': 'GOOGL',
-        'tsmc': 'TSM',
-        'meta': 'META',
-        'nvidia': 'NVDA',
-        'amazon': 'AMZN',
-        'apple': 'AAPL',
-        'microsoft': 'MSFT',
-        'tesla': 'TSLA',
-        'adobe': 'ADBE',
-        'salesforce': 'CRM',
-        'broadcom': 'AVGO',
-        'oracle': 'ORCL',
-        'lululemon': 'LULU',
-        'paypal': 'PYPL',
-        'prologis': 'PLD',
-        'dell': 'DELL',
-        'micron': 'MU',
-        'amd': 'AMD',
-    }
-    
-    # Check aliases first
     company_lower = company_name.lower()
-    if company_lower in aliases:
-        ticker = aliases[company_lower]
-        if ticker in ticker_lookup:
-            return ticker
     
     # Try exact match (case insensitive)
     for ticker, name in ticker_lookup.items():
@@ -455,6 +429,33 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': True
+    },
+    'bargaining_power_of_suppliers': {
+        'display_name': 'Bargaining Power of Suppliers',
+        'field_name': 'bargaining_power_of_suppliers',
+        'prompt': """Rate the bargaining power of suppliers for {company_name} on a scale of 0-10, where:
+- 0 = Very low supplier bargaining power, many alternative suppliers available, company has strong negotiation control
+- 5 = Moderate supplier bargaining power, some supplier concentration, balanced negotiation power
+- 10 = Very high supplier bargaining power, few suppliers, suppliers have strong control, company is highly dependent
+
+Consider factors like:
+- Number of alternative suppliers and availability of substitutes
+- Supplier concentration and market structure
+- Switching costs to change suppliers
+- Company's dependency on specific suppliers
+- Supplier's control over critical inputs or resources
+- Threat of forward integration by suppliers
+- Uniqueness and differentiation of supplier inputs
+- Importance of supplier inputs to company's operations
+- Standardization vs. customization of supplier inputs
+- Company's purchasing power and volume buying ability
+- Availability of alternative supply sources or vertical integration options
+- Market fragmentation vs. concentration of suppliers
+- Supplier's ability to control prices or terms
+- Criticality of supplier relationships to company's business model
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': True
     }
 }
 
@@ -642,13 +643,17 @@ def get_company_moat_score(input_str):
         
         scores_data = load_scores()
         
-        # Try to find existing scores (by ticker, then by company name for backwards compatibility)
+        # Try to find existing scores (by ticker, then lowercase ticker, then by company name for backwards compatibility)
         existing_data = None
         storage_key = None
         
         if ticker and ticker in scores_data["companies"]:
             existing_data = scores_data["companies"][ticker]
             storage_key = ticker
+        elif ticker and ticker.lower() in scores_data["companies"]:
+            # Try lowercase ticker for backwards compatibility
+            existing_data = scores_data["companies"][ticker.lower()]
+            storage_key = ticker.lower()
         elif company_name.lower() in scores_data["companies"]:
             existing_data = scores_data["companies"][company_name.lower()]
             storage_key = company_name.lower()
@@ -682,13 +687,16 @@ def get_company_moat_score(input_str):
                 score_list.sort(reverse=True, key=lambda x: x[0])
                 
                 # Print sorted scores without /10, vertically aligned
+                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
                 for score_value, display_name, score_val in score_list:
-                    print(f"{display_name:25} {score_val:>8}")
+                    # Truncate if longer than 35 characters
+                    truncated_name = display_name[:35] if len(display_name) <= 35 else display_name[:32] + "..."
+                    print(f"{truncated_name:<35} {score_val:>8}")
                 
                 # Print total at the bottom
                 total = calculate_total_score(current_scores)
                 total_str = format_total_score(total)
-                print(f"{'Total':25} {total_str:>30}")
+                print(f"{'Total':<35} {total_str:>8}")
                 return
             
             grok = GrokClient(api_key=XAI_API_KEY)
@@ -820,13 +828,16 @@ def get_company_moat_score_heavy(input_str):
                 score_list.sort(reverse=True, key=lambda x: x[0])
                 
                 # Print sorted scores without /10, vertically aligned
+                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
                 for score_value, display_name, score_val in score_list:
-                    print(f"{display_name:25} {score_val:>8}")
+                    # Truncate if longer than 35 characters
+                    truncated_name = display_name[:35] if len(display_name) <= 35 else display_name[:32] + "..."
+                    print(f"{truncated_name:<35} {score_val:>8}")
                 
                 # Print total at the bottom
                 total = calculate_total_score(current_scores)
                 total_str = format_total_score(total)
-                print(f"{'Total':25} {total_str:>30}")
+                print(f"{'Total':<35} {total_str:>8}")
                 return
             
             grok = GrokClient(api_key=XAI_API_KEY)
