@@ -525,58 +525,24 @@ def get_company_moat_score(input_str):
     Stores scores using ticker as key.
     """
     try:
-        # Check if input looks like a ticker (short, alphabetic, uppercase)
-        input_upper = input_str.strip().upper()
-        input_len = len(input_str.strip())
-        looks_like_ticker = (
-            input_len >= 1 and 
-            input_len <= 6 and 
-            input_upper.isalpha()
-        )
+        # Strip leading/trailing spaces only
+        input_stripped = input_str.strip()
+        input_upper = input_stripped.upper()
         
         ticker = None
         company_name = None
         
-        # If it looks like a ticker, check if it exists in our database
-        if looks_like_ticker:
-            ticker_lookup = load_ticker_lookup()
-            if input_upper not in ticker_lookup:
-                print(f"\nError: Ticker '{input_upper}' not found in ticker database.")
-                print("Please enter a valid NYSE or NASDAQ ticker symbol.")
-                return
-            # Valid ticker found
+        # Check if the exact string (after stripping outer spaces) is in ticker database
+        ticker_lookup = load_ticker_lookup()
+        if input_upper in ticker_lookup:
+            # Found exact match in ticker database
             ticker = input_upper
             company_name = ticker_lookup[ticker]
-        
-        # If it looked like a ticker but wasn't in database, reject it
-        if looks_like_ticker and not ticker:
+        else:
+            # Not found in ticker database - reject it
             print(f"\nError: '{input_upper}' is not a valid ticker symbol.")
             print("Please enter a valid NYSE or NASDAQ ticker symbol.")
             return
-        
-        # If it doesn't look like a ticker, treat as company name
-        if not ticker:
-            company_name = input_str.strip()
-            # Validate company name is reasonable
-            if len(company_name) < 3:
-                print(f"\nError: '{input_str}' is too short to be a valid company name or ticker.")
-                print("Please enter a valid ticker symbol (1-6 characters) or full company name.")
-                return
-            
-            # Check for nonsensical repeating patterns
-            # If all characters are the same or mostly same, it's probably not valid
-            unique_chars = len(set(company_name.lower()))
-            if unique_chars <= 2 and len(company_name) > 5:
-                print(f"\nWarning: '{input_str}' doesn't look like a valid company name.")
-                print("Continuing anyway...")
-                print()
-            elif all(c.isalpha() for c in company_name) and len(company_name) > 8:
-                # Check if it has vowel patterns (real company names usually have vowels)
-                has_vowels = any(c.lower() in 'aeiou' for c in company_name)
-                if not has_vowels:
-                    print(f"\nWarning: '{input_str}' doesn't look like a valid company name.")
-                    print("Continuing anyway...")
-                    print()
         
         # Display format: Ticker (Company Name) or just Company Name
         if ticker:
@@ -1023,6 +989,82 @@ def view_scores(score_type=None):
         print(f"{display_key:<{min(max_name_len, 30)}} {score:>8}")
 
 
+def delete_company(input_str):
+    """Delete a company's scores from the JSON file.
+    
+    Args:
+        input_str: Ticker symbol or company name to delete
+    """
+    scores_data = load_scores()
+    
+    if not scores_data["companies"]:
+        print("No scores stored yet.")
+        return
+    
+    # Try to find the company using the same resolution logic as view_scores
+    storage_key = None
+    display_name = None
+    
+    # Check direct match (uppercase for ticker, lowercase for company name)
+    input_upper = input_str.strip().upper()
+    input_lower = input_str.strip().lower()
+    
+    # First try as ticker (uppercase)
+    if input_upper in scores_data["companies"]:
+        storage_key = input_upper
+        ticker_lookup = load_ticker_lookup()
+        company_name = ticker_lookup.get(input_upper, input_upper)
+        display_name = f"{input_upper} ({company_name})"
+    # Then try as company name (lowercase)
+    elif input_lower in scores_data["companies"]:
+        storage_key = input_lower
+        # Try to find ticker for display
+        ticker = get_ticker_from_company_name(input_lower)
+        if ticker:
+            company_name = load_ticker_lookup().get(ticker, input_lower)
+            display_name = f"{ticker.upper()} ({company_name})"
+        else:
+            display_name = input_lower
+    else:
+        # Try to resolve ticker to company name
+        resolved_name, ticker = resolve_to_company_name(input_str)
+        if ticker and ticker in scores_data["companies"]:
+            storage_key = ticker
+            company_name = load_ticker_lookup().get(ticker, resolved_name)
+            display_name = f"{ticker.upper()} ({company_name})"
+        elif resolved_name.lower() in scores_data["companies"]:
+            storage_key = resolved_name.lower()
+            display_name = resolved_name
+    
+    if not storage_key:
+        print(f"Company '{input_str}' not found in scores.")
+        print("\nAvailable companies:")
+        for key in sorted(scores_data["companies"].keys()):
+            # Try to format display name
+            if len(key) <= 5 and key.replace(' ', '').isalpha():
+                ticker_lookup = load_ticker_lookup()
+                company_name = ticker_lookup.get(key.upper(), key)
+                print(f"  {key.upper()} ({company_name})")
+            else:
+                ticker = get_ticker_from_company_name(key)
+                if ticker:
+                    print(f"  {ticker.upper()} ({key})")
+                else:
+                    print(f"  {key}")
+        return
+    
+    # Confirm deletion
+    print(f"\nFound: {display_name}")
+    confirm = input("Are you sure you want to delete this company's scores? (yes/no): ").strip().lower()
+    
+    if confirm in ['yes', 'y']:
+        del scores_data["companies"][storage_key]
+        save_scores(scores_data)
+        print(f"\n{display_name} has been deleted from scores.")
+    else:
+        print("Deletion cancelled.")
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -1030,6 +1072,7 @@ def main():
     print("Commands:")
     print("  Enter ticker symbol (e.g., AAPL) or company name to score")
     print("  Type 'view' to see total scores")
+    print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
     print("  Type 'quit' or 'exit' to stop")
@@ -1037,13 +1080,20 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'fill'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'delete'/'fill'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
             elif user_input.lower() == 'view':
                 view_scores()
+                print()
+            elif user_input.lower() == 'delete':
+                delete_input = input("Enter ticker or company name to delete: ").strip()
+                if delete_input:
+                    delete_company(delete_input)
+                else:
+                    print("Please enter a ticker symbol or company name to delete.")
                 print()
             elif user_input.lower() == 'fill':
                 fill_missing_barriers_scores()
