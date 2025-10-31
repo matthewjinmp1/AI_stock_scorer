@@ -8,4 +8,4 @@ clean up tickers -> names
 
 add global rankings per metric
 
-percentile score 
+test cheap model vs more expensive model on a small sample 

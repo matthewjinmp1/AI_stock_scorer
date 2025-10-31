@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Competitive Moat Scorer
-Gets Grok to rate a company's competitive moat strength across 9 metrics (0-10 each):
+Gets Grok to rate a company's competitive moat strength across 13 metrics (0-10 each):
 - Competitive Moat
 - Barriers to Entry
 - Disruption Risk
@@ -30,6 +30,7 @@ SCORE_WEIGHTS = {
     'growth_opportunity': 10,
     'riskiness_score': 10,
     'pricing_power': 10,
+    'ambition_score': 10,
 }
 
 from grok_client import GrokClient
@@ -397,6 +398,32 @@ Consider factors like:
 - Gross and operating margin trends
 - Customer dependency and lock-in effects
 - Regulatory or contractual pricing protections
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'ambition_score': {
+        'display_name': 'Ambition',
+        'field_name': 'ambition_score',
+        'prompt': """Rate the company and culture ambition of {company_name} on a scale of 0-10, where:
+- 0 = Low ambition, complacent, maintaining status quo, no transformative goals
+- 5 = Moderate ambition, some growth and improvement goals, incremental progress
+- 10 = Extremely high ambition, transformative vision, aggressive growth targets, industry-changing goals
+
+Consider factors like:
+- Vision and mission clarity and boldness
+- Growth targets and expansion ambitions
+- Investment in R&D and innovation initiatives
+- Market leadership aspirations
+- Strategic initiatives and transformation programs
+- Culture of excellence and high standards
+- Long-term strategic planning and vision
+- Willingness to take calculated risks for growth
+- Executive leadership ambition and drive
+- Company culture of continuous improvement
+- Market disruption and category creation goals
+- Global expansion and market dominance ambitions
+- Investment in talent and capability building
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -1065,6 +1092,122 @@ def delete_company(input_str):
         print("Deletion cancelled.")
 
 
+def show_metrics_menu():
+    """Display a numbered menu of all available metrics."""
+    print("\nAvailable Metrics:")
+    print("=" * 40)
+    metrics_list = list(SCORE_DEFINITIONS.items())
+    for i, (score_key, score_def) in enumerate(metrics_list, 1):
+        print(f"{i:2}. {score_def['display_name']}")
+    print()
+    return metrics_list
+
+
+def rank_by_metric(metric_key):
+    """Display ranking of all companies for a specific metric.
+    
+    Args:
+        metric_key: The key of the metric to rank by
+    """
+    scores_data = load_scores()
+    
+    if not scores_data["companies"]:
+        print("No scores stored yet.")
+        return
+    
+    if metric_key not in SCORE_DEFINITIONS:
+        print(f"Error: Invalid metric key '{metric_key}'")
+        return
+    
+    score_def = SCORE_DEFINITIONS[metric_key]
+    is_reverse = score_def['is_reverse']
+    
+    # Helper function to get display name
+    def get_display_name(key):
+        # Check if it looks like a ticker (short, alphabetic)
+        if len(key) <= 5 and key.replace(' ', '').isalpha():
+            return key.upper()
+        
+        # Try to find ticker for this company name
+        ticker = get_ticker_from_company_name(key)
+        if ticker:
+            company_name = load_ticker_lookup().get(ticker, key)
+            return f"{ticker.upper()} ({company_name})"
+        return key
+    
+    # Collect all scores for this metric
+    rankings = []
+    for company_key, data in scores_data["companies"].items():
+        score_val = data.get(metric_key, 'N/A')
+        if score_val != 'N/A':
+            try:
+                val = float(score_val)
+                # For reverse scores, invert to get "goodness" value for ranking
+                if is_reverse:
+                    sort_value = 10 - val
+                else:
+                    sort_value = val
+                display_name = get_display_name(company_key)
+                rankings.append((sort_value, val, display_name, company_key))
+            except (ValueError, TypeError):
+                pass
+    
+    if not rankings:
+        print(f"\nNo scores found for {score_def['display_name']}.")
+        return
+    
+    # Sort by score descending
+    rankings.sort(reverse=True, key=lambda x: x[0])
+    
+    # Display rankings
+    print(f"\nRankings by {score_def['display_name']}:")
+    print("=" * 80)
+    print(f"{'Rank':<6} {'Company':<40} {'Score':>8}")
+    print("-" * 80)
+    
+    for rank, (sort_value, original_val, display_name, company_key) in enumerate(rankings, 1):
+        # Format the original value for display
+        try:
+            score_float = float(original_val)
+            if score_float == int(score_float):
+                score_str = str(int(score_float))
+            else:
+                score_str = f"{score_float:.1f}"
+        except (ValueError, TypeError):
+            score_str = str(original_val)
+        
+        # Truncate display name if too long
+        if len(display_name) > 38:
+            display_name = display_name[:35] + "..."
+        
+        print(f"{rank:<6} {display_name:<40} {score_str:>8}")
+
+
+def handle_rank_command():
+    """Handle the rank command - show menu and get user selection."""
+    metrics_list = show_metrics_menu()
+    
+    try:
+        selection = input("Enter metric number (or 'cancel' to go back): ").strip()
+        
+        if selection.lower() in ['cancel', 'c', '']:
+            return
+        
+        metric_num = int(selection)
+        if metric_num < 1 or metric_num > len(metrics_list):
+            print(f"Error: Please enter a number between 1 and {len(metrics_list)}")
+            return
+        
+        # Get the metric key from the selection
+        metric_key, _ = metrics_list[metric_num - 1]
+        rank_by_metric(metric_key)
+        
+    except ValueError:
+        print("Error: Please enter a valid number.")
+    except KeyboardInterrupt:
+        print("\nCancelled.")
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -1072,6 +1215,7 @@ def main():
     print("Commands:")
     print("  Enter ticker symbol (e.g., AAPL) or company name to score")
     print("  Type 'view' to see total scores")
+    print("  Type 'rank' to see rankings by metric")
     print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
@@ -1080,13 +1224,16 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'delete'/'fill'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
             elif user_input.lower() == 'view':
                 view_scores()
+                print()
+            elif user_input.lower() == 'rank':
+                handle_rank_command()
                 print()
             elif user_input.lower() == 'delete':
                 delete_input = input("Enter ticker or company name to delete: ").strip()
