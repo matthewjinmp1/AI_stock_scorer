@@ -6,6 +6,8 @@ add financial scores
 
 clean up tickers -> names
 
-add global rankings per metric
-
 test cheap model vs more expensive model on a small sample 
+
+data analysis 
+
+chop down code

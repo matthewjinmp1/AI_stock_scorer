@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Competitive Moat Scorer
-Gets Grok to rate a company's competitive moat strength across 13 metrics (0-10 each):
+Gets Grok to rate a company's competitive moat strength across 14 metrics (0-10 each):
 - Competitive Moat
 - Barriers to Entry
 - Disruption Risk
@@ -31,6 +31,7 @@ SCORE_WEIGHTS = {
     'riskiness_score': 10,
     'pricing_power': 10,
     'ambition_score': 10,
+    'bargaining_power_of_customers': 10,
 }
 
 from grok_client import GrokClient
@@ -38,10 +39,12 @@ from config import XAI_API_KEY
 import sys
 import json
 import os
+import time
 from datetime import datetime
 
 # JSON file to store moat scores
 SCORES_FILE = "scores.json"
+HEAVY_SCORES_FILE = "scores_heavy.json"
 
 # Stock ticker lookup file
 TICKER_FILE = "stock_tickers_clean.json"
@@ -427,6 +430,31 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
+    },
+    'bargaining_power_of_customers': {
+        'display_name': 'Bargaining Power of Customers',
+        'field_name': 'bargaining_power_of_customers',
+        'prompt': """Rate the bargaining power of customers for {company_name} on a scale of 0-10, where:
+- 0 = Very low customer bargaining power, customers have no alternative options, company has strong pricing control
+- 5 = Moderate customer bargaining power, some alternatives available, balanced negotiation power
+- 10 = Very high customer bargaining power, many alternatives, customers can easily switch, strong price sensitivity
+
+Consider factors like:
+- Number of alternative suppliers and competitors available to customers
+- Customer switching costs and ease of substitution
+- Customer concentration and dependency on key accounts
+- Product differentiation and uniqueness
+- Price sensitivity and elasticity of demand
+- Customer access to information and transparency
+- Threat of backward integration by customers
+- Importance of product/service to customer's business
+- Standardization vs. customization of offerings
+- Customer buying power and volume purchasing ability
+- Availability of substitute products or services
+- Market fragmentation vs. concentration of customers
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': True
     }
 }
 
@@ -445,6 +473,23 @@ def load_scores():
 def save_scores(scores_data):
     """Save scores to JSON file."""
     with open(SCORES_FILE, 'w') as f:
+        json.dump(scores_data, f, indent=2)
+
+
+def load_heavy_scores():
+    """Load existing heavy scores from JSON file."""
+    if os.path.exists(HEAVY_SCORES_FILE):
+        try:
+            with open(HEAVY_SCORES_FILE, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {"companies": {}}
+    return {"companies": {}}
+
+
+def save_heavy_scores(scores_data):
+    """Save heavy scores to JSON file."""
+    with open(HEAVY_SCORES_FILE, 'w') as f:
         json.dump(scores_data, f, indent=2)
 
 
@@ -541,7 +586,23 @@ def query_score(grok, company_name, score_key):
     """Query a single score from Grok."""
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
-    response, _ = grok.simple_query_with_tokens(prompt, model="grok-4-fast")
+    start_time = time.time()
+    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-fast")
+    elapsed_time = time.time() - start_time
+    total_tokens = token_usage.get('total_tokens', 0)
+    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+    return response.strip()
+
+
+def query_score_heavy(grok, company_name, score_key):
+    """Query a single score from Grok using the main Grok 4 model."""
+    score_def = SCORE_DEFINITIONS[score_key]
+    prompt = score_def['prompt'].format(company_name=company_name)
+    start_time = time.time()
+    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-latest")
+    elapsed_time = time.time() - start_time
+    total_tokens = token_usage.get('total_tokens', 0)
+    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
     return response.strip()
 
 
@@ -684,6 +745,364 @@ def get_company_moat_score(input_str):
         
     except Exception as e:
         print(f"Error: {e}")
+
+
+def get_company_moat_score_heavy(input_str):
+    """Get all scores for a company using SCORE_DEFINITIONS with the main Grok 4 model.
+    
+    Accepts either a ticker symbol or company name.
+    Stores scores using ticker as key in scores_heavy.json.
+    """
+    try:
+        # Strip leading/trailing spaces only
+        input_stripped = input_str.strip()
+        input_upper = input_stripped.upper()
+        
+        ticker = None
+        company_name = None
+        
+        # Check if the exact string (after stripping outer spaces) is in ticker database
+        ticker_lookup = load_ticker_lookup()
+        if input_upper in ticker_lookup:
+            # Found exact match in ticker database
+            ticker = input_upper
+            company_name = ticker_lookup[ticker]
+        else:
+            # Not found in ticker database - reject it
+            print(f"\nError: '{input_upper}' is not a valid ticker symbol.")
+            print("Please enter a valid NYSE or NASDAQ ticker symbol.")
+            return
+        
+        # Display format: Ticker (Company Name)
+        if ticker:
+            display_name = f"{ticker.upper()} ({company_name})"
+            print(f"Company: {company_name}")
+        
+        scores_data = load_heavy_scores()
+        
+        # Try to find existing scores (by ticker, then by company name for backwards compatibility)
+        existing_data = None
+        storage_key = None
+        
+        if ticker and ticker in scores_data["companies"]:
+            existing_data = scores_data["companies"][ticker]
+            storage_key = ticker
+        elif company_name.lower() in scores_data["companies"]:
+            existing_data = scores_data["companies"][company_name.lower()]
+            storage_key = company_name.lower()
+        
+        if existing_data:
+            current_scores = {}
+            for score_key in SCORE_DEFINITIONS:
+                if score_key == 'moat_score':
+                    current_scores[score_key] = existing_data.get(score_key, existing_data.get('score'))
+                else:
+                    current_scores[score_key] = existing_data.get(score_key)
+            
+            if all(current_scores.values()):
+                if ticker:
+                    print(f"\n{ticker.upper()} ({company_name}) already scored (heavy):")
+                else:
+                    print(f"\n{company_name} already scored (heavy):")
+                
+                # Create list of scores with their values for sorting
+                score_list = []
+                for score_key in SCORE_DEFINITIONS:
+                    score_def = SCORE_DEFINITIONS[score_key]
+                    try:
+                        score_value = float(current_scores[score_key])
+                        score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
+                    except (ValueError, TypeError):
+                        # Skip invalid scores
+                        pass
+                
+                # Sort by score value descending
+                score_list.sort(reverse=True, key=lambda x: x[0])
+                
+                # Print sorted scores without /10, vertically aligned
+                for score_value, display_name, score_val in score_list:
+                    print(f"{display_name:25} {score_val:>8}")
+                
+                # Print total at the bottom
+                total = calculate_total_score(current_scores)
+                total_str = format_total_score(total)
+                print(f"{'Total':25} {total_str:>30}")
+                return
+            
+            grok = GrokClient(api_key=XAI_API_KEY)
+            
+            for score_key in SCORE_DEFINITIONS:
+                if not current_scores[score_key]:
+                    score_def = SCORE_DEFINITIONS[score_key]
+                    print(f"Querying {score_def['display_name']} (heavy model)...")
+                    current_scores[score_key] = query_score_heavy(grok, company_name, score_key)
+                    print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
+            
+            # Use ticker for storage key if available, otherwise use company name
+            storage_key = ticker if ticker else company_name.lower()
+            scores_data["companies"][storage_key] = current_scores
+            save_heavy_scores(scores_data)
+            print(f"\nScores updated in {HEAVY_SCORES_FILE}")
+            
+            # Calculate and display total
+            total = calculate_total_score(current_scores)
+            total_str = format_total_score(total)
+            print(f"Total Score: {total_str}")
+            return
+        
+        if ticker:
+            print(f"\nAnalyzing {ticker.upper()} ({company_name}) with heavy model...")
+        else:
+            print(f"\nAnalyzing {company_name} with heavy model...")
+        grok = GrokClient(api_key=XAI_API_KEY)
+        
+        all_scores = {}
+        for score_key in SCORE_DEFINITIONS:
+            score_def = SCORE_DEFINITIONS[score_key]
+            print(f"Querying {score_def['display_name']} (heavy model)...")
+            all_scores[score_key] = query_score_heavy(grok, company_name, score_key)
+            print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
+        
+        # Use ticker for storage key if available, otherwise use company name
+        storage_key = ticker if ticker else company_name.lower()
+        scores_data["companies"][storage_key] = all_scores
+        save_heavy_scores(scores_data)
+        print(f"\nScores saved to {HEAVY_SCORES_FILE}")
+        
+        # Calculate and display total
+        total = calculate_total_score(all_scores)
+        total_str = format_total_score(total)
+        print(f"Total Score: {total_str}")
+        
+    except ValueError as e:
+        print(f"Error: {e}")
+        print("\nTo fix this:")
+        print("1. Get an API key from https://console.x.ai/")
+        print("2. Set the XAI_API_KEY environment variable:")
+        print("   export XAI_API_KEY='your_api_key_here'")
+        
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+def handle_heavy_command(tickers_input):
+    """Handle the heavy command - score companies with the main Grok 4 model.
+    
+    Args:
+        tickers_input: Space-separated ticker symbols
+    """
+    if not tickers_input.strip():
+        print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")
+        return
+    
+    tickers = tickers_input.strip().split()
+    
+    for ticker in tickers:
+        print(f"\n{'='*60}")
+        get_company_moat_score_heavy(ticker)
+        print()
+
+
+def calculate_correlation(light_scores, heavy_scores):
+    """Calculate Pearson correlation coefficient between two lists of scores.
+    
+    Args:
+        light_scores: List of light score values (floats)
+        heavy_scores: List of heavy score values (floats)
+        
+    Returns:
+        float: Correlation coefficient between -1 and 1, or None if insufficient data
+    """
+    if len(light_scores) != len(heavy_scores) or len(light_scores) < 2:
+        return None
+    
+    # Calculate means
+    light_mean = sum(light_scores) / len(light_scores)
+    heavy_mean = sum(heavy_scores) / len(heavy_scores)
+    
+    # Calculate numerator (covariance)
+    numerator = sum((light_scores[i] - light_mean) * (heavy_scores[i] - heavy_mean) 
+                   for i in range(len(light_scores)))
+    
+    # Calculate denominators (standard deviations)
+    light_std = sum((x - light_mean) ** 2 for x in light_scores) ** 0.5
+    heavy_std = sum((x - heavy_mean) ** 2 for x in heavy_scores) ** 0.5
+    
+    # Avoid division by zero
+    if light_std == 0 or heavy_std == 0:
+        return None
+    
+    # Pearson correlation coefficient
+    correlation = numerator / (light_std * heavy_std)
+    return correlation
+
+
+def handle_correl_command(tickers_input):
+    """Handle the correl command - calculate correlation between light and heavy metric scores for each ticker.
+    
+    For each ticker, calculates the correlation between all its light metric scores and heavy metric scores.
+    
+    Args:
+        tickers_input: Space-separated ticker symbols
+    """
+    if not tickers_input.strip():
+        print("Please provide ticker symbols. Example: correl AAPL MSFT GOOGL")
+        return
+    
+    tickers = tickers_input.strip().split()
+    light_scores_data = load_scores()
+    heavy_scores_data = load_heavy_scores()
+    ticker_lookup = load_ticker_lookup()
+    
+    results = []
+    
+    for ticker_input in tickers:
+        ticker_upper = ticker_input.strip().upper()
+        
+        # Validate ticker
+        if ticker_upper not in ticker_lookup:
+            print(f"Warning: '{ticker_upper}' is not a valid ticker symbol. Skipping.")
+            continue
+        
+        company_name = ticker_lookup[ticker_upper]
+        
+        # Check if both light and heavy scores exist
+        # Try uppercase ticker first, then lowercase ticker, then lowercase company name
+        light_data = light_scores_data["companies"].get(ticker_upper)
+        heavy_data = heavy_scores_data["companies"].get(ticker_upper)
+        
+        # Try lowercase ticker for backwards compatibility
+        if not light_data:
+            light_data = light_scores_data["companies"].get(ticker_upper.lower())
+        if not heavy_data:
+            heavy_data = heavy_scores_data["companies"].get(ticker_upper.lower())
+        
+        # Try lowercase company name for backwards compatibility
+        if not light_data:
+            company_name_lower = company_name.lower()
+            light_data = light_scores_data["companies"].get(company_name_lower)
+        if not heavy_data:
+            company_name_lower = company_name.lower()
+            heavy_data = heavy_scores_data["companies"].get(company_name_lower)
+        
+        if not light_data:
+            print(f"Warning: '{ticker_upper}' has no light scores. Skipping.")
+            continue
+        
+        if not heavy_data:
+            print(f"Warning: '{ticker_upper}' has no heavy scores. Skipping.")
+            continue
+        
+        # Collect all metric scores for this ticker
+        light_metric_scores = []
+        heavy_metric_scores = []
+        metric_names = []
+        
+        try:
+            for score_key in SCORE_DEFINITIONS:
+                # Get light score
+                light_score_str = light_data.get(score_key)
+                if score_key == 'moat_score' and not light_score_str:
+                    light_score_str = light_data.get('score')  # Backwards compatibility
+                
+                # Get heavy score
+                heavy_score_str = heavy_data.get(score_key)
+                if score_key == 'moat_score' and not heavy_score_str:
+                    heavy_score_str = heavy_data.get('score')  # Backwards compatibility
+                
+                # Only include metrics that have both light and heavy scores
+                if light_score_str and heavy_score_str:
+                    try:
+                        light_score = float(light_score_str)
+                        heavy_score = float(heavy_score_str)
+                        light_metric_scores.append(light_score)
+                        heavy_metric_scores.append(heavy_score)
+                        metric_names.append(SCORE_DEFINITIONS[score_key]['display_name'])
+                    except (ValueError, TypeError):
+                        continue
+            
+            # Need at least 2 metrics to calculate correlation
+            if len(light_metric_scores) < 2:
+                print(f"Warning: '{ticker_upper}' has insufficient metrics ({len(light_metric_scores)}) for correlation. Need at least 2.")
+                continue
+            
+            # Calculate correlation for this ticker
+            correlation = calculate_correlation(light_metric_scores, heavy_metric_scores)
+            
+            if correlation is None:
+                print(f"Warning: Could not calculate correlation for '{ticker_upper}' (zero variance). Skipping.")
+                continue
+            
+            results.append({
+                'ticker': ticker_upper,
+                'company_name': company_name,
+                'correlation': correlation,
+                'num_metrics': len(light_metric_scores),
+                'light_scores': light_metric_scores,
+                'heavy_scores': heavy_metric_scores,
+                'metric_names': metric_names
+            })
+            
+        except Exception as e:
+            print(f"Warning: Error processing '{ticker_upper}': {e}. Skipping.")
+            continue
+    
+    if not results:
+        print("\nError: No tickers could be processed for correlation analysis.")
+        print("Make sure all tickers have both light and heavy scores with at least 2 metrics each.")
+        return
+    
+    # Display results
+    print(f"\n{'='*80}")
+    print("Correlation Analysis: Light vs Heavy Metric Scores (Per Ticker)")
+    print(f"{'='*80}")
+    print(f"\nTickers analyzed: {len(results)}")
+    
+    for result in results:
+        ticker = result['ticker']
+        company_name = result['company_name']
+        correlation = result['correlation']
+        num_metrics = result['num_metrics']
+        light_scores = result['light_scores']
+        heavy_scores = result['heavy_scores']
+        metric_names = result['metric_names']
+        
+        print(f"\n{'='*80}")
+        print(f"{ticker} ({company_name})")
+        print(f"{'='*80}")
+        print(f"Number of metrics compared: {num_metrics}")
+        print(f"\n{'Metric':<35} {'Light':>10} {'Heavy':>10} {'Diff':>10}")
+        print("-" * 80)
+        
+        for i, metric_name in enumerate(metric_names):
+            light_val = light_scores[i]
+            heavy_val = heavy_scores[i]
+            diff = heavy_val - light_val
+            diff_str = f"{diff:+.1f}" if diff != 0 else "0.0"
+            
+            # Truncate long metric names
+            display_name = metric_name[:33] if len(metric_name) <= 33 else metric_name[:30] + "..."
+            print(f"{display_name:<35} {light_val:>10.1f} {heavy_val:>10.1f} {diff_str:>10}")
+        
+        print(f"\nPearson Correlation Coefficient: {correlation:.4f}")
+        
+        # Interpret correlation
+        abs_corr = abs(correlation)
+        if abs_corr >= 0.9:
+            strength = "very strong"
+        elif abs_corr >= 0.7:
+            strength = "strong"
+        elif abs_corr >= 0.5:
+            strength = "moderate"
+        elif abs_corr >= 0.3:
+            strength = "weak"
+        else:
+            strength = "very weak"
+        
+        direction = "positive" if correlation > 0 else "negative"
+        print(f"Interpretation: {strength} {direction} correlation")
+    
+    print(f"\n{'='*80}")
 
 
 def migrate_scores_to_lowercase():
@@ -1219,12 +1638,14 @@ def main():
     print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
+    print("  Type 'heavy TICKER1 TICKER2 ...' to score with main Grok 4 model")
+    print("  Type 'correl TICKER1 TICKER2 ...' to see correlation between light and heavy metric scores per ticker")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'heavy'/'correl'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -1248,6 +1669,19 @@ def main():
             elif user_input.lower() == 'migrate':
                 count = migrate_scores_to_lowercase()
                 print(f"\nMigration complete! Now storing {count} unique companies.")
+                print()
+            elif user_input.lower() == 'heavy':
+                print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")
+                print()
+            elif user_input.lower().startswith('heavy '):
+                tickers = user_input[6:].strip()  # Remove 'heavy ' prefix
+                handle_heavy_command(tickers)
+            elif user_input.lower() == 'correl':
+                print("Please provide ticker symbols. Example: correl AAPL MSFT GOOGL")
+                print()
+            elif user_input.lower().startswith('correl '):
+                tickers = user_input[7:].strip()  # Remove 'correl ' prefix
+                handle_correl_command(tickers)
                 print()
             elif user_input:
                 get_company_moat_score(user_input)

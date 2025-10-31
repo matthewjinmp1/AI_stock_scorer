@@ -1,0 +1,20 @@
+{
+  "companies": {
+    "ASML": {
+      "moat_score": "9",
+      "barriers_score": "10",
+      "disruption_risk": "3",
+      "switching_cost": "9",
+      "brand_strength": "7",
+      "competition_intensity": "2",
+      "network_effect": "2",
+      "product_differentiation": "10",
+      "innovativeness_score": "10",
+      "growth_opportunity": "9",
+      "riskiness_score": "7",
+      "pricing_power": "10",
+      "ambition_score": "10",
+      "bargaining_power_of_customers": "2"
+    }
+  }
+}
