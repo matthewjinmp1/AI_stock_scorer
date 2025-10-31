@@ -15,6 +15,23 @@ Usage: python scorer.py
 Then enter ticker symbols or company names interactively
 """
 
+# Score weightings - adjust these to change the relative importance of each metric
+# All start at 1.0 (equal weight). Increase/decrease to emphasize certain metrics.
+SCORE_WEIGHTS = {
+    'moat_score': 10,
+    'barriers_score': 10,
+    'disruption_risk': 10,
+    'switching_cost': 10,
+    'brand_strength': 10, 
+    'competition_intensity': 10,
+    'network_effect': 10,
+    'product_differentiation': 10,
+    'innovativeness_score': 10,
+    'growth_opportunity': 10,
+    'riskiness_score': 10,
+    'pricing_power': 10,
+}
+
 from grok_client import GrokClient
 from config import XAI_API_KEY
 import sys
@@ -411,18 +428,19 @@ def calculate_total_score(scores_dict):
         scores_dict: Dictionary with score keys and their string values
         
     Returns:
-        float: The total score (handling reverse scores appropriately)
+        float: The total weighted score (handling reverse scores appropriately)
     """
     total = 0
     for score_key in SCORE_DEFINITIONS:
         score_def = SCORE_DEFINITIONS[score_key]
+        weight = SCORE_WEIGHTS.get(score_key, 1.0)  # Default to 1.0 if weight not found
         try:
             score_value = float(scores_dict.get(score_key, 0))
             # For reverse scores, invert to get "goodness" value
             if score_def['is_reverse']:
-                total += (10 - score_value)
+                total += (10 - score_value) * weight
             else:
-                total += score_value
+                total += score_value * weight
         except (ValueError, TypeError):
             pass
     return total
@@ -469,13 +487,14 @@ def format_total_score(total, percentile=None):
     """Format a total score as a percentage integer string with optional percentile.
     
     Args:
-        total: The total score (float)
+        total: The total weighted score (float)
         percentile: Optional percentile rank (int), if None will be calculated
         
     Returns:
         str: Formatted total score as percentage with percentile (e.g., "87 (75th percentile)")
     """
-    max_score = len(SCORE_DEFINITIONS) * 10
+    # Calculate max possible score with weights
+    max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
     percentage = (total / max_score) * 100
     
     if percentile is not None:
@@ -840,13 +859,14 @@ def view_scores(score_type=None):
             else:
                 try:
                     val = float(score_val)
+                    weight = SCORE_WEIGHTS.get(score_key, 1.0)
                     # For reverse scores, invert to get "goodness" value
                     if score_def['is_reverse']:
                         sort_value = 10 - val
-                        total += (10 - val)
+                        total += (10 - val) * weight
                     else:
                         sort_value = val
-                        total += val
+                        total += val * weight
                     score_display = score_val
                 except (ValueError, TypeError):
                     score_display = 'N/A'
@@ -874,17 +894,18 @@ def view_scores(score_type=None):
         total = 0
         for score_key, score_def in SCORE_DEFINITIONS.items():
             score_val = data.get(score_key, 'N/A')
+            weight = SCORE_WEIGHTS.get(score_key, 1.0)
             if score_val == 'N/A':
                 if score_def['is_reverse']:
-                    total += 10
+                    total += 10 * weight
                 continue
             
             try:
                 val = float(score_val)
                 if score_def['is_reverse']:
-                    total += (10 - val)
+                    total += (10 - val) * weight
                 else:
-                    total += val
+                    total += val * weight
             except (ValueError, TypeError):
                     pass
         return total
@@ -908,15 +929,16 @@ def view_scores(score_type=None):
             all_present = True
             for score_key, score_def in SCORE_DEFINITIONS.items():
                 score_val = data.get(score_key, 'N/A')
+                weight = SCORE_WEIGHTS.get(score_key, 1.0)
                 if score_val == 'N/A':
                     all_present = False
                     break
                 try:
                     val = float(score_val)
                     if score_def['is_reverse']:
-                        total += (10 - val)
+                        total += (10 - val) * weight
                     else:
-                        total += val
+                        total += val * weight
                 except (ValueError, TypeError):
                     all_present = False
                     break
@@ -933,7 +955,7 @@ def view_scores(score_type=None):
         for company, data in sorted_companies:
             if company in company_totals:
                 total = company_totals[company]
-                max_score = len(SCORE_DEFINITIONS) * 10
+                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
                 percentage = int((total / max_score) * 100)
                 percentage_str = f"{percentage}"
                 
