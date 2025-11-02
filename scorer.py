@@ -707,6 +707,7 @@ def get_company_moat_score(input_str):
                     print(f"Querying {score_def['display_name']}...")
                     current_scores[score_key] = query_score(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
+                    print()  # Add spacing between metrics
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -732,6 +733,7 @@ def get_company_moat_score(input_str):
             print(f"Querying {score_def['display_name']}...")
             all_scores[score_key] = query_score(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
+            print()  # Add spacing between metrics
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()
@@ -848,6 +850,7 @@ def get_company_moat_score_heavy(input_str):
                     print(f"Querying {score_def['display_name']} (heavy model)...")
                     current_scores[score_key] = query_score_heavy(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
+                    print()  # Add spacing between metrics
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -873,6 +876,7 @@ def get_company_moat_score_heavy(input_str):
             print(f"Querying {score_def['display_name']} (heavy model)...")
             all_scores[score_key] = query_score_heavy(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
+            print()  # Add spacing between metrics
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()

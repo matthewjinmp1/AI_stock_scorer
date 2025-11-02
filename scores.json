@@ -1750,6 +1750,23 @@
       "ambition_score": "7",
       "bargaining_power_of_customers": "7",
       "bargaining_power_of_suppliers": "3"
+    },
+    "ATKR": {
+      "moat_score": "6",
+      "barriers_score": "7",
+      "disruption_risk": "3",
+      "switching_cost": "4",
+      "brand_strength": "3",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "5",
+      "innovativeness_score": "4",
+      "growth_opportunity": "7",
+      "riskiness_score": "7",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "3"
     }
   }
 }
