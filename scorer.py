@@ -1465,6 +1465,81 @@ def view_scores(score_type=None):
         print(f"{display_key:<{min(max_name_len, 30)}} {score:>8}")
 
 
+def view_heavy_scores():
+    """Display all stored heavy scores ranked by total score with percentiles."""
+    scores_data = load_heavy_scores()
+    
+    if not scores_data["companies"]:
+        print("No heavy scores stored yet.")
+        return
+    
+    # Helper function to calculate total score
+    def get_total_score(item):
+        data = item[1]
+        total = 0
+        for score_key, score_def in SCORE_DEFINITIONS.items():
+            score_val = data.get(score_key, 'N/A')
+            weight = SCORE_WEIGHTS.get(score_key, 1.0)
+            if score_val == 'N/A':
+                continue
+            
+            try:
+                val = float(score_val)
+                if score_def['is_reverse']:
+                    total += (10 - val) * weight
+                else:
+                    total += val * weight
+            except (ValueError, TypeError):
+                pass
+        return total
+    
+    sorted_companies = sorted(scores_data["companies"].items(), key=get_total_score, reverse=True)
+    
+    # Calculate all totals for percentile calculation
+    all_totals = []
+    company_totals = {}
+    for company, data in sorted_companies:
+        total = get_total_score((company, data))
+        if total > 0:  # Only include companies with valid scores
+            company_totals[company] = total
+            all_totals.append(total)
+    
+    if not company_totals:
+        print("No valid heavy scores found.")
+        return
+    
+    print("\nHeavy Scores - Total Score Rankings:")
+    print("=" * 80)
+    print(f"Number of stocks scored: {len(company_totals)}")
+    print()
+    
+    max_name_len = max([len(company.upper()) for company in company_totals.keys()]) if company_totals else 0
+    
+    # Print column headers
+    print(f"{'Rank':<6} {'Ticker':<{min(max_name_len, 30)}} {'Total Score':>15} {'Percentile':>12}")
+    print("-" * (6 + min(max_name_len, 30) + 15 + 12 + 3))
+    
+    # Display companies with rankings and percentiles
+    for rank, (company, data) in enumerate(sorted_companies, 1):
+        if company in company_totals:
+            total = company_totals[company]
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+            percentage = int((total / max_score) * 100)
+            percentage_str = f"{percentage}%"
+            
+            percentile = calculate_percentile_rank(total, all_totals) if len(all_totals) > 1 else None
+            if percentile is not None:
+                percentile_str = f"{percentile}th"
+            else:
+                percentile_str = 'N/A'
+            
+            # Display ticker (uppercase for consistency)
+            display_key = company.upper()
+            if len(display_key) > 30:
+                display_key = display_key[:30]
+            print(f"{rank:<6} {display_key:<{min(max_name_len, 30)}} {percentage_str:>15} {percentile_str:>12}")
+
+
 def delete_company(input_str):
     """Delete a company's scores from the JSON file.
     
@@ -1664,6 +1739,7 @@ def main():
     print("Commands:")
     print("  Enter ticker symbol (e.g., AAPL) or company name to score")
     print("  Type 'view' to see total scores")
+    print("  Type 'view heavy' to see heavy model scores ranked with percentiles")
     print("  Type 'rank' to see rankings by metric")
     print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
@@ -1675,11 +1751,14 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'heavy'/'correl'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'heavy'/'correl'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
+            elif user_input.lower() == 'view heavy':
+                view_heavy_scores()
+                print()
             elif user_input.lower() == 'view':
                 view_scores()
                 print()

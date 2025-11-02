@@ -6,10 +6,6 @@ add financial scores
 
 clean up tickers -> names
 
-test cheap model vs more expensive model on a small sample 
-
 data analysis 
 
 chop down code
-
-stat analysis

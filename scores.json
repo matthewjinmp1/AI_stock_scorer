@@ -1699,6 +1699,57 @@
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
       "bargaining_power_of_suppliers": "2"
+    },
+    "EQIX": {
+      "moat_score": "9",
+      "barriers_score": "10",
+      "disruption_risk": "4",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "8",
+      "product_differentiation": "8",
+      "innovativeness_score": "7",
+      "growth_opportunity": "9",
+      "riskiness_score": "4",
+      "pricing_power": "8",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "3",
+      "bargaining_power_of_suppliers": "3"
+    },
+    "CVX": {
+      "moat_score": "8",
+      "barriers_score": "10",
+      "disruption_risk": "8",
+      "switching_cost": "3",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "4",
+      "innovativeness_score": "5",
+      "growth_opportunity": "5",
+      "riskiness_score": "5",
+      "pricing_power": "4",
+      "ambition_score": "7",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "3"
+    },
+    "PNR": {
+      "moat_score": "7",
+      "barriers_score": "8",
+      "disruption_risk": "5",
+      "switching_cost": "7",
+      "brand_strength": "7",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "7",
+      "innovativeness_score": "6",
+      "growth_opportunity": "7",
+      "riskiness_score": "4",
+      "pricing_power": "7",
+      "ambition_score": "7",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "3"
     }
   }
 }
