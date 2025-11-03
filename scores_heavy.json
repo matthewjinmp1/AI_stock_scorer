@@ -81,6 +81,24 @@
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
       "bargaining_power_of_suppliers": "3"
+    },
+    "LOW": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "4",
+      "switching_cost": "2",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "5",
+      "innovativeness_score": "8",
+      "growth_opportunity": "7",
+      "riskiness_score": "4",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     }
   }
 }

@@ -29,7 +29,9 @@ SCORE_DEFINITIONS_KEYS = [
     'ambition_score',
     'bargaining_power_of_customers',
     'bargaining_power_of_suppliers',
-    'product_quality_score'
+    'product_quality_score',
+    'culture_employee_satisfaction_score',
+    'trailblazer_score'
 ]
 
 SCORE_WEIGHTS = {key: 10 for key in SCORE_DEFINITIONS_KEYS}

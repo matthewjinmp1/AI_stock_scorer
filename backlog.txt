@@ -9,3 +9,5 @@ clean up tickers -> names
 data analysis 
 
 chop down code
+
+size adjustment 

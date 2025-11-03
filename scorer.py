@@ -36,6 +36,8 @@ SCORE_WEIGHTS = {
     'bargaining_power_of_customers': 10,
     'bargaining_power_of_suppliers': 10,
     'product_quality_score': 10,
+    'culture_employee_satisfaction_score': 10,
+    'trailblazer_score': 10,
 }
 
 from grok_client import GrokClient
@@ -482,6 +484,60 @@ Consider factors like:
 - Customer complaints and support issues
 - Quality metrics and KPIs
 - Investment in quality improvement initiatives
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'culture_employee_satisfaction_score': {
+        'display_name': 'Culture / Employee Satisfaction',
+        'field_name': 'culture_employee_satisfaction_score',
+        'prompt': """Rate the quality of culture and employee satisfaction for {company_name} on a scale of 0-10, where:
+- 0 = Poor culture, low employee satisfaction, high turnover, toxic work environment, poor employee morale
+- 5 = Moderate culture, acceptable employee satisfaction, average retention, some cultural issues
+- 10 = Exceptional culture, industry-leading employee satisfaction, low turnover, great work environment, high employee engagement
+
+Consider factors like:
+- Employee satisfaction scores and surveys
+- Employee retention and turnover rates
+- Glassdoor and employer review ratings
+- Company culture and values alignment
+- Work-life balance and employee benefits
+- Diversity, equity, and inclusion practices
+- Employee engagement and morale
+- Leadership quality and management practices
+- Opportunities for career growth and development
+- Workplace safety and employee well-being
+- Communication and transparency
+- Recognition and reward systems
+- Work environment and office culture
+- Employee feedback mechanisms and responsiveness
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'trailblazer_score': {
+        'display_name': 'Trailblazer',
+        'field_name': 'trailblazer_score',
+        'prompt': """Rate how much {company_name} challenges the status quo and pushes boundaries (trailblazer quality) on a scale of 0-10, where:
+- 0 = Follows status quo, avoids risks, conventional approaches, minimal innovation, stays in established boundaries
+- 5 = Some boundary-pushing, occasional calculated risks, moderate innovation beyond industry norms
+- 10 = Extremely bold trailblazer, consistently challenges status quo, willing to take significant risks for big impact, pioneers new possibilities and transforms industries
+
+Consider factors like:
+- Willingness to challenge established industry norms and conventions
+- Boldness in taking calculated risks for transformative impact
+- Pioneering new markets, technologies, or business models
+- Disruptive innovation that changes how industries operate
+- Visionary leadership that pushes beyond current limitations
+- Investment in moonshot projects and breakthrough initiatives
+- History of breaking new ground and creating new categories
+- Willingness to fail fast and learn from bold experiments
+- Transformation of industries rather than incremental improvement
+- Breaking conventional wisdom and traditional approaches
+- Creating new paradigms and possibilities
+- Revolutionary products, services, or business models
+- Willingness to cannibalize existing businesses for future growth
+- Aggressive pursuit of ambitious, transformative goals
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
