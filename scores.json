@@ -15,7 +15,8 @@
       "pricing_power": "7",
       "ambition_score": "10",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "msft": {
       "moat_score": "9",
@@ -32,7 +33,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "googl": {
       "moat_score": "9",
@@ -49,7 +51,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9"
     },
     "nvda": {
       "moat_score": "9",
@@ -66,7 +69,8 @@
       "pricing_power": "9",
       "ambition_score": "10",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "9"
     },
     "asml": {
       "moat_score": "10",
@@ -83,7 +87,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "9"
     },
     "meta": {
       "moat_score": "9",
@@ -100,7 +105,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "aapl": {
       "moat_score": "9",
@@ -117,7 +123,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "9"
     },
     "adbe": {
       "moat_score": "9",
@@ -134,7 +141,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "1"
+      "bargaining_power_of_suppliers": "1",
+      "product_quality_score": "9"
     },
     "amzn": {
       "moat_score": "9",
@@ -151,7 +159,8 @@
       "pricing_power": "8",
       "ambition_score": "10",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "crm": {
       "moat_score": "8",
@@ -168,7 +177,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "avgo": {
       "moat_score": "9",
@@ -185,7 +195,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "9"
     },
     "tsm": {
       "moat_score": "9",
@@ -202,7 +213,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "10"
     },
     "orcl": {
       "moat_score": "8",
@@ -219,7 +231,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "lulu": {
       "moat_score": "7",
@@ -236,7 +249,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "pypl": {
       "moat_score": "8",
@@ -253,7 +267,8 @@
       "pricing_power": "7",
       "ambition_score": "6",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "6"
     },
     "ntes": {
       "moat_score": "8",
@@ -270,7 +285,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "7"
     },
     "ko": {
       "moat_score": "9",
@@ -287,7 +303,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "5"
     },
     "dell": {
       "moat_score": "6",
@@ -304,7 +321,8 @@
       "pricing_power": "5",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "6"
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "8"
     },
     "mu": {
       "moat_score": "7",
@@ -321,7 +339,8 @@
       "pricing_power": "6",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "5"
     },
     "amat": {
       "moat_score": "8",
@@ -338,7 +357,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "9"
     },
     "amd": {
       "moat_score": "7",
@@ -355,7 +375,8 @@
       "pricing_power": "6",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "8"
     },
     "pld": {
       "moat_score": "9",
@@ -372,7 +393,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "5"
     },
     "lrcx": {
       "moat_score": "8",
@@ -389,7 +411,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "9"
     },
     "klac": {
       "moat_score": "9",
@@ -406,7 +429,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "6"
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "9"
     },
     "snps": {
       "moat_score": "9",
@@ -423,7 +447,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "cdns": {
       "moat_score": "9",
@@ -440,7 +465,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "8"
     },
     "wday": {
       "moat_score": "8",
@@ -457,7 +483,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "qcom": {
       "moat_score": "8",
@@ -474,7 +501,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "8"
     },
     "mpwr": {
       "moat_score": "7",
@@ -491,7 +519,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "8"
     },
     "jpm": {
       "moat_score": "9",
@@ -508,7 +537,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "lly": {
       "moat_score": "8",
@@ -525,7 +555,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "6"
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "9"
     },
     "v": {
       "moat_score": "10",
@@ -542,7 +573,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "5"
     },
     "ma": {
       "moat_score": "9",
@@ -559,7 +591,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "xom": {
       "moat_score": "8",
@@ -576,7 +609,8 @@
       "pricing_power": "3",
       "ambition_score": "7",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "jnj": {
       "moat_score": "8",
@@ -593,7 +627,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "pltr": {
       "moat_score": "8",
@@ -610,7 +645,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "baba": {
       "moat_score": "9",
@@ -627,7 +663,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "5"
     },
     "cost": {
       "moat_score": "9",
@@ -644,7 +681,8 @@
       "pricing_power": "8",
       "ambition_score": "7",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "5"
     },
     "hd": {
       "moat_score": "8",
@@ -661,7 +699,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "5"
     },
     "pg": {
       "moat_score": "9",
@@ -678,7 +717,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "unh": {
       "moat_score": "8",
@@ -695,7 +735,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "5"
     },
     "sap": {
       "moat_score": "8",
@@ -712,7 +753,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "ibm": {
       "moat_score": "8",
@@ -729,7 +771,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "csco": {
       "moat_score": "8",
@@ -746,7 +789,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "tm": {
       "moat_score": "8",
@@ -763,7 +807,8 @@
       "pricing_power": "6",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "7"
     },
     "tmus": {
       "moat_score": "8",
@@ -780,7 +825,8 @@
       "pricing_power": "7",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "8"
     },
     "cat": {
       "moat_score": "9",
@@ -797,7 +843,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "pm": {
       "moat_score": "8",
@@ -814,7 +861,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "7"
     },
     "shop": {
       "moat_score": "8",
@@ -831,7 +879,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "5"
     },
     "xyz": {
       "moat_score": "7",
@@ -848,7 +897,8 @@
       "pricing_power": "5",
       "ambition_score": "7",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "7"
     },
     "mcd": {
       "moat_score": "9",
@@ -865,7 +915,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "6"
     },
     "tmo": {
       "moat_score": "8",
@@ -882,7 +933,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9"
     },
     "dis": {
       "moat_score": "9",
@@ -899,7 +951,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "intc": {
       "moat_score": "7",
@@ -916,7 +969,8 @@
       "pricing_power": "5",
       "ambition_score": "7",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "8"
     },
     "anet": {
       "moat_score": "8",
@@ -933,7 +987,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "4"
     },
     "now": {
       "moat_score": "8",
@@ -950,7 +1005,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "5"
     },
     "isrg": {
       "moat_score": "9",
@@ -967,7 +1023,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "intu": {
       "moat_score": "8",
@@ -984,7 +1041,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "arm": {
       "moat_score": "9",
@@ -1001,7 +1059,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "9"
     },
     "t": {
       "moat_score": "8",
@@ -1018,7 +1077,8 @@
       "pricing_power": "8",
       "ambition_score": "10",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "5"
     },
     "blk": {
       "moat_score": "9",
@@ -1035,7 +1095,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "6"
     },
     "sony": {
       "moat_score": "8",
@@ -1052,7 +1113,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "8"
     },
     "nee": {
       "moat_score": "9",
@@ -1069,7 +1131,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "7"
     },
     "ba": {
       "moat_score": "8",
@@ -1086,7 +1149,8 @@
       "pricing_power": "8",
       "ambition_score": "7",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "5"
     },
     "aph": {
       "moat_score": "8",
@@ -1103,7 +1167,8 @@
       "pricing_power": "7",
       "ambition_score": "7",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "7"
     },
     "bkng": {
       "moat_score": "8",
@@ -1120,7 +1185,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "9",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "acn": {
       "moat_score": "8",
@@ -1137,7 +1203,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9"
     },
     "txn": {
       "moat_score": "8",
@@ -1154,7 +1221,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "7"
     },
     "spgi": {
       "moat_score": "9",
@@ -1171,7 +1239,8 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9"
     },
     "cof": {
       "moat_score": "7",
@@ -1188,7 +1257,8 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "5"
     },
     "spot": {
       "moat_score": "7",
@@ -1205,7 +1275,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "hood": {
       "moat_score": "6",
@@ -1222,7 +1293,8 @@
       "pricing_power": "3",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "7"
     },
     "unp": {
       "moat_score": "9",
@@ -1239,7 +1311,8 @@
       "pricing_power": "8",
       "ambition_score": "6",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "6"
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "5"
     },
     "de": {
       "moat_score": "8",
@@ -1256,7 +1329,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "5"
     },
     "low": {
       "moat_score": "7",
@@ -1273,7 +1347,8 @@
       "pricing_power": "5",
       "ambition_score": "7",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "0"
     },
     "pgr": {
       "moat_score": "8",
@@ -1290,7 +1365,8 @@
       "pricing_power": "6",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "ibkr": {
       "moat_score": "8",
@@ -1307,7 +1383,8 @@
       "pricing_power": "6",
       "ambition_score": "9",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "8"
     },
     "meli": {
       "moat_score": "8",
@@ -1324,7 +1401,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "adp": {
       "moat_score": "9",
@@ -1341,7 +1419,8 @@
       "pricing_power": "9",
       "ambition_score": "7",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "dash": {
       "moat_score": "8",
@@ -1358,7 +1437,8 @@
       "pricing_power": "5",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "6"
     },
     "lmt": {
       "moat_score": "9",
@@ -1375,7 +1455,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "6"
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "9"
     },
     "rok": {
       "moat_score": "8",
@@ -1392,7 +1473,8 @@
       "pricing_power": "7",
       "ambition_score": "7",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "8"
     },
     "cmcsa": {
       "moat_score": "8",
@@ -1409,7 +1491,8 @@
       "pricing_power": "8",
       "ambition_score": "7",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "7"
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "4"
     },
     "mo": {
       "moat_score": "8",
@@ -1426,7 +1509,8 @@
       "pricing_power": "9",
       "ambition_score": "6",
       "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "7"
     },
     "cvs": {
       "moat_score": "8",
@@ -1443,7 +1527,8 @@
       "pricing_power": "5",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "6"
     },
     "nke": {
       "moat_score": "9",
@@ -1460,7 +1545,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8"
     },
     "sbux": {
       "moat_score": "8",
@@ -1477,7 +1563,8 @@
       "pricing_power": "8",
       "ambition_score": "7",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "se": {
       "moat_score": "7",
@@ -1494,7 +1581,8 @@
       "pricing_power": "4",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "8"
     },
     "snow": {
       "moat_score": "8",
@@ -1511,7 +1599,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "10"
+      "bargaining_power_of_suppliers": "10",
+      "product_quality_score": "5"
     },
     "nem": {
       "moat_score": "7",
@@ -1528,7 +1617,8 @@
       "pricing_power": "2",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "4"
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "5"
     },
     "ice": {
       "moat_score": "9",
@@ -1545,7 +1635,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "1"
+      "bargaining_power_of_suppliers": "1",
+      "product_quality_score": "8"
     },
     "shw": {
       "moat_score": "8",
@@ -1562,7 +1653,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "mco": {
       "moat_score": "9",
@@ -1579,7 +1671,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "5"
     },
     "ups": {
       "moat_score": "8",
@@ -1596,7 +1689,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "wm": {
       "moat_score": "8",
@@ -1613,7 +1707,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "5"
     },
     "orly": {
       "moat_score": "7",
@@ -1630,7 +1725,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "abnb": {
       "moat_score": "8",
@@ -1647,7 +1743,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7"
     },
     "tdg": {
       "moat_score": "9",
@@ -1664,7 +1761,8 @@
       "pricing_power": "9",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "5"
+      "bargaining_power_of_suppliers": "5",
+      "product_quality_score": "8"
     },
     "race": {
       "moat_score": "9",
@@ -1681,7 +1779,8 @@
       "pricing_power": "10",
       "ambition_score": "8",
       "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "8"
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "5"
     },
     "adsk": {
       "moat_score": "8",
@@ -1698,7 +1797,8 @@
       "pricing_power": "8",
       "ambition_score": "8",
       "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "2"
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9"
     },
     "EQIX": {
       "moat_score": "9",
@@ -1715,7 +1815,8 @@
       "pricing_power": "8",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9"
     },
     "CVX": {
       "moat_score": "8",
@@ -1732,7 +1833,8 @@
       "pricing_power": "4",
       "ambition_score": "7",
       "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     },
     "PNR": {
       "moat_score": "7",
@@ -1749,7 +1851,8 @@
       "pricing_power": "7",
       "ambition_score": "7",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7"
     },
     "ATKR": {
       "moat_score": "6",
@@ -1766,7 +1869,26 @@
       "pricing_power": "7",
       "ambition_score": "8",
       "bargaining_power_of_customers": "7",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
+    },
+    "SEE": {
+      "moat_score": "7",
+      "barriers_score": "8",
+      "disruption_risk": "6",
+      "switching_cost": "7",
+      "brand_strength": "6",
+      "competition_intensity": "7",
+      "network_effect": "0",
+      "product_differentiation": "8",
+      "innovativeness_score": "7",
+      "growth_opportunity": "7",
+      "riskiness_score": "5",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8"
     }
   }
 }

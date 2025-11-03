@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Competitive Moat Scorer
-Gets Grok to rate a company's competitive moat strength across 14 metrics (0-10 each):
+Gets Grok to rate a company's competitive moat strength across multiple metrics (0-10 each):
 - Competitive Moat
 - Barriers to Entry
 - Disruption Risk
@@ -11,6 +11,8 @@ Gets Grok to rate a company's competitive moat strength across 14 metrics (0-10 
 - Network Effect
 - Innovativeness
 - Growth Opportunity
+- Product Quality
+- And more...
 Usage: python scorer.py
 Then enter ticker symbols or company names interactively
 """
@@ -33,6 +35,7 @@ SCORE_WEIGHTS = {
     'ambition_score': 10,
     'bargaining_power_of_customers': 10,
     'bargaining_power_of_suppliers': 10,
+    'product_quality_score': 10,
 }
 
 from grok_client import GrokClient
@@ -456,6 +459,32 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': True
+    },
+    'product_quality_score': {
+        'display_name': 'Product Quality',
+        'field_name': 'product_quality_score',
+        'prompt': """Rate the product quality for {company_name} on a scale of 0-10, where:
+- 0 = Poor quality, frequent defects, low reliability, high customer dissatisfaction
+- 5 = Moderate quality, acceptable performance, some quality issues occasionally
+- 10 = Exceptional quality, industry-leading standards, high reliability, exceptional customer satisfaction
+
+Consider factors like:
+- Product reliability and durability
+- Defect rates and quality control processes
+- Customer satisfaction and reviews
+- Industry awards and quality certifications
+- Warranty and return rates
+- Quality of materials and craftsmanship
+- Consistency of product quality across batches
+- Quality assurance and testing procedures
+- Comparison to industry standards and competitors
+- Long-term product performance and reliability
+- Customer complaints and support issues
+- Quality metrics and KPIs
+- Investment in quality improvement initiatives
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
     }
 }
 

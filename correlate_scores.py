@@ -28,7 +28,8 @@ SCORE_DEFINITIONS_KEYS = [
     'pricing_power',
     'ambition_score',
     'bargaining_power_of_customers',
-    'bargaining_power_of_suppliers'
+    'bargaining_power_of_suppliers',
+    'product_quality_score'
 ]
 
 SCORE_WEIGHTS = {key: 10 for key in SCORE_DEFINITIONS_KEYS}
