@@ -823,11 +823,11 @@ def score_single_ticker(input_str, silent=False, batch_mode=False):
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
                     if batch_mode:
-                        print(f"  {score_def['display_name']} ({company_name}): ", end="", flush=True)
+                        print(f"  {score_def['display_name']}: ", end="", flush=True)
                         current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
                         print(f"{current_scores[score_key]}/10")
                     elif not silent:
-                        print(f"Querying {score_def['display_name']} for {company_name}...")
+                        print(f"Querying {score_def['display_name']}...")
                         current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
                         print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                         print()
@@ -860,11 +860,11 @@ def score_single_ticker(input_str, silent=False, batch_mode=False):
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
             if batch_mode:
-                print(f"  {score_def['display_name']} ({company_name}): ", end="", flush=True)
+                print(f"  {score_def['display_name']}: ", end="", flush=True)
                 all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
                 print(f"{all_scores[score_key]}/10")
             elif not silent:
-                print(f"Querying {score_def['display_name']} for {company_name}...")
+                print(f"Querying {score_def['display_name']}...")
                 all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
                 print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
                 print()
@@ -934,8 +934,11 @@ def score_multiple_tickers(input_str):
     print("=" * 80)
     
     results = []
+    ticker_lookup = load_ticker_lookup()
     for i, ticker in enumerate(tickers, 1):
-        print(f"\n[{i}/{len(tickers)}] Processing {ticker.upper()}...")
+        ticker_upper = ticker.strip().upper()
+        company_name = ticker_lookup.get(ticker_upper, ticker_upper)
+        print(f"\n[{i}/{len(tickers)}] Processing {ticker_upper} ({company_name})...")
         result = score_single_ticker(ticker, silent=True, batch_mode=True)
         if result:
             if result['success']:
@@ -1102,7 +1105,7 @@ def get_company_moat_score(input_str):
             for score_key in SCORE_DEFINITIONS:
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']} for {company_name}...")
+                    print(f"Querying {score_def['display_name']}...")
                     current_scores[score_key] = query_score(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                     print()  # Add spacing between metrics
@@ -1128,7 +1131,7 @@ def get_company_moat_score(input_str):
         all_scores = {}
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']} for {company_name}...")
+            print(f"Querying {score_def['display_name']}...")
             all_scores[score_key] = query_score(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
             print()  # Add spacing between metrics
@@ -1245,7 +1248,7 @@ def get_company_moat_score_heavy(input_str):
             for score_key in SCORE_DEFINITIONS:
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']} for {company_name} (heavy model)...")
+                    print(f"Querying {score_def['display_name']} (heavy model)...")
                     current_scores[score_key] = query_score_heavy(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                     print()  # Add spacing between metrics
@@ -1271,7 +1274,7 @@ def get_company_moat_score_heavy(input_str):
         all_scores = {}
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']} for {company_name} (heavy model)...")
+            print(f"Querying {score_def['display_name']} (heavy model)...")
             all_scores[score_key] = query_score_heavy(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
             print()  # Add spacing between metrics
