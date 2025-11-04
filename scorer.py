@@ -1133,9 +1133,44 @@ def handle_correl_command(tickers_input):
                 print(f"Warning: Could not calculate correlation for '{ticker_upper}' (zero variance). Skipping.")
                 continue
             
-            # Calculate total scores for display
-            light_total = calculate_total_score(light_data)
-            heavy_total = calculate_total_score(heavy_data)
+            # Calculate total scores for display - only use metrics that exist in both datasets
+            # Track which score keys were actually used for comparison
+            used_score_keys = []
+            for score_key in SCORE_DEFINITIONS:
+                light_score_str = light_data.get(score_key)
+                if score_key == 'moat_score' and not light_score_str:
+                    light_score_str = light_data.get('score')  # Backwards compatibility
+                heavy_score_str = heavy_data.get(score_key)
+                if score_key == 'moat_score' and not heavy_score_str:
+                    heavy_score_str = heavy_data.get('score')  # Backwards compatibility
+                if light_score_str and heavy_score_str:
+                    used_score_keys.append(score_key)
+            
+            # Calculate totals using only the metrics that exist in both datasets
+            light_total = 0
+            heavy_total = 0
+            for score_key in used_score_keys:
+                score_def = SCORE_DEFINITIONS[score_key]
+                weight = SCORE_WEIGHTS.get(score_key, 1.0)
+                try:
+                    light_score_str = light_data.get(score_key)
+                    if score_key == 'moat_score' and not light_score_str:
+                        light_score_str = light_data.get('score')
+                    heavy_score_str = heavy_data.get(score_key)
+                    if score_key == 'moat_score' and not heavy_score_str:
+                        heavy_score_str = heavy_data.get('score')
+                    
+                    light_value = float(light_score_str)
+                    heavy_value = float(heavy_score_str)
+                    
+                    if score_def['is_reverse']:
+                        light_total += (10 - light_value) * weight
+                        heavy_total += (10 - heavy_value) * weight
+                    else:
+                        light_total += light_value * weight
+                        heavy_total += heavy_value * weight
+                except (ValueError, TypeError):
+                    pass
             
             results.append({
                 'ticker': ticker_upper,
@@ -1146,7 +1181,8 @@ def handle_correl_command(tickers_input):
                 'heavy_scores': heavy_metric_scores,
                 'metric_names': metric_names,
                 'light_total': light_total,
-                'heavy_total': heavy_total
+                'heavy_total': heavy_total,
+                'used_score_keys': used_score_keys  # Store for max_score calculation
             })
             
         except Exception as e:
@@ -1193,7 +1229,13 @@ def handle_correl_command(tickers_input):
         # Calculate and display total scores
         light_total = result['light_total']
         heavy_total = result['heavy_total']
-        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+        # Calculate max_score based only on metrics that exist in both datasets
+        used_score_keys = result.get('used_score_keys', [])
+        if used_score_keys:
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in used_score_keys) * 10
+        else:
+            # Fallback: use all metrics if used_score_keys not available (shouldn't happen)
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
         light_pct = int((light_total / max_score) * 100)
         heavy_pct = int((heavy_total / max_score) * 100)
         total_diff = heavy_total - light_total
