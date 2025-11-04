@@ -55,11 +55,55 @@ HEAVY_SCORES_FILE = "scores_heavy.json"
 # Stock ticker lookup file
 TICKER_FILE = "stock_tickers_clean.json"
 
+# Custom ticker definitions file
+TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+
 # Cache for ticker lookups
 _ticker_cache = None
 
+def load_custom_ticker_definitions():
+    """Load custom ticker definitions from JSON file.
+    
+    Returns:
+        dict: Dictionary mapping ticker (uppercase) to company name
+    """
+    custom_definitions = {}
+    
+    try:
+        if os.path.exists(TICKER_DEFINITIONS_FILE):
+            with open(TICKER_DEFINITIONS_FILE, 'r') as f:
+                data = json.load(f)
+                
+                for ticker, name in data.get('definitions', {}).items():
+                    ticker_upper = ticker.strip().upper()
+                    name_stripped = name.strip()
+                    
+                    if ticker_upper and name_stripped:
+                        custom_definitions[ticker_upper] = name_stripped
+    except Exception as e:
+        print(f"Warning: Could not load custom ticker definitions: {e}")
+    
+    return custom_definitions
+
+def save_custom_ticker_definitions(definitions):
+    """Save custom ticker definitions to JSON file.
+    
+    Args:
+        definitions: Dictionary mapping ticker to company name
+    """
+    try:
+        data = {"definitions": definitions}
+        with open(TICKER_DEFINITIONS_FILE, 'w') as f:
+            json.dump(data, f, indent=2)
+        return True
+    except Exception as e:
+        print(f"Error: Could not save custom ticker definitions: {e}")
+        return False
+
 def load_ticker_lookup():
-    """Load ticker to company name lookup."""
+    """Load ticker to company name lookup.
+    Custom definitions take precedence over main ticker file.
+    """
     global _ticker_cache
     
     if _ticker_cache is not None:
@@ -67,6 +111,7 @@ def load_ticker_lookup():
     
     _ticker_cache = {}
     
+    # First load from main ticker file
     try:
         if os.path.exists(TICKER_FILE):
             with open(TICKER_FILE, 'r') as f:
@@ -82,6 +127,10 @@ def load_ticker_lookup():
             print(f"Warning: {TICKER_FILE} not found. Ticker lookups will not work.")
     except Exception as e:
         print(f"Warning: Could not load ticker file: {e}")
+    
+    # Then load custom definitions (these override main file)
+    custom_definitions = load_custom_ticker_definitions()
+    _ticker_cache.update(custom_definitions)
     
     return _ticker_cache
 
@@ -668,15 +717,23 @@ def format_total_score(total, percentile=None):
         return f"{int(percentage)}"
 
 
-def query_score(grok, company_name, score_key):
-    """Query a single score from Grok."""
+def query_score(grok, company_name, score_key, show_timing=True):
+    """Query a single score from Grok.
+    
+    Args:
+        grok: GrokClient instance
+        company_name: Company name to score
+        score_key: Score metric key
+        show_timing: If True, print timing and token information
+    """
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
     start_time = time.time()
     response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-fast")
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
-    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+    if show_timing:
+        print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
     return response.strip()
 
 
@@ -692,12 +749,13 @@ def query_score_heavy(grok, company_name, score_key):
     return response.strip()
 
 
-def score_single_ticker(input_str, silent=False):
+def score_single_ticker(input_str, silent=False, batch_mode=False):
     """Score a single ticker and return the result.
     
     Args:
         input_str: Ticker symbol or company name
         silent: If True, don't print progress messages (only errors)
+        batch_mode: If True, show compact metric names during scoring (for batch processing)
         
     Returns:
         dict with keys: 'ticker', 'company_name', 'scores', 'total', 'success', 'error'
@@ -764,10 +822,13 @@ def score_single_ticker(input_str, silent=False):
             for score_key in SCORE_DEFINITIONS:
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    if not silent:
-                        print(f"Querying {score_def['display_name']}...")
-                    current_scores[score_key] = query_score(grok, company_name, score_key)
-                    if not silent:
+                    if batch_mode:
+                        print(f"  {score_def['display_name']} ({company_name}): ", end="", flush=True)
+                        current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
+                        print(f"{current_scores[score_key]}/10")
+                    elif not silent:
+                        print(f"Querying {score_def['display_name']} for {company_name}...")
+                        current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
                         print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                         print()
             
@@ -798,10 +859,13 @@ def score_single_ticker(input_str, silent=False):
         all_scores = {}
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
-            if not silent:
-                print(f"Querying {score_def['display_name']}...")
-            all_scores[score_key] = query_score(grok, company_name, score_key)
-            if not silent:
+            if batch_mode:
+                print(f"  {score_def['display_name']} ({company_name}): ", end="", flush=True)
+                all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
+                print(f"{all_scores[score_key]}/10")
+            elif not silent:
+                print(f"Querying {score_def['display_name']} for {company_name}...")
+                all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
                 print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
                 print()
         
@@ -872,7 +936,7 @@ def score_multiple_tickers(input_str):
     results = []
     for i, ticker in enumerate(tickers, 1):
         print(f"\n[{i}/{len(tickers)}] Processing {ticker.upper()}...")
-        result = score_single_ticker(ticker, silent=True)
+        result = score_single_ticker(ticker, silent=True, batch_mode=True)
         if result:
             if result['success']:
                 if result.get('already_scored'):
@@ -1038,7 +1102,7 @@ def get_company_moat_score(input_str):
             for score_key in SCORE_DEFINITIONS:
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']}...")
+                    print(f"Querying {score_def['display_name']} for {company_name}...")
                     current_scores[score_key] = query_score(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                     print()  # Add spacing between metrics
@@ -1064,7 +1128,7 @@ def get_company_moat_score(input_str):
         all_scores = {}
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']}...")
+            print(f"Querying {score_def['display_name']} for {company_name}...")
             all_scores[score_key] = query_score(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
             print()  # Add spacing between metrics
@@ -1181,7 +1245,7 @@ def get_company_moat_score_heavy(input_str):
             for score_key in SCORE_DEFINITIONS:
                 if not current_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']} (heavy model)...")
+                    print(f"Querying {score_def['display_name']} for {company_name} (heavy model)...")
                     current_scores[score_key] = query_score_heavy(grok, company_name, score_key)
                     print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
                     print()  # Add spacing between metrics
@@ -1207,7 +1271,7 @@ def get_company_moat_score_heavy(input_str):
         all_scores = {}
         for score_key in SCORE_DEFINITIONS:
             score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']} (heavy model)...")
+            print(f"Querying {score_def['display_name']} for {company_name} (heavy model)...")
             all_scores[score_key] = query_score_heavy(grok, company_name, score_key)
             print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
             print()  # Add spacing between metrics
@@ -2111,6 +2175,146 @@ def handle_rank_command():
     except KeyboardInterrupt:
         print("\nCancelled.")
 
+def add_ticker_definition(ticker, company_name):
+    """Add or update a custom ticker definition.
+    
+    Args:
+        ticker: Ticker symbol (will be converted to uppercase)
+        company_name: Company name to map to
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    ticker_upper = ticker.strip().upper()
+    company_name_stripped = company_name.strip()
+    
+    if not ticker_upper:
+        print("Error: Ticker symbol cannot be empty.")
+        return False
+    
+    if not company_name_stripped:
+        print("Error: Company name cannot be empty.")
+        return False
+    
+    # Load existing definitions
+    custom_definitions = load_custom_ticker_definitions()
+    
+    # Check if it already exists
+    if ticker_upper in custom_definitions:
+        print(f"Updating existing definition: {ticker_upper} = {custom_definitions[ticker_upper]}")
+    
+    # Add or update
+    custom_definitions[ticker_upper] = company_name_stripped
+    
+    # Save
+    if save_custom_ticker_definitions(custom_definitions):
+        print(f"✓ Added definition: {ticker_upper} = {company_name_stripped}")
+        # Clear cache so it reloads with new definition
+        global _ticker_cache
+        _ticker_cache = None
+        return True
+    else:
+        return False
+
+def remove_ticker_definition(ticker):
+    """Remove a custom ticker definition.
+    
+    Args:
+        ticker: Ticker symbol to remove
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    ticker_upper = ticker.strip().upper()
+    
+    # Load existing definitions
+    custom_definitions = load_custom_ticker_definitions()
+    
+    if ticker_upper not in custom_definitions:
+        print(f"Error: '{ticker_upper}' is not in custom ticker definitions.")
+        return False
+    
+    # Remove
+    company_name = custom_definitions.pop(ticker_upper)
+    
+    # Save
+    if save_custom_ticker_definitions(custom_definitions):
+        print(f"✓ Removed definition: {ticker_upper} = {company_name}")
+        # Clear cache so it reloads without the removed definition
+        global _ticker_cache
+        _ticker_cache = None
+        return True
+    else:
+        return False
+
+def list_ticker_definitions():
+    """List all custom ticker definitions."""
+    custom_definitions = load_custom_ticker_definitions()
+    
+    if not custom_definitions:
+        print("No custom ticker definitions found.")
+        return
+    
+    print("\nCustom Ticker Definitions:")
+    print("=" * 60)
+    print(f"{'Ticker':<10} {'Company Name':<40}")
+    print("-" * 60)
+    
+    for ticker in sorted(custom_definitions.keys()):
+        company_name = custom_definitions[ticker]
+        print(f"{ticker:<10} {company_name:<40}")
+    
+    print(f"\nTotal: {len(custom_definitions)} definition(s)")
+
+def handle_define_command(command_input):
+    """Handle the define command - add/remove/list ticker definitions.
+    
+    Args:
+        command_input: Command input after 'define' keyword
+    """
+    command_input = command_input.strip()
+    
+    if not command_input:
+        print("Usage:")
+        print("  define SKH = SK Hynix          - Add/update a ticker definition")
+        print("  define -r SKH                  - Remove a ticker definition")
+        print("  define -l                      - List all custom ticker definitions")
+        return
+    
+    # List command
+    if command_input.lower() in ['-l', '--list', 'list']:
+        list_ticker_definitions()
+        return
+    
+    # Remove command
+    if command_input.lower().startswith('-r ') or command_input.lower().startswith('--remove '):
+        ticker = command_input[3:].strip() if command_input.lower().startswith('-r ') else command_input[9:].strip()
+        if ticker:
+            remove_ticker_definition(ticker)
+        else:
+            print("Error: Please provide a ticker symbol to remove.")
+        return
+    
+    # Add/update command - look for "=" separator
+    if '=' in command_input:
+        parts = command_input.split('=', 1)
+        if len(parts) == 2:
+            ticker = parts[0].strip()
+            company_name = parts[1].strip()
+            
+            if ticker and company_name:
+                add_ticker_definition(ticker, company_name)
+            else:
+                print("Error: Both ticker and company name are required.")
+                print("Usage: define SKH = SK Hynix")
+        else:
+            print("Error: Invalid format. Use: define SKH = SK Hynix")
+    else:
+        print("Error: Invalid command. Use:")
+        print("  define SKH = SK Hynix          - Add/update a ticker definition")
+        print("  define -r SKH                  - Remove a ticker definition")
+        print("  define -l                      - List all custom ticker definitions")
+
 
 def main():
     """Main function to run the moat scorer."""
@@ -2126,12 +2330,15 @@ def main():
     print("  Type 'migrate' to fix duplicate entries")
     print("  Type 'heavy TICKER1 TICKER2 ...' to score with main Grok 4 model")
     print("  Type 'correl TICKER1 TICKER2 ...' to see correlation between light and heavy metric scores per ticker")
+    print("  Type 'define TICKER = Company Name' to add custom ticker definition")
+    print("  Type 'define -r TICKER' to remove a custom ticker definition")
+    print("  Type 'define -l' to list all custom ticker definitions")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'heavy'/'correl'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'heavy'/'correl'/'define'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2171,6 +2378,16 @@ def main():
             elif user_input.lower().startswith('correl '):
                 tickers = user_input[7:].strip()  # Remove 'correl ' prefix
                 handle_correl_command(tickers)
+                print()
+            elif user_input.lower() == 'define':
+                print("Usage:")
+                print("  define SKH = SK Hynix          - Add/update a ticker definition")
+                print("  define -r SKH                  - Remove a ticker definition")
+                print("  define -l                      - List all custom ticker definitions")
+                print()
+            elif user_input.lower().startswith('define '):
+                command_input = user_input[7:].strip()  # Remove 'define ' prefix
+                handle_define_command(command_input)
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers
