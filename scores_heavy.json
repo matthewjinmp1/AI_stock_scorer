@@ -83,7 +83,10 @@
       "pricing_power": "9",
       "ambition_score": "9",
       "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "3"
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "9",
+      "trailblazer_score": "8"
     },
     "LOW": {
       "moat_score": "8",

@@ -2239,6 +2239,26 @@
       "product_quality_score": "7",
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "7"
+    },
+    "HPQ": {
+      "moat_score": "6",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "4",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "0",
+      "product_differentiation": "5",
+      "innovativeness_score": "6",
+      "growth_opportunity": "5",
+      "riskiness_score": "5",
+      "pricing_power": "5",
+      "ambition_score": "7",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "7",
+      "culture_employee_satisfaction_score": "6",
+      "trailblazer_score": "4"
     }
   }
 }

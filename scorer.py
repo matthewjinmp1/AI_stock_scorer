@@ -692,6 +692,255 @@ def query_score_heavy(grok, company_name, score_key):
     return response.strip()
 
 
+def score_single_ticker(input_str, silent=False):
+    """Score a single ticker and return the result.
+    
+    Args:
+        input_str: Ticker symbol or company name
+        silent: If True, don't print progress messages (only errors)
+        
+    Returns:
+        dict with keys: 'ticker', 'company_name', 'scores', 'total', 'success', 'error'
+        Returns None if ticker is invalid
+    """
+    try:
+        input_stripped = input_str.strip()
+        input_upper = input_stripped.upper()
+        
+        ticker = None
+        company_name = None
+        
+        ticker_lookup = load_ticker_lookup()
+        if input_upper in ticker_lookup:
+            ticker = input_upper
+            company_name = ticker_lookup[ticker]
+        else:
+            if not silent:
+                print(f"\nError: '{input_upper}' is not a valid ticker symbol.")
+                print("Please enter a valid NYSE or NASDAQ ticker symbol.")
+            return None
+        
+        scores_data = load_scores()
+        
+        # Try to find existing scores
+        existing_data = None
+        storage_key = None
+        
+        if ticker and ticker in scores_data["companies"]:
+            existing_data = scores_data["companies"][ticker]
+            storage_key = ticker
+        elif ticker and ticker.lower() in scores_data["companies"]:
+            existing_data = scores_data["companies"][ticker.lower()]
+            storage_key = ticker.lower()
+        elif company_name.lower() in scores_data["companies"]:
+            existing_data = scores_data["companies"][company_name.lower()]
+            storage_key = company_name.lower()
+        
+        if existing_data:
+            current_scores = {}
+            for score_key in SCORE_DEFINITIONS:
+                if score_key == 'moat_score':
+                    current_scores[score_key] = existing_data.get(score_key, existing_data.get('score'))
+                else:
+                    current_scores[score_key] = existing_data.get(score_key)
+            
+            if all(current_scores.values()):
+                # All scores exist
+                total = calculate_total_score(current_scores)
+                return {
+                    'ticker': ticker,
+                    'company_name': company_name,
+                    'scores': current_scores,
+                    'total': total,
+                    'success': True,
+                    'already_scored': True
+                }
+            
+            # Some scores missing, fill them in
+            if not silent:
+                print(f"\nFilling missing scores for {ticker.upper()} ({company_name})...")
+            grok = GrokClient(api_key=XAI_API_KEY)
+            
+            for score_key in SCORE_DEFINITIONS:
+                if not current_scores[score_key]:
+                    score_def = SCORE_DEFINITIONS[score_key]
+                    if not silent:
+                        print(f"Querying {score_def['display_name']}...")
+                    current_scores[score_key] = query_score(grok, company_name, score_key)
+                    if not silent:
+                        print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
+                        print()
+            
+            storage_key = ticker if ticker else company_name.lower()
+            scores_data["companies"][storage_key] = current_scores
+            save_scores(scores_data)
+            if not silent:
+                print(f"\nScores updated in {SCORES_FILE}")
+            
+            total = calculate_total_score(current_scores)
+            if not silent:
+                total_str = format_total_score(total)
+                print(f"Total Score: {total_str}")
+            return {
+                'ticker': ticker,
+                'company_name': company_name,
+                'scores': current_scores,
+                'total': total,
+                'success': True,
+                'already_scored': False
+            }
+        
+        # New scoring needed
+        if not silent:
+            print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
+        grok = GrokClient(api_key=XAI_API_KEY)
+        
+        all_scores = {}
+        for score_key in SCORE_DEFINITIONS:
+            score_def = SCORE_DEFINITIONS[score_key]
+            if not silent:
+                print(f"Querying {score_def['display_name']}...")
+            all_scores[score_key] = query_score(grok, company_name, score_key)
+            if not silent:
+                print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
+                print()
+        
+        storage_key = ticker if ticker else company_name.lower()
+        scores_data["companies"][storage_key] = all_scores
+        save_scores(scores_data)
+        if not silent:
+            print(f"\nScores saved to {SCORES_FILE}")
+        
+        total = calculate_total_score(all_scores)
+        if not silent:
+            total_str = format_total_score(total)
+            print(f"Total Score: {total_str}")
+        return {
+            'ticker': ticker,
+            'company_name': company_name,
+            'scores': all_scores,
+            'total': total,
+            'success': True,
+            'already_scored': False
+        }
+        
+    except ValueError as e:
+        error_msg = str(e)
+        if not silent:
+            print(f"Error: {error_msg}")
+            print("\nTo fix this:")
+            print("1. Get an API key from https://console.x.ai/")
+            print("2. Set the XAI_API_KEY environment variable:")
+            print("   export XAI_API_KEY='your_api_key_here'")
+        return {
+            'ticker': input_str.upper() if input_str else None,
+            'company_name': None,
+            'scores': None,
+            'total': None,
+            'success': False,
+            'error': error_msg
+        }
+    except Exception as e:
+        error_msg = str(e)
+        if not silent:
+            print(f"Error: {error_msg}")
+        return {
+            'ticker': input_str.upper() if input_str else None,
+            'company_name': None,
+            'scores': None,
+            'total': None,
+            'success': False,
+            'error': error_msg
+        }
+
+
+def score_multiple_tickers(input_str):
+    """Score multiple tickers and display results grouped together.
+    
+    Args:
+        input_str: Space-separated ticker symbols
+    """
+    tickers = input_str.strip().split()
+    
+    if not tickers:
+        print("Please provide at least one ticker symbol.")
+        return
+    
+    print(f"\nProcessing {len(tickers)} ticker(s)...")
+    print("=" * 80)
+    
+    results = []
+    for i, ticker in enumerate(tickers, 1):
+        print(f"\n[{i}/{len(tickers)}] Processing {ticker.upper()}...")
+        result = score_single_ticker(ticker, silent=True)
+        if result:
+            if result['success']:
+                if result.get('already_scored'):
+                    print(f"  ✓ {ticker.upper()} already scored")
+                else:
+                    print(f"  ✓ {ticker.upper()} scored successfully")
+            else:
+                print(f"  ✗ Error scoring {ticker.upper()}: {result.get('error', 'Unknown error')}")
+            results.append(result)
+        else:
+            print(f"  ✗ '{ticker}' is not a valid ticker. Skipping.")
+    
+    if not results:
+        print("\nNo valid tickers were processed.")
+        return
+    
+    # Display grouped results
+    print("\n" + "=" * 80)
+    print("Group Results")
+    print("=" * 80)
+    
+    # Get all totals for percentile calculation
+    all_totals = get_all_total_scores()
+    
+    # Sort results by total score (descending)
+    results.sort(key=lambda x: x['total'] if x['total'] is not None else -1, reverse=True)
+    
+    # Calculate max score for percentage
+    max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+    
+    # Find max name length for formatting (just ticker, no company name)
+    max_name_len = max([len(r['ticker']) for r in results if r['success']], default=0)
+    max_name_len = min(max(max_name_len, 6), 20)  # At least 6, cap at 20
+    
+    print(f"\n{'Rank':<6} {'Ticker':<{max_name_len}} {'Total Score':>15} {'Percentile':>12}")
+    print("-" * (6 + max_name_len + 15 + 12 + 3))
+    
+    for rank, result in enumerate(results, 1):
+        if not result['success']:
+            display_name = result['ticker'] or 'Unknown'
+            print(f"{rank:<6} {display_name:<{max_name_len}} {'ERROR':>15} {'N/A':>12}")
+            if result.get('error'):
+                print(f"       Error: {result['error']}")
+            continue
+        
+        ticker = result['ticker']
+        total = result['total']
+        
+        display_name = ticker
+        
+        percentage = int((total / max_score) * 100) if total is not None else 0
+        percentage_str = f"{percentage}%"
+        
+        # Calculate percentile
+        percentile = None
+        if all_totals and len(all_totals) > 1 and total is not None:
+            percentile = calculate_percentile_rank(total, all_totals)
+        
+        if percentile is not None:
+            percentile_str = f"{percentile}th"
+        else:
+            percentile_str = 'N/A'
+        
+        print(f"{rank:<6} {display_name:<{max_name_len}} {percentage_str:>15} {percentile_str:>12}")
+    
+    print("=" * 80)
+
+
 def get_company_moat_score(input_str):
     """Get all scores for a company using SCORE_DEFINITIONS.
     
@@ -1868,7 +2117,7 @@ def main():
     print("Company Competitive Moat Scorer")
     print("=" * 40)
     print("Commands:")
-    print("  Enter ticker symbol (e.g., AAPL) or company name to score")
+    print("  Enter ticker symbol (e.g., AAPL) or multiple tickers (e.g., AAPL MSFT GOOGL) to score")
     print("  Type 'view' to see total scores")
     print("  Type 'view heavy' to see heavy model scores ranked with percentiles")
     print("  Type 'rank' to see rankings by metric")
@@ -1924,8 +2173,16 @@ def main():
                 handle_correl_command(tickers)
                 print()
             elif user_input:
-                get_company_moat_score(user_input)
-                print()
+                # Check if input contains multiple space-separated tickers
+                tickers = user_input.strip().split()
+                if len(tickers) > 1:
+                    # Multiple tickers - use the batch scoring function
+                    score_multiple_tickers(user_input)
+                    print()
+                else:
+                    # Single ticker - use the original function
+                    get_company_moat_score(user_input)
+                    print()
             else:
                 print("Please enter a ticker symbol or company name.")
                 
