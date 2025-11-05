@@ -1,39 +1,11 @@
 #!/usr/bin/env python3
 """
-Calculate correlation between total score and market cap percentile rank.
-Gets market cap for all companies in scores.json and calculates correlation.
+Calculate correlation between total score (with size score weighted 0, others weighted 1) 
+and the size/well-known score itself.
 """
 
 import json
 import os
-
-try:
-    import yfinance as yf
-except ImportError:
-    print("Error: yfinance is required. Install it with: pip install yfinance")
-    exit(1)
-
-# Score weights (copied from scorer.py to avoid dependency on grok_client)
-SCORE_WEIGHTS = {
-    'moat_score': 10,
-    'barriers_score': 10,
-    'disruption_risk': 10,
-    'switching_cost': 10,
-    'brand_strength': 10, 
-    'competition_intensity': 10,
-    'network_effect': 10,
-    'product_differentiation': 10,
-    'innovativeness_score': 10,
-    'growth_opportunity': 10,
-    'riskiness_score': 10,
-    'pricing_power': 10,
-    'ambition_score': 10,
-    'bargaining_power_of_customers': 10,
-    'bargaining_power_of_suppliers': 10,
-    'product_quality_score': 10,
-    'culture_employee_satisfaction_score': 10,
-    'trailblazer_score': 10,
-}
 
 # Score definitions (copied from scorer.py to avoid dependency on grok_client)
 SCORE_DEFINITIONS = {
@@ -55,68 +27,8 @@ SCORE_DEFINITIONS = {
     'product_quality_score': {'is_reverse': False},
     'culture_employee_satisfaction_score': {'is_reverse': False},
     'trailblazer_score': {'is_reverse': False},
+    'size_well_known_score': {'is_reverse': False},
 }
-
-
-def calculate_total_score(scores_dict):
-    """Calculate total score from a dictionary of scores.
-    
-    Args:
-        scores_dict: Dictionary with score keys and their string values
-        
-    Returns:
-        float: The total weighted score (handling reverse scores appropriately)
-    """
-    total = 0
-    for score_key in SCORE_DEFINITIONS:
-        score_def = SCORE_DEFINITIONS[score_key]
-        weight = SCORE_WEIGHTS.get(score_key, 1.0)
-        try:
-            score_value = float(scores_dict.get(score_key, 0))
-            # For reverse scores, invert to get "goodness" value
-            if score_def['is_reverse']:
-                total += (10 - score_value) * weight
-            else:
-                total += score_value * weight
-        except (ValueError, TypeError):
-            pass
-    return total
-
-
-def calculate_percentile_rank(score, all_scores):
-    """Calculate percentile rank of a score among all scores.
-    
-    Args:
-        score: The score to calculate percentile for (float)
-        all_scores: List of all scores to compare against (list of floats)
-        
-    Returns:
-        int: Percentile rank (0-100), or None if no scores to compare
-    """
-    if not all_scores or len(all_scores) == 0:
-        return None
-    
-    # Count how many scores are less than or equal to this score
-    scores_less_or_equal = sum(1 for s in all_scores if s <= score)
-    
-    # Percentile rank = (number of scores <= this score) / total scores * 100
-    percentile = int((scores_less_or_equal / len(all_scores)) * 100)
-    return percentile
-
-
-def load_scores():
-    """Load scores from scores.json."""
-    scores_file = "scores.json"
-    if not os.path.exists(scores_file):
-        print(f"Error: {scores_file} not found")
-        return None
-    
-    try:
-        with open(scores_file, 'r') as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"Error loading {scores_file}: {e}")
-        return None
 
 
 def load_excluded_tickers():
@@ -140,28 +52,32 @@ def load_excluded_tickers():
         return set()
 
 
-def get_market_cap(ticker):
-    """Get market cap for a ticker using yfinance.
+def calculate_total_score(scores_dict):
+    """Calculate total score from a dictionary of scores.
+    
+    Uses weight 0 for size_well_known_score, weight 1 for all others.
     
     Args:
-        ticker: Stock ticker symbol
+        scores_dict: Dictionary with score keys and their string values
         
     Returns:
-        float: Market cap in USD, or None if not available
+        float: The total weighted score (handling reverse scores appropriately)
     """
-    try:
-        stock = yf.Ticker(ticker)
-        info = stock.info
-        
-        # Try different possible keys for market cap
-        market_cap = info.get('marketCap') or info.get('totalMarketCap') or info.get('enterpriseValue')
-        
-        if market_cap:
-            return float(market_cap)
-        return None
-    except Exception as e:
-        # Silently fail for individual tickers
-        return None
+    total = 0
+    for score_key in SCORE_DEFINITIONS:
+        score_def = SCORE_DEFINITIONS[score_key]
+        # Size score has weight 0, all others have weight 1
+        weight = 0 if score_key == 'size_well_known_score' else 1
+        try:
+            score_value = float(scores_dict.get(score_key, 0))
+            # For reverse scores, invert to get "goodness" value
+            if score_def['is_reverse']:
+                total += (10 - score_value) * weight
+            else:
+                total += score_value * weight
+        except (ValueError, TypeError):
+            pass
+    return total
 
 
 def calculate_pearson_correlation(x, y):
@@ -200,11 +116,27 @@ def calculate_pearson_correlation(x, y):
     return correlation, None
 
 
+def load_scores():
+    """Load scores from scores.json."""
+    scores_file = "scores.json"
+    if not os.path.exists(scores_file):
+        print(f"Error: {scores_file} not found")
+        return None
+    
+    try:
+        with open(scores_file, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error loading {scores_file}: {e}")
+        return None
+
+
 def main():
-    """Main function to calculate correlation between total score and market cap percentile."""
+    """Main function to calculate correlation between total score and size score."""
     print("=" * 80)
-    print("Market Cap vs Total Score Correlation Analysis")
+    print("Size/Well-Known Score vs Total Score Correlation Analysis")
     print("=" * 80)
+    print("\nNote: Total score calculated with size score weighted 0, all others weighted 1")
     
     # Load scores
     print("\nLoading scores from scores.json...")
@@ -225,12 +157,12 @@ def main():
     print(f"Found {len(companies)} companies")
     
     # Collect data for each company
-    print("\nFetching market cap data...")
-    print("(This may take a while for many companies)")
+    print("\nProcessing company scores...")
     
     company_data = []
-    failed_tickers = []
     excluded_count = 0
+    missing_size_score = []
+    missing_total_score = []
     
     for i, (ticker_key, scores_dict) in enumerate(companies.items(), 1):
         # Normalize ticker (handle lowercase keys)
@@ -241,51 +173,53 @@ def main():
             excluded_count += 1
             continue
         
-        if i % 10 == 0:
-            print(f"  Progress: {i}/{len(companies)}")
+        # Get size score
+        try:
+            size_score = float(scores_dict.get('size_well_known_score', 0))
+            if size_score == 0:
+                # Check if it's actually missing or just zero
+                if 'size_well_known_score' not in scores_dict:
+                    missing_size_score.append(ticker)
+                    continue
+        except (ValueError, TypeError):
+            missing_size_score.append(ticker)
+            continue
         
-        # Calculate total score
+        # Calculate total score (with size score weighted 0)
         total_score = calculate_total_score(scores_dict)
         
-        # Get market cap
-        market_cap = get_market_cap(ticker)
-        
-        if market_cap is not None:
+        # Only include if we have a valid total score
+        if total_score > 0:
             company_data.append({
                 'ticker': ticker,
                 'total_score': total_score,
-                'market_cap': market_cap
+                'size_score': size_score
             })
         else:
-            failed_tickers.append(ticker)
+            missing_total_score.append(ticker)
     
     if excluded_count > 0:
         print(f"\nExcluded {excluded_count} ticker(s) from ticker_definitions.json")
     
-    if failed_tickers:
-        print(f"\nWarning: Could not fetch market cap for {len(failed_tickers)} tickers:")
-        print(f"  {', '.join(failed_tickers[:10])}" + ("..." if len(failed_tickers) > 10 else ""))
+    if missing_size_score:
+        print(f"\nWarning: {len(missing_size_score)} companies missing size_well_known_score:")
+        print(f"  {', '.join(missing_size_score[:10])}" + ("..." if len(missing_size_score) > 10 else ""))
+    
+    if missing_total_score:
+        print(f"\nWarning: {len(missing_total_score)} companies missing valid total score")
     
     if len(company_data) < 2:
-        print(f"\nError: Need at least 2 companies with market cap data. Found {len(company_data)}")
+        print(f"\nError: Need at least 2 companies with both total score and size score. Found {len(company_data)}")
         return
     
-    print(f"\nSuccessfully fetched market cap for {len(company_data)} companies")
+    print(f"\nSuccessfully processed {len(company_data)} companies")
     
-    # Extract market caps and calculate percentile ranks
-    market_caps = [d['market_cap'] for d in company_data]
-    
-    # Calculate percentile rank for each company's market cap
-    for data in company_data:
-        percentile = calculate_percentile_rank(data['market_cap'], market_caps)
-        data['market_cap_percentile'] = percentile
-    
-    # Extract total scores and market cap percentiles for correlation
+    # Extract total scores and size scores for correlation
     total_scores = [d['total_score'] for d in company_data]
-    market_cap_percentiles = [d['market_cap_percentile'] for d in company_data]
+    size_scores = [d['size_score'] for d in company_data]
     
     # Calculate correlation
-    correlation, _ = calculate_pearson_correlation(total_scores, market_cap_percentiles)
+    correlation, _ = calculate_pearson_correlation(total_scores, size_scores)
     
     if correlation is None:
         print("\nError: Could not calculate correlation (insufficient data variance)")
@@ -314,6 +248,14 @@ def main():
     direction = "positive" if correlation > 0 else "negative"
     print(f"Interpretation: {strength} {direction} correlation")
     
+    if abs_corr > 0.3:
+        if correlation > 0:
+            print("\nThis suggests that companies with higher total scores (excluding size)")
+            print("tend to also have higher size/well-known scores.")
+        else:
+            print("\nThis suggests that companies with higher total scores (excluding size)")
+            print("tend to have lower size/well-known scores.")
+    
     # Show some examples
     print("\n" + "=" * 80)
     print("Sample Data (Top 10 by Total Score)")
@@ -322,19 +264,39 @@ def main():
     # Sort by total score (descending)
     sorted_data = sorted(company_data, key=lambda x: x['total_score'], reverse=True)
     
-    print(f"\n{'Rank':<6} {'Ticker':<8} {'Total Score':>15} {'Market Cap %':>15}")
-    print("-" * 60)
+    # Calculate max possible total score (all scores except size, each weighted 1, max value 10)
+    max_score = sum(1 for key in SCORE_DEFINITIONS if key != 'size_well_known_score') * 10
+    
+    print(f"\n{'Rank':<6} {'Ticker':<8} {'Total Score %':>18} {'Size Score':>12}")
+    print("-" * 50)
     
     for rank, data in enumerate(sorted_data[:10], 1):
         ticker = data['ticker']
         total_score = data['total_score']
-        market_cap_pct = data['market_cap_percentile']
+        size_score = data['size_score']
         
         # Calculate percentage for total score
-        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-        score_pct = int((total_score / max_score) * 100)
+        score_pct = int((total_score / max_score) * 100) if max_score > 0 else 0
         
-        print(f"{rank:<6} {ticker:<8} {score_pct:>13}% {market_cap_pct:>13}th")
+        print(f"{rank:<6} {ticker:<8} {score_pct:>16}% {size_score:>10.1f}/10")
+    
+    # Show bottom 10 for comparison
+    print("\n" + "=" * 80)
+    print("Sample Data (Bottom 10 by Total Score)")
+    print("=" * 80)
+    
+    print(f"\n{'Rank':<6} {'Ticker':<8} {'Total Score %':>18} {'Size Score':>12}")
+    print("-" * 50)
+    
+    for rank, data in enumerate(sorted_data[-10:], len(sorted_data) - 9):
+        ticker = data['ticker']
+        total_score = data['total_score']
+        size_score = data['size_score']
+        
+        # Calculate percentage for total score
+        score_pct = int((total_score / max_score) * 100) if max_score > 0 else 0
+        
+        print(f"{rank:<6} {ticker:<8} {score_pct:>16}% {size_score:>10.1f}/10")
     
     print("=" * 80)
 

@@ -1,6 +1,16 @@
 {
   "definitions": {
     "SKH": "SK Hynix",
-    "SAM": "Samsung Electronics Co Ltd"
+    "SAM": "Samsung Electronics Co Ltd",
+    "OAI": "OpenAI",
+    "BLM": "Bloomberg",
+    "SPX": "Space Exploration Technologies Corp",
+    "TIK": "ByteDance",
+    "ATH": "Athleta",
+    "ALO": "Alo Yoga",
+    "VRI": "Vuori",
+    "FAB": "Fabletics",
+    "STR": "Stripe, Inc.",
+    "ADY": "Adyen"
   }
 }

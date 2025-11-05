@@ -38,6 +38,7 @@ SCORE_WEIGHTS = {
     'product_quality_score': 10,
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
+    'size_well_known_score': 0,
 }
 
 from grok_client import GrokClient
@@ -587,6 +588,28 @@ Consider factors like:
 - Revolutionary products, services, or business models
 - Willingness to cannibalize existing businesses for future growth
 - Aggressive pursuit of ambitious, transformative goals
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'size_well_known_score': {
+        'display_name': 'Size / Well Known',
+        'field_name': 'size_well_known_score',
+        'prompt': """Rate how large, popular, well-known, and information-rich {company_name} is on a scale of 0-10, where:
+- 0 = Very small company, unknown, minimal public awareness, very little information available
+- 5 = Moderate size company, some recognition, moderate public awareness, reasonable amount of information available
+- 10 = Extremely large company, highly popular and well-known, widespread public awareness, abundant information readily available
+
+Consider factors like:
+- Company size (market capitalization, revenue, number of employees, number of customers)
+- Popularity and brand recognition (household name status, brand awareness, public recognition)
+- Well-known status (media coverage, public discussion, cultural presence, name recognition)
+- Amount of information available (public financial disclosures, SEC filings, news coverage, analyst reports, research availability, Wikipedia presence, online information, transparency)
+- Public company status and reporting requirements
+- Media presence and coverage frequency
+- Analyst coverage and research availability
+- Public profile and awareness level
+- Accessibility of company information and data
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -1646,15 +1669,39 @@ def fill_missing_barriers_scores():
         print(f"\nQuerying missing scores...")
         print("=" * 60)
         
+        ticker_lookup = load_ticker_lookup()
+        
         for i, (company_name, company_scores) in enumerate(companies_to_score, 1):
-            # Display ticker in uppercase if it looks like a ticker, otherwise capitalize
-            display_name = company_name.upper() if len(company_name) <= 5 and company_name.replace(' ', '').isalpha() else company_name.capitalize()
+            # Determine if company_name is a ticker and get actual company name
+            ticker = None
+            actual_company_name = company_name
+            company_name_upper = company_name.upper()
+            
+            # Check if it's a ticker (short, alphabetic, uppercase)
+            if len(company_name) <= 5 and company_name.replace(' ', '').isalpha():
+                ticker = company_name_upper
+                # Try to get company name from ticker lookup
+                actual_company_name = ticker_lookup.get(ticker, company_name)
+            else:
+                # Might be a company name, try to find ticker
+                ticker = get_ticker_from_company_name(company_name)
+                if ticker:
+                    actual_company_name = ticker_lookup.get(ticker, company_name)
+                else:
+                    actual_company_name = company_name
+            
+            # Display format: "TICKER (Company Name)" or just "Company Name" if no ticker
+            if ticker:
+                display_name = f"{ticker} ({actual_company_name})"
+            else:
+                display_name = actual_company_name.capitalize()
+            
             print(f"\n[{i}/{len(companies_to_score)}] Processing {display_name}...")
             
             for score_key in SCORE_DEFINITIONS:
                 if not company_scores[score_key]:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    company_scores[score_key] = query_score(grok, company_name, score_key)
+                    company_scores[score_key] = query_score(grok, actual_company_name, score_key)
                     print(f"  {score_def['display_name']}: {company_scores[score_key]}/10")
             
             scores_data["companies"][company_name] = company_scores
