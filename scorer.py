@@ -179,11 +179,9 @@ SCORE_DEFINITIONS = {
         'display_name': 'Competitive Moat',
         'field_name': 'moat_score',
         'prompt': """Rate the competitive moat strength of {company_name} on a scale of 0-10, where:
-- 0 = No competitive advantage, easily replaceable
+- 0 = Weak or minimal competitive advantage, easily replaceable, commodity-like business
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average competitive advantages typical of most companies in the industry
-- 10 = Exceptionally rare moat, only award this to companies with truly extraordinary, nearly insurmountable competitive advantages that are virtually impossible to replicate
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies that are clearly above average. Only award 9-10 to the absolute best moats in the entire market (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for truly exceptional companies with multiple strong moat factors.
+- 10 = Very strong moat, companies with exceptional competitive advantages that are difficult to replicate
 
 Consider factors like:
 - Brand strength and customer loyalty
@@ -201,11 +199,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Barriers to Entry',
         'field_name': 'barriers_score',
         'prompt': """Rate the barriers to entry for {company_name} on a scale of 0-10, where:
-- 0 = No barriers, extremely easy for competitors to enter
+- 0 = Low barriers, relatively easy for competitors to enter the market
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average barriers typical of most companies in the industry - some barriers exist but new competitors can still enter with moderate effort
-- 10 = Exceptionally rare barriers, only award this to companies where entry is virtually impossible due to extraordinary combination of regulatory, capital, technological, and market barriers
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies that are clearly above average. Only award 9-10 to industries where new entry is nearly impossible (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional barriers.
+- 10 = Very high barriers, companies where entry is very difficult due to strong combination of regulatory, capital, technological, and market barriers
 
 Consider factors like:
 - Capital requirements
@@ -224,11 +220,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Disruption Risk',
         'field_name': 'disruption_risk',
         'prompt': """Rate the disruption risk for {company_name} on a scale of 0-10, where:
-- 0 = No risk, very stable industry
+- 0 = Very low risk, stable and predictable industry
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average disruption risk typical of most companies - some risk exists but not exceptional
-- 10 = Very high risk of being disrupted by new technology or competitors
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average disruption risk. Only award 9-10 to companies facing extreme disruption threats (top 1-2%). Default to lower scores when uncertain.
+- 10 = High risk of being disrupted by new technology or competitors
 
 Consider factors like:
 - Technology disruption potential
@@ -246,11 +240,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Switching Cost',
         'field_name': 'switching_cost',
         'prompt': """Rate the switching costs for customers of {company_name} on a scale of 0-10, where:
-- 0 = No switching costs, customers can easily leave
+- 0 = Low switching costs, customers can relatively easily switch to alternatives
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average switching costs typical of most companies - some costs exist but customers can switch with moderate effort
-- 10 = Very high switching costs, customers are locked in
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average switching costs. Only award 9-10 to companies where customers are truly locked in (top 1-2%). Default to lower scores when uncertain.
+- 10 = High switching costs, customers face significant barriers to switching
 
 Consider factors like:
 - Learning curve for new products
@@ -269,11 +261,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Brand Strength',
         'field_name': 'brand_strength',
         'prompt': """Rate the brand strength for {company_name} on a scale of 0-10, where:
-- 0 = No brand recognition or loyalty
+- 0 = Weak brand, minimal recognition or customer loyalty
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average brand strength typical of most companies - some recognition and moderate loyalty
-- 10 = Exceptionally rare brand strength, only award this to truly iconic, globally recognized brands with extraordinary customer loyalty and emotional attachment (think Apple, Coca-Cola level)
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to brands that are clearly above average and widely recognized. Only award 9-10 to the most iconic brands globally (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for brands that are truly exceptional.
+- 10 = Very strong brand, well-recognized with strong customer loyalty and emotional attachment
 
 Consider factors like:
 - Brand recognition and awareness
@@ -292,11 +282,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Competition Intensity',
         'field_name': 'competition_intensity',
         'prompt': """Rate the intensity of competition for {company_name} on a scale of 0-10, where:
-- 0 = No competition, monopoly-like market
+- 0 = Low competition, limited competitors, more protected market position
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average competition typical of most industries - some competitors but not cutthroat
-- 10 = Exceptionally intense competition, only award this to industries with extreme price wars, constant competitive battles, and many aggressive well-funded competitors fighting for market share
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to industries with clearly above-average competitive intensity. Only award 9-10 to the most competitive industries (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for industries with truly exceptional competitive intensity.
+- 10 = Very intense competition, industries with strong price competition and many aggressive competitors fighting for market share
 
 Consider factors like:
 - Number of competitors in the market
@@ -315,11 +303,11 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Network Effect',
         'field_name': 'network_effect',
         'prompt': """Rate the network effects for {company_name} on a scale of 0-10, where:
-- 0 = No network effects, value doesn't increase with more users
+- 0 = Weak or no network effects, value doesn't meaningfully increase with more users
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average network effects - value increases somewhat with more users, some network benefits present
-- 10 = Extremely strong network effects, value increases dramatically with more users
+- 10 = Strong network effects, value increases significantly with more users
 
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average network effects. Only award 9-10 to companies with extremely strong network effects (top 1-2%). Default to lower scores when uncertain. Note: Network effects can be present in various forms - even moderate network benefits (like customer reviews improving product value, or more users making a platform more useful) should be recognized, but most companies should still score around 5.
+Note: Network effects can be present in various forms - even moderate network benefits (like customer reviews improving product value, or more users making a platform more useful) should be recognized. Award 5-7 for companies with any meaningful network effects, even if not dominant.
 
 Consider factors like:
 - Value increases as more users join the network
@@ -341,11 +329,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Product Differentiation',
         'field_name': 'product_differentiation',
         'prompt': """Rate the product differentiation (vs commoditization) for {company_name} on a scale of 0-10, where:
-- 0 = Completely commoditized, interchangeable with competitors, price competition
+- 0 = Highly commoditized, largely interchangeable with competitors, primarily price competition
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average differentiation typical of most companies - some unique features but still faces competitive pressure
-- 10 = Exceptionally rare differentiation, only award this to companies with truly unique, proprietary products/services that are difficult to replicate and command significant pricing power
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average differentiation. Only award 9-10 to products that are genuinely unique and hard to replicate (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional product differentiation.
+- 10 = Strong differentiation, companies with unique, proprietary products/services that are difficult to replicate and command pricing power
 
 Consider factors like:
 - Product uniqueness and distinctiveness
@@ -364,11 +350,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Innovativeness',
         'field_name': 'innovativeness_score',
         'prompt': """Rate the innovativeness of {company_name} on a scale of 0-10, where:
-- 0 = Not innovative, relies on existing technologies and practices, minimal R&D
+- 0 = Low innovativeness, relies primarily on existing technologies and practices, minimal R&D investment
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average innovativeness typical of most companies - some product improvements and incremental innovation, but not exceptional
-- 10 = Exceptionally rare innovativeness, only award this to companies with truly breakthrough technologies, disruptive innovation, and industry-leading R&D that consistently creates new categories
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average innovation. Only award 9-10 to the most innovative companies that consistently create breakthroughs (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional innovation track records.
+- 10 = High innovativeness, companies with breakthrough technologies, disruptive innovation, and strong R&D that creates new categories
 
 Consider factors like:
 - R&D investment and spending as percentage of revenue
@@ -387,11 +371,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Growth Opportunity',
         'field_name': 'growth_opportunity',
         'prompt': """Rate the growth opportunity for {company_name} on a scale of 0-10, where:
-- 0 = Minimal growth opportunity, mature/declining market, limited expansion potential
+- 0 = Limited growth opportunity, mature or slow-growing market, constrained expansion potential
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average growth opportunity typical of most companies - steady market growth, some expansion possibilities, but not exceptional
-- 10 = Exceptionally rare growth opportunity, only award this to companies in rapidly expanding markets with multiple strong growth vectors and exceptional scalability potential
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average growth opportunities. Only award 9-10 to companies in the fastest-growing markets with multiple expansion vectors (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional growth opportunities.
+- 10 = Strong growth opportunity, companies in expanding markets with multiple growth vectors and good scalability potential
 
 Consider factors like:
 - Market size and growth rate of industry
@@ -413,11 +395,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Riskiness',
         'field_name': 'riskiness_score',
         'prompt': """Rate the overall riskiness of investing in {company_name} on a scale of 0-10, where:
-- 0 = Very low risk, stable and predictable business model
+- 0 = Low risk, relatively stable and predictable business model
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Moderate risk, some uncertainty in business outlook
-- 10 = Very high risk, highly volatile or uncertain business model
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average risk. Only award 9-10 to companies with extreme risk (top 1-2%). Default to lower scores when uncertain.
+- 10 = High risk, volatile or uncertain business model
 
 Consider factors like:
 - Financial risk and leverage/debt levels
@@ -440,11 +420,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Pricing Power',
         'field_name': 'pricing_power',
         'prompt': """Rate the pricing power of {company_name} on a scale of 0-10, where:
-- 0 = No pricing power, commodity-like product with intense price competition
+- 0 = Weak pricing power, commodity-like product with strong price competition
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average pricing power typical of most companies - some ability to set prices above cost, but faces competitive pressure
-- 10 = Exceptionally rare pricing power, only award this to companies with extraordinary ability to raise prices repeatedly without losing customers, demonstrating strong market control
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average pricing power. Only award 9-10 to companies that can consistently raise prices with minimal customer loss (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional pricing power.
+- 10 = Strong pricing power, companies with good ability to raise prices without significant customer loss, demonstrating market control
 
 Consider factors like:
 - Ability to increase prices without significant demand loss
@@ -467,11 +445,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Ambition',
         'field_name': 'ambition_score',
         'prompt': """Rate the company and culture ambition of {company_name} on a scale of 0-10, where:
-- 0 = Low ambition, complacent, maintaining status quo, no transformative goals
+- 0 = Low ambition, more complacent, focused on maintaining status quo, limited transformative goals
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average ambition typical of most companies - some growth goals and improvement initiatives, but not exceptional
-- 10 = Exceptionally rare ambition, only award this to companies with truly extraordinary, industry-transforming vision and execution that consistently pushes boundaries
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average ambition. Only award 9-10 to companies that are genuinely changing industries (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional ambition and transformative goals.
+- 10 = High ambition, companies with strong vision and execution that pushes boundaries and transforms industries
 
 Consider factors like:
 - Vision and mission clarity and boldness
@@ -495,11 +471,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Bargaining Power of Customers',
         'field_name': 'bargaining_power_of_customers',
         'prompt': """Rate the bargaining power of customers for {company_name} on a scale of 0-10, where:
-- 0 = Very low customer bargaining power, customers have no alternative options, company has strong pricing control
+- 0 = Low customer bargaining power, customers have limited alternative options, company has good pricing control
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average customer bargaining power typical of most companies - some alternatives available, balanced negotiation power
-- 10 = Very high customer bargaining power, many alternatives, customers can easily switch, strong price sensitivity
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average customer bargaining power. Only award 9-10 to companies where customers have extreme power (top 1-2%). Default to lower scores when uncertain.
+- 10 = High customer bargaining power, many alternatives available, customers can switch relatively easily, strong price sensitivity
 
 Consider factors like:
 - Number of alternative suppliers and competitors available to customers
@@ -522,11 +496,11 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Bargaining Power of Suppliers',
         'field_name': 'bargaining_power_of_suppliers',
         'prompt': """Rate the bargaining power of suppliers for {company_name} on a scale of 0-10, where:
-- 0 = Very low supplier bargaining power, many alternative suppliers available, company has strong negotiation control
+- 0 = Low supplier bargaining power, many alternative suppliers available, company has good negotiation control
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average supplier bargaining power typical of most companies - some supplier concentration or dependency, balanced negotiation power
-- 10 = Very high supplier bargaining power, few suppliers, suppliers have strong control, company is highly dependent
+- 10 = High supplier bargaining power, limited suppliers, suppliers have strong control, company is dependent
 
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average supplier bargaining power. Only award 9-10 to companies where suppliers have extreme control (top 1-2%). Default to lower scores when uncertain. Most companies have some level of supplier dependency or concentration.
+Note: Most companies have some level of supplier dependency or concentration. Award 3-7 for typical supplier relationships. Only award 0-2 if the company has exceptional supplier alternatives, and 8-10 if suppliers have exceptional control.
 
 Consider factors like:
 - Number of alternative suppliers and availability of substitutes
@@ -551,11 +525,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Product Quality',
         'field_name': 'product_quality_score',
         'prompt': """Rate the product quality for {company_name} on a scale of 0-10, where:
-- 0 = Poor quality, frequent defects, low reliability, high customer dissatisfaction
+- 0 = Low quality, more frequent defects or issues, lower reliability, higher customer dissatisfaction
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average quality typical of most companies - acceptable performance, occasional quality issues, meets industry standards
-- 10 = Exceptionally rare quality, only award this to companies with truly industry-leading standards, exceptional reliability, and outstanding customer satisfaction that significantly exceeds industry norms
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average quality. Only award 9-10 to companies that are recognized industry leaders in quality (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional product quality.
+- 10 = High quality, companies with industry-leading standards, strong reliability, and customer satisfaction that exceeds industry norms
 
 Consider factors like:
 - Product reliability and durability
@@ -579,11 +551,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Culture / Employee Satisfaction',
         'field_name': 'culture_employee_satisfaction_score',
         'prompt': """Rate the quality of culture and employee satisfaction for {company_name} on a scale of 0-10, where:
-- 0 = Poor culture, low employee satisfaction, high turnover, toxic work environment, poor employee morale
+- 0 = Weak culture, lower employee satisfaction, higher turnover, challenging work environment, lower employee morale
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average culture typical of most companies - acceptable employee satisfaction, average retention, typical workplace environment
-- 10 = Exceptional culture, industry-leading employee satisfaction, low turnover, great work environment, high employee engagement
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average culture. Only award 9-10 to companies with exceptional culture (top 1-2%). Default to lower scores when uncertain.
+- 10 = Strong culture, high employee satisfaction, low turnover, good work environment, high employee engagement
 
 Consider factors like:
 - Employee satisfaction scores and surveys
@@ -608,11 +578,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Trailblazer',
         'field_name': 'trailblazer_score',
         'prompt': """Rate how much {company_name} challenges the status quo and pushes boundaries (trailblazer quality) on a scale of 0-10, where:
-- 0 = Follows status quo, avoids risks, conventional approaches, minimal innovation, stays in established boundaries
+- 0 = Follows status quo, more risk-averse, conventional approaches, limited innovation, stays within established boundaries
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average trailblazer quality typical of most companies - some boundary-pushing and calculated risks, but generally follows industry norms
-- 10 = Exceptionally rare trailblazer, only award this to companies that consistently and boldly challenge status quo, pioneer new categories, and genuinely transform industries through revolutionary approaches
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies with clearly above-average trailblazer qualities. Only award 9-10 to companies that are genuinely transforming industries (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies with truly exceptional trailblazer qualities.
+- 10 = Strong trailblazer, companies that consistently challenge status quo, pioneer new categories, and transform industries through innovative approaches
 
 Consider factors like:
 - Willingness to challenge established industry norms and conventions
@@ -637,11 +605,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Size / Well Known',
         'field_name': 'size_well_known_score',
         'prompt': """Rate how large, popular, well-known, and information-rich {company_name} is on a scale of 0-10, where:
-- 0 = Very small company, unknown, minimal public awareness, very little information available
+- 0 = Small company, limited recognition, minimal public awareness, limited information available
 - 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average size and recognition typical of most public companies - moderate size, some recognition, reasonable information available
-- 10 = Exceptionally rare size and recognition, only award this to the largest, most well-known companies that are household names with abundant information (think Fortune 50, S&P 100 level)
-
-CRITICAL: Be extremely strict and conservative. The typical/average company should score 5. Most companies (80%+) should score 3-6. Only award 7-8 to companies that are clearly above average in size and recognition. Only award 9-10 to the most well-known companies globally (top 1-2%). Default to lower scores when uncertain. Reserve 8-10 for companies that are truly large and widely recognized.
+- 10 = Large and well-known company, household name with abundant information available (think Fortune 100, S&P 500 level)
 
 Consider factors like:
 - Company size (market capitalization, revenue, number of employees, number of customers)
