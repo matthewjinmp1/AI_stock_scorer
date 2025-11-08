@@ -48,6 +48,8 @@ import json
 import os
 import time
 from datetime import datetime
+import asyncio
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # JSON file to store moat scores
 SCORES_FILE = "scores.json"
@@ -178,8 +180,10 @@ SCORE_DEFINITIONS = {
         'field_name': 'moat_score',
         'prompt': """Rate the competitive moat strength of {company_name} on a scale of 0-10, where:
 - 0 = No competitive advantage, easily replaceable
-- 5 = Moderate competitive advantages
-- 10 = Extremely strong moat, nearly impossible to compete against
+- 5 = Average competitive advantages typical of most companies in the industry
+- 10 = Exceptionally rare moat, only award this to companies with truly extraordinary, nearly insurmountable competitive advantages that are virtually impossible to replicate
+
+Be very strict: Most companies should score 3-7. Only award 8-10 to truly exceptional companies with multiple strong moat factors. Reserve 9-10 for the absolute best moats in the entire market.
 
 Consider factors like:
 - Brand strength and customer loyalty
@@ -198,8 +202,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'barriers_score',
         'prompt': """Rate the barriers to entry for {company_name} on a scale of 0-10, where:
 - 0 = No barriers, extremely easy for competitors to enter
-- 5 = Moderate barriers to entry
-- 10 = Extremely high barriers, nearly impossible for new competitors to enter
+- 5 = Average barriers typical of most companies in the industry - some barriers exist but new competitors can still enter with moderate effort
+- 10 = Exceptionally rare barriers, only award this to companies where entry is virtually impossible due to extraordinary combination of regulatory, capital, technological, and market barriers
+
+Be very strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional barriers. Reserve 9-10 for industries where new entry is nearly impossible.
 
 Consider factors like:
 - Capital requirements
@@ -219,7 +225,7 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'disruption_risk',
         'prompt': """Rate the disruption risk for {company_name} on a scale of 0-10, where:
 - 0 = No risk, very stable industry
-- 5 = Moderate disruption risk
+- 5 = Average disruption risk typical of most companies - some risk exists but not exceptional
 - 10 = Very high risk of being disrupted by new technology or competitors
 
 Consider factors like:
@@ -239,7 +245,7 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'switching_cost',
         'prompt': """Rate the switching costs for customers of {company_name} on a scale of 0-10, where:
 - 0 = No switching costs, customers can easily leave
-- 5 = Moderate switching costs
+- 5 = Average switching costs typical of most companies - some costs exist but customers can switch with moderate effort
 - 10 = Very high switching costs, customers are locked in
 
 Consider factors like:
@@ -260,8 +266,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'brand_strength',
         'prompt': """Rate the brand strength for {company_name} on a scale of 0-10, where:
 - 0 = No brand recognition or loyalty
-- 5 = Moderate brand strength
-- 10 = Extremely strong brand with high customer loyalty and recognition
+- 5 = Average brand strength typical of most companies - some recognition and moderate loyalty
+- 10 = Exceptionally rare brand strength, only award this to truly iconic, globally recognized brands with extraordinary customer loyalty and emotional attachment (think Apple, Coca-Cola level)
+
+Be strict: Most companies should score 3-7. Only award 8-10 to brands that are truly exceptional and widely recognized. Reserve 9-10 for the most iconic brands globally.
 
 Consider factors like:
 - Brand recognition and awareness
@@ -281,8 +289,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'competition_intensity',
         'prompt': """Rate the intensity of competition for {company_name} on a scale of 0-10, where:
 - 0 = No competition, monopoly-like market
-- 5 = Moderate competition
-- 10 = Extremely intense competition with many aggressive competitors
+- 5 = Average competition typical of most industries - some competitors but not cutthroat
+- 10 = Exceptionally intense competition, only award this to industries with extreme price wars, constant competitive battles, and many aggressive well-funded competitors fighting for market share
+
+Be strict: Most companies should score 3-7. Only award 8-10 to industries with truly exceptional competitive intensity. Reserve 9-10 for the most competitive industries.
 
 Consider factors like:
 - Number of competitors in the market
@@ -302,8 +312,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'network_effect',
         'prompt': """Rate the network effects for {company_name} on a scale of 0-10, where:
 - 0 = No network effects, value doesn't increase with more users
-- 5 = Moderate network effects
+- 5 = Average network effects - value increases somewhat with more users, some network benefits present
 - 10 = Extremely strong network effects, value increases dramatically with more users
+
+Note: Network effects can be present in various forms - even moderate network benefits (like customer reviews improving product value, or more users making a platform more useful) should be recognized. Award 5-7 for companies with any meaningful network effects, even if not dominant.
 
 Consider factors like:
 - Value increases as more users join the network
@@ -314,6 +326,9 @@ Consider factors like:
 - Social network effects
 - Two-sided market effects
 - Viral growth potential
+- Customer reviews and ratings improving product value
+- User-generated content enhancing platform value
+- Marketplace effects where more participants benefit all
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -323,8 +338,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'product_differentiation',
         'prompt': """Rate the product differentiation (vs commoditization) for {company_name} on a scale of 0-10, where:
 - 0 = Completely commoditized, interchangeable with competitors, price competition
-- 5 = Some differentiation, moderate pricing power
-- 10 = Highly differentiated, unique products/services with strong pricing power
+- 5 = Average differentiation typical of most companies - some unique features but still faces competitive pressure
+- 10 = Exceptionally rare differentiation, only award this to companies with truly unique, proprietary products/services that are difficult to replicate and command significant pricing power
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional product differentiation. Reserve 9-10 for products that are genuinely unique and hard to replicate.
 
 Consider factors like:
 - Product uniqueness and distinctiveness
@@ -344,8 +361,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'innovativeness_score',
         'prompt': """Rate the innovativeness of {company_name} on a scale of 0-10, where:
 - 0 = Not innovative, relies on existing technologies and practices, minimal R&D
-- 5 = Moderately innovative, some product improvements and incremental innovation
-- 10 = Extremely innovative, breakthrough technologies, disruptive innovation, industry-leading R&D
+- 5 = Average innovativeness typical of most companies - some product improvements and incremental innovation, but not exceptional
+- 10 = Exceptionally rare innovativeness, only award this to companies with truly breakthrough technologies, disruptive innovation, and industry-leading R&D that consistently creates new categories
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional innovation track records. Reserve 9-10 for the most innovative companies that consistently create breakthroughs.
 
 Consider factors like:
 - R&D investment and spending as percentage of revenue
@@ -365,8 +384,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'growth_opportunity',
         'prompt': """Rate the growth opportunity for {company_name} on a scale of 0-10, where:
 - 0 = Minimal growth opportunity, mature/declining market, limited expansion potential
-- 5 = Moderate growth opportunity, steady market growth, some expansion possibilities
-- 10 = Exceptional growth opportunity, rapidly expanding market, multiple growth vectors, high scalability
+- 5 = Average growth opportunity typical of most companies - steady market growth, some expansion possibilities, but not exceptional
+- 10 = Exceptionally rare growth opportunity, only award this to companies in rapidly expanding markets with multiple strong growth vectors and exceptional scalability potential
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional growth opportunities. Reserve 9-10 for companies in the fastest-growing markets with multiple expansion vectors.
 
 Consider factors like:
 - Market size and growth rate of industry
@@ -414,8 +435,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'pricing_power',
         'prompt': """Rate the pricing power of {company_name} on a scale of 0-10, where:
 - 0 = No pricing power, commodity-like product with intense price competition
-- 5 = Moderate pricing power, some ability to set prices above cost
-- 10 = Exceptional pricing power, strong ability to raise prices without losing customers
+- 5 = Average pricing power typical of most companies - some ability to set prices above cost, but faces competitive pressure
+- 10 = Exceptionally rare pricing power, only award this to companies with extraordinary ability to raise prices repeatedly without losing customers, demonstrating strong market control
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional pricing power. Reserve 9-10 for companies that can consistently raise prices with minimal customer loss.
 
 Consider factors like:
 - Ability to increase prices without significant demand loss
@@ -439,8 +462,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'ambition_score',
         'prompt': """Rate the company and culture ambition of {company_name} on a scale of 0-10, where:
 - 0 = Low ambition, complacent, maintaining status quo, no transformative goals
-- 5 = Moderate ambition, some growth and improvement goals, incremental progress
-- 10 = Extremely high ambition, transformative vision, aggressive growth targets, industry-changing goals
+- 5 = Average ambition typical of most companies - some growth goals and improvement initiatives, but not exceptional
+- 10 = Exceptionally rare ambition, only award this to companies with truly extraordinary, industry-transforming vision and execution that consistently pushes boundaries
+
+Be very strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional ambition and transformative goals. Reserve 9-10 for companies that are genuinely changing industries.
 
 Consider factors like:
 - Vision and mission clarity and boldness
@@ -465,7 +490,7 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'bargaining_power_of_customers',
         'prompt': """Rate the bargaining power of customers for {company_name} on a scale of 0-10, where:
 - 0 = Very low customer bargaining power, customers have no alternative options, company has strong pricing control
-- 5 = Moderate customer bargaining power, some alternatives available, balanced negotiation power
+- 5 = Average customer bargaining power typical of most companies - some alternatives available, balanced negotiation power
 - 10 = Very high customer bargaining power, many alternatives, customers can easily switch, strong price sensitivity
 
 Consider factors like:
@@ -490,8 +515,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'bargaining_power_of_suppliers',
         'prompt': """Rate the bargaining power of suppliers for {company_name} on a scale of 0-10, where:
 - 0 = Very low supplier bargaining power, many alternative suppliers available, company has strong negotiation control
-- 5 = Moderate supplier bargaining power, some supplier concentration, balanced negotiation power
+- 5 = Average supplier bargaining power typical of most companies - some supplier concentration or dependency, balanced negotiation power
 - 10 = Very high supplier bargaining power, few suppliers, suppliers have strong control, company is highly dependent
+
+Note: Most companies have some level of supplier dependency or concentration. Award 3-7 for typical supplier relationships. Only award 0-2 if the company has exceptional supplier alternatives, and 8-10 if suppliers have exceptional control.
 
 Consider factors like:
 - Number of alternative suppliers and availability of substitutes
@@ -517,8 +544,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'product_quality_score',
         'prompt': """Rate the product quality for {company_name} on a scale of 0-10, where:
 - 0 = Poor quality, frequent defects, low reliability, high customer dissatisfaction
-- 5 = Moderate quality, acceptable performance, some quality issues occasionally
-- 10 = Exceptional quality, industry-leading standards, high reliability, exceptional customer satisfaction
+- 5 = Average quality typical of most companies - acceptable performance, occasional quality issues, meets industry standards
+- 10 = Exceptionally rare quality, only award this to companies with truly industry-leading standards, exceptional reliability, and outstanding customer satisfaction that significantly exceeds industry norms
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional product quality. Reserve 9-10 for companies that are recognized industry leaders in quality.
 
 Consider factors like:
 - Product reliability and durability
@@ -543,7 +572,7 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'culture_employee_satisfaction_score',
         'prompt': """Rate the quality of culture and employee satisfaction for {company_name} on a scale of 0-10, where:
 - 0 = Poor culture, low employee satisfaction, high turnover, toxic work environment, poor employee morale
-- 5 = Moderate culture, acceptable employee satisfaction, average retention, some cultural issues
+- 5 = Average culture typical of most companies - acceptable employee satisfaction, average retention, typical workplace environment
 - 10 = Exceptional culture, industry-leading employee satisfaction, low turnover, great work environment, high employee engagement
 
 Consider factors like:
@@ -570,8 +599,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'trailblazer_score',
         'prompt': """Rate how much {company_name} challenges the status quo and pushes boundaries (trailblazer quality) on a scale of 0-10, where:
 - 0 = Follows status quo, avoids risks, conventional approaches, minimal innovation, stays in established boundaries
-- 5 = Some boundary-pushing, occasional calculated risks, moderate innovation beyond industry norms
-- 10 = Extremely bold trailblazer, consistently challenges status quo, willing to take significant risks for big impact, pioneers new possibilities and transforms industries
+- 5 = Average trailblazer quality typical of most companies - some boundary-pushing and calculated risks, but generally follows industry norms
+- 10 = Exceptionally rare trailblazer, only award this to companies that consistently and boldly challenge status quo, pioneer new categories, and genuinely transform industries through revolutionary approaches
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies with truly exceptional trailblazer qualities. Reserve 9-10 for companies that are genuinely transforming industries.
 
 Consider factors like:
 - Willingness to challenge established industry norms and conventions
@@ -597,8 +628,10 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'field_name': 'size_well_known_score',
         'prompt': """Rate how large, popular, well-known, and information-rich {company_name} is on a scale of 0-10, where:
 - 0 = Very small company, unknown, minimal public awareness, very little information available
-- 5 = Moderate size company, some recognition, moderate public awareness, reasonable amount of information available
-- 10 = Extremely large company, highly popular and well-known, widespread public awareness, abundant information readily available
+- 5 = Average size and recognition typical of most public companies - moderate size, some recognition, reasonable information available
+- 10 = Exceptionally rare size and recognition, only award this to the largest, most well-known companies that are household names with abundant information (think Fortune 50, S&P 100 level)
+
+Be strict: Most companies should score 3-7. Only award 8-10 to companies that are truly large and widely recognized. Reserve 9-10 for the most well-known companies globally.
 
 Consider factors like:
 - Company size (market capitalization, revenue, number of employees, number of customers)
@@ -772,13 +805,71 @@ def query_score_heavy(grok, company_name, score_key):
     return response.strip()
 
 
-def score_single_ticker(input_str, silent=False, batch_mode=False):
+def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, silent=False, model="grok-4-fast"):
+    """Query all scores in parallel using ThreadPoolExecutor.
+    
+    Args:
+        grok: GrokClient instance
+        company_name: Company name to score
+        score_keys: List of score metric keys to query
+        batch_mode: If True, show compact metric names during scoring
+        silent: If True, don't print progress messages
+        model: Model to use for queries
+        
+    Returns:
+        dict: Dictionary mapping score_key to score value
+    """
+    def query_single_score(score_key):
+        """Helper function to query a single score."""
+        score_def = SCORE_DEFINITIONS[score_key]
+        prompt = score_def['prompt'].format(company_name=company_name)
+        start_time = time.time()
+        try:
+            response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
+            elapsed_time = time.time() - start_time
+            total_tokens = token_usage.get('total_tokens', 0)
+            result = response.strip()
+            
+            if not silent:
+                if batch_mode:
+                    print(f"  {score_def['display_name']}: {result}/10")
+                else:
+                    print(f"Querying {score_def['display_name']}...")
+                    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+                    print(f"{score_def['display_name']} Score: {result}/10")
+                    print()
+            
+            return score_key, result, None
+        except Exception as e:
+            return score_key, None, str(e)
+    
+    # Execute all queries in parallel
+    all_scores = {}
+    with ThreadPoolExecutor(max_workers=len(score_keys)) as executor:
+        # Submit all tasks
+        future_to_key = {executor.submit(query_single_score, key): key for key in score_keys}
+        
+        # Collect results as they complete
+        for future in as_completed(future_to_key):
+            score_key, result, error = future.result()
+            if error:
+                if not silent:
+                    print(f"Error querying {SCORE_DEFINITIONS[score_key]['display_name']}: {error}")
+                all_scores[score_key] = None
+            else:
+                all_scores[score_key] = result
+    
+    return all_scores
+
+
+def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore=False):
     """Score a single ticker and return the result.
     
     Args:
         input_str: Ticker symbol or company name
         silent: If True, don't print progress messages (only errors)
         batch_mode: If True, show compact metric names during scoring (for batch processing)
+        force_rescore: If True, rescore the ticker even if scores already exist
         
     Returns:
         dict with keys: 'ticker', 'company_name', 'scores', 'total', 'success', 'error'
@@ -803,19 +894,20 @@ def score_single_ticker(input_str, silent=False, batch_mode=False):
         
         scores_data = load_scores()
         
-        # Try to find existing scores
+        # Try to find existing scores (skip if force_rescore is True)
         existing_data = None
         storage_key = None
         
-        if ticker and ticker in scores_data["companies"]:
-            existing_data = scores_data["companies"][ticker]
-            storage_key = ticker
-        elif ticker and ticker.lower() in scores_data["companies"]:
-            existing_data = scores_data["companies"][ticker.lower()]
-            storage_key = ticker.lower()
-        elif company_name.lower() in scores_data["companies"]:
-            existing_data = scores_data["companies"][company_name.lower()]
-            storage_key = company_name.lower()
+        if not force_rescore:
+            if ticker and ticker in scores_data["companies"]:
+                existing_data = scores_data["companies"][ticker]
+                storage_key = ticker
+            elif ticker and ticker.lower() in scores_data["companies"]:
+                existing_data = scores_data["companies"][ticker.lower()]
+                storage_key = ticker.lower()
+            elif company_name.lower() in scores_data["companies"]:
+                existing_data = scores_data["companies"][company_name.lower()]
+                storage_key = company_name.lower()
         
         if existing_data:
             current_scores = {}
@@ -840,20 +932,19 @@ def score_single_ticker(input_str, silent=False, batch_mode=False):
             # Some scores missing, fill them in
             if not silent:
                 print(f"\nFilling missing scores for {ticker.upper()} ({company_name})...")
+                if not batch_mode:
+                    print("Querying missing metrics in parallel...")
             grok = GrokClient(api_key=XAI_API_KEY)
             
-            for score_key in SCORE_DEFINITIONS:
-                if not current_scores[score_key]:
-                    score_def = SCORE_DEFINITIONS[score_key]
-                    if batch_mode:
-                        print(f"  {score_def['display_name']}: ", end="", flush=True)
-                        current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
-                        print(f"{current_scores[score_key]}/10")
-                    elif not silent:
-                        print(f"Querying {score_def['display_name']}...")
-                        current_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
-                        print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
-                        print()
+            # Get list of missing score keys
+            missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
+            
+            if missing_keys:
+                # Query missing scores in parallel
+                missing_scores = query_all_scores_async(grok, company_name, missing_keys,
+                                                        batch_mode=batch_mode, silent=silent, model="grok-4-fast")
+                # Update current_scores with the new scores
+                current_scores.update(missing_scores)
             
             storage_key = ticker if ticker else company_name.lower()
             scores_data["companies"][storage_key] = current_scores
@@ -877,20 +968,13 @@ def score_single_ticker(input_str, silent=False, batch_mode=False):
         # New scoring needed
         if not silent:
             print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
+            if not batch_mode:
+                print("Querying all metrics in parallel...")
         grok = GrokClient(api_key=XAI_API_KEY)
         
-        all_scores = {}
-        for score_key in SCORE_DEFINITIONS:
-            score_def = SCORE_DEFINITIONS[score_key]
-            if batch_mode:
-                print(f"  {score_def['display_name']}: ", end="", flush=True)
-                all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=False)
-                print(f"{all_scores[score_key]}/10")
-            elif not silent:
-                print(f"Querying {score_def['display_name']}...")
-                all_scores[score_key] = query_score(grok, company_name, score_key, show_timing=True)
-                print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
-                print()
+        # Query all scores in parallel
+        all_scores = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
+                                            batch_mode=batch_mode, silent=silent, model="grok-4-fast")
         
         storage_key = ticker if ticker else company_name.lower()
         scores_data["companies"][storage_key] = all_scores
@@ -1125,13 +1209,16 @@ def get_company_moat_score(input_str):
             
             grok = GrokClient(api_key=XAI_API_KEY)
             
-            for score_key in SCORE_DEFINITIONS:
-                if not current_scores[score_key]:
-                    score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']}...")
-                    current_scores[score_key] = query_score(grok, company_name, score_key)
-                    print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
-                    print()  # Add spacing between metrics
+            # Get list of missing score keys
+            missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
+            
+            if missing_keys:
+                print("Querying missing metrics in parallel...")
+                # Query missing scores in parallel
+                missing_scores = query_all_scores_async(grok, company_name, missing_keys,
+                                                        batch_mode=False, silent=False, model="grok-4-fast")
+                # Update current_scores with the new scores
+                current_scores.update(missing_scores)
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -1149,15 +1236,12 @@ def get_company_moat_score(input_str):
             print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
         else:
             print(f"\nAnalyzing {company_name}...")
+        print("Querying all metrics in parallel...")
         grok = GrokClient(api_key=XAI_API_KEY)
         
-        all_scores = {}
-        for score_key in SCORE_DEFINITIONS:
-            score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']}...")
-            all_scores[score_key] = query_score(grok, company_name, score_key)
-            print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
-            print()  # Add spacing between metrics
+        # Query all scores in parallel
+        all_scores = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
+                                            batch_mode=False, silent=False, model="grok-4-fast")
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()
@@ -1268,13 +1352,16 @@ def get_company_moat_score_heavy(input_str):
             
             grok = GrokClient(api_key=XAI_API_KEY)
             
-            for score_key in SCORE_DEFINITIONS:
-                if not current_scores[score_key]:
-                    score_def = SCORE_DEFINITIONS[score_key]
-                    print(f"Querying {score_def['display_name']} (heavy model)...")
-                    current_scores[score_key] = query_score_heavy(grok, company_name, score_key)
-                    print(f"{score_def['display_name']} Score: {current_scores[score_key]}/10")
-                    print()  # Add spacing between metrics
+            # Get list of missing score keys
+            missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
+            
+            if missing_keys:
+                print("Querying missing metrics in parallel (heavy model)...")
+                # Query missing scores in parallel
+                missing_scores = query_all_scores_async(grok, company_name, missing_keys,
+                                                        batch_mode=False, silent=False, model="grok-4-latest")
+                # Update current_scores with the new scores
+                current_scores.update(missing_scores)
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -1292,15 +1379,12 @@ def get_company_moat_score_heavy(input_str):
             print(f"\nAnalyzing {ticker.upper()} ({company_name}) with heavy model...")
         else:
             print(f"\nAnalyzing {company_name} with heavy model...")
+        print("Querying all metrics in parallel (heavy model)...")
         grok = GrokClient(api_key=XAI_API_KEY)
         
-        all_scores = {}
-        for score_key in SCORE_DEFINITIONS:
-            score_def = SCORE_DEFINITIONS[score_key]
-            print(f"Querying {score_def['display_name']} (heavy model)...")
-            all_scores[score_key] = query_score_heavy(grok, company_name, score_key)
-            print(f"{score_def['display_name']} Score: {all_scores[score_key]}/10")
-            print()  # Add spacing between metrics
+        # Query all scores in parallel
+        all_scores = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
+                                            batch_mode=False, silent=False, model="grok-4-latest")
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()
@@ -1340,6 +1424,20 @@ def handle_heavy_command(tickers_input):
         print(f"\n{'='*60}")
         get_company_moat_score_heavy(ticker)
         print()
+
+
+def handle_redo_command(ticker_input):
+    """Handle the redo command - rescore a ticker even if it already has scores.
+    
+    Args:
+        ticker_input: Ticker symbol to rescore
+    """
+    if not ticker_input.strip():
+        print("Please provide a ticker symbol. Example: redo AAPL")
+        return
+    
+    ticker = ticker_input.strip()
+    score_single_ticker(ticker, force_rescore=True)
 
 
 def calculate_correlation(light_scores, heavy_scores):
@@ -1405,24 +1503,38 @@ def handle_correl_command(tickers_input):
         
         company_name = ticker_lookup[ticker_upper]
         
-        # Check if both light and heavy scores exist
+        # Find light and heavy scores - try different keys independently
         # Try uppercase ticker first, then lowercase ticker, then lowercase company name
-        light_data = light_scores_data["companies"].get(ticker_upper)
-        heavy_data = heavy_scores_data["companies"].get(ticker_upper)
+        light_data = None
+        heavy_data = None
+        light_lookup_key = None
+        heavy_lookup_key = None
         
-        # Try lowercase ticker for backwards compatibility
-        if not light_data:
-            light_data = light_scores_data["companies"].get(ticker_upper.lower())
-        if not heavy_data:
-            heavy_data = heavy_scores_data["companies"].get(ticker_upper.lower())
+        # Find light scores
+        if ticker_upper in light_scores_data["companies"]:
+            light_data = light_scores_data["companies"][ticker_upper]
+            light_lookup_key = ticker_upper
+        elif ticker_upper.lower() in light_scores_data["companies"]:
+            light_data = light_scores_data["companies"][ticker_upper.lower()]
+            light_lookup_key = ticker_upper.lower()
+        else:
+            company_name_lower = company_name.lower()
+            if company_name_lower in light_scores_data["companies"]:
+                light_data = light_scores_data["companies"][company_name_lower]
+                light_lookup_key = company_name_lower
         
-        # Try lowercase company name for backwards compatibility
-        if not light_data:
+        # Find heavy scores (try same keys)
+        if ticker_upper in heavy_scores_data["companies"]:
+            heavy_data = heavy_scores_data["companies"][ticker_upper]
+            heavy_lookup_key = ticker_upper
+        elif ticker_upper.lower() in heavy_scores_data["companies"]:
+            heavy_data = heavy_scores_data["companies"][ticker_upper.lower()]
+            heavy_lookup_key = ticker_upper.lower()
+        else:
             company_name_lower = company_name.lower()
-            light_data = light_scores_data["companies"].get(company_name_lower)
-        if not heavy_data:
-            company_name_lower = company_name.lower()
-            heavy_data = heavy_scores_data["companies"].get(company_name_lower)
+            if company_name_lower in heavy_scores_data["companies"]:
+                heavy_data = heavy_scores_data["companies"][company_name_lower]
+                heavy_lookup_key = company_name_lower
         
         if not light_data:
             print(f"Warning: '{ticker_upper}' has no light scores. Skipping.")
@@ -1436,6 +1548,7 @@ def handle_correl_command(tickers_input):
         light_metric_scores = []
         heavy_metric_scores = []
         metric_names = []
+        score_keys_used = []  # Track which score_key corresponds to each metric
         
         try:
             for score_key in SCORE_DEFINITIONS:
@@ -1457,6 +1570,7 @@ def handle_correl_command(tickers_input):
                         light_metric_scores.append(light_score)
                         heavy_metric_scores.append(heavy_score)
                         metric_names.append(SCORE_DEFINITIONS[score_key]['display_name'])
+                        score_keys_used.append(score_key)  # Track the score_key for this metric
                     except (ValueError, TypeError):
                         continue
             
@@ -1486,9 +1600,10 @@ def handle_correl_command(tickers_input):
                     used_score_keys.append(score_key)
             
             # Calculate totals using only the metrics that exist in both datasets
+            # Use score_keys_used instead of used_score_keys to ensure consistency with displayed metrics
             light_total = 0
             heavy_total = 0
-            for score_key in used_score_keys:
+            for score_key in score_keys_used:  # Use score_keys_used which matches displayed metrics
                 score_def = SCORE_DEFINITIONS[score_key]
                 weight = SCORE_WEIGHTS.get(score_key, 1.0)
                 try:
@@ -1519,6 +1634,9 @@ def handle_correl_command(tickers_input):
                 'light_scores': light_metric_scores,
                 'heavy_scores': heavy_metric_scores,
                 'metric_names': metric_names,
+                'score_keys_used': score_keys_used,  # Track which score_key each metric corresponds to
+                'light_lookup_key': light_lookup_key,  # Store lookup keys for both files
+                'heavy_lookup_key': heavy_lookup_key,
                 'light_total': light_total,
                 'heavy_total': heavy_total,
                 'used_score_keys': used_score_keys  # Store for max_score calculation
@@ -1547,6 +1665,34 @@ def handle_correl_command(tickers_input):
         light_scores = result['light_scores']
         heavy_scores = result['heavy_scores']
         metric_names = result['metric_names']
+        score_keys_used = result.get('score_keys_used', [])
+        
+        # Re-read data using the lookup keys that were used during collection
+        # This ensures we're reading from the correct entries in each file
+        light_lookup_key = result.get('light_lookup_key')
+        heavy_lookup_key = result.get('heavy_lookup_key')
+        
+        if light_lookup_key:
+            light_data = light_scores_data["companies"].get(light_lookup_key)
+        else:
+            # Fallback to original logic if lookup_key not stored
+            light_data = light_scores_data["companies"].get(ticker)
+            if not light_data:
+                light_data = light_scores_data["companies"].get(ticker.lower())
+            if not light_data:
+                company_name_lower = company_name.lower()
+                light_data = light_scores_data["companies"].get(company_name_lower)
+        
+        if heavy_lookup_key:
+            heavy_data = heavy_scores_data["companies"].get(heavy_lookup_key)
+        else:
+            # Fallback to original logic if lookup_key not stored
+            heavy_data = heavy_scores_data["companies"].get(ticker)
+            if not heavy_data:
+                heavy_data = heavy_scores_data["companies"].get(ticker.lower())
+            if not heavy_data:
+                company_name_lower = company_name.lower()
+                heavy_data = heavy_scores_data["companies"].get(company_name_lower)
         
         print(f"\n{'='*80}")
         print(f"{ticker} ({company_name})")
@@ -1555,9 +1701,45 @@ def handle_correl_command(tickers_input):
         print(f"\n{'Metric':<35} {'Light':>10} {'Heavy':>10} {'Diff':>10}")
         print("-" * 80)
         
+        # Display scores using verified values from the data
         for i, metric_name in enumerate(metric_names):
-            light_val = light_scores[i]
-            heavy_val = heavy_scores[i]
+            # Use score_key to read the correct value from the data
+            if i < len(score_keys_used) and light_data and heavy_data:
+                score_key = score_keys_used[i]
+                # Re-read to ensure we're displaying the correct score
+                light_score_str = light_data.get(score_key)
+                if score_key == 'moat_score' and not light_score_str:
+                    light_score_str = light_data.get('score')
+                heavy_score_str = heavy_data.get(score_key)
+                if score_key == 'moat_score' and not heavy_score_str:
+                    heavy_score_str = heavy_data.get('score')
+                
+                if light_score_str and heavy_score_str:
+                    try:
+                        light_val = float(light_score_str)
+                        heavy_val = float(heavy_score_str)
+                        
+                        # Verify: Check if the array values match what we're reading
+                        # This helps catch any ordering or data mismatch bugs
+                        if i < len(light_scores) and i < len(heavy_scores):
+                            array_light = light_scores[i]
+                            array_heavy = heavy_scores[i]
+                            if abs(light_val - array_light) > 0.01 or abs(heavy_val - array_heavy) > 0.01:
+                                # Mismatch detected - this indicates a bug!
+                                print(f"  [DEBUG] Mismatch for {score_key}: array shows ({array_light}, {array_heavy}) but data shows ({light_val}, {heavy_val})")
+                    except (ValueError, TypeError):
+                        # Fallback to array values if conversion fails
+                        light_val = light_scores[i] if i < len(light_scores) else 0
+                        heavy_val = heavy_scores[i] if i < len(heavy_scores) else 0
+                else:
+                    # Fallback to array values if data not found
+                    light_val = light_scores[i] if i < len(light_scores) else 0
+                    heavy_val = heavy_scores[i] if i < len(heavy_scores) else 0
+            else:
+                # Fallback to array values if score_keys_used not available
+                light_val = light_scores[i] if i < len(light_scores) else 0
+                heavy_val = heavy_scores[i] if i < len(heavy_scores) else 0
+            
             diff = heavy_val - light_val
             diff_str = f"{diff:+.1f}" if diff != 0 else "0.0"
             
@@ -1565,18 +1747,47 @@ def handle_correl_command(tickers_input):
             display_name = metric_name[:33] if len(metric_name) <= 33 else metric_name[:30] + "..."
             print(f"{display_name:<35} {light_val:>10.1f} {heavy_val:>10.1f} {diff_str:>10}")
         
-        # Calculate and display total scores
-        light_total = result['light_total']
-        heavy_total = result['heavy_total']
-        # Calculate max_score based only on metrics that exist in both datasets
-        used_score_keys = result.get('used_score_keys', [])
-        if used_score_keys:
-            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in used_score_keys) * 10
+        # Recalculate totals based on displayed metrics to ensure consistency
+        # This ensures totals match exactly what's displayed
+        score_keys_used = result.get('score_keys_used', [])
+        light_total_recalc = 0
+        heavy_total_recalc = 0
+        
+        for i, score_key in enumerate(score_keys_used):
+            if i < len(light_scores) and i < len(heavy_scores):
+                score_def = SCORE_DEFINITIONS[score_key]
+                weight = SCORE_WEIGHTS.get(score_key, 1.0)
+                light_val = light_scores[i]
+                heavy_val = heavy_scores[i]
+                
+                if score_def['is_reverse']:
+                    light_total_recalc += (10 - light_val) * weight
+                    heavy_total_recalc += (10 - heavy_val) * weight
+                else:
+                    light_total_recalc += light_val * weight
+                    heavy_total_recalc += heavy_val * weight
+        
+        # Use recalculated totals
+        light_total = light_total_recalc
+        heavy_total = heavy_total_recalc
+        
+        # Calculate max_score based only on metrics that exist in both datasets and were used in calculation
+        # Exclude metrics with weight 0 from max_score calculation
+        if score_keys_used:
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in score_keys_used if SCORE_WEIGHTS.get(key, 1.0) > 0) * 10
         else:
-            # Fallback: use all metrics if used_score_keys not available (shouldn't happen)
-            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-        light_pct = int((light_total / max_score) * 100)
-        heavy_pct = int((heavy_total / max_score) * 100)
+            # Fallback: use used_score_keys if score_keys_used not available
+            used_score_keys = result.get('used_score_keys', [])
+            if used_score_keys:
+                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in used_score_keys if SCORE_WEIGHTS.get(key, 1.0) > 0) * 10
+            else:
+                # Final fallback: use all metrics
+                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS if SCORE_WEIGHTS.get(key, 1.0) > 0) * 10
+        
+        light_pct_raw = (light_total / max_score) * 100 if max_score > 0 else 0
+        heavy_pct_raw = (heavy_total / max_score) * 100 if max_score > 0 else 0
+        light_pct = int(light_pct_raw)
+        heavy_pct = int(heavy_pct_raw)
         total_diff = heavy_total - light_total
         total_diff_pct = int((total_diff / max_score) * 100)
         total_diff_str = f"{total_diff_pct:+d}%" if total_diff != 0 else "0%"
@@ -1698,11 +1909,15 @@ def fill_missing_barriers_scores():
             
             print(f"\n[{i}/{len(companies_to_score)}] Processing {display_name}...")
             
-            for score_key in SCORE_DEFINITIONS:
-                if not company_scores[score_key]:
-                    score_def = SCORE_DEFINITIONS[score_key]
-                    company_scores[score_key] = query_score(grok, actual_company_name, score_key)
-                    print(f"  {score_def['display_name']}: {company_scores[score_key]}/10")
+            # Get list of missing score keys
+            missing_keys = [key for key in SCORE_DEFINITIONS if not company_scores[key]]
+            
+            if missing_keys:
+                # Query missing scores in parallel
+                missing_scores = query_all_scores_async(grok, actual_company_name, missing_keys,
+                                                        batch_mode=True, silent=False, model="grok-4-fast")
+                # Update company_scores with the new scores
+                company_scores.update(missing_scores)
             
             scores_data["companies"][company_name] = company_scores
             save_scores(scores_data)
@@ -2378,6 +2593,7 @@ def main():
     print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
+    print("  Type 'redo TICKER' to rescore a ticker (forces new scoring even if scores exist)")
     print("  Type 'heavy TICKER1 TICKER2 ...' to score with main Grok 4 model")
     print("  Type 'correl TICKER1 TICKER2 ...' to see correlation between light and heavy metric scores per ticker")
     print("  Type 'define TICKER = Company Name' to add custom ticker definition")
@@ -2388,7 +2604,7 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'heavy'/'correl'/'define'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'redo'/'heavy'/'correl'/'define'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2415,6 +2631,13 @@ def main():
             elif user_input.lower() == 'migrate':
                 count = migrate_scores_to_lowercase()
                 print(f"\nMigration complete! Now storing {count} unique companies.")
+                print()
+            elif user_input.lower() == 'redo':
+                print("Please provide a ticker symbol. Example: redo AAPL")
+                print()
+            elif user_input.lower().startswith('redo '):
+                ticker = user_input[5:].strip()  # Remove 'redo ' prefix
+                handle_redo_command(ticker)
                 print()
             elif user_input.lower() == 'heavy':
                 print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")

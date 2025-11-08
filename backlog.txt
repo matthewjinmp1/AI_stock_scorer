@@ -13,3 +13,12 @@ chop down code
 size adjustment 
 
 other models 
+
+light vs heavy total score bug
+
+make scoring stricter for certain metrics
+
+add familiarity score 
+
+adjust strictness of scoring 
+

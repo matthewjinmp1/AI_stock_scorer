@@ -86,7 +86,8 @@
       "bargaining_power_of_suppliers": "3",
       "product_quality_score": "8",
       "culture_employee_satisfaction_score": "9",
-      "trailblazer_score": "8"
+      "trailblazer_score": "8",
+      "size_well_known_score": "10"
     },
     "LOW": {
       "moat_score": "8",
