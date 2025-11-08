@@ -157,8 +157,18 @@ def score_ticker(ticker_str):
         return (ticker, company_name, None, None, None, str(e))
 
 
-def calculate_mad(scores):
-    """Calculate Median Absolute Deviation (MAD)."""
+def calculate_mean_absolute_deviation(scores):
+    """Calculate Mean Absolute Deviation (MAD) - mean of absolute deviations from the mean."""
+    if len(scores) < 1:
+        return 0.0
+    
+    mean = statistics.mean(scores)
+    deviations = [abs(score - mean) for score in scores]
+    return statistics.mean(deviations)
+
+
+def calculate_median_absolute_deviation(scores):
+    """Calculate Median Absolute Deviation - median of absolute deviations from the median."""
     if len(scores) < 2:
         return 0.0
     
@@ -223,8 +233,11 @@ def display_statistics(results):
     else:
         stdev = 0.0
     
-    # MAD (Median Absolute Deviation)
-    mad = calculate_mad(scores)
+    # Mean Absolute Deviation (mean of |x - mean|)
+    mean_abs_dev = calculate_mean_absolute_deviation(scores)
+    
+    # Median Absolute Deviation (median of |x - median|)
+    median_abs_dev = calculate_median_absolute_deviation(scores)
     
     # Quartiles
     q1, q2, q3 = calculate_quartiles(scores)
@@ -236,7 +249,8 @@ def display_statistics(results):
     print(f"{'Mean (Average)':<30} {mean:>15.2f}")
     print(f"{'Median':<30} {median:>15.2f}")
     print(f"{'Standard Deviation':<30} {stdev:>15.2f}")
-    print(f"{'MAD (Median Abs Dev)':<30} {mad:>15.2f}")
+    print(f"{'Mean Absolute Deviation':<30} {mean_abs_dev:>15.2f}")
+    print(f"{'Median Absolute Deviation':<30} {median_abs_dev:>15.2f}")
     print(f"{'Minimum':<30} {min_score:>15.2f}")
     print(f"{'Maximum':<30} {max_score:>15.2f}")
     print(f"{'Range':<30} {range_score:>15.2f}")
