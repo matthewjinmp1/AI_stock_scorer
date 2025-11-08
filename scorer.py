@@ -52,7 +52,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # JSON file to store moat scores
-SCORES_FILE = "scores.json"
+SCORES_FILE = "stricter_scores.json"
 HEAVY_SCORES_FILE = "scores_heavy.json"
 
 # Stock ticker lookup file
