@@ -52,7 +52,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # JSON file to store moat scores
-SCORES_FILE = "stricter_scores.json"
+SCORES_FILE = "scores.json"
 HEAVY_SCORES_FILE = "scores_heavy.json"
 
 # Stock ticker lookup file
@@ -179,9 +179,9 @@ SCORE_DEFINITIONS = {
         'display_name': 'Competitive Moat',
         'field_name': 'moat_score',
         'prompt': """Rate the competitive moat strength of {company_name} on a scale of 0-10, where:
-- 0 = Weak or minimal competitive advantage, easily replaceable, commodity-like business
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average competitive advantages typical of most companies in the industry
-- 10 = Very strong moat, companies with exceptional competitive advantages that are difficult to replicate
+- 0 = No competitive advantage, easily replaceable
+- 5 = Moderate competitive advantages
+- 10 = Extremely strong moat, nearly impossible to compete against
 
 Consider factors like:
 - Brand strength and customer loyalty
@@ -199,9 +199,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Barriers to Entry',
         'field_name': 'barriers_score',
         'prompt': """Rate the barriers to entry for {company_name} on a scale of 0-10, where:
-- 0 = Low barriers, relatively easy for competitors to enter the market
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average barriers typical of most companies in the industry - some barriers exist but new competitors can still enter with moderate effort
-- 10 = Very high barriers, companies where entry is very difficult due to strong combination of regulatory, capital, technological, and market barriers
+- 0 = No barriers, extremely easy for competitors to enter
+- 5 = Moderate barriers to entry
+- 10 = Extremely high barriers, nearly impossible for new competitors to enter
 
 Consider factors like:
 - Capital requirements
@@ -220,9 +220,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Disruption Risk',
         'field_name': 'disruption_risk',
         'prompt': """Rate the disruption risk for {company_name} on a scale of 0-10, where:
-- 0 = Very low risk, stable and predictable industry
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average disruption risk typical of most companies - some risk exists but not exceptional
-- 10 = High risk of being disrupted by new technology or competitors
+- 0 = No risk, very stable industry
+- 5 = Moderate disruption risk
+- 10 = Very high risk of being disrupted by new technology or competitors
 
 Consider factors like:
 - Technology disruption potential
@@ -240,9 +240,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Switching Cost',
         'field_name': 'switching_cost',
         'prompt': """Rate the switching costs for customers of {company_name} on a scale of 0-10, where:
-- 0 = Low switching costs, customers can relatively easily switch to alternatives
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average switching costs typical of most companies - some costs exist but customers can switch with moderate effort
-- 10 = High switching costs, customers face significant barriers to switching
+- 0 = No switching costs, customers can easily leave
+- 5 = Moderate switching costs
+- 10 = Very high switching costs, customers are locked in
 
 Consider factors like:
 - Learning curve for new products
@@ -261,9 +261,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Brand Strength',
         'field_name': 'brand_strength',
         'prompt': """Rate the brand strength for {company_name} on a scale of 0-10, where:
-- 0 = Weak brand, minimal recognition or customer loyalty
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average brand strength typical of most companies - some recognition and moderate loyalty
-- 10 = Very strong brand, well-recognized with strong customer loyalty and emotional attachment
+- 0 = No brand recognition or loyalty
+- 5 = Moderate brand strength
+- 10 = Extremely strong brand with high customer loyalty and recognition
 
 Consider factors like:
 - Brand recognition and awareness
@@ -282,9 +282,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Competition Intensity',
         'field_name': 'competition_intensity',
         'prompt': """Rate the intensity of competition for {company_name} on a scale of 0-10, where:
-- 0 = Low competition, limited competitors, more protected market position
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average competition typical of most industries - some competitors but not cutthroat
-- 10 = Very intense competition, industries with strong price competition and many aggressive competitors fighting for market share
+- 0 = No competition, monopoly-like market
+- 5 = Moderate competition
+- 10 = Extremely intense competition with many aggressive competitors
 
 Consider factors like:
 - Number of competitors in the market
@@ -303,11 +303,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Network Effect',
         'field_name': 'network_effect',
         'prompt': """Rate the network effects for {company_name} on a scale of 0-10, where:
-- 0 = Weak or no network effects, value doesn't meaningfully increase with more users
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average network effects - value increases somewhat with more users, some network benefits present
-- 10 = Strong network effects, value increases significantly with more users
-
-Note: Network effects can be present in various forms - even moderate network benefits (like customer reviews improving product value, or more users making a platform more useful) should be recognized. Award 5-7 for companies with any meaningful network effects, even if not dominant.
+- 0 = No network effects, value doesn't increase with more users
+- 5 = Moderate network effects
+- 10 = Extremely strong network effects, value increases dramatically with more users
 
 Consider factors like:
 - Value increases as more users join the network
@@ -318,9 +316,6 @@ Consider factors like:
 - Social network effects
 - Two-sided market effects
 - Viral growth potential
-- Customer reviews and ratings improving product value
-- User-generated content enhancing platform value
-- Marketplace effects where more participants benefit all
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -329,9 +324,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Product Differentiation',
         'field_name': 'product_differentiation',
         'prompt': """Rate the product differentiation (vs commoditization) for {company_name} on a scale of 0-10, where:
-- 0 = Highly commoditized, largely interchangeable with competitors, primarily price competition
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average differentiation typical of most companies - some unique features but still faces competitive pressure
-- 10 = Strong differentiation, companies with unique, proprietary products/services that are difficult to replicate and command pricing power
+- 0 = Completely commoditized, interchangeable with competitors, price competition
+- 5 = Some differentiation, moderate pricing power
+- 10 = Highly differentiated, unique products/services with strong pricing power
 
 Consider factors like:
 - Product uniqueness and distinctiveness
@@ -350,9 +345,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Innovativeness',
         'field_name': 'innovativeness_score',
         'prompt': """Rate the innovativeness of {company_name} on a scale of 0-10, where:
-- 0 = Low innovativeness, relies primarily on existing technologies and practices, minimal R&D investment
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average innovativeness typical of most companies - some product improvements and incremental innovation, but not exceptional
-- 10 = High innovativeness, companies with breakthrough technologies, disruptive innovation, and strong R&D that creates new categories
+- 0 = Not innovative, relies on existing technologies and practices, minimal R&D
+- 5 = Moderately innovative, some product improvements and incremental innovation
+- 10 = Extremely innovative, breakthrough technologies, disruptive innovation, industry-leading R&D
 
 Consider factors like:
 - R&D investment and spending as percentage of revenue
@@ -371,9 +366,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Growth Opportunity',
         'field_name': 'growth_opportunity',
         'prompt': """Rate the growth opportunity for {company_name} on a scale of 0-10, where:
-- 0 = Limited growth opportunity, mature or slow-growing market, constrained expansion potential
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average growth opportunity typical of most companies - steady market growth, some expansion possibilities, but not exceptional
-- 10 = Strong growth opportunity, companies in expanding markets with multiple growth vectors and good scalability potential
+- 0 = Minimal growth opportunity, mature/declining market, limited expansion potential
+- 5 = Moderate growth opportunity, steady market growth, some expansion possibilities
+- 10 = Exceptional growth opportunity, rapidly expanding market, multiple growth vectors, high scalability
 
 Consider factors like:
 - Market size and growth rate of industry
@@ -395,9 +390,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Riskiness',
         'field_name': 'riskiness_score',
         'prompt': """Rate the overall riskiness of investing in {company_name} on a scale of 0-10, where:
-- 0 = Low risk, relatively stable and predictable business model
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Moderate risk, some uncertainty in business outlook
-- 10 = High risk, volatile or uncertain business model
+- 0 = Very low risk, stable and predictable business model
+- 5 = Moderate risk, some uncertainty in business outlook
+- 10 = Very high risk, highly volatile or uncertain business model
 
 Consider factors like:
 - Financial risk and leverage/debt levels
@@ -420,9 +415,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Pricing Power',
         'field_name': 'pricing_power',
         'prompt': """Rate the pricing power of {company_name} on a scale of 0-10, where:
-- 0 = Weak pricing power, commodity-like product with strong price competition
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average pricing power typical of most companies - some ability to set prices above cost, but faces competitive pressure
-- 10 = Strong pricing power, companies with good ability to raise prices without significant customer loss, demonstrating market control
+- 0 = No pricing power, commodity-like product with intense price competition
+- 5 = Moderate pricing power, some ability to set prices above cost
+- 10 = Exceptional pricing power, strong ability to raise prices without losing customers
 
 Consider factors like:
 - Ability to increase prices without significant demand loss
@@ -445,9 +440,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Ambition',
         'field_name': 'ambition_score',
         'prompt': """Rate the company and culture ambition of {company_name} on a scale of 0-10, where:
-- 0 = Low ambition, more complacent, focused on maintaining status quo, limited transformative goals
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average ambition typical of most companies - some growth goals and improvement initiatives, but not exceptional
-- 10 = High ambition, companies with strong vision and execution that pushes boundaries and transforms industries
+- 0 = Low ambition, complacent, maintaining status quo, no transformative goals
+- 5 = Moderate ambition, some growth and improvement goals, incremental progress
+- 10 = Extremely high ambition, transformative vision, aggressive growth targets, industry-changing goals
 
 Consider factors like:
 - Vision and mission clarity and boldness
@@ -471,9 +466,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Bargaining Power of Customers',
         'field_name': 'bargaining_power_of_customers',
         'prompt': """Rate the bargaining power of customers for {company_name} on a scale of 0-10, where:
-- 0 = Low customer bargaining power, customers have limited alternative options, company has good pricing control
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average customer bargaining power typical of most companies - some alternatives available, balanced negotiation power
-- 10 = High customer bargaining power, many alternatives available, customers can switch relatively easily, strong price sensitivity
+- 0 = Very low customer bargaining power, customers have no alternative options, company has strong pricing control
+- 5 = Moderate customer bargaining power, some alternatives available, balanced negotiation power
+- 10 = Very high customer bargaining power, many alternatives, customers can easily switch, strong price sensitivity
 
 Consider factors like:
 - Number of alternative suppliers and competitors available to customers
@@ -496,11 +491,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Bargaining Power of Suppliers',
         'field_name': 'bargaining_power_of_suppliers',
         'prompt': """Rate the bargaining power of suppliers for {company_name} on a scale of 0-10, where:
-- 0 = Low supplier bargaining power, many alternative suppliers available, company has good negotiation control
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average supplier bargaining power typical of most companies - some supplier concentration or dependency, balanced negotiation power
-- 10 = High supplier bargaining power, limited suppliers, suppliers have strong control, company is dependent
-
-Note: Most companies have some level of supplier dependency or concentration. Award 3-7 for typical supplier relationships. Only award 0-2 if the company has exceptional supplier alternatives, and 8-10 if suppliers have exceptional control.
+- 0 = Very low supplier bargaining power, many alternative suppliers available, company has strong negotiation control
+- 5 = Moderate supplier bargaining power, some supplier concentration, balanced negotiation power
+- 10 = Very high supplier bargaining power, few suppliers, suppliers have strong control, company is highly dependent
 
 Consider factors like:
 - Number of alternative suppliers and availability of substitutes
@@ -525,9 +518,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Product Quality',
         'field_name': 'product_quality_score',
         'prompt': """Rate the product quality for {company_name} on a scale of 0-10, where:
-- 0 = Low quality, more frequent defects or issues, lower reliability, higher customer dissatisfaction
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average quality typical of most companies - acceptable performance, occasional quality issues, meets industry standards
-- 10 = High quality, companies with industry-leading standards, strong reliability, and customer satisfaction that exceeds industry norms
+- 0 = Poor quality, frequent defects, low reliability, high customer dissatisfaction
+- 5 = Moderate quality, acceptable performance, some quality issues occasionally
+- 10 = Exceptional quality, industry-leading standards, high reliability, exceptional customer satisfaction
 
 Consider factors like:
 - Product reliability and durability
@@ -551,9 +544,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Culture / Employee Satisfaction',
         'field_name': 'culture_employee_satisfaction_score',
         'prompt': """Rate the quality of culture and employee satisfaction for {company_name} on a scale of 0-10, where:
-- 0 = Weak culture, lower employee satisfaction, higher turnover, challenging work environment, lower employee morale
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average culture typical of most companies - acceptable employee satisfaction, average retention, typical workplace environment
-- 10 = Strong culture, high employee satisfaction, low turnover, good work environment, high employee engagement
+- 0 = Poor culture, low employee satisfaction, high turnover, toxic work environment, poor employee morale
+- 5 = Moderate culture, acceptable employee satisfaction, average retention, some cultural issues
+- 10 = Exceptional culture, industry-leading employee satisfaction, low turnover, great work environment, high employee engagement
 
 Consider factors like:
 - Employee satisfaction scores and surveys
@@ -578,9 +571,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Trailblazer',
         'field_name': 'trailblazer_score',
         'prompt': """Rate how much {company_name} challenges the status quo and pushes boundaries (trailblazer quality) on a scale of 0-10, where:
-- 0 = Follows status quo, more risk-averse, conventional approaches, limited innovation, stays within established boundaries
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average trailblazer quality typical of most companies - some boundary-pushing and calculated risks, but generally follows industry norms
-- 10 = Strong trailblazer, companies that consistently challenge status quo, pioneer new categories, and transform industries through innovative approaches
+- 0 = Follows status quo, avoids risks, conventional approaches, minimal innovation, stays in established boundaries
+- 5 = Some boundary-pushing, occasional calculated risks, moderate innovation beyond industry norms
+- 10 = Extremely bold trailblazer, consistently challenges status quo, willing to take significant risks for big impact, pioneers new possibilities and transforms industries
 
 Consider factors like:
 - Willingness to challenge established industry norms and conventions
@@ -605,9 +598,9 @@ Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'display_name': 'Size / Well Known',
         'field_name': 'size_well_known_score',
         'prompt': """Rate how large, popular, well-known, and information-rich {company_name} is on a scale of 0-10, where:
-- 0 = Small company, limited recognition, minimal public awareness, limited information available
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average size and recognition typical of most public companies - moderate size, some recognition, reasonable information available
-- 10 = Large and well-known company, household name with abundant information available (think Fortune 100, S&P 500 level)
+- 0 = Very small company, unknown, minimal public awareness, very little information available
+- 5 = Moderate size company, some recognition, moderate public awareness, reasonable amount of information available
+- 10 = Extremely large company, highly popular and well-known, widespread public awareness, abundant information readily available
 
 Consider factors like:
 - Company size (market capitalization, revenue, number of employees, number of customers)
@@ -1418,18 +1411,48 @@ def handle_heavy_command(tickers_input):
         print()
 
 
-def handle_redo_command(ticker_input):
-    """Handle the redo command - rescore a ticker even if it already has scores.
+def handle_redo_command(tickers_input):
+    """Handle the redo command - rescore ticker(s) even if they already have scores.
     
     Args:
-        ticker_input: Ticker symbol to rescore
+        tickers_input: Space-separated ticker symbols to rescore
     """
-    if not ticker_input.strip():
-        print("Please provide a ticker symbol. Example: redo AAPL")
+    if not tickers_input.strip():
+        print("Please provide ticker symbol(s). Example: redo AAPL or redo AAPL MSFT GOOGL")
         return
     
-    ticker = ticker_input.strip()
-    score_single_ticker(ticker, force_rescore=True)
+    tickers = tickers_input.strip().split()
+    
+    if len(tickers) == 1:
+        # Single ticker - use existing behavior
+        score_single_ticker(tickers[0], force_rescore=True)
+    else:
+        # Multiple tickers - process them in batch
+        print(f"\nProcessing {len(tickers)} ticker(s) for rescoring...")
+        print("=" * 80)
+        
+        for i, ticker in enumerate(tickers, 1):
+            ticker_upper = ticker.strip().upper()
+            ticker_lookup = load_ticker_lookup()
+            company_name = ticker_lookup.get(ticker_upper, ticker_upper)
+            print(f"\n[{i}/{len(tickers)}] Rescoring {ticker_upper} ({company_name})...")
+            result = score_single_ticker(ticker, silent=True, batch_mode=True, force_rescore=True)
+            if result:
+                if result['success']:
+                    total = result.get('total')
+                    if total is not None:
+                        all_totals = get_all_total_scores()
+                        percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                        total_str = format_total_score(total, percentile)
+                        print(f"  ✓ {ticker_upper} rescored successfully - {total_str}")
+                    else:
+                        print(f"  ✓ {ticker_upper} rescored successfully")
+                else:
+                    print(f"  ✗ Error rescoring {ticker_upper}: {result.get('error', 'Unknown error')}")
+            else:
+                print(f"  ✗ '{ticker}' is not a valid ticker. Skipping.")
+        
+        print("\n" + "=" * 80)
 
 
 def calculate_correlation(light_scores, heavy_scores):
@@ -2585,7 +2608,7 @@ def main():
     print("  Type 'delete' to remove a company's scores")
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
-    print("  Type 'redo TICKER' to rescore a ticker (forces new scoring even if scores exist)")
+    print("  Type 'redo TICKER1 TICKER2 ...' to rescore ticker(s) (forces new scoring even if scores exist)")
     print("  Type 'heavy TICKER1 TICKER2 ...' to score with main Grok 4 model")
     print("  Type 'correl TICKER1 TICKER2 ...' to see correlation between light and heavy metric scores per ticker")
     print("  Type 'define TICKER = Company Name' to add custom ticker definition")
@@ -2625,11 +2648,11 @@ def main():
                 print(f"\nMigration complete! Now storing {count} unique companies.")
                 print()
             elif user_input.lower() == 'redo':
-                print("Please provide a ticker symbol. Example: redo AAPL")
+                print("Please provide ticker symbol(s). Example: redo AAPL or redo AAPL MSFT GOOGL")
                 print()
             elif user_input.lower().startswith('redo '):
-                ticker = user_input[5:].strip()  # Remove 'redo ' prefix
-                handle_redo_command(ticker)
+                tickers = user_input[5:].strip()  # Remove 'redo ' prefix
+                handle_redo_command(tickers)
                 print()
             elif user_input.lower() == 'heavy':
                 print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")
