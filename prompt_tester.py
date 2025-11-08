@@ -17,6 +17,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # Stock ticker lookup file
 TICKER_FILE = "stock_tickers_clean.json"
 
+# Custom ticker definitions file
+TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+
 # Cache for ticker lookups
 _ticker_cache = None
 
@@ -25,9 +28,9 @@ METRIC = {
     'key': 'moat_score',
     'display_name': 'Competitive Moat',
     'prompt': """Rate the competitive moat strength of {company_name} on a scale of 0-10, where:
-- 0 = Weak or minimal competitive advantage, easily replaceable, commodity-like business
-- 5 = TYPICAL AVERAGE - This is the standard score for most companies. Average competitive advantages typical of most companies in the industry
-- 10 = Very strong moat, companies with exceptional competitive advantages that are difficult to replicate
+- 0 = Low competitive advantage
+- 5 = Strong competitive advantages
+- 10 = Extremely strong moat
 
 Consider factors like:
 - Brand strength and customer loyalty
@@ -42,8 +45,35 @@ Respond with ONLY the numerical score (0-10), no explanation needed."""
 }
 
 
+def load_custom_ticker_definitions():
+    """Load custom ticker definitions from JSON file.
+    
+    Returns:
+        dict: Dictionary mapping ticker (uppercase) to company name
+    """
+    custom_definitions = {}
+    
+    try:
+        if os.path.exists(TICKER_DEFINITIONS_FILE):
+            with open(TICKER_DEFINITIONS_FILE, 'r') as f:
+                data = json.load(f)
+                
+                for ticker, name in data.get('definitions', {}).items():
+                    ticker_upper = ticker.strip().upper()
+                    name_stripped = name.strip()
+                    
+                    if ticker_upper and name_stripped:
+                        custom_definitions[ticker_upper] = name_stripped
+    except Exception as e:
+        print(f"Warning: Could not load custom ticker definitions: {e}")
+    
+    return custom_definitions
+
+
 def load_ticker_lookup():
-    """Load ticker to company name lookup."""
+    """Load ticker to company name lookup.
+    Custom definitions take precedence over main ticker file.
+    """
     global _ticker_cache
     
     if _ticker_cache is not None:
@@ -51,6 +81,7 @@ def load_ticker_lookup():
     
     _ticker_cache = {}
     
+    # First load from main ticker file
     try:
         if os.path.exists(TICKER_FILE):
             with open(TICKER_FILE, 'r') as f:
@@ -66,6 +97,10 @@ def load_ticker_lookup():
             print(f"Warning: {TICKER_FILE} not found. Ticker lookups will not work.")
     except Exception as e:
         print(f"Warning: Could not load ticker file: {e}")
+    
+    # Then load custom definitions (these override main file)
+    custom_definitions = load_custom_ticker_definitions()
+    _ticker_cache.update(custom_definitions)
     
     return _ticker_cache
 
@@ -238,16 +273,41 @@ def score_multiple_tickers(tickers_str):
         print("No tickers provided.")
         return
     
-    print(f"\nScoring {len(tickers)} ticker(s) for {METRIC['display_name']} in parallel...")
+    # Pre-load ticker lookup to avoid race conditions in parallel execution
+    ticker_lookup = load_ticker_lookup()
+    
+    # Validate all tickers upfront
+    valid_tickers = []
+    invalid_tickers = []
+    for ticker in tickers:
+        ticker_upper = ticker.strip().upper()
+        if ticker_upper in ticker_lookup:
+            valid_tickers.append(ticker_upper)
+        else:
+            invalid_tickers.append(ticker_upper)
+    
+    if invalid_tickers:
+        print(f"\nWarning: The following tickers are not found in the lookup:")
+        for ticker in invalid_tickers:
+            print(f"  - {ticker}")
+        print(f"\nAvailable tickers in lookup: {len(ticker_lookup)} total")
+        if invalid_tickers:
+            print("\nSkipping invalid tickers and continuing with valid ones...")
+    
+    if not valid_tickers:
+        print("No valid tickers to score.")
+        return
+    
+    print(f"\nScoring {len(valid_tickers)} ticker(s) for {METRIC['display_name']} in parallel...")
     print("=" * 80)
     
     overall_start = time.time()
     results = []
     
     # Score all tickers in parallel using ThreadPoolExecutor
-    with ThreadPoolExecutor(max_workers=len(tickers)) as executor:
+    with ThreadPoolExecutor(max_workers=len(valid_tickers)) as executor:
         # Submit all tasks
-        future_to_ticker = {executor.submit(score_ticker, ticker): ticker for ticker in tickers}
+        future_to_ticker = {executor.submit(score_ticker, ticker): ticker for ticker in valid_tickers}
         
         # Collect results as they complete
         completed = 0
@@ -261,19 +321,19 @@ def score_multiple_tickers(tickers_str):
             if error_or_warning:
                 if score_float is None:
                     # It's an error
-                    print(f"  ✗ [{completed}/{len(tickers)}] {ticker_input.upper()}: Error - {error_or_warning}")
+                    print(f"  ✗ [{completed}/{len(valid_tickers)}] {ticker_input.upper()}: Error - {error_or_warning}")
                 else:
                     # It's a warning
-                    print(f"  ✓ [{completed}/{len(tickers)}] {ticker} ({company_name}): {score_float:.1f}/10 "
+                    print(f"  ✓ [{completed}/{len(valid_tickers)}] {ticker} ({company_name}): {score_float:.1f}/10 "
                           f"({elapsed_time:.2f}s, {total_tokens} tokens) - Warning: {error_or_warning}")
                     results.append((ticker, company_name, score_float))
             elif score_float is not None:
-                print(f"  ✓ [{completed}/{len(tickers)}] {ticker} ({company_name}): {score_float:.1f}/10 "
+                print(f"  ✓ [{completed}/{len(valid_tickers)}] {ticker} ({company_name}): {score_float:.1f}/10 "
                       f"({elapsed_time:.2f}s, {total_tokens} tokens)")
                 results.append((ticker, company_name, score_float))
     
     overall_elapsed = time.time() - overall_start
-    print(f"\nCompleted scoring {len(results)}/{len(tickers)} tickers in {overall_elapsed:.2f}s")
+    print(f"\nCompleted scoring {len(results)}/{len(valid_tickers)} tickers in {overall_elapsed:.2f}s")
     
     # Display statistics
     display_statistics(results)

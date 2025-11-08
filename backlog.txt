@@ -4,8 +4,6 @@ add financial scores
 
 clean up tickers -> names
 
-data analysis 
-
 chop down code
 
 size adjustment 
@@ -19,4 +17,6 @@ make scoring stricter for certain metrics
 add familiarity score 
 
 adjust strictness of scoring 
+
+adjust prompts
 
