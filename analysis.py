@@ -1,8 +1,8 @@
 import json
 import statistics
 
-# Load the scores.json file
-with open('scores.json', 'r') as f:
+# Load the stricter_scores.json file
+with open('stricter_scores.json', 'r') as f:
     data = json.load(f)
 
 # Get all companies
