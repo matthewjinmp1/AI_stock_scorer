@@ -1052,6 +1052,9 @@ def score_multiple_tickers(input_str):
     
     results = []
     ticker_lookup = load_ticker_lookup()
+    # Get all totals for percentile calculation (will be updated as we score)
+    all_totals = get_all_total_scores()
+    
     for i, ticker in enumerate(tickers, 1):
         ticker_upper = ticker.strip().upper()
         company_name = ticker_lookup.get(ticker_upper, ticker_upper)
@@ -1059,10 +1062,23 @@ def score_multiple_tickers(input_str):
         result = score_single_ticker(ticker, silent=True, batch_mode=True)
         if result:
             if result['success']:
-                if result.get('already_scored'):
-                    print(f"  ✓ {ticker.upper()} already scored")
+                # Calculate and display total score and percentile
+                total = result.get('total')
+                if total is not None:
+                    # Refresh all totals to include newly scored ticker
+                    all_totals = get_all_total_scores()
+                    percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                    total_str = format_total_score(total, percentile)
+                    
+                    if result.get('already_scored'):
+                        print(f"  ✓ {ticker.upper()} already scored - {total_str}")
+                    else:
+                        print(f"  ✓ {ticker.upper()} scored successfully - {total_str}")
                 else:
-                    print(f"  ✓ {ticker.upper()} scored successfully")
+                    if result.get('already_scored'):
+                        print(f"  ✓ {ticker.upper()} already scored")
+                    else:
+                        print(f"  ✓ {ticker.upper()} scored successfully")
             else:
                 print(f"  ✗ Error scoring {ticker.upper()}: {result.get('error', 'Unknown error')}")
             results.append(result)

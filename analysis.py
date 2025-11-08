@@ -13,6 +13,13 @@ if companies:
     first_ticker = list(companies.keys())[0]
     metrics = list(companies[first_ticker].keys())
     
+    # Store statistics for each metric to calculate overall averages
+    all_averages = []
+    all_medians = []
+    all_mins = []
+    all_maxes = []
+    all_stdevs = []
+    
     # For each metric, collect all values across all tickers
     for metric in metrics:
         values = []
@@ -28,6 +35,13 @@ if companies:
         max_val = max(values)
         stdev = statistics.stdev(values) if len(values) > 1 else 0
         
+        # Store statistics for overall averages
+        all_averages.append(avg)
+        all_medians.append(median)
+        all_mins.append(min_val)
+        all_maxes.append(max_val)
+        all_stdevs.append(stdev)
+        
         # Print results
         print(f"{metric}:")
         print(f"  Average: {avg:.2f}")
@@ -36,4 +50,15 @@ if companies:
         print(f"  Max: {max_val}")
         print(f"  Std Dev: {stdev:.2f}")
         print()
+    
+    # Calculate and print overall averages across all metrics
+    print("=" * 50)
+    print("Overall Averages Across All Metrics:")
+    print("=" * 50)
+    print(f"  Average of Averages: {statistics.mean(all_averages):.2f}")
+    print(f"  Average of Medians: {statistics.mean(all_medians):.2f}")
+    print(f"  Average of Mins: {statistics.mean(all_mins):.2f}")
+    print(f"  Average of Maxes: {statistics.mean(all_maxes):.2f}")
+    print(f"  Average of Std Devs: {statistics.mean(all_stdevs):.2f}")
+    print()
 
