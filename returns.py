@@ -11,6 +11,7 @@ import yfinance as yf
 
 SCORES_FILE = "scores.json"
 TICKER_FILE = "stock_tickers_clean.json"
+RETURNS_FILE = "returns.json"
 
 
 def load_scores():
@@ -194,6 +195,38 @@ def main():
         if successful_returns:
             print(f"Best return: {max(successful_returns):+.2f}%")
             print(f"Worst return: {min(successful_returns):+.2f}%")
+    
+    # Save results to JSON file
+    output_data = {
+        "date_calculated": datetime.now().isoformat(),
+        "start_date": start_date.isoformat(),
+        "end_date": end_date.isoformat(),
+        "returns": {}
+    }
+    
+    for result in results:
+        ticker = result['ticker']
+        if result['return'] is not None:
+            output_data["returns"][ticker] = {
+                "return": result['return'],
+                "status": "success"
+            }
+        else:
+            output_data["returns"][ticker] = {
+                "return": None,
+                "status": "error",
+                "error": result['error']
+            }
+    
+    try:
+        with open(RETURNS_FILE, 'w') as f:
+            json.dump(output_data, f, indent=2)
+        print()
+        print("=" * 60)
+        print(f"Results saved to {RETURNS_FILE}")
+        print("=" * 60)
+    except Exception as e:
+        print(f"\nWarning: Could not save to {RETURNS_FILE}: {e}")
 
 
 if __name__ == "__main__":
