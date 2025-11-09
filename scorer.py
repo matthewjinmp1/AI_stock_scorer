@@ -2661,6 +2661,109 @@ def remove_ticker_definition(ticker):
     else:
         return False
 
+def redefine_ticker_definition(new_ticker, old_ticker):
+    """Rename a ticker definition from old_ticker to new_ticker.
+    
+    Args:
+        new_ticker: New ticker symbol (will be converted to uppercase)
+        old_ticker: Old ticker symbol to rename from
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    new_ticker_upper = new_ticker.strip().upper()
+    old_ticker_upper = old_ticker.strip().upper()
+    
+    if not new_ticker_upper:
+        print("Error: New ticker symbol cannot be empty.")
+        return False
+    
+    if not old_ticker_upper:
+        print("Error: Old ticker symbol cannot be empty.")
+        return False
+    
+    if new_ticker_upper == old_ticker_upper:
+        print("Error: New and old ticker symbols are the same.")
+        return False
+    
+    # Load existing definitions
+    custom_definitions = load_custom_ticker_definitions()
+    
+    # Check if old ticker exists
+    if old_ticker_upper not in custom_definitions:
+        print(f"Error: '{old_ticker_upper}' is not in custom ticker definitions.")
+        return False
+    
+    # Check if new ticker already exists
+    if new_ticker_upper in custom_definitions:
+        print(f"Error: '{new_ticker_upper}' already exists in custom ticker definitions.")
+        print(f"  Current definition: {new_ticker_upper} = {custom_definitions[new_ticker_upper]}")
+        return False
+    
+    # Get company name from old ticker
+    company_name = custom_definitions[old_ticker_upper]
+    
+    # Check and update scores.json if old ticker exists there
+    scores_updated = False
+    if os.path.exists(SCORES_FILE):
+        try:
+            scores_data = load_scores()
+            companies = scores_data.get("companies", {})
+            
+            # Check if old ticker exists in scores (case-insensitive check)
+            old_ticker_lower = old_ticker_upper.lower()
+            new_ticker_lower = new_ticker_upper.lower()
+            
+            # Find the actual key (might be lowercase in scores.json)
+            old_key = None
+            for key in companies.keys():
+                if key.upper() == old_ticker_upper:
+                    old_key = key
+                    break
+            
+            if old_key:
+                # Check if new ticker already exists in scores
+                new_key_exists = False
+                for key in companies.keys():
+                    if key.upper() == new_ticker_upper:
+                        new_key_exists = True
+                        print(f"Warning: '{new_ticker_upper}' already exists in scores.json.")
+                        print(f"  Existing entry: {key} = {companies[key].get('moat_score', 'N/A')}")
+                        response = input(f"  Overwrite scores for '{new_ticker_upper}'? (yes/no): ").strip().lower()
+                        if response not in ['yes', 'y']:
+                            print("Cancelled. Scores.json not updated.")
+                            return False
+                        # Remove existing new ticker entry
+                        del companies[key]
+                        break
+                
+                # Move scores from old ticker to new ticker
+                scores_data["companies"][new_ticker_lower] = companies[old_key]
+                del companies[old_key]
+                
+                # Save scores
+                save_scores(scores_data)
+                scores_updated = True
+                print(f"✓ Updated scores.json: {old_key} → {new_ticker_lower}")
+        except Exception as e:
+            print(f"Warning: Could not update scores.json: {e}")
+    
+    # Remove old ticker and add new ticker in definitions
+    del custom_definitions[old_ticker_upper]
+    custom_definitions[new_ticker_upper] = company_name
+    
+    # Save definitions
+    if save_custom_ticker_definitions(custom_definitions):
+        print(f"✓ Redefined: {old_ticker_upper} → {new_ticker_upper} = {company_name}")
+        if not scores_updated:
+            print(f"  (No scores found for '{old_ticker_upper}' in scores.json)")
+        # Clear cache so it reloads with new definition
+        global _ticker_cache
+        _ticker_cache = None
+        return True
+    else:
+        return False
+
 def list_ticker_definitions():
     """List all custom ticker definitions."""
     custom_definitions = load_custom_ticker_definitions()
@@ -2730,6 +2833,38 @@ def handle_define_command(command_input):
         print("  define -l                      - List all custom ticker definitions")
 
 
+def handle_redefine_command(command_input):
+    """Handle the redefine command - rename a ticker definition.
+    
+    Args:
+        command_input: Command input after 'redefine' keyword
+    """
+    command_input = command_input.strip()
+    
+    if not command_input:
+        print("Usage:")
+        print("  redefine NEW_TICKER = OLD_TICKER    - Rename a ticker definition")
+        return
+    
+    # Look for "=" separator
+    if '=' in command_input:
+        parts = command_input.split('=', 1)
+        if len(parts) == 2:
+            new_ticker = parts[0].strip()
+            old_ticker = parts[1].strip()
+            
+            if new_ticker and old_ticker:
+                redefine_ticker_definition(new_ticker, old_ticker)
+            else:
+                print("Error: Both new and old ticker symbols are required.")
+                print("Usage: redefine NEW_TICKER = OLD_TICKER")
+        else:
+            print("Error: Invalid format. Use: redefine NEW_TICKER = OLD_TICKER")
+    else:
+        print("Error: Invalid command. Use:")
+        print("  redefine NEW_TICKER = OLD_TICKER    - Rename a ticker definition")
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -2748,13 +2883,14 @@ def main():
     print("  Type 'define TICKER = Company Name' to add custom ticker definition")
     print("  Type 'define -r TICKER' to remove a custom ticker definition")
     print("  Type 'define -l' to list all custom ticker definitions")
+    print("  Type 'redefine NEW_TICKER = OLD_TICKER' to rename a ticker definition")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'redo'/'heavy'/'correl'/'define'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'redo'/'heavy'/'correl'/'define'/'redefine'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2815,6 +2951,14 @@ def main():
             elif user_input.lower().startswith('define '):
                 command_input = user_input[7:].strip()  # Remove 'define ' prefix
                 handle_define_command(command_input)
+                print()
+            elif user_input.lower() == 'redefine':
+                print("Usage:")
+                print("  redefine NEW_TICKER = OLD_TICKER    - Rename a ticker definition")
+                print()
+            elif user_input.lower().startswith('redefine '):
+                command_input = user_input[9:].strip()  # Remove 'redefine ' prefix
+                handle_redefine_command(command_input)
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers

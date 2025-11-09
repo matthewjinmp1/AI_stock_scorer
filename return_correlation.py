@@ -11,6 +11,7 @@ import numpy as np
 
 SCORES_FILE = "scores.json"
 RETURNS_FILE = "returns.json"
+TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
 
 # Score weightings - must match scorer.py
 SCORE_WEIGHTS = {
@@ -115,6 +116,21 @@ def load_returns():
         return None
 
 
+def load_excluded_tickers():
+    """Load tickers to exclude from ticker_definitions.json."""
+    excluded = set()
+    if os.path.exists(TICKER_DEFINITIONS_FILE):
+        try:
+            with open(TICKER_DEFINITIONS_FILE, 'r') as f:
+                data = json.load(f)
+            definitions = data.get("definitions", {})
+            # Extract all ticker symbols and convert to uppercase
+            excluded = {ticker.upper() for ticker in definitions.keys()}
+        except (json.JSONDecodeError, FileNotFoundError) as e:
+            print(f"Warning: Could not load {TICKER_DEFINITIONS_FILE}: {e}")
+    return excluded
+
+
 def main():
     """Main function to calculate and display correlation."""
     print("=" * 60)
@@ -145,12 +161,23 @@ def main():
     print(f"Returns period: {start_date} to {end_date}")
     print()
     
+    # Load excluded tickers
+    excluded_tickers = load_excluded_tickers()
+    if excluded_tickers:
+        print(f"Excluding {len(excluded_tickers)} tickers from ticker_definitions.json")
+    
     # Match companies and calculate total scores
     print("Calculating total scores and matching with returns...")
     matched_data = []
+    excluded_count = 0
     
     for ticker, scores_dict in scores_data.items():
         ticker_upper = ticker.upper()
+        
+        # Skip if ticker is in excluded list
+        if ticker_upper in excluded_tickers:
+            excluded_count += 1
+            continue
         
         # Check if this ticker has return data
         if ticker_upper in returns_dict:
@@ -166,6 +193,9 @@ def main():
                     'total_score': total_score,
                     'return': return_pct
                 })
+    
+    if excluded_count > 0:
+        print(f"Excluded {excluded_count} tickers from custom definitions")
     
     print(f"Found {len(matched_data)} companies with both scores and returns")
     print()

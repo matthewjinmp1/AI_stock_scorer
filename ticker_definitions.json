@@ -9,7 +9,6 @@
     "ALO": "Alo Yoga",
     "VRI": "Vuori",
     "FAB": "Fabletics",
-    "STR": "Stripe, Inc.",
     "ADY": "Adyen",
     "CANV": "Canva",
     "DNP": "Dino Polska",
@@ -33,6 +32,7 @@
     "ADRL": "Anduril Industries",
     "BDRK": "Biedronka",
     "LDL": "Lidl",
-    "ALD": "Aldi"
+    "ALD": "Aldi",
+    "STRP": "Stripe, Inc."
   }
 }
