@@ -969,7 +969,8 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                 if not silent and not batch_mode:
                     print(f"Total tokens used: {tokens_used}")
                     cost = calculate_token_cost(tokens_used, model="grok-4-fast", token_usage=token_usage)
-                    print(f"Total cost: ${cost:.6f}")
+                    cost_cents = cost * 100
+                    print(f"Total cost: {cost_cents:.4f} cents")
             
             storage_key = ticker if ticker else company_name.lower()
             scores_data["companies"][storage_key] = current_scores
@@ -1008,7 +1009,8 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             if not batch_mode:
                 print(f"Total tokens used: {total_tokens}")
                 cost = calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=token_usage)
-                print(f"Total cost: ${cost:.6f}")
+                cost_cents = cost * 100
+                print(f"Total cost: {cost_cents:.4f} cents")
             print(f"\nScores saved to {SCORES_FILE}")
         
         total = calculate_total_score(all_scores)
@@ -1266,7 +1268,8 @@ def get_company_moat_score(input_str):
                 current_scores.update(missing_scores)
                 print(f"Total tokens used: {tokens_used}")
                 cost = calculate_token_cost(tokens_used, model="grok-4-fast", token_usage=token_usage)
-                print(f"Total cost: ${cost:.6f}")
+                cost_cents = cost * 100
+                print(f"Total cost: {cost_cents:.4f} cents")
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -1293,7 +1296,8 @@ def get_company_moat_score(input_str):
         
         print(f"Total tokens used: {total_tokens}")
         cost = calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=token_usage)
-        print(f"Total cost: ${cost:.6f}")
+        cost_cents = cost * 100
+        print(f"Total cost: {cost_cents:.4f} cents")
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()
@@ -1416,7 +1420,8 @@ def get_company_moat_score_heavy(input_str):
                 current_scores.update(missing_scores)
                 print(f"Total tokens used: {tokens_used}")
                 cost = calculate_token_cost(tokens_used, model="grok-4-latest", token_usage=token_usage)
-                print(f"Total cost: ${cost:.6f}")
+                cost_cents = cost * 100
+                print(f"Total cost: {cost_cents:.4f} cents")
             
             # Use ticker for storage key if available, otherwise use company name
             storage_key = ticker if ticker else company_name.lower()
@@ -1443,7 +1448,8 @@ def get_company_moat_score_heavy(input_str):
         
         print(f"Total tokens used: {total_tokens}")
         cost = calculate_token_cost(total_tokens, model="grok-4-latest", token_usage=token_usage)
-        print(f"Total cost: ${cost:.6f}")
+        cost_cents = cost * 100
+        print(f"Total cost: {cost_cents:.4f} cents")
         
         # Use ticker for storage key if available, otherwise use company name
         storage_key = ticker if ticker else company_name.lower()
