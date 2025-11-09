@@ -23,3 +23,5 @@ adjust prompts
 use AI to rank companies on a metric using sorting algorithms 
 
 migrate heavy to a heavy scorer
+
+rank returns
