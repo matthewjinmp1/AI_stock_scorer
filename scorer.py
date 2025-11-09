@@ -1070,11 +1070,23 @@ def score_multiple_tickers(input_str):
     Args:
         input_str: Space-separated ticker symbols
     """
-    tickers = input_str.strip().split()
+    tickers_raw = input_str.strip().split()
     
-    if not tickers:
+    if not tickers_raw:
         print("Please provide at least one ticker symbol.")
         return
+    
+    # Deduplicate tickers while preserving order (case-insensitive)
+    seen = set()
+    tickers = []
+    for ticker in tickers_raw:
+        ticker_upper = ticker.upper()
+        if ticker_upper not in seen:
+            seen.add(ticker_upper)
+            tickers.append(ticker)
+    
+    if len(tickers) < len(tickers_raw):
+        print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
     
     print(f"\nProcessing {len(tickers)} ticker(s)...")
     print("=" * 80)
@@ -1491,7 +1503,18 @@ def handle_heavy_command(tickers_input):
         print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")
         return
     
-    tickers = tickers_input.strip().split()
+    tickers_raw = tickers_input.strip().split()
+    # Deduplicate tickers while preserving order (case-insensitive)
+    seen = set()
+    tickers = []
+    for ticker in tickers_raw:
+        ticker_upper = ticker.upper()
+        if ticker_upper not in seen:
+            seen.add(ticker_upper)
+            tickers.append(ticker)
+    
+    if len(tickers) < len(tickers_raw):
+        print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
     
     for ticker in tickers:
         print(f"\n{'='*60}")
@@ -1509,7 +1532,18 @@ def handle_redo_command(tickers_input):
         print("Please provide ticker symbol(s). Example: redo AAPL or redo AAPL MSFT GOOGL")
         return
     
-    tickers = tickers_input.strip().split()
+    tickers_raw = tickers_input.strip().split()
+    # Deduplicate tickers while preserving order (case-insensitive)
+    seen = set()
+    tickers = []
+    for ticker in tickers_raw:
+        ticker_upper = ticker.upper()
+        if ticker_upper not in seen:
+            seen.add(ticker_upper)
+            tickers.append(ticker)
+    
+    if len(tickers) < len(tickers_raw):
+        print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
     
     if len(tickers) == 1:
         # Single ticker - use existing behavior
@@ -1589,7 +1623,19 @@ def handle_correl_command(tickers_input):
         print("Please provide ticker symbols. Example: correl AAPL MSFT GOOGL")
         return
     
-    tickers = tickers_input.strip().split()
+    tickers_raw = tickers_input.strip().split()
+    # Deduplicate tickers while preserving order (case-insensitive)
+    seen = set()
+    tickers = []
+    for ticker in tickers_raw:
+        ticker_upper = ticker.upper()
+        if ticker_upper not in seen:
+            seen.add(ticker_upper)
+            tickers.append(ticker)
+    
+    if len(tickers) < len(tickers_raw):
+        print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
+    
     light_scores_data = load_scores()
     heavy_scores_data = load_heavy_scores()
     ticker_lookup = load_ticker_lookup()
@@ -2767,10 +2813,23 @@ def main():
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers
-                tickers = user_input.strip().split()
+                tickers_raw = user_input.strip().split()
+                # Deduplicate tickers while preserving order (case-insensitive)
+                seen = set()
+                tickers = []
+                for ticker in tickers_raw:
+                    ticker_upper = ticker.upper()
+                    if ticker_upper not in seen:
+                        seen.add(ticker_upper)
+                        tickers.append(ticker)
+                
+                if len(tickers) < len(tickers_raw):
+                    print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
+                
                 if len(tickers) > 1:
                     # Multiple tickers - use the batch scoring function
-                    score_multiple_tickers(user_input)
+                    # Reconstruct input string with deduplicated tickers
+                    score_multiple_tickers(' '.join(tickers))
                     print()
                 else:
                     # Single ticker - use the original function
