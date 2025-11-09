@@ -59,10 +59,10 @@ HEAVY_SCORES_FILE = "scores_heavy.json"
 TICKER_FILE = "stock_tickers_clean.json"
 
 # Model pricing per 1M tokens (update these based on current Grok API pricing)
-# Format: (input_cost_per_1M_tokens, output_cost_per_1M_tokens) in USD
+# Format: (input_cost_per_1M_tokens, output_cost_per_1M_tokens, cached_input_cost_per_1M_tokens) in USD
 MODEL_PRICING = {
-    "grok-4-fast": (0.10, 0.30),  # Example: $0.10 per 1M input tokens, $0.30 per 1M output tokens
-    "grok-4-latest": (0.30, 0.90),  # Example: $0.30 per 1M input tokens, $0.90 per 1M output tokens
+    "grok-4-fast": (0.20, 0.50, 0.05),  # $0.20 per 1M input tokens, $0.50 per 1M output tokens, $0.05 per 1M cached input tokens
+    "grok-4-latest": (3.00, 15.00, 0.75),  # $3.00 per 1M input tokens, $15.00 per 1M output tokens, $0.75 per 1M cached input tokens
 }
 
 
@@ -72,7 +72,7 @@ def calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=None):
     Args:
         total_tokens: Total number of tokens used
         model: Model name to get pricing for
-        token_usage: Optional token_usage dict with input_tokens and output_tokens if available
+        token_usage: Optional token_usage dict with input_tokens, output_tokens, and cached_tokens if available
         
     Returns:
         float: Total cost in USD
@@ -80,17 +80,24 @@ def calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=None):
     if model not in MODEL_PRICING:
         return 0.0
     
-    input_cost_per_1M, output_cost_per_1M = MODEL_PRICING[model]
+    pricing = MODEL_PRICING[model]
+    input_cost_per_1M = pricing[0]
+    output_cost_per_1M = pricing[1]
+    cached_input_cost_per_1M = pricing[2] if len(pricing) > 2 else input_cost_per_1M
     
-    # If we have breakdown of input/output tokens, use that for more accurate pricing
+    # If we have breakdown of input/output/cached tokens, use that for more accurate pricing
     if token_usage:
         input_tokens = token_usage.get('input_tokens', 0) or token_usage.get('prompt_tokens', 0)
         output_tokens = token_usage.get('output_tokens', 0) or token_usage.get('completion_tokens', 0)
+        cached_tokens = token_usage.get('cached_tokens', 0) or token_usage.get('cached_input_tokens', 0)
         
-        if input_tokens > 0 or output_tokens > 0:
-            input_cost = (input_tokens / 1_000_000) * input_cost_per_1M
+        if input_tokens > 0 or output_tokens > 0 or cached_tokens > 0:
+            # Regular input tokens (non-cached)
+            regular_input_tokens = max(0, input_tokens - cached_tokens)
+            regular_input_cost = (regular_input_tokens / 1_000_000) * input_cost_per_1M
+            cached_input_cost = (cached_tokens / 1_000_000) * cached_input_cost_per_1M
             output_cost = (output_tokens / 1_000_000) * output_cost_per_1M
-            return input_cost + output_cost
+            return regular_input_cost + cached_input_cost + output_cost
     
     # Fallback: use total tokens with average of input/output pricing
     # This is less accurate but works if we don't have breakdown
@@ -878,6 +885,7 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
         combined_token_usage = {
             'input_tokens': sum(usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0) for usage in all_token_usages),
             'output_tokens': sum(usage.get('output_tokens', 0) or usage.get('completion_tokens', 0) for usage in all_token_usages),
+            'cached_tokens': sum(usage.get('cached_tokens', 0) or usage.get('cached_input_tokens', 0) for usage in all_token_usages),
         }
     
     return all_scores, total_tokens, combined_token_usage
