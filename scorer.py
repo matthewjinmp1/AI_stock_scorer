@@ -2748,16 +2748,21 @@ def main():
     print("  Type 'define TICKER = Company Name' to add custom ticker definition")
     print("  Type 'define -r TICKER' to remove a custom ticker definition")
     print("  Type 'define -l' to list all custom ticker definitions")
+    print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'redo'/'heavy'/'correl'/'define'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'view heavy'/'rank'/'delete'/'fill'/'redo'/'heavy'/'correl'/'define'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
+            elif user_input.lower() == 'clear':
+                # Clear terminal - cross-platform
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
             elif user_input.lower() == 'view heavy':
                 view_heavy_scores()
                 print()

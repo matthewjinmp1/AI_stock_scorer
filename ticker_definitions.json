@@ -5,7 +5,6 @@
     "OAI": "OpenAI",
     "BLM": "Bloomberg",
     "SPX": "Space Exploration Technologies Corp",
-    "TIK": "ByteDance",
     "ATH": "Athleta",
     "ALO": "Alo Yoga",
     "VRI": "Vuori",
@@ -18,6 +17,7 @@
     "PBLX": "Publix",
     "X": "Twitter (or X Corp)",
     "TEN": "Tencent",
-    "ANTH": "Anthropic"
+    "ANTH": "Anthropic",
+    "BYTE": "ByteDance"
   }
 }

@@ -2688,7 +2688,7 @@
       "trailblazer_score": "10",
       "size_well_known_score": "10"
     },
-    "TIK": {
+    "byte": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -3485,6 +3485,27 @@
       "pricing_power": "7",
       "riskiness_score": "8",
       "bargaining_power_of_suppliers": "7"
+    },
+    "OPEN": {
+      "moat_score": "5",
+      "switching_cost": "0",
+      "product_differentiation": "7",
+      "ambition_score": "8",
+      "culture_employee_satisfaction_score": "6",
+      "competition_intensity": "7",
+      "product_quality_score": "5",
+      "disruption_risk": "7",
+      "size_well_known_score": "5",
+      "brand_strength": "5",
+      "riskiness_score": "8",
+      "innovativeness_score": "7",
+      "bargaining_power_of_customers": "8",
+      "trailblazer_score": "8",
+      "network_effect": "5",
+      "barriers_score": "7",
+      "growth_opportunity": "8",
+      "pricing_power": "2",
+      "bargaining_power_of_suppliers": "2"
     }
   }
 }
