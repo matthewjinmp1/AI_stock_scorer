@@ -18,6 +18,21 @@
     "X": "Twitter (or X Corp)",
     "TEN": "Tencent",
     "ANTH": "Anthropic",
-    "BYTE": "ByteDance"
+    "BYTE": "ByteDance",
+    "NFLX": "Netflix",
+    "NIK": "Nikon",
+    "CAN": "Canon Inc",
+    "SMEE": "Shanghai Micro Electronics Equipment",
+    "TEL": "Tokyo Electron",
+    "ASM": "ASM International NV",
+    "SCRN": "SCREEN Holdings Co., Ltd.",
+    "DB": "DataBricks",
+    "EVO": "Evolution AB",
+    "PUMA": "Puma",
+    "GYM": "Gymshark",
+    "ADRL": "Anduril Industries",
+    "BDRK": "Biedronka",
+    "LDL": "Lidl",
+    "ALD": "Aldi"
   }
 }
