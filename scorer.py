@@ -38,6 +38,7 @@ SCORE_WEIGHTS = {
     'product_quality_score': 10,
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
+    'management_quality_score': 10,
     'size_well_known_score': 0,
 }
 
@@ -636,6 +637,34 @@ Consider factors like:
 - Revolutionary products, services, or business models
 - Willingness to cannibalize existing businesses for future growth
 - Aggressive pursuit of ambitious, transformative goals
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'management_quality_score': {
+        'display_name': 'Management Quality',
+        'field_name': 'management_quality_score',
+        'prompt': """Rate the quality of management and leadership at {company_name} on a scale of 0-10, where:
+- 0 = Poor management, weak execution, poor strategic decisions, low credibility, history of failures
+- 5 = Adequate management, acceptable execution, some good decisions mixed with mistakes, moderate track record
+- 10 = Exceptional management, outstanding execution, excellent strategic vision and decision-making, strong track record, highly respected leadership
+
+Consider factors like:
+- Track record of execution and delivering on promises
+- Strategic vision and long-term planning quality
+- Capital allocation decisions (M&A, dividends, buybacks, reinvestment)
+- Operational efficiency and cost management
+- Ability to adapt to changing market conditions
+- Communication and transparency with investors
+- Management credibility and reputation
+- Success in navigating challenges and crises
+- Talent acquisition and retention of key executives
+- Corporate governance and ethical standards
+- Historical financial performance under current management
+- Innovation and transformation initiatives
+- Market share gains and competitive positioning improvements
+- Return on invested capital and shareholder value creation
+- Consistency of results and predictability
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
@@ -1409,8 +1438,64 @@ def migrate_scores_to_lowercase():
     return len(scores_data["companies"])
 
 
+async def fill_single_company_async(grok, company_name, company_scores, ticker_lookup, company_index, total_companies):
+    """Async function to fill missing scores for a single company."""
+    try:
+        # Determine if company_name is a ticker and get actual company name
+        ticker = None
+        actual_company_name = company_name
+        company_name_upper = company_name.upper()
+        
+        # Check if it's a ticker (short, alphabetic, uppercase)
+        if len(company_name) <= 5 and company_name.replace(' ', '').isalpha():
+            ticker = company_name_upper
+            # Try to get company name from ticker lookup
+            actual_company_name = ticker_lookup.get(ticker, company_name)
+        else:
+            # Might be a company name, try to find ticker
+            ticker = get_ticker_from_company_name(company_name)
+            if ticker:
+                actual_company_name = ticker_lookup.get(ticker, company_name)
+            else:
+                actual_company_name = company_name
+        
+        # Display format: "TICKER (Company Name)" or just "Company Name" if no ticker
+        if ticker:
+            display_name = f"{ticker} ({actual_company_name})"
+        else:
+            display_name = actual_company_name.capitalize()
+        
+        print(f"[{company_index}/{total_companies}] Processing {display_name}...")
+        
+        # Get list of missing score keys
+        missing_keys = [key for key in SCORE_DEFINITIONS if not company_scores[key]]
+        
+        if missing_keys:
+            # Query missing scores in parallel (this uses ThreadPoolExecutor internally)
+            # Run in executor to make it async-compatible
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = asyncio.get_event_loop()
+            
+            missing_scores, _, _ = await loop.run_in_executor(
+                None,
+                lambda: query_all_scores_async(grok, actual_company_name, missing_keys,
+                                              batch_mode=True, silent=True, model="grok-4-fast")
+            )
+            # Update company_scores with the new scores
+            company_scores.update(missing_scores)
+            print(f"  ✓ {display_name} - filled {len(missing_keys)} missing score(s)")
+        
+        return company_name, company_scores
+    except Exception as e:
+        print(f"  ✗ Error processing {company_name}: {e}")
+        return company_name, company_scores
+
+
 def fill_missing_barriers_scores():
-    """Fill in missing scores for all companies using SCORE_DEFINITIONS."""
+    """Fill in missing scores for all companies using SCORE_DEFINITIONS.
+    Processes companies in batches of 20 using async."""
     try:
         scores_data = load_scores()
         grok = GrokClient(api_key=XAI_API_KEY)
@@ -1444,50 +1529,42 @@ def fill_missing_barriers_scores():
             display_name = company_name.upper() if len(company_name) <= 5 and company_name.replace(' ', '').isalpha() else company_name.capitalize()
             print(f"{display_name}: Moat {moat}/10 - Missing: {', '.join(missing)}")
         
-        print(f"\nQuerying missing scores...")
+        print(f"\nQuerying missing scores in batches of 20...")
         print("=" * 60)
         
         ticker_lookup = load_ticker_lookup()
         
-        for i, (company_name, company_scores) in enumerate(companies_to_score, 1):
-            # Determine if company_name is a ticker and get actual company name
-            ticker = None
-            actual_company_name = company_name
-            company_name_upper = company_name.upper()
+        # Process companies in batches of 20 using async
+        async def process_all_batches():
+            batch_size = 20
+            total_batches = (len(companies_to_score) + batch_size - 1) // batch_size
             
-            # Check if it's a ticker (short, alphabetic, uppercase)
-            if len(company_name) <= 5 and company_name.replace(' ', '').isalpha():
-                ticker = company_name_upper
-                # Try to get company name from ticker lookup
-                actual_company_name = ticker_lookup.get(ticker, company_name)
-            else:
-                # Might be a company name, try to find ticker
-                ticker = get_ticker_from_company_name(company_name)
-                if ticker:
-                    actual_company_name = ticker_lookup.get(ticker, company_name)
-                else:
-                    actual_company_name = company_name
-            
-            # Display format: "TICKER (Company Name)" or just "Company Name" if no ticker
-            if ticker:
-                display_name = f"{ticker} ({actual_company_name})"
-            else:
-                display_name = actual_company_name.capitalize()
-            
-            print(f"\n[{i}/{len(companies_to_score)}] Processing {display_name}...")
-            
-            # Get list of missing score keys
-            missing_keys = [key for key in SCORE_DEFINITIONS if not company_scores[key]]
-            
-            if missing_keys:
-                # Query missing scores in parallel
-                missing_scores, _, _ = query_all_scores_async(grok, actual_company_name, missing_keys,
-                                                        batch_mode=True, silent=False, model="grok-4-fast")
-                # Update company_scores with the new scores
-                company_scores.update(missing_scores)
-            
-            scores_data["companies"][company_name] = company_scores
-            save_scores(scores_data)
+            for batch_num in range(total_batches):
+                start_idx = batch_num * batch_size
+                end_idx = min(start_idx + batch_size, len(companies_to_score))
+                batch = companies_to_score[start_idx:end_idx]
+                
+                print(f"\nProcessing batch {batch_num + 1}/{total_batches} ({len(batch)} companies)...")
+                
+                # Create async tasks for this batch
+                tasks = []
+                for i, (company_name, company_scores) in enumerate(batch):
+                    company_index = start_idx + i + 1
+                    task = fill_single_company_async(grok, company_name, company_scores.copy(), ticker_lookup, company_index, len(companies_to_score))
+                    tasks.append(task)
+                
+                # Run all tasks in the batch concurrently
+                results = await asyncio.gather(*tasks)
+                
+                # Update scores_data with results and save
+                for company_name, updated_scores in results:
+                    scores_data["companies"][company_name] = updated_scores
+                
+                save_scores(scores_data)
+                print(f"  Batch {batch_num + 1} complete - saved progress")
+        
+        # Run the async function
+        asyncio.run(process_all_batches())
         
         print("\n" + "=" * 60)
         print("All missing scores have been filled!")

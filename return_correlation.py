@@ -34,6 +34,7 @@ SCORE_WEIGHTS = {
     'product_quality_score': 10,
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
+    'management_quality_score': 10,
     'size_well_known_score': 0,
 }
 
@@ -57,6 +58,7 @@ SCORE_DEFINITIONS = {
     'product_quality_score': {'is_reverse': False},
     'culture_employee_satisfaction_score': {'is_reverse': False},
     'trailblazer_score': {'is_reverse': False},
+    'management_quality_score': {'is_reverse': False},
     'size_well_known_score': {'is_reverse': False},
 }
 
@@ -403,6 +405,7 @@ def main():
         'product_quality_score': 'Product Quality',
         'culture_employee_satisfaction_score': 'Culture / Employee Satisfaction',
         'trailblazer_score': 'Trailblazer',
+        'management_quality_score': 'Management Quality',
         'size_well_known_score': 'Size / Well Known',
     }
     

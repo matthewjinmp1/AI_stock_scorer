@@ -44,7 +44,8 @@ SCORE_DEFINITIONS_KEYS = [
     'bargaining_power_of_suppliers',
     'product_quality_score',
     'culture_employee_satisfaction_score',
-    'trailblazer_score'
+    'trailblazer_score',
+    'management_quality_score'
 ]
 
 
