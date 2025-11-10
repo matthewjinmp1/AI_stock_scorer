@@ -227,7 +227,8 @@ def main():
                     'ticker': ticker_upper,
                     'total_score': total_score,
                     'total_score_percent': total_score_percent,
-                    'return': return_pct
+                    'return': return_pct,
+                    'scores_dict': scores_dict  # Store scores dict for individual metric analysis
                 })
     
     if excluded_count > 0:
@@ -371,6 +372,114 @@ def main():
     print("-" * 60)
     for item in low_score_low_return[:5]:
         print(f"{item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%")
+    print()
+    
+    # Calculate correlations for individual metrics
+    print("=" * 60)
+    print("INDIVIDUAL METRIC CORRELATIONS WITH RETURNS")
+    print("=" * 60)
+    print("Note: Correlations are between PERCENTILE-RANKED metric scores and PERCENTILE-RANKED returns")
+    print()
+    
+    metric_correlations = []
+    
+    # Create display name mapping for better readability
+    display_name_map = {
+        'moat_score': 'Competitive Moat',
+        'barriers_score': 'Barriers to Entry',
+        'disruption_risk': 'Disruption Risk',
+        'switching_cost': 'Switching Cost',
+        'brand_strength': 'Brand Strength',
+        'competition_intensity': 'Competition Intensity',
+        'network_effect': 'Network Effect',
+        'product_differentiation': 'Product Differentiation',
+        'innovativeness_score': 'Innovativeness',
+        'growth_opportunity': 'Growth Opportunity',
+        'riskiness_score': 'Riskiness',
+        'pricing_power': 'Pricing Power',
+        'ambition_score': 'Ambition',
+        'bargaining_power_of_customers': 'Bargaining Power of Customers',
+        'bargaining_power_of_suppliers': 'Bargaining Power of Suppliers',
+        'product_quality_score': 'Product Quality',
+        'culture_employee_satisfaction_score': 'Culture / Employee Satisfaction',
+        'trailblazer_score': 'Trailblazer',
+        'size_well_known_score': 'Size / Well Known',
+    }
+    
+    for score_key in SCORE_DEFINITIONS:
+        score_def = SCORE_DEFINITIONS[score_key]
+        display_name = display_name_map.get(score_key, score_key.replace('_', ' ').title())
+        
+        # Extract metric scores for all companies
+        metric_scores = []
+        valid_indices = []  # Track which companies have valid scores for this metric
+        
+        for i, item in enumerate(matched_data):
+            scores_dict = item['scores_dict']
+            score_value_str = scores_dict.get(score_key)
+            
+            # Handle moat_score backwards compatibility
+            if score_key == 'moat_score' and not score_value_str:
+                score_value_str = scores_dict.get('score')
+            
+            if score_value_str:
+                try:
+                    score_value = float(score_value_str)
+                    # For reverse scores, invert to get "goodness" value
+                    if score_def['is_reverse']:
+                        score_value = 10 - score_value
+                    metric_scores.append(score_value)
+                    valid_indices.append(i)
+                except (ValueError, TypeError):
+                    continue
+        
+        # Need at least 2 companies with valid scores for this metric
+        if len(metric_scores) < 2:
+            continue
+        
+        # Calculate percentile ranks for this metric
+        percentile_metric_scores = [percentileofscore(metric_scores, score, kind='mean') for score in metric_scores]
+        
+        # Get corresponding return percentiles for companies with valid metric scores
+        corresponding_return_percentiles = [percentile_returns[i] for i in valid_indices]
+        
+        # Calculate correlation
+        if len(percentile_metric_scores) >= 2 and len(corresponding_return_percentiles) >= 2:
+            try:
+                corr, p_val = pearsonr(percentile_metric_scores, corresponding_return_percentiles)
+                metric_correlations.append({
+                    'metric': score_key,
+                    'display_name': display_name,
+                    'correlation': corr,
+                    'p_value': p_val,
+                    'n': len(percentile_metric_scores)
+                })
+            except:
+                continue
+    
+    # Sort by absolute correlation (strongest first)
+    metric_correlations.sort(key=lambda x: abs(x['correlation']), reverse=True)
+    
+    # Display results
+    print(f"{'Metric':<40} {'Correlation':<15} {'P-value':<15} {'N':<10} {'Significant':<15}")
+    print("-" * 95)
+    
+    for metric_info in metric_correlations:
+        corr = metric_info['correlation']
+        p_val = metric_info['p_value']
+        n = metric_info['n']
+        display_name = metric_info['display_name']
+        
+        # Truncate long metric names
+        if len(display_name) > 38:
+            display_name = display_name[:35] + "..."
+        
+        significant = "Yes" if p_val < 0.05 else "No"
+        corr_str = f"{corr:+.4f}"
+        p_val_str = f"{p_val:.6f}"
+        
+        print(f"{display_name:<40} {corr_str:<15} {p_val_str:<15} {n:<10} {significant:<15}")
+    
     print()
     
     # Show all tickers ranked by total score
