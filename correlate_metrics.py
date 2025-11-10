@@ -1,3 +1,19 @@
+#!/usr/bin/env python3
+"""
+Correlate Metrics - Calculate correlation between light and heavy model scores
+
+This program analyzes the correlation between individual metric scores from:
+- scores.json (light model scores using grok-4-fast)
+- scores_heavy.json (heavy model scores using grok-4-latest)
+
+It calculates:
+1. Overall correlation across all metric scores for all common tickers
+2. Correlation breakdown by individual metric (e.g., moat_score, barriers_score, etc.)
+3. Correlation breakdown by individual ticker
+
+This helps understand how consistent the light and heavy models are in their scoring.
+"""
+
 import json
 
 # Score definitions - reverse scores where lower is better

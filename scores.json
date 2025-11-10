@@ -4661,6 +4661,27 @@
       "ambition_score": "6",
       "switching_cost": "1",
       "moat_score": "6"
+    },
+    "BRK": {
+      "network_effect": "0",
+      "size_well_known_score": "10",
+      "competition_intensity": "6",
+      "brand_strength": "8",
+      "innovativeness_score": "2",
+      "disruption_risk": "2",
+      "product_quality_score": "9",
+      "bargaining_power_of_suppliers": "2",
+      "barriers_score": "10",
+      "bargaining_power_of_customers": "5",
+      "moat_score": "9",
+      "product_differentiation": "8",
+      "growth_opportunity": "5",
+      "pricing_power": "8",
+      "switching_cost": "0",
+      "riskiness_score": "2",
+      "ambition_score": "7",
+      "trailblazer_score": "5",
+      "culture_employee_satisfaction_score": "6"
     }
   }
 }
