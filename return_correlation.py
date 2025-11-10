@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Calculate correlation between total scores and stock returns
+Calculate correlation between total scores and ranked stock returns
 Loads returns from returns.json and scores from scores.json
+Correlates total scores with ranked returns (not raw returns)
 """
 
 import json
 import os
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, rankdata, percentileofscore
 import numpy as np
 
 SCORES_FILE = "scores.json"
@@ -60,6 +61,20 @@ SCORE_DEFINITIONS = {
 }
 
 
+def calculate_max_score():
+    """Calculate the maximum possible total score.
+    
+    Returns:
+        float: Maximum possible score (sum of all weights * 10, excluding weights of 0)
+    """
+    max_score = 0
+    for score_key in SCORE_DEFINITIONS:
+        weight = SCORE_WEIGHTS.get(score_key, 1.0)
+        if weight > 0:  # Only include metrics with non-zero weights
+            max_score += 10 * weight
+    return max_score
+
+
 def calculate_total_score(scores_dict):
     """Calculate total score from a dictionary of scores.
     
@@ -83,6 +98,22 @@ def calculate_total_score(scores_dict):
         except (ValueError, TypeError):
             pass
     return total
+
+
+def calculate_total_score_percent(scores_dict, max_score):
+    """Calculate total score as a percentage of maximum possible score.
+    
+    Args:
+        scores_dict: Dictionary with score keys and their string values
+        max_score: Maximum possible score
+        
+    Returns:
+        float: Total score as a percentage (0-100)
+    """
+    total = calculate_total_score(scores_dict)
+    if max_score > 0:
+        return (total / max_score) * 100
+    return 0.0
 
 
 def load_scores():
@@ -166,6 +197,9 @@ def main():
     if excluded_tickers:
         print(f"Excluding {len(excluded_tickers)} tickers from ticker_definitions.json")
     
+    # Calculate maximum possible score
+    max_score = calculate_max_score()
+    
     # Match companies and calculate total scores
     print("Calculating total scores and matching with returns...")
     matched_data = []
@@ -186,11 +220,13 @@ def main():
             # Only include successful returns
             if return_info.get("status") == "success" and return_info.get("return") is not None:
                 total_score = calculate_total_score(scores_dict)
+                total_score_percent = calculate_total_score_percent(scores_dict, max_score)
                 return_pct = return_info.get("return")
                 
                 matched_data.append({
                     'ticker': ticker_upper,
                     'total_score': total_score,
+                    'total_score_percent': total_score_percent,
                     'return': return_pct
                 })
     
@@ -206,15 +242,30 @@ def main():
     
     # Extract arrays for correlation calculation
     total_scores = [d['total_score'] for d in matched_data]
+    total_scores_percent = [d['total_score_percent'] for d in matched_data]
     returns = [d['return'] for d in matched_data]
     
-    # Calculate correlation
-    correlation, p_value = pearsonr(total_scores, returns)
+    # Calculate percentile ranks for both total scores and returns
+    # Percentile rank: percentage of values that are below this value (0-100)
+    # Using 'mean' method: average of 'strict' and 'weak' percentiles for ties
+    percentile_total_scores = [percentileofscore(total_scores, score, kind='mean') for score in total_scores]
+    percentile_returns = [percentileofscore(returns, ret, kind='mean') for ret in returns]
+    
+    # Add percentile rank values to each matched_data item for later display
+    for i, item in enumerate(matched_data):
+        item['percentile_total_score'] = percentile_total_scores[i]
+        item['percentile_return'] = percentile_returns[i]
+    
+    # Calculate correlation between percentile-ranked total scores and percentile-ranked returns
+    # This is essentially a Spearman rank correlation using percentile ranks
+    correlation, p_value = pearsonr(percentile_total_scores, percentile_returns)
     
     # Display results
     print("=" * 60)
     print("CORRELATION RESULTS")
     print("=" * 60)
+    print("Note: Correlation is calculated using PERCENTILE-RANKED total scores vs PERCENTILE-RANKED returns")
+    print("      (This is equivalent to Spearman rank correlation using percentile ranks)")
     print(f"Pearson Correlation Coefficient: {correlation:.4f}")
     print(f"P-value: {p_value:.6f}")
     print()
@@ -247,12 +298,12 @@ def main():
     print("=" * 60)
     print(f"Number of companies: {len(matched_data)}")
     print()
-    print("Total Scores:")
-    print(f"  Mean: {np.mean(total_scores):.2f}")
-    print(f"  Median: {np.median(total_scores):.2f}")
-    print(f"  Min: {min(total_scores):.2f}")
-    print(f"  Max: {max(total_scores):.2f}")
-    print(f"  Std Dev: {np.std(total_scores):.2f}")
+    print("Total Scores (% of max):")
+    print(f"  Mean: {np.mean(total_scores_percent):.2f}%")
+    print(f"  Median: {np.median(total_scores_percent):.2f}%")
+    print(f"  Min: {min(total_scores_percent):.2f}%")
+    print(f"  Max: {max(total_scores_percent):.2f}%")
+    print(f"  Std Dev: {np.std(total_scores_percent):.2f}%")
     print()
     print("Returns (%):")
     print(f"  Mean: {np.mean(returns):+.2f}%")
@@ -261,26 +312,40 @@ def main():
     print(f"  Max: {max(returns):+.2f}%")
     print(f"  Std Dev: {np.std(returns):.2f}%")
     print()
+    print("Percentile-Ranked Total Scores (%):")
+    print(f"  Mean: {np.mean(percentile_total_scores):.2f}%")
+    print(f"  Median: {np.median(percentile_total_scores):.2f}%")
+    print(f"  Min: {min(percentile_total_scores):.2f}%")
+    print(f"  Max: {max(percentile_total_scores):.2f}%")
+    print(f"  Std Dev: {np.std(percentile_total_scores):.2f}%")
+    print()
+    print("Percentile-Ranked Returns (%):")
+    print(f"  Mean: {np.mean(percentile_returns):.2f}%")
+    print(f"  Median: {np.median(percentile_returns):.2f}%")
+    print(f"  Min: {min(percentile_returns):.2f}%")
+    print(f"  Max: {max(percentile_returns):.2f}%")
+    print(f"  Std Dev: {np.std(percentile_returns):.2f}%")
+    print()
     
     # Show top and bottom performers
     print("=" * 60)
     print("TOP 10 BY TOTAL SCORE")
     print("=" * 60)
     sorted_by_score = sorted(matched_data, key=lambda x: x['total_score'], reverse=True)
-    print(f"{'Ticker':<10} {'Total Score':<15} {'Return %':<15}")
+    print(f"{'Ticker':<10} {'Score %':<15} {'Return %':<15}")
     print("-" * 60)
     for item in sorted_by_score[:10]:
-        print(f"{item['ticker']:<10} {item['total_score']:>12.2f}    {item['return']:>+8.2f}%")
+        print(f"{item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%")
     print()
     
     print("=" * 60)
     print("TOP 10 BY RETURN")
     print("=" * 60)
     sorted_by_return = sorted(matched_data, key=lambda x: x['return'], reverse=True)
-    print(f"{'Ticker':<10} {'Total Score':<15} {'Return %':<15}")
+    print(f"{'Ticker':<10} {'Score %':<15} {'Return %':<15}")
     print("-" * 60)
     for item in sorted_by_return[:10]:
-        print(f"{item['ticker']:<10} {item['total_score']:>12.2f}    {item['return']:>+8.2f}%")
+        print(f"{item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%")
     print()
     
     # Show scatter plot data points (top and bottom)
@@ -288,24 +353,35 @@ def main():
     print("EXAMPLES: High Score, High Return")
     print("=" * 60)
     # Find companies with both high score and high return
-    high_score_high_return = [d for d in matched_data if d['total_score'] > np.median(total_scores) and d['return'] > np.median(returns)]
-    high_score_high_return.sort(key=lambda x: x['total_score'] + x['return'], reverse=True)
-    print(f"{'Ticker':<10} {'Total Score':<15} {'Return %':<15}")
+    high_score_high_return = [d for d in matched_data if d['total_score_percent'] > np.median(total_scores_percent) and d['return'] > np.median(returns)]
+    high_score_high_return.sort(key=lambda x: x['total_score_percent'] + x['return'], reverse=True)
+    print(f"{'Ticker':<10} {'Score %':<15} {'Return %':<15}")
     print("-" * 60)
     for item in high_score_high_return[:5]:
-        print(f"{item['ticker']:<10} {item['total_score']:>12.2f}    {item['return']:>+8.2f}%")
+        print(f"{item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%")
     print()
     
     print("=" * 60)
     print("EXAMPLES: Low Score, Low Return")
     print("=" * 60)
     # Find companies with both low score and low return
-    low_score_low_return = [d for d in matched_data if d['total_score'] < np.median(total_scores) and d['return'] < np.median(returns)]
-    low_score_low_return.sort(key=lambda x: x['total_score'] + x['return'])
-    print(f"{'Ticker':<10} {'Total Score':<15} {'Return %':<15}")
+    low_score_low_return = [d for d in matched_data if d['total_score_percent'] < np.median(total_scores_percent) and d['return'] < np.median(returns)]
+    low_score_low_return.sort(key=lambda x: x['total_score_percent'] + x['return'])
+    print(f"{'Ticker':<10} {'Score %':<15} {'Return %':<15}")
     print("-" * 60)
     for item in low_score_low_return[:5]:
-        print(f"{item['ticker']:<10} {item['total_score']:>12.2f}    {item['return']:>+8.2f}%")
+        print(f"{item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%")
+    print()
+    
+    # Show all tickers ranked by total score
+    print("=" * 60)
+    print("ALL TICKERS RANKED BY TOTAL SCORE")
+    print("=" * 60)
+    sorted_by_score = sorted(matched_data, key=lambda x: x['total_score'], reverse=True)
+    print(f"{'Rank':<6} {'Ticker':<10} {'Score %':<15} {'Return %':<15} {'Score Pctile':<15} {'Return Pctile':<15}")
+    print("-" * 85)
+    for rank, item in enumerate(sorted_by_score, 1):
+        print(f"{rank:<6} {item['ticker']:<10} {item['total_score_percent']:>11.2f}%    {item['return']:>+8.2f}%    {item['percentile_total_score']:>12.2f}%    {item['percentile_return']:>12.2f}%")
     print()
 
 

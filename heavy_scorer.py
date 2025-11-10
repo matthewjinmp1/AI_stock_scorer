@@ -3,7 +3,7 @@
 Heavy Scorer - Score companies with heavy model and run correlations
 Gets Grok to rate companies using the main Grok 4 model and compares with light scores.
 Usage: python heavy_scorer.py
-Then enter commands: 'view heavy', 'heavy TICKER1 TICKER2 ...', or 'correl TICKER1 TICKER2 ...'
+Then enter ticker(s) to score, or commands: 'view', 'correl TICKER1 TICKER2 ...', 'clear', or 'quit'
 """
 
 # Import necessary constants and functions from scorer
@@ -684,8 +684,8 @@ def main():
     print("Heavy Scorer - Score companies with heavy model and run correlations")
     print("=" * 60)
     print("Commands:")
-    print("  Type 'view heavy' to see heavy model scores ranked with percentiles")
-    print("  Type 'heavy TICKER1 TICKER2 ...' to score with main Grok 4 model")
+    print("  Enter ticker symbol(s) (e.g., AAPL or AAPL MSFT GOOGL) to score with heavy model")
+    print("  Type 'view' to see heavy model scores ranked with percentiles")
     print("  Type 'correl TICKER1 TICKER2 ...' to see correlation between light and heavy metric scores per ticker")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
@@ -693,7 +693,7 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter command (or 'view heavy'/'heavy'/'correl'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker(s) or command ('view'/'correl'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -702,15 +702,9 @@ def main():
                 # Clear terminal - cross-platform
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print()
-            elif user_input.lower() == 'view heavy':
+            elif user_input.lower() == 'view':
                 view_heavy_scores()
                 print()
-            elif user_input.lower() == 'heavy':
-                print("Please provide ticker symbols. Example: heavy AAPL MSFT GOOGL")
-                print()
-            elif user_input.lower().startswith('heavy '):
-                tickers = user_input[6:].strip()  # Remove 'heavy ' prefix
-                handle_heavy_command(tickers)
             elif user_input.lower() == 'correl':
                 print("Please provide ticker symbols. Example: correl AAPL MSFT GOOGL")
                 print()
@@ -718,8 +712,12 @@ def main():
                 tickers = user_input[7:].strip()  # Remove 'correl ' prefix
                 handle_correl_command(tickers)
                 print()
+            elif user_input:
+                # Assume it's ticker(s) - automatically score with heavy model
+                handle_heavy_command(user_input)
+                print()
             else:
-                print("Unknown command. Type 'view heavy', 'heavy TICKER1 TICKER2 ...', 'correl TICKER1 TICKER2 ...', 'clear', or 'quit'.")
+                print("Please enter a ticker symbol or command.")
                 print()
                 
         except KeyboardInterrupt:
