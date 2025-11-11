@@ -39,6 +39,7 @@ SCORE_WEIGHTS = {
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
     'management_quality_score': 10,
+    'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
     'size_well_known_score': 0,
 }
 
@@ -665,6 +666,32 @@ Consider factors like:
 - Market share gains and competitive positioning improvements
 - Return on invested capital and shareholder value creation
 - Consistency of results and predictability
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'ai_knowledge_score': {
+        'display_name': 'AI Knowledge / Confidence',
+        'field_name': 'ai_knowledge_score',
+        'prompt': """Rate how much information and knowledge you (the AI model) have about {company_name} on a scale of 0-10, where:
+- 0 = Very little information available, company is obscure or private, minimal public data, limited knowledge about the company
+- 5 = Moderate information available, some public data and coverage, reasonable knowledge about the company's business and operations
+- 10 = Extensive information available, well-documented company with abundant public data, comprehensive knowledge about the company's business model, history, financials, products, management, and competitive position
+
+Consider factors like:
+- Amount of publicly available information about the company
+- Quality and depth of information in your training data
+- Company's public profile and media coverage
+- Availability of financial reports, SEC filings, and analyst coverage
+- How well-documented the company's business model, products, and operations are
+- Historical information and track record available
+- Management team visibility and public information
+- Industry coverage and research reports available
+- News coverage and public discussion about the company
+- Transparency and disclosure practices
+- How confident you feel in your knowledge about this specific company
+
+This score reflects YOUR confidence level in having sufficient information to accurately assess this company. Lower scores indicate you may have limited information, which could affect the reliability of other scores.
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False

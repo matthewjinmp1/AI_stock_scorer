@@ -45,7 +45,8 @@ SCORE_DEFINITIONS_KEYS = [
     'product_quality_score',
     'culture_employee_satisfaction_score',
     'trailblazer_score',
-    'management_quality_score'
+    'management_quality_score',
+    'ai_knowledge_score'
 ]
 
 

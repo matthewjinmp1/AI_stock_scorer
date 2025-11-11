@@ -35,6 +35,7 @@ SCORE_WEIGHTS = {
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
     'management_quality_score': 10,
+    'ai_knowledge_score': 0,
     'size_well_known_score': 0,
 }
 
@@ -59,6 +60,7 @@ SCORE_DEFINITIONS = {
     'culture_employee_satisfaction_score': {'is_reverse': False},
     'trailblazer_score': {'is_reverse': False},
     'management_quality_score': {'is_reverse': False},
+    'ai_knowledge_score': {'is_reverse': False},
     'size_well_known_score': {'is_reverse': False},
 }
 
@@ -406,6 +408,7 @@ def main():
         'culture_employee_satisfaction_score': 'Culture / Employee Satisfaction',
         'trailblazer_score': 'Trailblazer',
         'management_quality_score': 'Management Quality',
+        'ai_knowledge_score': 'AI Knowledge / Confidence',
         'size_well_known_score': 'Size / Well Known',
     }
     

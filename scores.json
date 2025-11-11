@@ -20,6 +20,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "msft": {
@@ -42,6 +43,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "googl": {
@@ -64,6 +66,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "nvda": {
@@ -86,6 +89,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "10",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "asml": {
@@ -108,6 +112,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "meta": {
@@ -130,6 +135,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "aapl": {
@@ -152,6 +158,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "adbe": {
@@ -174,6 +181,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "amzn": {
@@ -196,6 +204,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "crm": {
@@ -218,6 +227,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "avgo": {
@@ -240,6 +250,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "tsm": {
@@ -262,6 +273,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "orcl": {
@@ -284,6 +296,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "lulu": {
@@ -306,6 +319,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "pypl": {
@@ -328,6 +342,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "ntes": {
@@ -350,6 +365,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "8"
     },
     "ko": {
@@ -372,6 +388,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "dell": {
@@ -394,6 +411,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "mu": {
@@ -416,6 +434,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "10",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "amat": {
@@ -438,6 +457,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "amd": {
@@ -460,6 +480,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "pld": {
@@ -482,6 +503,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "lrcx": {
@@ -504,6 +526,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "0",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "klac": {
@@ -526,6 +549,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "snps": {
@@ -548,6 +572,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "cdns": {
@@ -570,6 +595,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "wday": {
@@ -592,6 +618,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "qcom": {
@@ -614,6 +641,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "mpwr": {
@@ -636,6 +664,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "jpm": {
@@ -658,6 +687,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "lly": {
@@ -680,6 +710,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "v": {
@@ -702,6 +733,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "ma": {
@@ -724,6 +756,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "xom": {
@@ -746,6 +779,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "jnj": {
@@ -768,6 +802,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "pltr": {
@@ -790,6 +825,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "baba": {
@@ -812,6 +848,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "cost": {
@@ -834,6 +871,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "hd": {
@@ -856,6 +894,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "unh": {
@@ -878,6 +917,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "sap": {
@@ -900,6 +940,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "ibm": {
@@ -922,6 +963,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "csco": {
@@ -944,6 +986,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "tm": {
@@ -966,6 +1009,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "3"
     },
     "tmus": {
@@ -988,6 +1032,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "cat": {
@@ -1010,6 +1055,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "pm": {
@@ -1032,6 +1078,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "shop": {
@@ -1054,6 +1101,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "0"
     },
     "xyz": {
@@ -1076,6 +1124,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "0"
     },
     "mcd": {
@@ -1098,6 +1147,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "tmo": {
@@ -1120,6 +1170,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "dis": {
@@ -1142,6 +1193,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "intc": {
@@ -1164,6 +1216,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "4",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "anet": {
@@ -1186,6 +1239,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "now": {
@@ -1208,6 +1262,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "0"
     },
     "intu": {
@@ -1230,6 +1285,7 @@
       "culture_employee_satisfaction_score": "3",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "arm": {
@@ -1252,6 +1308,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "t": {
@@ -1274,6 +1331,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "9",
       "management_quality_score": "6",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "0"
     },
     "blk": {
@@ -1296,6 +1354,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "sony": {
@@ -1318,6 +1377,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "nee": {
@@ -1340,6 +1400,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "ba": {
@@ -1362,6 +1423,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "3",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "aph": {
@@ -1384,6 +1446,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "bkng": {
@@ -1406,6 +1469,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "acn": {
@@ -1428,6 +1492,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "txn": {
@@ -1450,6 +1515,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "spgi": {
@@ -1472,6 +1538,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "cof": {
@@ -1494,6 +1561,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "10",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "spot": {
@@ -1516,6 +1584,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "hood": {
@@ -1538,6 +1607,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "5",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "unp": {
@@ -1560,6 +1630,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "3",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "de": {
@@ -1582,6 +1653,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "low": {
@@ -1604,6 +1676,7 @@
       "culture_employee_satisfaction_score": "0",
       "trailblazer_score": "0",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "pgr": {
@@ -1626,6 +1699,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "ibkr": {
@@ -1648,6 +1722,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "meli": {
@@ -1670,6 +1745,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "adp": {
@@ -1692,6 +1768,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "dash": {
@@ -1714,6 +1791,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "lmt": {
@@ -1736,6 +1814,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "rok": {
@@ -1758,6 +1837,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "7"
     },
     "cmcsa": {
@@ -1780,6 +1860,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "mo": {
@@ -1802,6 +1883,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "9",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "0"
     },
     "cvs": {
@@ -1824,6 +1906,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "10"
     },
     "nke": {
@@ -1846,6 +1929,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "sbux": {
@@ -1868,6 +1952,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "se": {
@@ -1890,6 +1975,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "10",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "snow": {
@@ -1912,6 +1998,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "nem": {
@@ -1934,6 +2021,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "7"
     },
     "ice": {
@@ -1956,6 +2044,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "shw": {
@@ -1978,6 +2067,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "mco": {
@@ -2000,6 +2090,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ups": {
@@ -2022,6 +2113,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "wm": {
@@ -2044,6 +2136,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "orly": {
@@ -2066,6 +2159,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "abnb": {
@@ -2088,6 +2182,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "tdg": {
@@ -2110,6 +2205,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "6",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "race": {
@@ -2132,6 +2228,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "0"
     },
     "adsk": {
@@ -2154,6 +2251,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "EQIX": {
@@ -2176,6 +2274,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "CVX": {
@@ -2198,6 +2297,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "PNR": {
@@ -2220,6 +2320,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "5"
     },
     "ATKR": {
@@ -2242,6 +2343,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "3"
     },
     "SEE": {
@@ -2264,6 +2366,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "MSTR": {
@@ -2286,6 +2389,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "9",
       "management_quality_score": "5",
+      "ai_knowledge_score": "0",
       "size_well_known_score": "0"
     },
     "FTNT": {
@@ -2308,6 +2412,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "TEAM": {
@@ -2330,6 +2435,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "TTWO": {
@@ -2352,6 +2458,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "TTD": {
@@ -2374,6 +2481,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "NDAQ": {
@@ -2396,6 +2504,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "RDDT": {
@@ -2418,6 +2527,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "HPQ": {
@@ -2440,6 +2550,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "4",
       "management_quality_score": "6",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "HPE": {
@@ -2462,6 +2573,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "SMCI": {
@@ -2484,6 +2596,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "NTAP": {
@@ -2506,6 +2619,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "WMT": {
@@ -2528,6 +2642,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "SKH": {
@@ -2550,6 +2665,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "SAM": {
@@ -2572,6 +2688,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "WDC": {
@@ -2594,6 +2711,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "6",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "STX": {
@@ -2616,6 +2734,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "AFRM": {
@@ -2638,6 +2757,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "SOFI": {
@@ -2660,6 +2780,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "FI": {
@@ -2682,6 +2803,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "HQI": {
@@ -2704,6 +2826,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "5",
       "size_well_known_score": "2"
     },
     "IMXI": {
@@ -2726,6 +2849,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "4"
     },
     "OAI": {
@@ -2748,6 +2872,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "AI": {
@@ -2770,6 +2895,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "6",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "BLM": {
@@ -2792,6 +2918,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "10"
     },
     "SPX": {
@@ -2814,6 +2941,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "10",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "10"
     },
     "byte": {
@@ -2836,6 +2964,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "DECK": {
@@ -2858,6 +2987,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "GAP": {
@@ -2880,6 +3010,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "3",
       "management_quality_score": "4",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "ATH": {
@@ -2902,6 +3033,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "6"
     },
     "ALO": {
@@ -2924,6 +3056,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "7"
     },
     "VRI": {
@@ -2946,6 +3079,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "6"
     },
     "FAB": {
@@ -2968,6 +3102,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "5",
       "management_quality_score": "5",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "7"
     },
     "ADY": {
@@ -2990,6 +3125,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "GPN": {
@@ -3012,6 +3148,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "4",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "CANV": {
@@ -3034,6 +3171,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "FIG": {
@@ -3056,6 +3194,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "DOCU": {
@@ -3078,6 +3217,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "AXON": {
@@ -3100,6 +3240,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "DNP": {
@@ -3122,6 +3263,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "3",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "5"
     },
     "JOES": {
@@ -3144,6 +3286,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "KR": {
@@ -3166,6 +3309,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "3",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "PBLX": {
@@ -3188,6 +3332,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "2",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "CPRT": {
@@ -3210,6 +3355,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "MNST": {
@@ -3232,6 +3378,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "HUBS": {
@@ -3254,6 +3401,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "PG": {
@@ -3276,6 +3424,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "ISRG": {
@@ -3298,6 +3447,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "CDNS": {
@@ -3320,6 +3470,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "ADSK": {
@@ -3342,6 +3493,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "TSLA": {
@@ -3364,6 +3516,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "QCOM": {
@@ -3386,6 +3539,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "BKNG": {
@@ -3408,6 +3562,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "10"
     },
     "AMD": {
@@ -3430,6 +3585,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "HOOD": {
@@ -3452,6 +3608,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "4",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "SNAP": {
@@ -3474,6 +3631,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "4",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "PINS": {
@@ -3496,6 +3654,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "X": {
@@ -3518,6 +3677,7 @@
       "culture_employee_satisfaction_score": "2",
       "trailblazer_score": "8",
       "management_quality_score": "2",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "10"
     },
     "TEN": {
@@ -3540,6 +3700,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "RBLX": {
@@ -3562,6 +3723,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "U": {
@@ -3584,6 +3746,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "8",
       "management_quality_score": "4",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ROKU": {
@@ -3606,6 +3769,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ANTH": {
@@ -3628,6 +3792,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "OPEN": {
@@ -3650,6 +3815,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "5",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "5"
     },
     "GME": {
@@ -3672,6 +3838,7 @@
       "culture_employee_satisfaction_score": "3",
       "trailblazer_score": "5",
       "management_quality_score": "4",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "NFLX": {
@@ -3694,6 +3861,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "NIK": {
@@ -3716,6 +3884,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "5",
       "management_quality_score": "6",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "CAN": {
@@ -3738,6 +3907,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "SMEE": {
@@ -3760,6 +3930,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "8",
       "management_quality_score": "6",
+      "ai_knowledge_score": "5",
       "size_well_known_score": "4"
     },
     "TEL": {
@@ -3782,6 +3953,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "8"
     },
     "ASM": {
@@ -3804,6 +3976,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "SCRN": {
@@ -3826,6 +3999,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "5"
     },
     "REXR": {
@@ -3848,6 +4022,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "4",
       "management_quality_score": "9",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "5"
     },
     "EGP": {
@@ -3870,6 +4045,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "3",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "4"
     },
     "FR": {
@@ -3892,6 +4068,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "TRNO": {
@@ -3914,6 +4091,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "3",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "4"
     },
     "STAG": {
@@ -3936,6 +4114,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "3",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "4"
     },
     "LXP": {
@@ -3958,6 +4137,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "3",
       "management_quality_score": "7",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "4"
     },
     "ILPT": {
@@ -3980,6 +4160,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "0",
       "management_quality_score": "4",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "3"
     },
     "COLD": {
@@ -4002,6 +4183,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "4",
       "management_quality_score": "7",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "5"
     },
     "CXM": {
@@ -4024,6 +4206,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "6",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "5"
     },
     "BRZE": {
@@ -4046,6 +4229,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "DBX": {
@@ -4068,6 +4252,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "BOX": {
@@ -4090,6 +4275,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "6"
     },
     "DB": {
@@ -4112,6 +4298,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "APP": {
@@ -4134,6 +4321,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "PUBM": {
@@ -4156,6 +4344,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "6",
       "management_quality_score": "7",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "6"
     },
     "EVO": {
@@ -4178,6 +4367,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "PDD": {
@@ -4200,6 +4390,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "BILI": {
@@ -4222,6 +4413,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "6",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "8"
     },
     "EA": {
@@ -4244,6 +4436,7 @@
       "culture_employee_satisfaction_score": "4",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "PUMA": {
@@ -4266,6 +4459,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "GYM": {
@@ -4288,6 +4482,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "7"
     },
     "UAA": {
@@ -4310,6 +4505,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "4",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "RL": {
@@ -4332,6 +4528,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "GOOS": {
@@ -4354,6 +4551,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "4",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "COLM": {
@@ -4376,6 +4574,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "6",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ADRL": {
@@ -4398,6 +4597,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "6"
     },
     "BDRK": {
@@ -4420,6 +4620,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "4",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "8"
     },
     "LDL": {
@@ -4442,6 +4643,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "8"
     },
     "ALD": {
@@ -4464,6 +4666,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "9"
     },
     "NET": {
@@ -4486,6 +4689,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "CRWD": {
@@ -4508,6 +4712,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "8"
     },
     "DDOG": {
@@ -4530,6 +4735,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ZM": {
@@ -4552,6 +4758,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "9",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "DUOL": {
@@ -4574,6 +4781,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "strp": {
@@ -4596,6 +4804,7 @@
       "culture_employee_satisfaction_score": "9",
       "trailblazer_score": "9",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "RELY": {
@@ -4618,6 +4827,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "7",
       "management_quality_score": "7",
+      "ai_knowledge_score": "8",
       "size_well_known_score": "6"
     },
     "LENO": {
@@ -4640,6 +4850,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "5",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "ACER": {
@@ -4662,6 +4873,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "3",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "ASUS": {
@@ -4684,6 +4896,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "PSTG": {
@@ -4706,6 +4919,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "8",
       "management_quality_score": "7",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "7"
     },
     "CRWV": {
@@ -4728,6 +4942,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "8",
       "management_quality_score": "8",
+      "ai_knowledge_score": "7",
       "size_well_known_score": "4"
     },
     "OXY": {
@@ -4750,6 +4965,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "6",
       "management_quality_score": "8",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "AXP": {
@@ -4772,6 +4988,7 @@
       "culture_employee_satisfaction_score": "8",
       "trailblazer_score": "7",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "BAC": {
@@ -4794,6 +5011,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "5",
       "management_quality_score": "7",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
     },
     "KHC": {
@@ -4816,6 +5034,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "3",
       "management_quality_score": "3",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "9"
     },
     "VRSN": {
@@ -4838,6 +5057,7 @@
       "culture_employee_satisfaction_score": "7",
       "trailblazer_score": "3",
       "management_quality_score": "8",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "7"
     },
     "SIRI": {
@@ -4860,6 +5080,7 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "7",
       "management_quality_score": "6",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "8"
     },
     "NVR": {
@@ -4882,6 +5103,7 @@
       "culture_employee_satisfaction_score": "5",
       "trailblazer_score": "4",
       "management_quality_score": "9",
+      "ai_knowledge_score": "9",
       "size_well_known_score": "5"
     },
     "BRK": {
@@ -4904,7 +5126,468 @@
       "culture_employee_satisfaction_score": "6",
       "trailblazer_score": "5",
       "management_quality_score": "10",
+      "ai_knowledge_score": "10",
       "size_well_known_score": "10"
+    },
+    "UBER": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "8",
+      "switching_cost": "3",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "9",
+      "product_differentiation": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "7",
+      "pricing_power": "7",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "6",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "9",
+      "management_quality_score": "7",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10"
+    },
+    "PANW": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "8",
+      "brand_strength": "9",
+      "competition_intensity": "8",
+      "network_effect": "6",
+      "product_differentiation": "9",
+      "innovativeness_score": "9",
+      "growth_opportunity": "9",
+      "riskiness_score": "4",
+      "pricing_power": "8",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "5",
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "8",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "9"
+    },
+    "ADI": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "1",
+      "product_differentiation": "8",
+      "innovativeness_score": "9",
+      "growth_opportunity": "8",
+      "riskiness_score": "5",
+      "pricing_power": "8",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "4",
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "7",
+      "management_quality_score": "9",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "NIN": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "7",
+      "brand_strength": "10",
+      "competition_intensity": "8",
+      "network_effect": "7",
+      "product_differentiation": "9",
+      "innovativeness_score": "8",
+      "growth_opportunity": "7",
+      "riskiness_score": "4",
+      "pricing_power": "9",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "6",
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "6",
+      "trailblazer_score": "8",
+      "management_quality_score": "9",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10"
+    },
+    "COIN": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "8",
+      "switching_cost": "4",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "8",
+      "product_differentiation": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "8",
+      "pricing_power": "6",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "7",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "8",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "8"
+    },
+    "MRVL": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "8",
+      "brand_strength": "6",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "9",
+      "riskiness_score": "7",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "7",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "CPNG": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "2",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "7",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "7",
+      "pricing_power": "7",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "7",
+      "culture_employee_satisfaction_score": "4",
+      "trailblazer_score": "8",
+      "management_quality_score": "7",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "NXPI": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "6",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "6",
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "8",
+      "trailblazer_score": "7",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "ZS": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "7",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "7",
+      "product_differentiation": "8",
+      "innovativeness_score": "9",
+      "growth_opportunity": "9",
+      "riskiness_score": "7",
+      "pricing_power": "8",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "6",
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "8",
+      "trailblazer_score": "9",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "VEEV": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "5",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "6",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "3",
+      "pricing_power": "9",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "3",
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "8",
+      "trailblazer_score": "8",
+      "management_quality_score": "9",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "6"
+    },
+    "ROP": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "4",
+      "switching_cost": "8",
+      "brand_strength": "5",
+      "competition_intensity": "6",
+      "network_effect": "4",
+      "product_differentiation": "8",
+      "innovativeness_score": "6",
+      "growth_opportunity": "8",
+      "riskiness_score": "3",
+      "pricing_power": "9",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "3",
+      "bargaining_power_of_suppliers": "3",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "3",
+      "management_quality_score": "9",
+      "ai_knowledge_score": "8",
+      "size_well_known_score": "6"
+    },
+    "JD": {
+      "moat_score": "7",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "2",
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "network_effect": "8",
+      "product_differentiation": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "7",
+      "pricing_power": "5",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "6",
+      "trailblazer_score": "8",
+      "management_quality_score": "7",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "8"
+    },
+    "BIDU": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "7",
+      "switching_cost": "5",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "8",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "6",
+      "product_quality_score": "7",
+      "culture_employee_satisfaction_score": "4",
+      "trailblazer_score": "7",
+      "management_quality_score": "7",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "8"
+    },
+    "FICO": {
+      "moat_score": "9",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "5",
+      "network_effect": "8",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "4",
+      "pricing_power": "9",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "2",
+      "bargaining_power_of_suppliers": "7",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "8",
+      "management_quality_score": "9",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "8"
+    },
+    "SYM": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "9",
+      "brand_strength": "5",
+      "competition_intensity": "8",
+      "network_effect": "4",
+      "product_differentiation": "8",
+      "innovativeness_score": "9",
+      "growth_opportunity": "9",
+      "riskiness_score": "8",
+      "pricing_power": "7",
+      "ambition_score": "9",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "5",
+      "trailblazer_score": "8",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "8",
+      "size_well_known_score": "6"
+    },
+    "GRMN": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "6",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "4",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "7",
+      "riskiness_score": "3",
+      "pricing_power": "7",
+      "ambition_score": "7",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "9",
+      "culture_employee_satisfaction_score": "8",
+      "trailblazer_score": "8",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "8"
+    },
+    "EBAY": {
+      "moat_score": "7",
+      "barriers_score": "8",
+      "disruption_risk": "7",
+      "switching_cost": "7",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "8",
+      "product_differentiation": "6",
+      "innovativeness_score": "5",
+      "growth_opportunity": "6",
+      "riskiness_score": "5",
+      "pricing_power": "5",
+      "ambition_score": "6",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "1",
+      "product_quality_score": "5",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "7",
+      "management_quality_score": "5",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "9"
+    },
+    "NOK": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "9",
+      "brand_strength": "8",
+      "competition_intensity": "8",
+      "network_effect": "6",
+      "product_differentiation": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "7",
+      "riskiness_score": "6",
+      "pricing_power": "7",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "4",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "6",
+      "management_quality_score": "7",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "9"
+    },
+    "IQV": {
+      "moat_score": "8",
+      "barriers_score": "9",
+      "disruption_risk": "6",
+      "switching_cost": "8",
+      "brand_strength": "8",
+      "competition_intensity": "7",
+      "network_effect": "7",
+      "product_differentiation": "8",
+      "innovativeness_score": "8",
+      "growth_opportunity": "8",
+      "riskiness_score": "4",
+      "pricing_power": "8",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "4",
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "trailblazer_score": "6",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "7"
+    },
+    "PAYC": {
+      "moat_score": "8",
+      "barriers_score": "8",
+      "disruption_risk": "4",
+      "switching_cost": "8",
+      "brand_strength": "7",
+      "competition_intensity": "8",
+      "network_effect": "2",
+      "product_differentiation": "8",
+      "innovativeness_score": "7",
+      "growth_opportunity": "7",
+      "riskiness_score": "4",
+      "pricing_power": "8",
+      "ambition_score": "8",
+      "bargaining_power_of_customers": "6",
+      "bargaining_power_of_suppliers": "2",
+      "product_quality_score": "8",
+      "culture_employee_satisfaction_score": "6",
+      "trailblazer_score": "5",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "8",
+      "size_well_known_score": "7"
     }
   }
 }

@@ -23,3 +23,7 @@ adjust prompts
 use AI to rank companies on a metric using sorting algorithms 
 
 add stock peer groups
+
+compounder score, ecosystem score
+
+switch to open router
