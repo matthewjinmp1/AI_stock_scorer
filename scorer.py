@@ -1288,23 +1288,12 @@ def get_company_moat_score(input_str):
                 else:
                     print(f"\n{company_name} already scored:")
                 
-                # Create list of scores with their values for sorting
-                score_list = []
+                # Print scores in the order defined in SCORE_DEFINITIONS (not sorted)
+                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    try:
-                        score_value = float(current_scores[score_key])
-                        score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
-                    except (ValueError, TypeError):
-                        # Skip invalid scores
-                        pass
-                
-                # Sort by score value descending
-                score_list.sort(reverse=True, key=lambda x: x[0])
-                
-                # Print sorted scores without /10, vertically aligned
-                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
-                for score_value, display_name, score_val in score_list:
+                    score_val = current_scores.get(score_key, 'N/A')
+                    display_name = score_def['display_name']
                     # Truncate if longer than 35 characters
                     truncated_name = display_name[:35] if len(display_name) <= 35 else display_name[:32] + "..."
                     print(f"{truncated_name:<35} {score_val:>8}")
