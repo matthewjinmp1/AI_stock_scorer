@@ -27,3 +27,5 @@ add stock peer groups
 compounder score, ecosystem score
 
 switch to open router
+
+automate size score weight

@@ -2,10 +2,36 @@
 """
 Calculate correlation between total score (with size score weighted 0, others weighted 1) 
 and the size/well-known score itself.
+Uses binary search to find the weight of size_well_known_score that zeros out the correlation.
 """
 
 import json
 import os
+
+# Score weights (copied from scorer.py to match exactly)
+SCORE_WEIGHTS = {
+    'moat_score': 10,
+    'barriers_score': 10,
+    'disruption_risk': 10,
+    'switching_cost': 10,
+    'brand_strength': 10, 
+    'competition_intensity': 10,
+    'network_effect': 10,
+    'product_differentiation': 10,
+    'innovativeness_score': 10,
+    'growth_opportunity': 10,
+    'riskiness_score': 10,
+    'pricing_power': 10,
+    'ambition_score': 10,
+    'bargaining_power_of_customers': 10,
+    'bargaining_power_of_suppliers': 10,
+    'product_quality_score': 10,
+    'culture_employee_satisfaction_score': 10,
+    'trailblazer_score': 10,
+    'management_quality_score': 10,
+    'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
+    'size_well_known_score': -19.31,  # Will be adjusted via binary search
+}
 
 # Score definitions (copied from scorer.py to avoid dependency on grok_client)
 SCORE_DEFINITIONS = {
@@ -27,6 +53,8 @@ SCORE_DEFINITIONS = {
     'product_quality_score': {'is_reverse': False},
     'culture_employee_satisfaction_score': {'is_reverse': False},
     'trailblazer_score': {'is_reverse': False},
+    'management_quality_score': {'is_reverse': False},
+    'ai_knowledge_score': {'is_reverse': False},
     'size_well_known_score': {'is_reverse': False},
 }
 
@@ -52,13 +80,16 @@ def load_excluded_tickers():
         return set()
 
 
-def calculate_total_score(scores_dict):
+def calculate_total_score(scores_dict, size_weight=None):
     """Calculate total score from a dictionary of scores.
     
-    Uses weight 0 for size_well_known_score, weight 1 for all others.
+    Uses SCORE_WEIGHTS for all scores, including size_well_known_score (which has weight 0 by default).
+    All scores in SCORE_DEFINITIONS are included in the calculation.
     
     Args:
         scores_dict: Dictionary with score keys and their string values
+        size_weight: Optional weight for size_well_known_score (overrides SCORE_WEIGHTS if provided)
+                     If None, uses SCORE_WEIGHTS['size_well_known_score'] which is 0
         
     Returns:
         float: The total weighted score (handling reverse scores appropriately)
@@ -66,11 +97,17 @@ def calculate_total_score(scores_dict):
     total = 0
     for score_key in SCORE_DEFINITIONS:
         score_def = SCORE_DEFINITIONS[score_key]
-        # Size score has weight 0, all others have weight 1
-        weight = 0 if score_key == 'size_well_known_score' else 1
+        # Get weight from SCORE_WEIGHTS, with optional override for size score
+        # Note: size_well_known_score is always included, but with weight 0 by default
+        if score_key == 'size_well_known_score' and size_weight is not None:
+            weight = size_weight
+        else:
+            weight = SCORE_WEIGHTS.get(score_key, 1.0)
+        
         try:
             score_value = float(scores_dict.get(score_key, 0))
             # For reverse scores, invert to get "goodness" value
+            # Even with weight 0, the score is still processed (just contributes 0 to total)
             if score_def['is_reverse']:
                 total += (10 - score_value) * weight
             else:
@@ -131,12 +168,113 @@ def load_scores():
         return None
 
 
+def calculate_correlation_for_weight(company_data, size_weight):
+    """Calculate correlation for a given size_well_known_score weight.
+    
+    Args:
+        company_data: List of dicts with 'ticker', 'scores_dict', and 'size_score'
+        size_weight: Weight to use for size_well_known_score
+        
+    Returns:
+        float: Pearson correlation coefficient, or None if calculation fails
+    """
+    total_scores = []
+    size_scores = []
+    
+    for data in company_data:
+        total_score = calculate_total_score(data['scores_dict'], size_weight=size_weight)
+        size_score = data['size_score']
+        total_scores.append(total_score)
+        size_scores.append(size_score)
+    
+    correlation, _ = calculate_pearson_correlation(total_scores, size_scores)
+    return correlation
+
+
+def binary_search_zero_correlation(company_data, tolerance=1e-6, max_iterations=100):
+    """Use binary search to find the weight of size_well_known_score that zeros out correlation.
+    
+    Args:
+        company_data: List of dicts with 'ticker', 'scores_dict', and 'size_score'
+        tolerance: Convergence tolerance for correlation (default 1e-6)
+        max_iterations: Maximum number of iterations (default 100)
+        
+    Returns:
+        tuple: (optimal_weight, correlation_at_optimal, iterations)
+    """
+    # Start with a wide range - correlation could be positive or negative
+    # Use a reasonable range based on other weights (most are 10)
+    low_weight = -50.0
+    high_weight = 50.0
+    
+    # Check initial bounds
+    corr_low = calculate_correlation_for_weight(company_data, low_weight)
+    corr_high = calculate_correlation_for_weight(company_data, high_weight)
+    
+    if corr_low is None or corr_high is None:
+        return None, None, 0
+    
+    # If both have same sign, we need to expand the range
+    if (corr_low > 0 and corr_high > 0) or (corr_low < 0 and corr_high < 0):
+        # Try expanding range
+        low_weight = -200.0
+        high_weight = 200.0
+        corr_low = calculate_correlation_for_weight(company_data, low_weight)
+        corr_high = calculate_correlation_for_weight(company_data, high_weight)
+        if corr_low is None or corr_high is None:
+            return None, None, 0
+        # If still same sign, correlation might not cross zero
+        if (corr_low > 0 and corr_high > 0) or (corr_low < 0 and corr_high < 0):
+            return None, None, 0
+    
+    # Binary search
+    iterations = 0
+    while iterations < max_iterations:
+        mid_weight = (low_weight + high_weight) / 2.0
+        corr_mid = calculate_correlation_for_weight(company_data, mid_weight)
+        
+        if corr_mid is None:
+            return None, None, iterations
+        
+        # Check if we're close enough to zero
+        if abs(corr_mid) < tolerance:
+            return mid_weight, corr_mid, iterations
+        
+        # Determine which side to search based on sign changes
+        # We know corr_low and corr_high have opposite signs (or we wouldn't be here)
+        if (corr_low > 0 and corr_mid < 0) or (corr_low < 0 and corr_mid > 0):
+            # Zero crossing is between low and mid
+            high_weight = mid_weight
+            corr_high = corr_mid
+        elif (corr_high > 0 and corr_mid < 0) or (corr_high < 0 and corr_mid > 0):
+            # Zero crossing is between mid and high
+            low_weight = mid_weight
+            corr_low = corr_mid
+        else:
+            # Same sign on both sides - this shouldn't happen if initial bounds are correct
+            # But handle it by moving towards the side with smaller absolute correlation
+            if abs(corr_low) < abs(corr_high):
+                high_weight = mid_weight
+                corr_high = corr_mid
+            else:
+                low_weight = mid_weight
+                corr_low = corr_mid
+        
+        iterations += 1
+    
+    # Return the best we found
+    final_weight = (low_weight + high_weight) / 2.0
+    final_corr = calculate_correlation_for_weight(company_data, final_weight)
+    return final_weight, final_corr, iterations
+
+
 def main():
     """Main function to calculate correlation between total score and size score."""
     print("=" * 80)
     print("Size/Well-Known Score vs Total Score Correlation Analysis")
     print("=" * 80)
-    print("\nNote: Total score calculated with size score weighted 0, all others weighted 1")
+    print("\nNote: Using SCORE_WEIGHTS from scorer.py")
+    print("      Binary search will find weight for size_well_known_score that zeros correlation")
     
     # Load scores
     print("\nLoading scores from scores.json...")
@@ -185,14 +323,16 @@ def main():
             missing_size_score.append(ticker)
             continue
         
-        # Calculate total score (with size score weighted 0)
-        total_score = calculate_total_score(scores_dict)
+        # Calculate total score (size_well_known_score is included but with weight 0 from SCORE_WEIGHTS)
+        # Passing size_weight=None uses SCORE_WEIGHTS['size_well_known_score'] which is 0
+        total_score = calculate_total_score(scores_dict, size_weight=None)
         
         # Only include if we have a valid total score
         if total_score > 0:
             company_data.append({
                 'ticker': ticker,
-                'total_score': total_score,
+                'scores_dict': scores_dict,  # Store full scores dict for binary search
+                'total_score': total_score,  # Initial total score (size weight = 0)
                 'size_score': size_score
             })
         else:
@@ -214,83 +354,76 @@ def main():
     
     print(f"\nSuccessfully processed {len(company_data)} companies")
     
-    # Extract total scores and size scores for correlation
+    # Calculate initial correlation (with size weight = 0)
+    print("\n" + "=" * 80)
+    print("INITIAL CORRELATION (size_well_known_score weight = 0)")
+    print("=" * 80)
+    
     total_scores = [d['total_score'] for d in company_data]
     size_scores = [d['size_score'] for d in company_data]
     
-    # Calculate correlation
-    correlation, _ = calculate_pearson_correlation(total_scores, size_scores)
+    initial_correlation, _ = calculate_pearson_correlation(total_scores, size_scores)
     
-    if correlation is None:
+    if initial_correlation is None:
         print("\nError: Could not calculate correlation (insufficient data variance)")
         return
     
-    # Display results
-    print("\n" + "=" * 80)
-    print("RESULTS")
-    print("=" * 80)
     print(f"\nNumber of companies analyzed: {len(company_data)}")
-    print(f"\nPearson Correlation Coefficient: {correlation:.4f}")
+    print(f"Pearson Correlation Coefficient: {initial_correlation:.4f}")
     
-    # Interpret correlation
-    abs_corr = abs(correlation)
-    if abs_corr >= 0.9:
-        strength = "very strong"
-    elif abs_corr >= 0.7:
-        strength = "strong"
-    elif abs_corr >= 0.5:
-        strength = "moderate"
-    elif abs_corr >= 0.3:
-        strength = "weak"
-    else:
-        strength = "very weak"
-    
-    direction = "positive" if correlation > 0 else "negative"
-    print(f"Interpretation: {strength} {direction} correlation")
-    
-    if abs_corr > 0.3:
-        if correlation > 0:
-            print("\nThis suggests that companies with higher total scores (excluding size)")
-            print("tend to also have higher size/well-known scores.")
-        else:
-            print("\nThis suggests that companies with higher total scores (excluding size)")
-            print("tend to have lower size/well-known scores.")
-    
-    # Show some examples
+    # Binary search for weight that zeros correlation
     print("\n" + "=" * 80)
-    print("Sample Data (Top 10 by Total Score)")
+    print("BINARY SEARCH: Finding weight that zeros correlation")
     print("=" * 80)
     
-    # Sort by total score (descending)
-    sorted_data = sorted(company_data, key=lambda x: x['total_score'], reverse=True)
+    optimal_weight, optimal_correlation, iterations = binary_search_zero_correlation(company_data)
     
-    # Calculate max possible total score (all scores except size, each weighted 1, max value 10)
-    max_score = sum(1 for key in SCORE_DEFINITIONS if key != 'size_well_known_score') * 10
+    if optimal_weight is None:
+        print("\nError: Could not find weight that zeros correlation.")
+        print("       Correlation may not cross zero in the searchable range.")
+        return
+    
+    print(f"\nOptimal weight for size_well_known_score: {optimal_weight:.6f}")
+    print(f"Correlation at optimal weight: {optimal_correlation:.6f}")
+    print(f"Iterations: {iterations}")
+    
+    # Show correlation at a few different weights for context
+    print("\n" + "=" * 80)
+    print("CORRELATION AT VARIOUS WEIGHTS")
+    print("=" * 80)
+    print(f"\n{'Weight':<15} {'Correlation':>15}")
+    print("-" * 32)
+    
+    test_weights = [-20, -10, -5, 0, 5, 10, 20, optimal_weight]
+    test_weights = sorted(set(test_weights))  # Remove duplicates and sort
+    
+    for weight in test_weights:
+        corr = calculate_correlation_for_weight(company_data, weight)
+        if corr is not None:
+            marker = " <-- OPTIMAL" if abs(weight - optimal_weight) < 0.01 else ""
+            print(f"{weight:>14.2f} {corr:>15.6f}{marker}")
+    
+    # Show some examples with optimal weight
+    print("\n" + "=" * 80)
+    print("Sample Data (Top 10 by Total Score with Optimal Weight)")
+    print("=" * 80)
+    
+    # Recalculate total scores with optimal weight
+    for data in company_data:
+        data['total_score_optimal'] = calculate_total_score(data['scores_dict'], size_weight=optimal_weight)
+    
+    sorted_data = sorted(company_data, key=lambda x: x['total_score_optimal'], reverse=True)
+    
+    # Calculate max possible total score with optimal weight
+    max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS if key != 'size_well_known_score') * 10
+    max_score += optimal_weight * 10  # Add size score contribution
     
     print(f"\n{'Rank':<6} {'Ticker':<8} {'Total Score %':>18} {'Size Score':>12}")
     print("-" * 50)
     
     for rank, data in enumerate(sorted_data[:10], 1):
         ticker = data['ticker']
-        total_score = data['total_score']
-        size_score = data['size_score']
-        
-        # Calculate percentage for total score
-        score_pct = int((total_score / max_score) * 100) if max_score > 0 else 0
-        
-        print(f"{rank:<6} {ticker:<8} {score_pct:>16}% {size_score:>10.1f}/10")
-    
-    # Show bottom 10 for comparison
-    print("\n" + "=" * 80)
-    print("Sample Data (Bottom 10 by Total Score)")
-    print("=" * 80)
-    
-    print(f"\n{'Rank':<6} {'Ticker':<8} {'Total Score %':>18} {'Size Score':>12}")
-    print("-" * 50)
-    
-    for rank, data in enumerate(sorted_data[-10:], len(sorted_data) - 9):
-        ticker = data['ticker']
-        total_score = data['total_score']
+        total_score = data['total_score_optimal']
         size_score = data['size_score']
         
         # Calculate percentage for total score

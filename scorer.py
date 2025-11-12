@@ -40,7 +40,7 @@ SCORE_WEIGHTS = {
     'trailblazer_score': 10,
     'management_quality_score': 10,
     'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
-    'size_well_known_score': 0,
+    'size_well_known_score': -19.31,
 }
 
 from grok_client import GrokClient
