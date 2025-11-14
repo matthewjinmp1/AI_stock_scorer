@@ -40,7 +40,7 @@ SCORE_WEIGHTS = {
     'trailblazer_score': 10,
     'management_quality_score': 10,
     'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
-    'size_well_known_score': -19.31,
+    'size_well_known_score': 19.31, 
 }
 
 from grok_client import GrokClient
@@ -716,7 +716,7 @@ Consider factors like:
 - Accessibility of company information and data
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
-        'is_reverse': False
+        'is_reverse': True
     }
 }
 
