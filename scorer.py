@@ -42,6 +42,7 @@ SCORE_WEIGHTS = {
     'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
     'size_well_known_score': 19.31,
     'ethical_healthy_environmental_score': 10,
+    'long_term_orientation_score': 10,
 }
 
 from grok_client import GrokClient
@@ -742,6 +743,34 @@ Consider factors like:
 - Long-term sustainability commitments and goals
 - Health and safety record for employees and consumers
 - Environmental regulations compliance and beyond-compliance initiatives
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
+    },
+    'long_term_orientation_score': {
+        'display_name': 'Long Term Orientation',
+        'field_name': 'long_term_orientation_score',
+        'prompt': """Rate the long-term orientation of {company_name} on a scale of 0-10, where:
+- 0 = Extremely short-term focused, prioritizes quarterly results over long-term value, reactive decision-making
+- 5 = Moderate long-term orientation, balances short-term and long-term goals, some strategic planning
+- 10 = Extremely long-term oriented, prioritizes sustainable growth and long-term value creation, strategic vision and patience
+
+Consider factors like:
+- Investment in R&D and innovation for future growth
+- Willingness to sacrifice short-term profits for long-term competitive advantages
+- Strategic planning horizon and vision (5+ years, 10+ years)
+- Capital allocation decisions favoring long-term value creation
+- Resistance to quarterly earnings pressure and short-term market expectations
+- Building capabilities and moats that pay off over decades
+- Patient capital and reinvestment in the business
+- Focus on sustainable competitive advantages rather than quick wins
+- Long-term customer relationships and brand building
+- Investment in employee development and retention
+- Strategic initiatives that may take years to pay off
+- Avoidance of short-term cost-cutting that damages long-term prospects
+- Building organizational capabilities and culture for the long run
+- Long-term partnerships and supplier relationships
+- Focus on creating enduring value rather than maximizing immediate returns
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': False
