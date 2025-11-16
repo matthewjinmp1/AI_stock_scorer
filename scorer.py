@@ -40,7 +40,8 @@ SCORE_WEIGHTS = {
     'trailblazer_score': 10,
     'management_quality_score': 10,
     'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
-    'size_well_known_score': 19.31, 
+    'size_well_known_score': 19.31,
+    'ethical_healthy_environmental_score': 10,
 }
 
 from grok_client import GrokClient
@@ -717,6 +718,31 @@ Consider factors like:
 
 Respond with ONLY the numerical score (0-10), no explanation needed.""",
         'is_reverse': True
+    },
+    'ethical_healthy_environmental_score': {
+        'display_name': 'Ethical / Healthy / Environmental',
+        'field_name': 'ethical_healthy_environmental_score',
+        'prompt': """Rate how ethical, healthy, and environmentally friendly {company_name} is on a scale of 0-10, where:
+- 0 = Unethical practices, harmful to health, highly damaging to environment, poor corporate responsibility
+- 5 = Moderate ethical standards, neutral health impact, some environmental concerns, average corporate responsibility
+- 10 = Extremely ethical, promotes health and wellness, environmentally sustainable, exemplary corporate responsibility
+
+Consider factors like:
+- Ethical business practices (fair labor, supply chain ethics, human rights, animal welfare, transparency, anti-corruption)
+- Health impact of products/services (promotes wellness, nutritional value, safety standards, public health contribution)
+- Environmental sustainability (carbon footprint, renewable energy use, waste reduction, pollution control, resource conservation)
+- Corporate social responsibility (CSR initiatives, community engagement, social impact, charitable giving)
+- Environmental certifications and standards (LEED, B-Corp, carbon neutral, sustainability reporting)
+- Ethical sourcing and supply chain management
+- Product safety and health standards compliance
+- Environmental impact of operations and products
+- Social and environmental governance (ESG) performance
+- Long-term sustainability commitments and goals
+- Health and safety record for employees and consumers
+- Environmental regulations compliance and beyond-compliance initiatives
+
+Respond with ONLY the numerical score (0-10), no explanation needed.""",
+        'is_reverse': False
     }
 }
 
