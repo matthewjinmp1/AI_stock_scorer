@@ -50,6 +50,8 @@ import sys
 import json
 import os
 import time
+import tempfile
+import shutil
 from datetime import datetime
 import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -759,9 +761,37 @@ def load_scores():
 
 
 def save_scores(scores_data):
-    """Save scores to JSON file."""
-    with open(SCORES_FILE, 'w') as f:
-        json.dump(scores_data, f, indent=2)
+    """Save scores to JSON file using atomic write to prevent corruption.
+    
+    Writes to a temporary file first, then replaces the original file only
+    if the write succeeds. This prevents corruption if the program crashes
+    during the write operation.
+    """
+    # Create a temporary file in the same directory as the target file
+    temp_dir = os.path.dirname(os.path.abspath(SCORES_FILE)) or '.'
+    temp_fd, temp_path = tempfile.mkstemp(dir=temp_dir, suffix='.json', prefix='.scores_temp_')
+    
+    try:
+        # Write to temporary file
+        with os.fdopen(temp_fd, 'w') as f:
+            json.dump(scores_data, f, indent=2)
+        
+        # Atomically replace the original file (on Windows, this may require removing the original first)
+        if os.name == 'nt':  # Windows
+            # On Windows, replace() may fail if file is open, so try remove first
+            if os.path.exists(SCORES_FILE):
+                os.remove(SCORES_FILE)
+            shutil.move(temp_path, SCORES_FILE)
+        else:  # Unix-like systems
+            # On Unix, replace() is atomic
+            os.replace(temp_path, SCORES_FILE)
+    except Exception as e:
+        # If anything goes wrong, try to clean up temp file and raise
+        try:
+            os.remove(temp_path)
+        except:
+            pass
+        raise e
 
 
 
