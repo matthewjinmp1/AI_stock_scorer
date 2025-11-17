@@ -39,7 +39,7 @@ SCORE_WEIGHTS = {
     'culture_employee_satisfaction_score': 10,
     'trailblazer_score': 10,
     'management_quality_score': 10,
-    'ai_knowledge_score': 0,  # Not weighted - used for confidence assessment only
+    'ai_knowledge_score': 10, 
     'size_well_known_score': 19.31,
     'ethical_healthy_environmental_score': 10,
     'long_term_orientation_score': 10,
@@ -885,6 +885,172 @@ def get_all_total_scores():
         all_totals.append(total)
     
     return all_totals
+
+
+def calculate_correlation(ticker1, ticker2):
+    """Calculate correlation between two companies' scores.
+    
+    Args:
+        ticker1: First ticker symbol
+        ticker2: Second ticker symbol
+        
+    Returns:
+        tuple: (correlation_coefficient, num_metrics_compared) or (None, 0) if error
+    """
+    scores_data = load_scores()
+    ticker_lookup = load_ticker_lookup()
+    
+    # Normalize tickers
+    ticker1_upper = ticker1.strip().upper()
+    ticker2_upper = ticker2.strip().upper()
+    
+    # Get company names
+    company1_name = ticker_lookup.get(ticker1_upper)
+    company2_name = ticker_lookup.get(ticker2_upper)
+    
+    if not company1_name:
+        print(f"Error: '{ticker1_upper}' is not a valid ticker symbol.")
+        return None, 0
+    
+    if not company2_name:
+        print(f"Error: '{ticker2_upper}' is not a valid ticker symbol.")
+        return None, 0
+    
+    # Find scores for both companies
+    scores1 = None
+    scores2 = None
+    
+    # Try to find scores by ticker (uppercase, lowercase) or company name
+    if ticker1_upper in scores_data["companies"]:
+        scores1 = scores_data["companies"][ticker1_upper]
+    elif ticker1_upper.lower() in scores_data["companies"]:
+        scores1 = scores_data["companies"][ticker1_upper.lower()]
+    elif company1_name.lower() in scores_data["companies"]:
+        scores1 = scores_data["companies"][company1_name.lower()]
+    
+    if ticker2_upper in scores_data["companies"]:
+        scores2 = scores_data["companies"][ticker2_upper]
+    elif ticker2_upper.lower() in scores_data["companies"]:
+        scores2 = scores_data["companies"][ticker2_upper.lower()]
+    elif company2_name.lower() in scores_data["companies"]:
+        scores2 = scores_data["companies"][company2_name.lower()]
+    
+    if not scores1:
+        print(f"Error: No scores found for {ticker1_upper} ({company1_name}).")
+        return None, 0
+    
+    if not scores2:
+        print(f"Error: No scores found for {ticker2_upper} ({company2_name}).")
+        return None, 0
+    
+    # Extract numeric scores for metrics both companies have
+    # Handle reverse scores by converting to "goodness" values
+    values1 = []
+    values2 = []
+    metric_names = []
+    
+    for score_key in SCORE_DEFINITIONS:
+        score_def = SCORE_DEFINITIONS[score_key]
+        val1 = scores1.get(score_key)
+        val2 = scores2.get(score_key)
+        
+        # Only include metrics where both companies have scores
+        if val1 and val2:
+            try:
+                num1 = float(val1)
+                num2 = float(val2)
+                
+                # Convert reverse scores to "goodness" values
+                if score_def['is_reverse']:
+                    num1 = 10 - num1
+                    num2 = 10 - num2
+                
+                values1.append(num1)
+                values2.append(num2)
+                metric_names.append(score_def['display_name'])
+            except (ValueError, TypeError):
+                continue
+    
+    if len(values1) < 2:
+        print(f"Error: Need at least 2 common metrics to calculate correlation. Found {len(values1)}.")
+        return None, 0
+    
+    # Calculate Pearson correlation coefficient
+    # r = Σ((x - x̄)(y - ȳ)) / sqrt(Σ(x - x̄)² * Σ(y - ȳ)²)
+    n = len(values1)
+    mean1 = sum(values1) / n
+    mean2 = sum(values2) / n
+    
+    numerator = sum((values1[i] - mean1) * (values2[i] - mean2) for i in range(n))
+    sum_sq_diff1 = sum((values1[i] - mean1) ** 2 for i in range(n))
+    sum_sq_diff2 = sum((values2[i] - mean2) ** 2 for i in range(n))
+    
+    denominator = (sum_sq_diff1 * sum_sq_diff2) ** 0.5
+    
+    if denominator == 0:
+        # All values are the same (no variance)
+        correlation = 1.0 if values1 == values2 else 0.0
+    else:
+        correlation = numerator / denominator
+    
+    return correlation, len(values1)
+
+
+def show_correlation(ticker1, ticker2):
+    """Display correlation between two companies' scores.
+    
+    Args:
+        ticker1: First ticker symbol
+        ticker2: Second ticker symbol
+    """
+    ticker_lookup = load_ticker_lookup()
+    ticker1_upper = ticker1.strip().upper()
+    ticker2_upper = ticker2.strip().upper()
+    
+    company1_name = ticker_lookup.get(ticker1_upper, ticker1_upper)
+    company2_name = ticker_lookup.get(ticker2_upper, ticker2_upper)
+    
+    print(f"\nCorrelation Analysis: {ticker1_upper} vs {ticker2_upper}")
+    print("=" * 80)
+    print(f"{ticker1_upper}: {company1_name}")
+    print(f"{ticker2_upper}: {company2_name}")
+    print()
+    
+    correlation, num_metrics = calculate_correlation(ticker1, ticker2)
+    
+    if correlation is None:
+        return
+    
+    print(f"Correlation Coefficient: {correlation:.4f}")
+    print(f"Metrics Compared: {num_metrics}")
+    print()
+    
+    # Interpretation
+    if correlation >= 0.9:
+        interpretation = "Very Strong Positive Correlation"
+    elif correlation >= 0.7:
+        interpretation = "Strong Positive Correlation"
+    elif correlation >= 0.5:
+        interpretation = "Moderate Positive Correlation"
+    elif correlation >= 0.3:
+        interpretation = "Weak Positive Correlation"
+    elif correlation >= -0.3:
+        interpretation = "Very Weak or No Correlation"
+    elif correlation >= -0.5:
+        interpretation = "Weak Negative Correlation"
+    elif correlation >= -0.7:
+        interpretation = "Moderate Negative Correlation"
+    elif correlation >= -0.9:
+        interpretation = "Strong Negative Correlation"
+    else:
+        interpretation = "Very Strong Negative Correlation"
+    
+    print(f"Interpretation: {interpretation}")
+    print()
+    print("Note: Correlation measures how similarly the two companies score across")
+    print("      all metrics. High positive correlation means they have similar")
+    print("      strengths and weaknesses. Negative correlation means they are")
+    print("      strong in opposite areas.")
 
 
 def format_total_score(total, percentile=None):
@@ -2402,13 +2568,14 @@ def main():
     print("  Type 'define -r TICKER' to remove a custom ticker definition")
     print("  Type 'define -l' to list all custom ticker definitions")
     print("  Type 'redefine NEW_TICKER = OLD_TICKER' to rename a ticker definition")
+    print("  Type 'correl TICKER1 TICKER2' to show correlation between two companies' scores")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'define'/'redefine'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'define'/'redefine'/'correl'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2461,6 +2628,20 @@ def main():
             elif user_input.lower().startswith('redefine '):
                 command_input = user_input[9:].strip()  # Remove 'redefine ' prefix
                 handle_redefine_command(command_input)
+                print()
+            elif user_input.lower() == 'correl':
+                print("Usage: correl TICKER1 TICKER2")
+                print("Example: correl AAPL MSFT")
+                print()
+            elif user_input.lower().startswith('correl '):
+                command_input = user_input[7:].strip()  # Remove 'correl ' prefix
+                tickers = command_input.split()
+                if len(tickers) == 2:
+                    show_correlation(tickers[0], tickers[1])
+                else:
+                    print("Error: Please provide exactly 2 ticker symbols.")
+                    print("Usage: correl TICKER1 TICKER2")
+                    print("Example: correl AAPL MSFT")
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers

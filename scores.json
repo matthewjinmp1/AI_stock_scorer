@@ -2022,7 +2022,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "7"
     },
     "mo": {
       "moat_score": "8",
@@ -2046,7 +2047,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "0",
-      "ethical_healthy_environmental_score": "2"
+      "ethical_healthy_environmental_score": "2",
+      "long_term_orientation_score": "8"
     },
     "cvs": {
       "moat_score": "8",
@@ -2070,7 +2072,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "nke": {
       "moat_score": "9",
@@ -2094,7 +2097,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "sbux": {
       "moat_score": "8",
@@ -2118,7 +2122,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "se": {
       "moat_score": "7",
@@ -2142,7 +2147,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "snow": {
       "moat_score": "8",
@@ -2166,7 +2172,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "nem": {
       "moat_score": "7",
@@ -2190,7 +2197,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "ice": {
       "moat_score": "9",
@@ -2214,7 +2222,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "shw": {
       "moat_score": "8",
@@ -2238,7 +2247,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "mco": {
       "moat_score": "9",
@@ -2262,7 +2272,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "ups": {
       "moat_score": "8",
@@ -2286,7 +2297,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "wm": {
       "moat_score": "8",
@@ -2310,7 +2322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "orly": {
       "moat_score": "7",
@@ -2334,7 +2347,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "abnb": {
       "moat_score": "8",
@@ -2358,7 +2372,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "tdg": {
       "moat_score": "9",
@@ -2382,7 +2397,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "8"
     },
     "race": {
       "moat_score": "9",
@@ -2406,7 +2422,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "0",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "9"
     },
     "adsk": {
       "moat_score": "8",
@@ -2430,7 +2447,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "EQIX": {
       "moat_score": "9",
@@ -2454,7 +2472,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "CVX": {
       "moat_score": "8",
@@ -2478,7 +2497,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "2"
+      "ethical_healthy_environmental_score": "2",
+      "long_term_orientation_score": "8"
     },
     "PNR": {
       "moat_score": "7",
@@ -2502,7 +2522,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ATKR": {
       "moat_score": "6",
@@ -2526,7 +2547,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "3",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "SEE": {
       "moat_score": "7",
@@ -2550,7 +2572,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "MSTR": {
       "moat_score": "5",
@@ -2574,7 +2597,8 @@
       "management_quality_score": "5",
       "ai_knowledge_score": "0",
       "size_well_known_score": "0",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "9"
     },
     "FTNT": {
       "moat_score": "8",
@@ -2598,7 +2622,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "TEAM": {
       "moat_score": "8",
@@ -2622,7 +2647,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "TTWO": {
       "moat_score": "8",
@@ -2646,7 +2672,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "TTD": {
       "moat_score": "8",
@@ -2670,7 +2697,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "NDAQ": {
       "moat_score": "9",
@@ -2694,7 +2722,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "RDDT": {
       "moat_score": "7",
@@ -2718,7 +2747,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "HPQ": {
       "moat_score": "6",
@@ -2742,7 +2772,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "6"
     },
     "HPE": {
       "moat_score": "7",
@@ -2766,7 +2797,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "SMCI": {
       "moat_score": "7",
@@ -2790,7 +2822,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "NTAP": {
       "moat_score": "7",
@@ -2814,7 +2847,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "WMT": {
       "moat_score": "8",
@@ -2838,7 +2872,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "SKH": {
       "moat_score": "8",
@@ -2862,7 +2897,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "SAM": {
       "moat_score": "8",
@@ -2886,7 +2922,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "WDC": {
       "moat_score": "7",
@@ -2910,7 +2947,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "STX": {
       "moat_score": "6",
@@ -2934,7 +2972,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "AFRM": {
       "moat_score": "7",
@@ -2958,7 +2997,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "SOFI": {
       "moat_score": "6",
@@ -2982,7 +3022,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "FI": {
       "moat_score": "8",
@@ -3006,7 +3047,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "HQI": {
       "moat_score": "4",
@@ -3030,7 +3072,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "5",
       "size_well_known_score": "2",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "IMXI": {
       "moat_score": "5",
@@ -3054,7 +3097,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "OAI": {
       "moat_score": "8",
@@ -3078,7 +3122,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "9"
     },
     "AI": {
       "moat_score": "7",
@@ -3102,7 +3147,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BLM": {
       "moat_score": "9",
@@ -3126,7 +3172,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "SPX": {
       "moat_score": "9",
@@ -3150,7 +3197,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "10"
     },
     "byte": {
       "moat_score": "9",
@@ -3174,7 +3222,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "3"
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "9"
     },
     "DECK": {
       "moat_score": "7",
@@ -3198,7 +3247,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GAP": {
       "moat_score": "4",
@@ -3222,7 +3272,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "5"
     },
     "ATH": {
       "moat_score": "6",
@@ -3246,7 +3297,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "ALO": {
       "moat_score": "7",
@@ -3270,7 +3322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "VRI": {
       "moat_score": "7",
@@ -3294,7 +3347,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "FAB": {
       "moat_score": "6",
@@ -3318,7 +3372,8 @@
       "management_quality_score": "5",
       "ai_knowledge_score": "7",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "6"
     },
     "ADY": {
       "moat_score": "8",
@@ -3342,7 +3397,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GPN": {
       "moat_score": "8",
@@ -3366,7 +3422,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "CANV": {
       "moat_score": "8",
@@ -3390,7 +3447,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "FIG": {
       "moat_score": "8",
@@ -3414,7 +3472,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "DOCU": {
       "moat_score": "8",
@@ -3438,7 +3497,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "AXON": {
       "moat_score": "9",
@@ -3462,7 +3522,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "DNP": {
       "moat_score": "6",
@@ -3486,7 +3547,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "JOES": {
       "moat_score": "8",
@@ -3510,7 +3572,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "KR": {
       "moat_score": "6",
@@ -3534,7 +3597,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "PBLX": {
       "moat_score": "7",
@@ -3558,7 +3622,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "CPRT": {
       "moat_score": "8",
@@ -3582,7 +3647,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "MNST": {
       "moat_score": "8",
@@ -3606,7 +3672,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "3"
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "8"
     },
     "HUBS": {
       "moat_score": "8",
@@ -3630,7 +3697,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "PG": {
       "moat_score": "9",
@@ -3654,7 +3722,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "ISRG": {
       "moat_score": "9",
@@ -3678,7 +3747,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "CDNS": {
       "moat_score": "9",
@@ -3702,7 +3772,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "ADSK": {
       "moat_score": "8",
@@ -3726,7 +3797,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "TSLA": {
       "moat_score": "8",
@@ -3750,7 +3822,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "QCOM": {
       "moat_score": "8",
@@ -3774,7 +3847,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "BKNG": {
       "moat_score": "8",
@@ -3798,7 +3872,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "AMD": {
       "moat_score": "7",
@@ -3822,7 +3897,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "HOOD": {
       "moat_score": "6",
@@ -3846,7 +3922,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "6"
     },
     "SNAP": {
       "moat_score": "5",
@@ -3870,7 +3947,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "PINS": {
       "moat_score": "6",
@@ -3894,7 +3972,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "X": {
       "moat_score": "7",
@@ -3918,7 +3997,8 @@
       "management_quality_score": "2",
       "ai_knowledge_score": "9",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "3"
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "6"
     },
     "TEN": {
       "moat_score": "9",
@@ -3942,7 +4022,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "RBLX": {
       "moat_score": "8",
@@ -3966,7 +4047,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "U": {
       "moat_score": "7",
@@ -3990,7 +4072,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ROKU": {
       "moat_score": "7",
@@ -4014,7 +4097,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "ANTH": {
       "moat_score": "7",
@@ -4038,7 +4122,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "OPEN": {
       "moat_score": "5",
@@ -4062,7 +4147,8 @@
       "management_quality_score": "5",
       "ai_knowledge_score": "9",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "GME": {
       "moat_score": "3",
@@ -4086,7 +4172,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "3"
     },
     "NFLX": {
       "moat_score": "8",
@@ -4110,7 +4197,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "NIK": {
       "moat_score": "7",
@@ -4134,7 +4222,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "CAN": {
       "moat_score": "7",
@@ -4158,7 +4247,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "SMEE": {
       "moat_score": "6",
@@ -4182,7 +4272,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "5",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "9"
     },
     "TEL": {
       "moat_score": "8",
@@ -4206,7 +4297,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "ASM": {
       "moat_score": "8",
@@ -4230,7 +4322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "SCRN": {
       "moat_score": "8",
@@ -4254,7 +4347,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "REXR": {
       "moat_score": "8",
@@ -4278,7 +4372,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "EGP": {
       "moat_score": "7",
@@ -4302,7 +4397,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "FR": {
       "moat_score": "7",
@@ -4326,7 +4422,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "TRNO": {
       "moat_score": "7",
@@ -4350,7 +4447,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "STAG": {
       "moat_score": "5",
@@ -4374,7 +4472,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "LXP": {
       "moat_score": "5",
@@ -4398,7 +4497,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "ILPT": {
       "moat_score": "3",
@@ -4422,7 +4522,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "7",
       "size_well_known_score": "3",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "COLD": {
       "moat_score": "8",
@@ -4446,7 +4547,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "CXM": {
       "moat_score": "7",
@@ -4470,7 +4572,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "8",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "BRZE": {
       "moat_score": "7",
@@ -4494,7 +4597,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "DBX": {
       "moat_score": "7",
@@ -4518,7 +4622,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BOX": {
       "moat_score": "7",
@@ -4542,7 +4647,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "DB": {
       "moat_score": "8",
@@ -4566,7 +4672,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "APP": {
       "moat_score": "7",
@@ -4590,7 +4697,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "PUBM": {
       "moat_score": "7",
@@ -4614,7 +4722,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "EVO": {
       "moat_score": "9",
@@ -4638,7 +4747,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "8"
     },
     "PDD": {
       "moat_score": "8",
@@ -4662,7 +4772,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "8"
     },
     "BILI": {
       "moat_score": "7",
@@ -4686,7 +4797,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "8",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "EA": {
       "moat_score": "7",
@@ -4710,7 +4822,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "PUMA": {
       "moat_score": "6",
@@ -4734,7 +4847,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GYM": {
       "moat_score": "7",
@@ -4758,7 +4872,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "UAA": {
       "moat_score": "5",
@@ -4782,7 +4897,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "RL": {
       "moat_score": "7",
@@ -4806,7 +4922,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "GOOS": {
       "moat_score": "7",
@@ -4830,7 +4947,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "8"
     },
     "COLM": {
       "moat_score": "7",
@@ -4854,7 +4972,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "ADRL": {
       "moat_score": "8",
@@ -4878,7 +4997,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "3"
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "10"
     },
     "BDRK": {
       "moat_score": "8",
@@ -4902,7 +5022,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "LDL": {
       "moat_score": "7",
@@ -4926,7 +5047,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "ALD": {
       "moat_score": "8",
@@ -4950,7 +5072,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "NET": {
       "moat_score": "8",
@@ -4974,7 +5097,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "CRWD": {
       "moat_score": "8",
@@ -4998,7 +5122,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "DDOG": {
       "moat_score": "8",
@@ -5022,7 +5147,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ZM": {
       "moat_score": "8",
@@ -5046,7 +5172,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "DUOL": {
       "moat_score": "8",
@@ -5070,7 +5197,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "8"
     },
     "strp": {
       "moat_score": "9",
@@ -5094,7 +5222,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "RELY": {
       "moat_score": "6",
@@ -5118,7 +5247,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "LENO": {
       "moat_score": "5",
@@ -5142,7 +5272,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ACER": {
       "moat_score": "4",
@@ -5166,7 +5297,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "6"
     },
     "ASUS": {
       "moat_score": "6",
@@ -5190,7 +5322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "PSTG": {
       "moat_score": "7",
@@ -5214,7 +5347,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "CRWV": {
       "moat_score": "8",
@@ -5238,7 +5372,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "9"
     },
     "OXY": {
       "moat_score": "7",
@@ -5262,7 +5397,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "3"
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "8"
     },
     "AXP": {
       "moat_score": "9",
@@ -5286,7 +5422,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BAC": {
       "moat_score": "8",
@@ -5310,7 +5447,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "KHC": {
       "moat_score": "7",
@@ -5334,7 +5472,8 @@
       "management_quality_score": "3",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "2"
     },
     "VRSN": {
       "moat_score": "10",
@@ -5358,7 +5497,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "SIRI": {
       "moat_score": "7",
@@ -5382,7 +5522,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "6"
     },
     "NVR": {
       "moat_score": "6",
@@ -5406,7 +5547,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "9"
     },
     "BRK": {
       "moat_score": "9",
@@ -5430,7 +5572,8 @@
       "management_quality_score": "10",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "10"
     },
     "UBER": {
       "moat_score": "8",
@@ -5454,7 +5597,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "PANW": {
       "moat_score": "8",
@@ -5478,7 +5622,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "ADI": {
       "moat_score": "8",
@@ -5502,7 +5647,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "NIN": {
       "moat_score": "8",
@@ -5526,7 +5672,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "COIN": {
       "moat_score": "8",
@@ -5550,7 +5697,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4"
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "8"
     },
     "MRVL": {
       "moat_score": "8",
@@ -5574,7 +5722,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "CPNG": {
       "moat_score": "8",
@@ -5598,7 +5747,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "9"
     },
     "NXPI": {
       "moat_score": "8",
@@ -5622,7 +5772,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ZS": {
       "moat_score": "8",
@@ -5646,7 +5797,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "VEEV": {
       "moat_score": "8",
@@ -5670,7 +5822,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "ROP": {
       "moat_score": "8",
@@ -5694,7 +5847,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "JD": {
       "moat_score": "7",
@@ -5718,7 +5872,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "BIDU": {
       "moat_score": "8",
@@ -5742,7 +5897,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "8"
     },
     "FICO": {
       "moat_score": "9",
@@ -5766,7 +5922,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "SYM": {
       "moat_score": "8",
@@ -5790,7 +5947,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GRMN": {
       "moat_score": "8",
@@ -5814,7 +5972,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "EBAY": {
       "moat_score": "7",
@@ -5838,7 +5997,8 @@
       "management_quality_score": "5",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "6"
     },
     "NOK": {
       "moat_score": "8",
@@ -5862,7 +6022,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "IQV": {
       "moat_score": "8",
@@ -5886,7 +6047,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "PAYC": {
       "moat_score": "8",
@@ -5910,7 +6072,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "EXPE": {
       "moat_score": "7",
@@ -5934,7 +6097,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "Z": {
       "moat_score": "7",
@@ -5958,7 +6122,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "ERIC": {
       "moat_score": "8",
@@ -5982,7 +6147,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "KEYS": {
       "moat_score": "8",
@@ -6006,7 +6172,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "IRM": {
       "moat_score": "8",
@@ -6030,7 +6197,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "PWR": {
       "moat_score": "7",
@@ -6054,7 +6222,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "TREX": {
       "moat_score": "8",
@@ -6078,7 +6247,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "8"
     },
     "BLDR": {
       "moat_score": "7",
@@ -6102,7 +6272,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "W": {
       "moat_score": "5",
@@ -6126,7 +6297,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "MDB": {
       "moat_score": "8",
@@ -6150,7 +6322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "MCHP": {
       "moat_score": "8",
@@ -6174,7 +6347,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "CSGP": {
       "moat_score": "8",
@@ -6198,7 +6372,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "9"
     },
     "CYBR": {
       "moat_score": "8",
@@ -6222,7 +6397,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "IOT": {
       "moat_score": "8",
@@ -6246,7 +6422,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "TOST": {
       "moat_score": "7",
@@ -6270,7 +6447,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "CHKP": {
       "moat_score": "8",
@@ -6294,7 +6472,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "PTC": {
       "moat_score": "8",
@@ -6318,7 +6497,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "SSNC": {
       "moat_score": "7",
@@ -6342,7 +6522,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "TYL": {
       "moat_score": "8",
@@ -6366,7 +6547,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GFS": {
       "moat_score": "7",
@@ -6390,7 +6572,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "IONQ": {
       "moat_score": "7",
@@ -6414,7 +6597,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "GDDY": {
       "moat_score": "7",
@@ -6438,7 +6622,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "LOGI": {
       "moat_score": "7",
@@ -6462,7 +6647,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GEN": {
       "moat_score": "8",
@@ -6486,7 +6672,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "TDOC": {
       "moat_score": "7",
@@ -6510,7 +6697,8 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "OKTA": {
       "moat_score": "8",
@@ -6534,7 +6722,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "FFIV": {
       "moat_score": "7",
@@ -6558,7 +6747,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ZBRA": {
       "moat_score": "7",
@@ -6582,7 +6772,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "MANH": {
       "moat_score": "8",
@@ -6606,7 +6797,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ALGN": {
       "moat_score": "8",
@@ -6630,7 +6822,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "CART": {
       "moat_score": "7",
@@ -6654,7 +6847,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "SWKS": {
       "moat_score": "7",
@@ -6678,7 +6872,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "WHR": {
       "moat_score": "6",
@@ -6702,7 +6897,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "FDS": {
       "moat_score": "8",
@@ -6726,7 +6922,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "EPAM": {
       "moat_score": "7",
@@ -6750,7 +6947,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "DOCS": {
       "moat_score": "8",
@@ -6774,7 +6972,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "LYFT": {
       "moat_score": "5",
@@ -6798,7 +6997,8 @@
       "management_quality_score": "5",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "HIMS": {
       "moat_score": "6",
@@ -6822,7 +7022,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "MNDY": {
       "moat_score": "7",
@@ -6846,7 +7047,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BDX": {
       "moat_score": "8",
@@ -6870,7 +7072,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "MTCH": {
       "moat_score": "8",
@@ -6894,7 +7097,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "7"
     },
     "G": {
       "moat_score": "7",
@@ -6918,7 +7122,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "PATH": {
       "moat_score": "7",
@@ -6942,7 +7147,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "WIX": {
       "moat_score": "7",
@@ -6966,7 +7172,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "DSGX": {
       "moat_score": "8",
@@ -6990,7 +7197,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ETSY": {
       "moat_score": "6",
@@ -7014,7 +7222,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "7"
     },
     "CRUS": {
       "moat_score": "7",
@@ -7038,7 +7247,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BYD": {
       "moat_score": "8",
@@ -7062,7 +7272,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "9"
     },
     "LMND": {
       "moat_score": "6",
@@ -7086,7 +7297,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "8"
     },
     "QLYS": {
       "moat_score": "7",
@@ -7110,7 +7322,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BULL": {
       "moat_score": "5",
@@ -7134,7 +7347,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "8"
     },
     "DOCN": {
       "moat_score": "6",
@@ -7158,7 +7372,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "ENPH": {
       "moat_score": "8",
@@ -7182,7 +7397,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "9"
     },
     "UPST": {
       "moat_score": "7",
@@ -7206,7 +7422,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GRND": {
       "moat_score": "7",
@@ -7230,7 +7447,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "6"
     },
     "BB": {
       "moat_score": "6",
@@ -7254,7 +7472,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "PAYO": {
       "moat_score": "7",
@@ -7278,7 +7497,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "YELP": {
       "moat_score": "5",
@@ -7302,7 +7522,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "6"
     },
     "REAL": {
       "moat_score": "6",
@@ -7326,7 +7547,8 @@
       "management_quality_score": "3",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "7"
     },
     "AGCO": {
       "moat_score": "7",
@@ -7350,7 +7572,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "CNH": {
       "moat_score": "7",
@@ -7374,7 +7597,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "ETN": {
       "moat_score": "7",
@@ -7398,7 +7622,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "ABB": {
       "moat_score": "8",
@@ -7422,7 +7647,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "SNDR": {
       "moat_score": "8",
@@ -7446,7 +7672,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "9"
     },
     "NUE": {
       "moat_score": "8",
@@ -7470,7 +7697,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "MORN": {
       "moat_score": "8",
@@ -7494,7 +7722,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "9",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "COV": {
       "moat_score": "7",
@@ -7518,7 +7747,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "XYL": {
       "moat_score": "7",
@@ -7542,7 +7772,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "9"
+      "ethical_healthy_environmental_score": "9",
+      "long_term_orientation_score": "8"
     },
     "AOS": {
       "moat_score": "7",
@@ -7566,7 +7797,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "WTS": {
       "moat_score": "7",
@@ -7590,7 +7822,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "FELE": {
       "moat_score": "7",
@@ -7614,7 +7847,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "BMI": {
       "moat_score": "7",
@@ -7638,7 +7872,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "8"
     },
     "HAYW": {
       "moat_score": "7",
@@ -7662,7 +7897,8 @@
       "management_quality_score": "6",
       "ai_knowledge_score": "7",
       "size_well_known_score": "4",
-      "ethical_healthy_environmental_score": "6"
+      "ethical_healthy_environmental_score": "6",
+      "long_term_orientation_score": "7"
     },
     "LOW": {
       "moat_score": "8",
@@ -7686,7 +7922,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "10",
       "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "XYZ": {
       "moat_score": "8",
@@ -7710,7 +7947,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "NOW": {
       "moat_score": "8",
@@ -7734,7 +7972,8 @@
       "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8"
+      "ethical_healthy_environmental_score": "8",
+      "long_term_orientation_score": "9"
     },
     "DAVA": {
       "moat_score": "6",
@@ -7758,7 +7997,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "7",
       "size_well_known_score": "5",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "GLOB": {
       "moat_score": "7",
@@ -7782,7 +8022,8 @@
       "management_quality_score": "8",
       "ai_knowledge_score": "8",
       "size_well_known_score": "6",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "SEMR": {
       "moat_score": "7",
@@ -7806,7 +8047,8 @@
       "management_quality_score": "7",
       "ai_knowledge_score": "8",
       "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "7"
+      "ethical_healthy_environmental_score": "7",
+      "long_term_orientation_score": "8"
     },
     "APPS": {
       "moat_score": "7",
@@ -7830,7 +8072,508 @@
       "management_quality_score": "4",
       "ai_knowledge_score": "7",
       "size_well_known_score": "3",
-      "ethical_healthy_environmental_score": "5"
+      "ethical_healthy_environmental_score": "5",
+      "long_term_orientation_score": "6"
+    },
+    "APA": {
+      "barriers_score": "9",
+      "network_effect": "0",
+      "culture_employee_satisfaction_score": "7",
+      "switching_cost": "3",
+      "disruption_risk": "8",
+      "long_term_orientation_score": "7",
+      "moat_score": "6",
+      "brand_strength": "4",
+      "size_well_known_score": "6",
+      "ethical_healthy_environmental_score": "3",
+      "product_differentiation": "2",
+      "competition_intensity": "8",
+      "ai_knowledge_score": "9",
+      "pricing_power": "1",
+      "bargaining_power_of_customers": "8",
+      "management_quality_score": "7",
+      "ambition_score": "7",
+      "innovativeness_score": "5",
+      "riskiness_score": "7",
+      "growth_opportunity": "5",
+      "trailblazer_score": "4",
+      "product_quality_score": "7",
+      "bargaining_power_of_suppliers": "4"
+    },
+    "CTRA": {
+      "disruption_risk": "8",
+      "product_differentiation": "1",
+      "culture_employee_satisfaction_score": "7",
+      "barriers_score": "9",
+      "management_quality_score": "8",
+      "trailblazer_score": "3",
+      "competition_intensity": "8",
+      "pricing_power": "0",
+      "riskiness_score": "7",
+      "size_well_known_score": "7",
+      "product_quality_score": "8",
+      "long_term_orientation_score": "7",
+      "brand_strength": "4",
+      "growth_opportunity": "7",
+      "switching_cost": "2",
+      "innovativeness_score": "5",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "3",
+      "moat_score": "7",
+      "ethical_healthy_environmental_score": "3",
+      "ambition_score": "7",
+      "network_effect": "0",
+      "ai_knowledge_score": "8"
+    },
+    "OVV": {
+      "culture_employee_satisfaction_score": "7",
+      "network_effect": "0",
+      "barriers_score": "9",
+      "long_term_orientation_score": "7",
+      "ai_knowledge_score": "8",
+      "disruption_risk": "8",
+      "size_well_known_score": "5",
+      "riskiness_score": "8",
+      "pricing_power": "0",
+      "ambition_score": "7",
+      "product_differentiation": "2",
+      "competition_intensity": "8",
+      "ethical_healthy_environmental_score": "3",
+      "bargaining_power_of_suppliers": "5",
+      "moat_score": "6",
+      "trailblazer_score": "3",
+      "switching_cost": "2",
+      "product_quality_score": "7",
+      "innovativeness_score": "5",
+      "growth_opportunity": "5",
+      "management_quality_score": "8",
+      "brand_strength": "3",
+      "bargaining_power_of_customers": "8"
+    },
+    "CHRD": {
+      "disruption_risk": "7",
+      "network_effect": "0",
+      "ai_knowledge_score": "6",
+      "culture_employee_satisfaction_score": "7",
+      "barriers_score": "8",
+      "brand_strength": "3",
+      "riskiness_score": "8",
+      "management_quality_score": "8",
+      "ethical_healthy_environmental_score": "3",
+      "long_term_orientation_score": "7",
+      "innovativeness_score": "3",
+      "product_differentiation": "2",
+      "pricing_power": "0",
+      "moat_score": "4",
+      "size_well_known_score": "4",
+      "ambition_score": "6",
+      "bargaining_power_of_customers": "9",
+      "switching_cost": "2",
+      "bargaining_power_of_suppliers": "4",
+      "competition_intensity": "8",
+      "growth_opportunity": "5",
+      "trailblazer_score": "3",
+      "product_quality_score": "8"
+    },
+    "PR": {
+      "network_effect": "0",
+      "switching_cost": "1",
+      "disruption_risk": "8",
+      "ai_knowledge_score": "8",
+      "pricing_power": "1",
+      "management_quality_score": "8",
+      "competition_intensity": "8",
+      "moat_score": "6",
+      "bargaining_power_of_customers": "8",
+      "trailblazer_score": "3",
+      "ambition_score": "7",
+      "size_well_known_score": "5",
+      "innovativeness_score": "5",
+      "barriers_score": "9",
+      "product_differentiation": "1",
+      "riskiness_score": "7",
+      "culture_employee_satisfaction_score": "7",
+      "product_quality_score": "8",
+      "brand_strength": "3",
+      "bargaining_power_of_suppliers": "3",
+      "long_term_orientation_score": "8",
+      "ethical_healthy_environmental_score": "3",
+      "growth_opportunity": "8"
+    },
+    "FANG": {
+      "network_effect": "0",
+      "size_well_known_score": "7",
+      "brand_strength": "3",
+      "barriers_score": "9",
+      "moat_score": "7",
+      "culture_employee_satisfaction_score": "7",
+      "product_quality_score": "8",
+      "growth_opportunity": "7",
+      "pricing_power": "1",
+      "disruption_risk": "7",
+      "management_quality_score": "9",
+      "switching_cost": "3",
+      "product_differentiation": "1",
+      "riskiness_score": "7",
+      "long_term_orientation_score": "8",
+      "bargaining_power_of_customers": "8",
+      "ambition_score": "7",
+      "trailblazer_score": "4",
+      "competition_intensity": "8",
+      "ai_knowledge_score": "8",
+      "ethical_healthy_environmental_score": "3",
+      "bargaining_power_of_suppliers": "3",
+      "innovativeness_score": "5"
+    },
+    "FOUR": {
+      "culture_employee_satisfaction_score": "5",
+      "growth_opportunity": "8",
+      "product_quality_score": "7",
+      "barriers_score": "8",
+      "competition_intensity": "8",
+      "switching_cost": "7",
+      "riskiness_score": "6",
+      "innovativeness_score": "6",
+      "moat_score": "7",
+      "ambition_score": "8",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "8",
+      "pricing_power": "6",
+      "bargaining_power_of_customers": "7",
+      "long_term_orientation_score": "8",
+      "size_well_known_score": "6",
+      "brand_strength": "5",
+      "product_differentiation": "7",
+      "disruption_risk": "7",
+      "bargaining_power_of_suppliers": "6",
+      "ethical_healthy_environmental_score": "5",
+      "network_effect": "4",
+      "trailblazer_score": "6"
+    },
+    "NU": {
+      "culture_employee_satisfaction_score": "7",
+      "brand_strength": "8",
+      "innovativeness_score": "8",
+      "competition_intensity": "8",
+      "barriers_score": "8",
+      "trailblazer_score": "9",
+      "ambition_score": "9",
+      "switching_cost": "4",
+      "management_quality_score": "9",
+      "growth_opportunity": "9",
+      "product_quality_score": "9",
+      "bargaining_power_of_suppliers": "2",
+      "product_differentiation": "8",
+      "pricing_power": "7",
+      "size_well_known_score": "7",
+      "moat_score": "7",
+      "bargaining_power_of_customers": "8",
+      "long_term_orientation_score": "9",
+      "ethical_healthy_environmental_score": "7",
+      "disruption_risk": "7",
+      "riskiness_score": "7",
+      "ai_knowledge_score": "9",
+      "network_effect": "5"
+    },
+    "CIVI": {
+      "network_effect": "0",
+      "brand_strength": "2",
+      "switching_cost": "0",
+      "bargaining_power_of_customers": "8",
+      "innovativeness_score": "5",
+      "moat_score": "7",
+      "culture_employee_satisfaction_score": "6",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "8",
+      "trailblazer_score": "4",
+      "pricing_power": "0",
+      "barriers_score": "8",
+      "product_differentiation": "1",
+      "disruption_risk": "7",
+      "product_quality_score": "7",
+      "bargaining_power_of_suppliers": "3",
+      "growth_opportunity": "7",
+      "competition_intensity": "8",
+      "ethical_healthy_environmental_score": "3",
+      "riskiness_score": "7",
+      "ambition_score": "8",
+      "size_well_known_score": "4",
+      "long_term_orientation_score": "7"
+    },
+    "DVN": {
+      "barriers_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "size_well_known_score": "7",
+      "ethical_healthy_environmental_score": "4",
+      "competition_intensity": "8",
+      "product_differentiation": "2",
+      "network_effect": "0",
+      "pricing_power": "0",
+      "disruption_risk": "7",
+      "product_quality_score": "6",
+      "growth_opportunity": "5",
+      "ai_knowledge_score": "9",
+      "brand_strength": "4",
+      "ambition_score": "7",
+      "switching_cost": "5",
+      "innovativeness_score": "5",
+      "bargaining_power_of_customers": "7",
+      "long_term_orientation_score": "7",
+      "trailblazer_score": "4",
+      "management_quality_score": "8",
+      "moat_score": "6",
+      "riskiness_score": "7",
+      "bargaining_power_of_suppliers": "3"
+    },
+    "MGY": {
+      "network_effect": "0",
+      "competition_intensity": "8",
+      "culture_employee_satisfaction_score": "6",
+      "management_quality_score": "8",
+      "ambition_score": "5",
+      "switching_cost": "2",
+      "ai_knowledge_score": "7",
+      "brand_strength": "3",
+      "product_differentiation": "0",
+      "riskiness_score": "7",
+      "bargaining_power_of_suppliers": "3",
+      "long_term_orientation_score": "7",
+      "barriers_score": "9",
+      "product_quality_score": "7",
+      "pricing_power": "0",
+      "innovativeness_score": "3",
+      "disruption_risk": "7",
+      "ethical_healthy_environmental_score": "3",
+      "size_well_known_score": "4",
+      "trailblazer_score": "3",
+      "growth_opportunity": "5",
+      "moat_score": "6",
+      "bargaining_power_of_customers": "8"
+    },
+    "MTDR": {
+      "bargaining_power_of_suppliers": "6",
+      "brand_strength": "3",
+      "riskiness_score": "8",
+      "size_well_known_score": "5",
+      "ai_knowledge_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "disruption_risk": "8",
+      "management_quality_score": "8",
+      "pricing_power": "0",
+      "product_differentiation": "1",
+      "network_effect": "0",
+      "growth_opportunity": "7",
+      "competition_intensity": "8",
+      "innovativeness_score": "5",
+      "bargaining_power_of_customers": "8",
+      "trailblazer_score": "4",
+      "barriers_score": "8",
+      "switching_cost": "2",
+      "product_quality_score": "7",
+      "ambition_score": "7",
+      "moat_score": "6",
+      "long_term_orientation_score": "7",
+      "ethical_healthy_environmental_score": "3"
+    },
+    "NOG": {
+      "management_quality_score": "8",
+      "network_effect": "0",
+      "innovativeness_score": "3",
+      "ambition_score": "7",
+      "barriers_score": "9",
+      "competition_intensity": "8",
+      "brand_strength": "2",
+      "ethical_healthy_environmental_score": "2",
+      "bargaining_power_of_customers": "8",
+      "size_well_known_score": "3",
+      "riskiness_score": "8",
+      "long_term_orientation_score": "5",
+      "growth_opportunity": "6",
+      "ai_knowledge_score": "7",
+      "switching_cost": "1",
+      "disruption_risk": "7",
+      "product_differentiation": "1",
+      "culture_employee_satisfaction_score": "5",
+      "trailblazer_score": "2",
+      "pricing_power": "0",
+      "product_quality_score": "7",
+      "bargaining_power_of_suppliers": "6",
+      "moat_score": "4"
+    },
+    "SM": {
+      "culture_employee_satisfaction_score": "7",
+      "network_effect": "0",
+      "ai_knowledge_score": "8",
+      "growth_opportunity": "6",
+      "ethical_healthy_environmental_score": "3",
+      "brand_strength": "3",
+      "bargaining_power_of_customers": "8",
+      "riskiness_score": "8",
+      "size_well_known_score": "5",
+      "pricing_power": "0",
+      "product_quality_score": "7",
+      "management_quality_score": "8",
+      "product_differentiation": "1",
+      "trailblazer_score": "3",
+      "innovativeness_score": "5",
+      "switching_cost": "4",
+      "bargaining_power_of_suppliers": "5",
+      "barriers_score": "9",
+      "competition_intensity": "8",
+      "moat_score": "4",
+      "ambition_score": "6",
+      "disruption_risk": "8",
+      "long_term_orientation_score": "8"
+    },
+    "ROCH": {
+      "moat_score": "8",
+      "riskiness_score": "3",
+      "management_quality_score": "9",
+      "barriers_score": "9",
+      "pricing_power": "9",
+      "innovativeness_score": "9",
+      "ethical_healthy_environmental_score": "8",
+      "network_effect": "0",
+      "switching_cost": "8",
+      "long_term_orientation_score": "9",
+      "product_quality_score": "9",
+      "disruption_risk": "5",
+      "culture_employee_satisfaction_score": "8",
+      "bargaining_power_of_suppliers": "5",
+      "size_well_known_score": "9",
+      "competition_intensity": "8",
+      "product_differentiation": "8",
+      "brand_strength": "8",
+      "ai_knowledge_score": "10",
+      "growth_opportunity": "7",
+      "bargaining_power_of_customers": "4",
+      "ambition_score": "9",
+      "trailblazer_score": "8"
+    },
+    "MRK": {
+      "ai_knowledge_score": "10",
+      "moat_score": "8",
+      "disruption_risk": "6",
+      "ambition_score": "9",
+      "barriers_score": "9",
+      "product_differentiation": "9",
+      "riskiness_score": "3",
+      "culture_employee_satisfaction_score": "8",
+      "network_effect": "0",
+      "management_quality_score": "9",
+      "product_quality_score": "9",
+      "long_term_orientation_score": "9",
+      "competition_intensity": "8",
+      "pricing_power": "8",
+      "size_well_known_score": "10",
+      "ethical_healthy_environmental_score": "8",
+      "innovativeness_score": "8",
+      "brand_strength": "8",
+      "trailblazer_score": "7",
+      "switching_cost": "3",
+      "bargaining_power_of_customers": "7",
+      "growth_opportunity": "8",
+      "bargaining_power_of_suppliers": "3"
+    },
+    "PFE": {
+      "ai_knowledge_score": "10",
+      "brand_strength": "9",
+      "ambition_score": "9",
+      "innovativeness_score": "8",
+      "pricing_power": "9",
+      "moat_score": "8",
+      "riskiness_score": "4",
+      "long_term_orientation_score": "8",
+      "disruption_risk": "7",
+      "ethical_healthy_environmental_score": "6",
+      "network_effect": "0",
+      "barriers_score": "10",
+      "product_differentiation": "8",
+      "culture_employee_satisfaction_score": "7",
+      "switching_cost": "4",
+      "bargaining_power_of_customers": "4",
+      "product_quality_score": "8",
+      "competition_intensity": "8",
+      "trailblazer_score": "7",
+      "size_well_known_score": "10",
+      "management_quality_score": "8",
+      "growth_opportunity": "7",
+      "bargaining_power_of_suppliers": "2"
+    },
+    "NVS": {
+      "brand_strength": "8",
+      "size_well_known_score": "9",
+      "barriers_score": "9",
+      "competition_intensity": "8",
+      "innovativeness_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "bargaining_power_of_suppliers": "3",
+      "product_differentiation": "8",
+      "riskiness_score": "3",
+      "network_effect": "0",
+      "product_quality_score": "9",
+      "disruption_risk": "5",
+      "moat_score": "8",
+      "ethical_healthy_environmental_score": "7",
+      "pricing_power": "8",
+      "ai_knowledge_score": "10",
+      "ambition_score": "9",
+      "long_term_orientation_score": "8",
+      "switching_cost": "5",
+      "growth_opportunity": "8",
+      "bargaining_power_of_customers": "7",
+      "management_quality_score": "8",
+      "trailblazer_score": "8"
+    },
+    "BMY": {
+      "culture_employee_satisfaction_score": "7",
+      "long_term_orientation_score": "8",
+      "innovativeness_score": "8",
+      "product_differentiation": "8",
+      "management_quality_score": "8",
+      "product_quality_score": "8",
+      "pricing_power": "8",
+      "brand_strength": "8",
+      "moat_score": "8",
+      "ai_knowledge_score": "10",
+      "disruption_risk": "6",
+      "ethical_healthy_environmental_score": "7",
+      "barriers_score": "9",
+      "switching_cost": "7",
+      "network_effect": "1",
+      "ambition_score": "8",
+      "size_well_known_score": "9",
+      "competition_intensity": "9",
+      "bargaining_power_of_suppliers": "4",
+      "growth_opportunity": "8",
+      "trailblazer_score": "7",
+      "riskiness_score": "4",
+      "bargaining_power_of_customers": "4"
+    },
+    "ABBV": {
+      "barriers_score": "9",
+      "culture_employee_satisfaction_score": "7",
+      "product_differentiation": "8",
+      "brand_strength": "8",
+      "ai_knowledge_score": "10",
+      "moat_score": "9",
+      "pricing_power": "9",
+      "disruption_risk": "7",
+      "innovativeness_score": "8",
+      "growth_opportunity": "7",
+      "riskiness_score": "4",
+      "product_quality_score": "9",
+      "network_effect": "0",
+      "ethical_healthy_environmental_score": "7",
+      "ambition_score": "9",
+      "competition_intensity": "8",
+      "size_well_known_score": "9",
+      "switching_cost": "7",
+      "management_quality_score": "8",
+      "bargaining_power_of_customers": "7",
+      "long_term_orientation_score": "8",
+      "bargaining_power_of_suppliers": "3",
+      "trailblazer_score": "7"
     }
   }
 }
