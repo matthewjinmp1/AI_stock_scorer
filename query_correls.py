@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+"""
+Correlation Query Tool
+Query correlations from correls.json
+Usage: python query_correls.py
+"""
+
+import json
+import os
+from scorer import load_ticker_lookup
+
+CORRELS_FILE = "correls.json"
+
+
+def load_correlations():
+    """Load correlations from JSON file.
+    
+    Returns:
+        dict: Correlation data or None if error
+    """
+    if not os.path.exists(CORRELS_FILE):
+        print(f"Error: {CORRELS_FILE} not found.")
+        print("Please run batch_correlate.py first to generate correlations.")
+        return None
+    
+    try:
+        with open(CORRELS_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error loading {CORRELS_FILE}: {e}")
+        return None
+
+
+def get_all_correlations_for_ticker(ticker, correlations_data):
+    """Get all correlations for a given ticker.
+    
+    Since correlations are stored unidirectionally (only for pairs where ticker1 < ticker2),
+    we need to check both directions.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        correlations_data: Dictionary with correlation data
+        
+    Returns:
+        list: List of tuples (other_ticker, correlation, num_metrics) sorted by correlation
+    """
+    ticker_upper = ticker.strip().upper()
+    correlations = correlations_data.get("correlations", {})
+    
+    results = []
+    
+    # Check if this ticker has correlations stored (ticker comes first alphabetically)
+    if ticker_upper in correlations:
+        for other_ticker, data in correlations[ticker_upper].items():
+            results.append((
+                other_ticker,
+                data.get('correlation', 0),
+                data.get('num_metrics', 0)
+            ))
+    
+    # Check if other tickers have correlations with this ticker (this ticker comes second)
+    for other_ticker, ticker_correls in correlations.items():
+        if ticker_upper in ticker_correls:
+            data = ticker_correls[ticker_upper]
+            results.append((
+                other_ticker,
+                data.get('correlation', 0),
+                data.get('num_metrics', 0)
+            ))
+    
+    # Sort by correlation strength (absolute value, descending)
+    # This puts strongest correlations first, whether positive or negative
+    results.sort(key=lambda x: abs(x[1]), reverse=True)
+    
+    return results
+
+
+def show_ticker_correlations(ticker, correlations_data):
+    """Display all correlations for a ticker, ranked by strength.
+    
+    Args:
+        ticker: Ticker symbol
+        correlations_data: Dictionary with correlation data
+    """
+    ticker_upper = ticker.strip().upper()
+    ticker_lookup = load_ticker_lookup()
+    company_name = ticker_lookup.get(ticker_upper, ticker_upper)
+    
+    print(f"\nCorrelations for {ticker_upper} ({company_name})")
+    print("=" * 80)
+    
+    correlations = get_all_correlations_for_ticker(ticker_upper, correlations_data)
+    
+    if not correlations:
+        print(f"No correlations found for {ticker_upper}.")
+        print("Make sure the ticker exists in the correlations data.")
+        return
+    
+    print(f"\nFound {len(correlations)} correlations")
+    print()
+    print(f"{'Rank':<6} {'Ticker':<10} {'Company Name':<40} {'Correlation':>12} {'Metrics':>10}")
+    print("-" * 80)
+    
+    for rank, (other_ticker, correlation, num_metrics) in enumerate(correlations, 1):
+        other_company_name = ticker_lookup.get(other_ticker, other_ticker)
+        
+        # Truncate company name if too long
+        if len(other_company_name) > 38:
+            other_company_name = other_company_name[:35] + "..."
+        
+        # Format correlation with sign
+        if correlation >= 0:
+            corr_str = f"+{correlation:.4f}"
+        else:
+            corr_str = f"{correlation:.4f}"
+        
+        print(f"{rank:<6} {other_ticker:<10} {other_company_name:<40} {corr_str:>12} {num_metrics:>10}")
+    
+    print()
+    print("Note: Correlations are ranked by absolute strength (strongest first).")
+    print("      Positive correlations indicate similar scoring patterns.")
+    print("      Negative correlations indicate opposite scoring patterns.")
+
+
+def list_all_tickers(correlations_data):
+    """List all tickers available in the correlations data.
+    
+    Args:
+        correlations_data: Dictionary with correlation data
+    """
+    correlations = correlations_data.get("correlations", {})
+    
+    all_tickers = set()
+    
+    # Get all tickers from the keys
+    all_tickers.update(correlations.keys())
+    
+    # Get all tickers from the nested dictionaries
+    for ticker_correls in correlations.values():
+        all_tickers.update(ticker_correls.keys())
+    
+    sorted_tickers = sorted(all_tickers)
+    
+    print(f"\nAvailable Tickers ({len(sorted_tickers)} total):")
+    print("=" * 80)
+    
+    # Print in columns
+    cols = 5
+    for i in range(0, len(sorted_tickers), cols):
+        row_tickers = sorted_tickers[i:i+cols]
+        print("  ".join(f"{ticker:<8}" for ticker in row_tickers))
+    
+    print()
+
+
+def main():
+    """Main function for correlation query tool."""
+    print("Correlation Query Tool")
+    print("=" * 80)
+    
+    correlations_data = load_correlations()
+    if not correlations_data:
+        return
+    
+    metadata = correlations_data.get("metadata", {})
+    print(f"Loaded correlations from {CORRELS_FILE}")
+    print(f"Total companies: {metadata.get('total_companies', 'N/A')}")
+    print(f"Total correlations: {metadata.get('total_correlations', 'N/A')}")
+    print(f"Calculated at: {metadata.get('calculated_at', 'N/A')}")
+    print()
+    print("Commands:")
+    print("  Enter a ticker symbol to see its correlations (ranked by strength)")
+    print("  Type 'list' to see all available tickers")
+    print("  Type 'quit' or 'exit' to stop")
+    print()
+    
+    while True:
+        try:
+            user_input = input("Enter ticker (or 'list'/'quit'): ").strip()
+            
+            if user_input.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+            elif user_input.lower() == 'list':
+                list_all_tickers(correlations_data)
+            elif user_input:
+                show_ticker_correlations(user_input, correlations_data)
+                print()
+            else:
+                print("Please enter a ticker symbol or command.")
+                
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
+            break
+        except EOFError:
+            print("\nGoodbye!")
+            break
+        except Exception as e:
+            print(f"Error: {e}")
+            print()
+
+
+if __name__ == "__main__":
+    main()
+
