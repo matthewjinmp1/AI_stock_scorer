@@ -142,8 +142,9 @@ def get_top_correlations(correlations_data, top_n=100):
             num_metrics = data.get('num_metrics', 0)
             all_pairs.append((ticker1, ticker2, correlation, num_metrics))
     
-    # Sort by absolute correlation strength (descending)
-    all_pairs.sort(key=lambda x: abs(x[2]), reverse=True)
+    # Sort by absolute correlation strength (descending), then by actual correlation (descending)
+    # This ensures consistent ordering: strongest first, with positive before negative for ties
+    all_pairs.sort(key=lambda x: (abs(x[2]), x[2]), reverse=True)
     
     # Return top N
     return all_pairs[:top_n]
@@ -196,14 +197,14 @@ def show_top_correlations(correlations_data, top_n=100):
 
 
 def get_bottom_correlations(correlations_data, bottom_n=100):
-    """Get the bottom N weakest correlations across all ticker pairs.
+    """Get the bottom N most negative correlations across all ticker pairs.
     
     Args:
         correlations_data: Dictionary with correlation data
         bottom_n: Number of bottom correlations to return (default 100)
         
     Returns:
-        list: List of tuples (ticker1, ticker2, correlation, num_metrics) sorted by absolute correlation (weakest first)
+        list: List of tuples (ticker1, ticker2, correlation, num_metrics) sorted by correlation (most negative first)
     """
     correlations = correlations_data.get("correlations", {})
     all_pairs = []
@@ -215,21 +216,21 @@ def get_bottom_correlations(correlations_data, bottom_n=100):
             num_metrics = data.get('num_metrics', 0)
             all_pairs.append((ticker1, ticker2, correlation, num_metrics))
     
-    # Sort by absolute correlation strength (ascending - weakest first)
-    all_pairs.sort(key=lambda x: abs(x[2]), reverse=False)
+    # Sort by correlation value (ascending - most negative first)
+    all_pairs.sort(key=lambda x: x[2])
     
-    # Return bottom N
+    # Return bottom N (most negative)
     return all_pairs[:bottom_n]
 
 
 def show_bottom_correlations(correlations_data, bottom_n=100):
-    """Display the bottom N weakest correlations.
+    """Display the bottom N most negative correlations.
     
     Args:
         correlations_data: Dictionary with correlation data
         bottom_n: Number of bottom correlations to show (default 100)
     """
-    print(f"\nBottom {bottom_n} Weakest Correlations")
+    print(f"\nBottom {bottom_n} Most Negative Correlations")
     print("=" * 100)
     
     bottom_pairs = get_bottom_correlations(correlations_data, bottom_n)
@@ -263,9 +264,9 @@ def show_bottom_correlations(correlations_data, bottom_n=100):
         print(f"{rank:<6} {ticker1:<10} {company1:<35} {ticker2:<10} {company2:<35} {corr_str:>12}")
     
     print()
-    print("Note: Correlations are ranked by absolute strength (weakest first).")
-    print("      These are the pairs with the least correlation (closest to zero).")
-    print("      They indicate companies with independent or unrelated scoring patterns.")
+    print("Note: Correlations are ranked by value (most negative first).")
+    print("      These are the pairs with the strongest negative correlations.")
+    print("      They indicate companies with opposite scoring patterns.")
 
 
 def list_all_tickers(correlations_data):
@@ -317,7 +318,7 @@ def main():
     print("Commands:")
     print("  Enter a ticker symbol to see its correlations (ranked by strength)")
     print("  Type 'top' to see the top 100 strongest correlations")
-    print("  Type 'bottom' to see the bottom 100 weakest correlations")
+    print("  Type 'bottom' to see the bottom 100 most negative correlations")
     print("  Type 'list' to see all available tickers")
     print("  Type 'quit' or 'exit' to stop")
     print()
