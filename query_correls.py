@@ -122,6 +122,152 @@ def show_ticker_correlations(ticker, correlations_data):
     print("      Negative correlations indicate opposite scoring patterns.")
 
 
+def get_top_correlations(correlations_data, top_n=100):
+    """Get the top N strongest correlations across all ticker pairs.
+    
+    Args:
+        correlations_data: Dictionary with correlation data
+        top_n: Number of top correlations to return (default 100)
+        
+    Returns:
+        list: List of tuples (ticker1, ticker2, correlation, num_metrics) sorted by absolute correlation
+    """
+    correlations = correlations_data.get("correlations", {})
+    all_pairs = []
+    
+    # Collect all correlation pairs
+    for ticker1, ticker_correls in correlations.items():
+        for ticker2, data in ticker_correls.items():
+            correlation = data.get('correlation', 0)
+            num_metrics = data.get('num_metrics', 0)
+            all_pairs.append((ticker1, ticker2, correlation, num_metrics))
+    
+    # Sort by absolute correlation strength (descending)
+    all_pairs.sort(key=lambda x: abs(x[2]), reverse=True)
+    
+    # Return top N
+    return all_pairs[:top_n]
+
+
+def show_top_correlations(correlations_data, top_n=100):
+    """Display the top N strongest correlations.
+    
+    Args:
+        correlations_data: Dictionary with correlation data
+        top_n: Number of top correlations to show (default 100)
+    """
+    print(f"\nTop {top_n} Strongest Correlations")
+    print("=" * 100)
+    
+    top_pairs = get_top_correlations(correlations_data, top_n)
+    
+    if not top_pairs:
+        print("No correlations found.")
+        return
+    
+    ticker_lookup = load_ticker_lookup()
+    
+    print()
+    print(f"{'Rank':<6} {'Ticker 1':<10} {'Company 1':<35} {'Ticker 2':<10} {'Company 2':<35} {'Correlation':>12}")
+    print("-" * 100)
+    
+    for rank, (ticker1, ticker2, correlation, num_metrics) in enumerate(top_pairs, 1):
+        company1 = ticker_lookup.get(ticker1, ticker1)
+        company2 = ticker_lookup.get(ticker2, ticker2)
+        
+        # Truncate company names if too long
+        if len(company1) > 33:
+            company1 = company1[:30] + "..."
+        if len(company2) > 33:
+            company2 = company2[:30] + "..."
+        
+        # Format correlation with sign
+        if correlation >= 0:
+            corr_str = f"+{correlation:.4f}"
+        else:
+            corr_str = f"{correlation:.4f}"
+        
+        print(f"{rank:<6} {ticker1:<10} {company1:<35} {ticker2:<10} {company2:<35} {corr_str:>12}")
+    
+    print()
+    print("Note: Correlations are ranked by absolute strength (strongest first).")
+    print("      Positive correlations indicate similar scoring patterns.")
+    print("      Negative correlations indicate opposite scoring patterns.")
+
+
+def get_bottom_correlations(correlations_data, bottom_n=100):
+    """Get the bottom N weakest correlations across all ticker pairs.
+    
+    Args:
+        correlations_data: Dictionary with correlation data
+        bottom_n: Number of bottom correlations to return (default 100)
+        
+    Returns:
+        list: List of tuples (ticker1, ticker2, correlation, num_metrics) sorted by absolute correlation (weakest first)
+    """
+    correlations = correlations_data.get("correlations", {})
+    all_pairs = []
+    
+    # Collect all correlation pairs
+    for ticker1, ticker_correls in correlations.items():
+        for ticker2, data in ticker_correls.items():
+            correlation = data.get('correlation', 0)
+            num_metrics = data.get('num_metrics', 0)
+            all_pairs.append((ticker1, ticker2, correlation, num_metrics))
+    
+    # Sort by absolute correlation strength (ascending - weakest first)
+    all_pairs.sort(key=lambda x: abs(x[2]), reverse=False)
+    
+    # Return bottom N
+    return all_pairs[:bottom_n]
+
+
+def show_bottom_correlations(correlations_data, bottom_n=100):
+    """Display the bottom N weakest correlations.
+    
+    Args:
+        correlations_data: Dictionary with correlation data
+        bottom_n: Number of bottom correlations to show (default 100)
+    """
+    print(f"\nBottom {bottom_n} Weakest Correlations")
+    print("=" * 100)
+    
+    bottom_pairs = get_bottom_correlations(correlations_data, bottom_n)
+    
+    if not bottom_pairs:
+        print("No correlations found.")
+        return
+    
+    ticker_lookup = load_ticker_lookup()
+    
+    print()
+    print(f"{'Rank':<6} {'Ticker 1':<10} {'Company 1':<35} {'Ticker 2':<10} {'Company 2':<35} {'Correlation':>12}")
+    print("-" * 100)
+    
+    for rank, (ticker1, ticker2, correlation, num_metrics) in enumerate(bottom_pairs, 1):
+        company1 = ticker_lookup.get(ticker1, ticker1)
+        company2 = ticker_lookup.get(ticker2, ticker2)
+        
+        # Truncate company names if too long
+        if len(company1) > 33:
+            company1 = company1[:30] + "..."
+        if len(company2) > 33:
+            company2 = company2[:30] + "..."
+        
+        # Format correlation with sign
+        if correlation >= 0:
+            corr_str = f"+{correlation:.4f}"
+        else:
+            corr_str = f"{correlation:.4f}"
+        
+        print(f"{rank:<6} {ticker1:<10} {company1:<35} {ticker2:<10} {company2:<35} {corr_str:>12}")
+    
+    print()
+    print("Note: Correlations are ranked by absolute strength (weakest first).")
+    print("      These are the pairs with the least correlation (closest to zero).")
+    print("      They indicate companies with independent or unrelated scoring patterns.")
+
+
 def list_all_tickers(correlations_data):
     """List all tickers available in the correlations data.
     
@@ -170,17 +316,25 @@ def main():
     print()
     print("Commands:")
     print("  Enter a ticker symbol to see its correlations (ranked by strength)")
+    print("  Type 'top' to see the top 100 strongest correlations")
+    print("  Type 'bottom' to see the bottom 100 weakest correlations")
     print("  Type 'list' to see all available tickers")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker (or 'list'/'quit'): ").strip()
+            user_input = input("Enter ticker (or 'top'/'bottom'/'list'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
                 break
+            elif user_input.lower() == 'top':
+                show_top_correlations(correlations_data, top_n=100)
+                print()
+            elif user_input.lower() == 'bottom':
+                show_bottom_correlations(correlations_data, bottom_n=100)
+                print()
             elif user_input.lower() == 'list':
                 list_all_tickers(correlations_data)
             elif user_input:
