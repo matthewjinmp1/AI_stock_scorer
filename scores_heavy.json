@@ -66,7 +66,12 @@
       "bargaining_power_of_suppliers": "3",
       "product_quality_score": "7",
       "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "9"
+      "trailblazer_score": "9",
+      "management_quality_score": "8",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10",
+      "ethical_healthy_environmental_score": "4",
+      "long_term_orientation_score": "9"
     },
     "ADBE": {
       "moat_score": "9",

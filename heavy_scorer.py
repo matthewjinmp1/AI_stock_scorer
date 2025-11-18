@@ -70,13 +70,17 @@ def get_company_moat_score_heavy(input_str):
         
         scores_data = load_heavy_scores()
         
-        # Try to find existing scores (by ticker, then by company name for backwards compatibility)
+        # Try to find existing scores (by ticker, then lowercase ticker, then by company name for backwards compatibility)
         existing_data = None
         storage_key = None
         
         if ticker and ticker in scores_data["companies"]:
             existing_data = scores_data["companies"][ticker]
             storage_key = ticker
+        elif ticker and ticker.lower() in scores_data["companies"]:
+            # Try lowercase ticker for backwards compatibility
+            existing_data = scores_data["companies"][ticker.lower()]
+            storage_key = ticker.lower()
         elif company_name.lower() in scores_data["companies"]:
             existing_data = scores_data["companies"][company_name.lower()]
             storage_key = company_name.lower()
@@ -89,29 +93,19 @@ def get_company_moat_score_heavy(input_str):
                 else:
                     current_scores[score_key] = existing_data.get(score_key)
             
+            # Check if all scores exist (all values are truthy, meaning not None, not empty string, etc.)
             if all(current_scores.values()):
                 if ticker:
                     print(f"\n{ticker.upper()} ({company_name}) already scored (heavy):")
                 else:
                     print(f"\n{company_name} already scored (heavy):")
                 
-                # Create list of scores with their values for sorting
-                score_list = []
+                # Print scores in the order defined in SCORE_DEFINITIONS (matching scorer.py behavior)
+                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
-                    try:
-                        score_value = float(current_scores[score_key])
-                        score_list.append((score_value, score_def['display_name'], current_scores[score_key]))
-                    except (ValueError, TypeError):
-                        # Skip invalid scores
-                        pass
-                
-                # Sort by score value descending
-                score_list.sort(reverse=True, key=lambda x: x[0])
-                
-                # Print sorted scores without /10, vertically aligned
-                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
-                for score_value, display_name, score_val in score_list:
+                    score_val = current_scores.get(score_key, 'N/A')
+                    display_name = score_def['display_name']
                     # Truncate if longer than 35 characters
                     truncated_name = display_name[:35] if len(display_name) <= 35 else display_name[:32] + "..."
                     print(f"{truncated_name:<35} {score_val:>8}")
