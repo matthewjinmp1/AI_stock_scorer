@@ -1,20 +1,12 @@
-more scores 
-
 add financial scores
 
 clean up tickers -> names
 
 chop down code
 
-size adjustment 
-
 other models 
 
-light vs heavy total score bug
-
 make scoring stricter for certain metrics
-
-add familiarity score 
 
 adjust strictness of scoring 
 
@@ -24,7 +16,7 @@ use AI to rank companies on a metric using sorting algorithms
 
 add stock peer groups
 
-compounder score, ecosystem score
+compounder score, ecosystem score, visionary, disruptor
 
 switch to open router
 
@@ -33,3 +25,5 @@ automate size score weight
 add AI competitor finder
 
 change prompts to rate with public company standards 
+
+analyze light vs heavy 

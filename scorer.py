@@ -1220,12 +1220,14 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         storage_key = None
         
         if not force_rescore:
+            # Always check uppercase first (tickers are stored in uppercase), then lowercase for backwards compatibility
             if ticker and ticker in scores_data["companies"]:
                 existing_data = scores_data["companies"][ticker]
                 storage_key = ticker
             elif ticker and ticker.lower() in scores_data["companies"]:
+                # Backwards compatibility: migrate lowercase to uppercase
                 existing_data = scores_data["companies"][ticker.lower()]
-                storage_key = ticker.lower()
+                storage_key = ticker  # Will migrate on save
             elif company_name.lower() in scores_data["companies"]:
                 existing_data = scores_data["companies"][company_name.lower()]
                 storage_key = company_name.lower()
@@ -1272,7 +1274,11 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                     cost_cents = cost * 100
                     print(f"Total cost: {cost_cents:.4f} cents")
             
+            # Always store tickers in uppercase
             storage_key = ticker if ticker else company_name.lower()
+            # If old lowercase key exists, remove it
+            if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+                del scores_data["companies"][ticker.lower()]
             scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
             if not silent:
@@ -1302,7 +1308,11 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         all_scores, total_tokens, token_usage = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
                                             batch_mode=batch_mode, silent=silent, model="grok-4-fast")
         
+        # Always store tickers in uppercase
         storage_key = ticker if ticker else company_name.lower()
+        # If old lowercase key exists, remove it
+        if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+            del scores_data["companies"][ticker.lower()]
         scores_data["companies"][storage_key] = all_scores
         save_scores(scores_data)
         if not silent:
@@ -1510,7 +1520,7 @@ def get_company_moat_score(input_str):
         
         scores_data = load_scores()
         
-        # Try to find existing scores (by ticker, then lowercase ticker, then by company name for backwards compatibility)
+        # Try to find existing scores (always check uppercase first, then lowercase for backwards compatibility)
         existing_data = None
         storage_key = None
         
@@ -1518,9 +1528,9 @@ def get_company_moat_score(input_str):
             existing_data = scores_data["companies"][ticker]
             storage_key = ticker
         elif ticker and ticker.lower() in scores_data["companies"]:
-            # Try lowercase ticker for backwards compatibility
+            # Backwards compatibility: migrate lowercase to uppercase
             existing_data = scores_data["companies"][ticker.lower()]
-            storage_key = ticker.lower()
+            storage_key = ticker  # Will migrate on save
         elif company_name.lower() in scores_data["companies"]:
             existing_data = scores_data["companies"][company_name.lower()]
             storage_key = company_name.lower()
@@ -1539,12 +1549,29 @@ def get_company_moat_score(input_str):
                 else:
                     print(f"\n{company_name} already scored:")
                 
-                # Print scores in the order defined in SCORE_DEFINITIONS (not sorted)
-                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
+                # Create list of scores with their values for sorting
+                scores_list = []
                 for score_key in SCORE_DEFINITIONS:
                     score_def = SCORE_DEFINITIONS[score_key]
                     score_val = current_scores.get(score_key, 'N/A')
                     display_name = score_def['display_name']
+                    
+                    if score_val == 'N/A':
+                        sort_value = -1  # Put N/A scores at the end
+                    else:
+                        try:
+                            sort_value = float(score_val)
+                        except (ValueError, TypeError):
+                            sort_value = -1
+                    
+                    scores_list.append((sort_value, display_name, score_val))
+                
+                # Sort by score value descending (highest scores first)
+                scores_list.sort(reverse=True, key=lambda x: x[0])
+                
+                # Print sorted scores
+                # Use 35 characters for metric name to accommodate "Bargaining Power of Customers" (31 chars)
+                for sort_value, display_name, score_val in scores_list:
                     # Truncate if longer than 35 characters
                     truncated_name = display_name[:35] if len(display_name) <= 35 else display_name[:32] + "..."
                     print(f"{truncated_name:<35} {score_val:>8}")
@@ -1572,8 +1599,11 @@ def get_company_moat_score(input_str):
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
             
-            # Use ticker for storage key if available, otherwise use company name
+            # Always store tickers in uppercase
             storage_key = ticker if ticker else company_name.lower()
+            # If old lowercase key exists, remove it
+            if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+                del scores_data["companies"][ticker.lower()]
             scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
             print(f"\nScores updated in {SCORES_FILE}")
@@ -1600,8 +1630,11 @@ def get_company_moat_score(input_str):
         cost_cents = cost * 100
         print(f"Total cost: {cost_cents:.4f} cents")
         
-        # Use ticker for storage key if available, otherwise use company name
+        # Always store tickers in uppercase
         storage_key = ticker if ticker else company_name.lower()
+        # If old lowercase key exists, remove it
+        if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+            del scores_data["companies"][ticker.lower()]
         scores_data["companies"][storage_key] = all_scores
         save_scores(scores_data)
         print(f"\nScores saved to {SCORES_FILE}")
@@ -1679,28 +1712,51 @@ def handle_redo_command(tickers_input):
         print("\n" + "=" * 80)
 
 
-def migrate_scores_to_lowercase():
-    """Migrate existing scores to lowercase keys and remove duplicates."""
+def migrate_scores_to_uppercase():
+    """Migrate existing scores to uppercase ticker keys and remove duplicates.
+    Tickers (1-5 chars, alphabetic) are converted to uppercase.
+    Company names remain lowercase."""
     scores_data = load_scores()
-    lowercase_companies = {}
+    uppercase_companies = {}
+    ticker_lookup = load_ticker_lookup()
     
     for company, data in scores_data["companies"].items():
-        company_lower = company.lower()
-        if company_lower not in lowercase_companies:
-            lowercase_companies[company_lower] = data
+        # Check if it's a ticker (short, alphabetic)
+        if len(company) <= 5 and company.replace(' ', '').isalpha():
+            # It's a ticker - convert to uppercase
+            company_upper = company.upper()
+            if company_upper not in uppercase_companies:
+                uppercase_companies[company_upper] = data
+            else:
+                # Duplicate found - keep the newer one
+                existing_date = uppercase_companies[company_upper].get('date', '1900-01-01')
+                new_date = data.get('date', '1900-01-01')
+                
+                if 'timestamp' in uppercase_companies[company_upper] and 'timestamp' in data:
+                    existing_time = datetime.fromisoformat(uppercase_companies[company_upper].get('timestamp', '1900-01-01T00:00:00'))
+                    new_time = datetime.fromisoformat(data.get('timestamp', '1900-01-01T00:00:00'))
+                    if new_time > existing_time:
+                        uppercase_companies[company_upper] = data
+                elif new_date > existing_date:
+                    uppercase_companies[company_upper] = data
         else:
-            existing_date = lowercase_companies[company_lower].get('date', '1900-01-01')
-            new_date = data.get('date', '1900-01-01')
-            
-            if 'timestamp' in lowercase_companies[company_lower] and 'timestamp' in data:
-                existing_time = datetime.fromisoformat(lowercase_companies[company_lower].get('timestamp', '1900-01-01T00:00:00'))
-                new_time = datetime.fromisoformat(data.get('timestamp', '1900-01-01T00:00:00'))
-                if new_time > existing_time:
-                    lowercase_companies[company_lower] = data
-            elif new_date > existing_date:
-                lowercase_companies[company_lower] = data
+            # It's a company name - keep as lowercase
+            if company not in uppercase_companies:
+                uppercase_companies[company] = data
+            else:
+                # Duplicate found - keep the newer one
+                existing_date = uppercase_companies[company].get('date', '1900-01-01')
+                new_date = data.get('date', '1900-01-01')
+                
+                if 'timestamp' in uppercase_companies[company] and 'timestamp' in data:
+                    existing_time = datetime.fromisoformat(uppercase_companies[company].get('timestamp', '1900-01-01T00:00:00'))
+                    new_time = datetime.fromisoformat(data.get('timestamp', '1900-01-01T00:00:00'))
+                    if new_time > existing_time:
+                        uppercase_companies[company] = data
+                elif new_date > existing_date:
+                    uppercase_companies[company] = data
     
-    scores_data["companies"] = lowercase_companies
+    scores_data["companies"] = uppercase_companies
     save_scores(scores_data)
     return len(scores_data["companies"])
 
@@ -1917,27 +1973,27 @@ def view_scores(score_type=None):
             if score_val == 'N/A':
                 score_display = 'N/A'
                 all_present = False
-                sort_value = 0  # Put N/A scores at the end
+                sort_value = -1  # Put N/A scores at the end
             else:
                 try:
                     val = float(score_val)
                     weight = SCORE_WEIGHTS.get(score_key, 1.0)
-                    # For reverse scores, invert to get "goodness" value
+                    # Use actual score value for sorting (descending order)
+                    sort_value = val
+                    # For reverse scores, invert to get "goodness" value for total calculation
                     if score_def['is_reverse']:
-                        sort_value = 10 - val
                         total += (10 - val) * weight
                     else:
-                        sort_value = val
                         total += val * weight
                     score_display = score_val
                 except (ValueError, TypeError):
                     score_display = 'N/A'
                     all_present = False
-                    sort_value = 0
+                    sort_value = -1
             
             scores_list.append((sort_value, score_def['display_name'], score_display))
         
-        # Sort by value descending
+        # Sort by actual score value descending (highest scores first)
         scores_list.sort(reverse=True, key=lambda x: x[0])
         
         # Display sorted scores
@@ -2601,8 +2657,9 @@ def main():
                 fill_missing_barriers_scores()
                 print()
             elif user_input.lower() == 'migrate':
-                count = migrate_scores_to_lowercase()
+                count = migrate_scores_to_uppercase()
                 print(f"\nMigration complete! Now storing {count} unique companies.")
+                print("All tickers have been converted to uppercase.")
                 print()
             elif user_input.lower() == 'redo':
                 print("Please provide ticker symbol(s). Example: redo AAPL or redo AAPL MSFT GOOGL")

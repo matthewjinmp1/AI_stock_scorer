@@ -70,7 +70,7 @@ def get_company_moat_score_heavy(input_str):
         
         scores_data = load_heavy_scores()
         
-        # Try to find existing scores (by ticker, then lowercase ticker, then by company name for backwards compatibility)
+        # Try to find existing scores (always check uppercase first, then lowercase for backwards compatibility)
         existing_data = None
         storage_key = None
         
@@ -78,9 +78,9 @@ def get_company_moat_score_heavy(input_str):
             existing_data = scores_data["companies"][ticker]
             storage_key = ticker
         elif ticker and ticker.lower() in scores_data["companies"]:
-            # Try lowercase ticker for backwards compatibility
+            # Backwards compatibility: migrate lowercase to uppercase
             existing_data = scores_data["companies"][ticker.lower()]
-            storage_key = ticker.lower()
+            storage_key = ticker  # Will migrate on save
         elif company_name.lower() in scores_data["companies"]:
             existing_data = scores_data["companies"][company_name.lower()]
             storage_key = company_name.lower()
@@ -133,8 +133,11 @@ def get_company_moat_score_heavy(input_str):
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
             
-            # Use ticker for storage key if available, otherwise use company name
+            # Always store tickers in uppercase
             storage_key = ticker if ticker else company_name.lower()
+            # If old lowercase key exists, remove it
+            if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+                del scores_data["companies"][ticker.lower()]
             scores_data["companies"][storage_key] = current_scores
             save_heavy_scores(scores_data)
             print(f"\nScores updated in {HEAVY_SCORES_FILE}")
@@ -161,8 +164,11 @@ def get_company_moat_score_heavy(input_str):
         cost_cents = cost * 100
         print(f"Total cost: {cost_cents:.4f} cents")
         
-        # Use ticker for storage key if available, otherwise use company name
+        # Always store tickers in uppercase
         storage_key = ticker if ticker else company_name.lower()
+        # If old lowercase key exists, remove it
+        if ticker and ticker.lower() in scores_data["companies"] and ticker != ticker.lower():
+            del scores_data["companies"][ticker.lower()]
         scores_data["companies"][storage_key] = all_scores
         save_heavy_scores(scores_data)
         print(f"\nScores saved to {HEAVY_SCORES_FILE}")
