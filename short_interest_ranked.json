@@ -1,0 +1,2367 @@
+{
+  "ranked_tickers": [
+    {
+      "rank": 1,
+      "ticker": "TM",
+      "company_name": "Toyota Motor Corporation",
+      "exchange": "NYSE",
+      "short_float": "0.05%",
+      "scraped_at": "2025-11-18T21:32:59.630648"
+    },
+    {
+      "rank": 2,
+      "ticker": "SONY",
+      "company_name": "Sony Group Corporation",
+      "exchange": "NYSE",
+      "short_float": "0.10%",
+      "scraped_at": "2025-11-18T21:33:50.530880"
+    },
+    {
+      "rank": 3,
+      "ticker": "SAP",
+      "company_name": "SAP SE ADS",
+      "exchange": "NYSE",
+      "short_float": "0.17%",
+      "scraped_at": "2025-11-18T21:31:47.560663"
+    },
+    {
+      "rank": 4,
+      "ticker": "NVS",
+      "company_name": "Novartis AG",
+      "exchange": "NYSE",
+      "short_float": "0.30%",
+      "scraped_at": "2025-11-18T21:37:44.050198"
+    },
+    {
+      "rank": 5,
+      "ticker": "NTES",
+      "company_name": "NetEase, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "0.34%",
+      "scraped_at": "2025-11-18T21:35:10.644566"
+    },
+    {
+      "rank": 6,
+      "ticker": "ASML",
+      "company_name": "ASML Holding N.V. - New York Registry Shares",
+      "exchange": "NASDAQ",
+      "short_float": "0.35%",
+      "scraped_at": "2025-11-18T21:33:47.304204"
+    },
+    {
+      "rank": 7,
+      "ticker": "TSM",
+      "company_name": "Taiwan Semiconductor Manufacturing Company Ltd",
+      "exchange": "NYSE",
+      "short_float": "0.65%",
+      "scraped_at": "2025-11-18T21:33:40.576700"
+    },
+    {
+      "rank": 8,
+      "ticker": "CVX",
+      "company_name": "Chevron Corporation",
+      "exchange": "NYSE",
+      "short_float": "0.70%",
+      "scraped_at": "2025-11-18T21:35:13.935541"
+    },
+    {
+      "rank": 9,
+      "ticker": "MSFT",
+      "company_name": "Microsoft Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "0.72%",
+      "scraped_at": "2025-11-18T21:37:31.552015"
+    },
+    {
+      "rank": 10,
+      "ticker": "AMZN",
+      "company_name": "Amazon.com, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "0.72%",
+      "scraped_at": "2025-11-18T21:38:56.940702"
+    },
+    {
+      "rank": 11,
+      "ticker": "LLY",
+      "company_name": "Eli Lilly and Company",
+      "exchange": "NYSE",
+      "short_float": "0.76%",
+      "scraped_at": "2025-11-18T21:32:07.713707"
+    },
+    {
+      "rank": 12,
+      "ticker": "MA",
+      "company_name": "Mastercard Incorporated",
+      "exchange": "NYSE",
+      "short_float": "0.76%",
+      "scraped_at": "2025-11-18T21:35:52.507102"
+    },
+    {
+      "rank": 13,
+      "ticker": "AAPL",
+      "company_name": "Apple Inc",
+      "exchange": "NASDAQ",
+      "short_float": "0.78%",
+      "scraped_at": "2025-11-18T21:34:06.847936"
+    },
+    {
+      "rank": 14,
+      "ticker": "APH",
+      "company_name": "Amphenol Corporation",
+      "exchange": "NYSE",
+      "short_float": "0.78%",
+      "scraped_at": "2025-11-18T21:37:02.609011"
+    },
+    {
+      "rank": 15,
+      "ticker": "PG",
+      "company_name": "Procter & Gamble Company (The)",
+      "exchange": "NYSE",
+      "short_float": "0.80%",
+      "scraped_at": "2025-11-18T21:36:02.486195"
+    },
+    {
+      "rank": 16,
+      "ticker": "JNJ",
+      "company_name": "Johnson & Johnson",
+      "exchange": "NYSE",
+      "short_float": "0.81%",
+      "scraped_at": "2025-11-18T21:33:44.013765"
+    },
+    {
+      "rank": 17,
+      "ticker": "BLK",
+      "company_name": "BlackRock, Inc",
+      "exchange": "NYSE",
+      "short_float": "0.84%",
+      "scraped_at": "2025-11-18T21:39:05.431935"
+    },
+    {
+      "rank": 18,
+      "ticker": "KO",
+      "company_name": "Coca-Cola Company (The)",
+      "exchange": "NYSE",
+      "short_float": "0.84%",
+      "scraped_at": "2025-11-18T21:39:31.078860"
+    },
+    {
+      "rank": 19,
+      "ticker": "WMT",
+      "company_name": "Walmart Inc",
+      "exchange": "NYSE",
+      "short_float": "0.89%",
+      "scraped_at": "2025-11-18T21:39:34.416242"
+    },
+    {
+      "rank": 20,
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc",
+      "exchange": "NYSE",
+      "short_float": "0.90%",
+      "scraped_at": "2025-11-18T21:38:48.266923"
+    },
+    {
+      "rank": 21,
+      "ticker": "DSGX",
+      "company_name": "The Descartes Systems Group Inc",
+      "exchange": "NASDAQ",
+      "short_float": "0.91%",
+      "scraped_at": "2025-11-18T21:32:13.061162"
+    },
+    {
+      "rank": 22,
+      "ticker": "JPM",
+      "company_name": "JP Morgan Chase & Co",
+      "exchange": "NYSE",
+      "short_float": "0.92%",
+      "scraped_at": "2025-11-18T21:38:39.762188"
+    },
+    {
+      "rank": 23,
+      "ticker": "NOK",
+      "company_name": "Nokia Corporation Sponsored",
+      "exchange": "NYSE",
+      "short_float": "0.95%",
+      "scraped_at": "2025-11-18T21:38:43.266755"
+    },
+    {
+      "rank": 24,
+      "ticker": "XOM",
+      "company_name": "Exxon Mobil Corporation",
+      "exchange": "NYSE",
+      "short_float": "0.99%",
+      "scraped_at": "2025-11-18T21:34:28.246175"
+    },
+    {
+      "rank": 25,
+      "ticker": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "1.02%",
+      "scraped_at": "2025-11-18T21:33:53.803749"
+    },
+    {
+      "rank": 26,
+      "ticker": "MCD",
+      "company_name": "McDonald's Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.02%",
+      "scraped_at": "2025-11-18T21:36:18.908105"
+    },
+    {
+      "rank": 27,
+      "ticker": "DIS",
+      "company_name": "Walt Disney Company (The)",
+      "exchange": "NYSE",
+      "short_float": "1.03%",
+      "scraped_at": "2025-11-18T21:36:29.023936"
+    },
+    {
+      "rank": 28,
+      "ticker": "ERIC",
+      "company_name": "Ericsson",
+      "exchange": "NASDAQ",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:33:52.138898"
+    },
+    {
+      "rank": 29,
+      "ticker": "PM",
+      "company_name": "Philip Morris International Inc",
+      "exchange": "NYSE",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:35:59.187576"
+    },
+    {
+      "rank": 30,
+      "ticker": "HD",
+      "company_name": "Home Depot, Inc. (The)",
+      "exchange": "NYSE",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:36:10.737329"
+    },
+    {
+      "rank": 31,
+      "ticker": "MRK",
+      "company_name": "Merck & Company, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:36:32.360277"
+    },
+    {
+      "rank": 32,
+      "ticker": "PGR",
+      "company_name": "Progressive Corporation (The)",
+      "exchange": "NYSE",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:38:16.075471"
+    },
+    {
+      "rank": 33,
+      "ticker": "PLD",
+      "company_name": "Prologis, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.04%",
+      "scraped_at": "2025-11-18T21:38:26.220017"
+    },
+    {
+      "rank": 34,
+      "ticker": "WM",
+      "company_name": "Waste Management, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.06%",
+      "scraped_at": "2025-11-18T21:32:56.303591"
+    },
+    {
+      "rank": 35,
+      "ticker": "ICE",
+      "company_name": "Intercontinental Exchange Inc",
+      "exchange": "NYSE",
+      "short_float": "1.06%",
+      "scraped_at": "2025-11-18T21:35:38.801883"
+    },
+    {
+      "rank": 36,
+      "ticker": "ABBV",
+      "company_name": "AbbVie Inc",
+      "exchange": "NYSE",
+      "short_float": "1.07%",
+      "scraped_at": "2025-11-18T21:32:33.886333"
+    },
+    {
+      "rank": 37,
+      "ticker": "BDX",
+      "company_name": "Becton, Dickinson and Company",
+      "exchange": "NYSE",
+      "short_float": "1.09%",
+      "scraped_at": "2025-11-18T21:39:17.351976"
+    },
+    {
+      "rank": 38,
+      "ticker": "COF",
+      "company_name": "Capital One Financial Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.12%",
+      "scraped_at": "2025-11-18T21:32:25.024728"
+    },
+    {
+      "rank": 39,
+      "ticker": "LMT",
+      "company_name": "Lockheed Martin Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.13%",
+      "scraped_at": "2025-11-18T21:32:32.009274"
+    },
+    {
+      "rank": 40,
+      "ticker": "MCO",
+      "company_name": "Moody's Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.14%",
+      "scraped_at": "2025-11-18T21:32:26.863314"
+    },
+    {
+      "rank": 41,
+      "ticker": "GOOGL",
+      "company_name": "Alphabet Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.16%",
+      "scraped_at": "2025-11-18T21:33:17.243606"
+    },
+    {
+      "rank": 42,
+      "ticker": "AVGO",
+      "company_name": "Broadcom Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.18%",
+      "scraped_at": "2025-11-18T21:36:42.887753"
+    },
+    {
+      "rank": 43,
+      "ticker": "TMO",
+      "company_name": "Thermo Fisher Scientific Inc",
+      "exchange": "NYSE",
+      "short_float": "1.18%",
+      "scraped_at": "2025-11-18T21:40:08.376680"
+    },
+    {
+      "rank": 44,
+      "ticker": "ANET",
+      "company_name": "Arista Networks, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.20%",
+      "scraped_at": "2025-11-18T21:32:01.870685"
+    },
+    {
+      "rank": 45,
+      "ticker": "T",
+      "company_name": "AT&T Inc",
+      "exchange": "NYSE",
+      "short_float": "1.22%",
+      "scraped_at": "2025-11-18T21:32:46.057576"
+    },
+    {
+      "rank": 46,
+      "ticker": "ORCL",
+      "company_name": "Oracle Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.22%",
+      "scraped_at": "2025-11-18T21:33:19.067222"
+    },
+    {
+      "rank": 47,
+      "ticker": "CSCO",
+      "company_name": "Cisco Systems, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.22%",
+      "scraped_at": "2025-11-18T21:34:31.648589"
+    },
+    {
+      "rank": 48,
+      "ticker": "XYL",
+      "company_name": "Xylem Inc",
+      "exchange": "NYSE",
+      "short_float": "1.22%",
+      "scraped_at": "2025-11-18T21:39:41.172362"
+    },
+    {
+      "rank": 49,
+      "ticker": "FELE",
+      "company_name": "Franklin Electric Co., Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.23%",
+      "scraped_at": "2025-11-18T21:36:07.507941"
+    },
+    {
+      "rank": 50,
+      "ticker": "MELI",
+      "company_name": "MercadoLibre, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.24%",
+      "scraped_at": "2025-11-18T21:37:29.791315"
+    },
+    {
+      "rank": 51,
+      "ticker": "ARM",
+      "company_name": "Arm Holdings plc",
+      "exchange": "NASDAQ",
+      "short_float": "1.27%",
+      "scraped_at": "2025-11-18T21:37:40.392114"
+    },
+    {
+      "rank": 52,
+      "ticker": "NEE",
+      "company_name": "NextEra Energy, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.29%",
+      "scraped_at": "2025-11-18T21:33:38.980366"
+    },
+    {
+      "rank": 53,
+      "ticker": "ROP",
+      "company_name": "Roper Technologies, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.29%",
+      "scraped_at": "2025-11-18T21:33:45.677503"
+    },
+    {
+      "rank": 54,
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.29%",
+      "scraped_at": "2025-11-18T21:36:22.484433"
+    },
+    {
+      "rank": 55,
+      "ticker": "NOW",
+      "company_name": "ServiceNow, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.30%",
+      "scraped_at": "2025-11-18T21:33:20.789678"
+    },
+    {
+      "rank": 56,
+      "ticker": "CDNS",
+      "company_name": "Cadence Design Systems, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.32%",
+      "scraped_at": "2025-11-18T21:38:53.397608"
+    },
+    {
+      "rank": 57,
+      "ticker": "ORLY",
+      "company_name": "O'Reilly Automotive, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.36%",
+      "scraped_at": "2025-11-18T21:39:37.813948"
+    },
+    {
+      "rank": 58,
+      "ticker": "CMCSA",
+      "company_name": "Comcast Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "1.37%",
+      "scraped_at": "2025-11-18T21:37:45.780743"
+    },
+    {
+      "rank": 59,
+      "ticker": "UNH",
+      "company_name": "UnitedHealth Group Incorporated",
+      "exchange": "NYSE",
+      "short_float": "1.39%",
+      "scraped_at": "2025-11-18T21:37:24.140496"
+    },
+    {
+      "rank": 60,
+      "ticker": "LOW",
+      "company_name": "Lowe's Companies, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.40%",
+      "scraped_at": "2025-11-18T21:35:12.266019"
+    },
+    {
+      "rank": 61,
+      "ticker": "V",
+      "company_name": "Visa Inc",
+      "exchange": "NYSE",
+      "short_float": "1.42%",
+      "scraped_at": "2025-11-18T21:40:04.979871"
+    },
+    {
+      "rank": 62,
+      "ticker": "CAT",
+      "company_name": "Caterpillar, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.45%",
+      "scraped_at": "2025-11-18T21:36:52.167474"
+    },
+    {
+      "rank": 63,
+      "ticker": "ADSK",
+      "company_name": "Autodesk, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.46%",
+      "scraped_at": "2025-11-18T21:31:27.350921"
+    },
+    {
+      "rank": 64,
+      "ticker": "AXP",
+      "company_name": "American Express Company",
+      "exchange": "NYSE",
+      "short_float": "1.47%",
+      "scraped_at": "2025-11-18T21:35:08.975133"
+    },
+    {
+      "rank": 65,
+      "ticker": "CVS",
+      "company_name": "CVS Health Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.49%",
+      "scraped_at": "2025-11-18T21:37:35.125171"
+    },
+    {
+      "rank": 66,
+      "ticker": "BAC",
+      "company_name": "Bank of America Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.51%",
+      "scraped_at": "2025-11-18T21:36:48.083181"
+    },
+    {
+      "rank": 67,
+      "ticker": "PDD",
+      "company_name": "PDD Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.53%",
+      "scraped_at": "2025-11-18T21:34:35.032575"
+    },
+    {
+      "rank": 68,
+      "ticker": "SSNC",
+      "company_name": "SS&C Technologies Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.54%",
+      "scraped_at": "2025-11-18T21:33:30.870750"
+    },
+    {
+      "rank": 69,
+      "ticker": "VALU",
+      "company_name": "Value Line, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.56%",
+      "scraped_at": "2025-11-18T21:36:13.982202"
+    },
+    {
+      "rank": 70,
+      "ticker": "CPNG",
+      "company_name": "Coupang, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.56%",
+      "scraped_at": "2025-11-18T21:37:53.140784"
+    },
+    {
+      "rank": 71,
+      "ticker": "COST",
+      "company_name": "Costco Wholesale Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "1.57%",
+      "scraped_at": "2025-11-18T21:33:34.104427"
+    },
+    {
+      "rank": 72,
+      "ticker": "SHOP",
+      "company_name": "Shopify Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.57%",
+      "scraped_at": "2025-11-18T21:33:35.731927"
+    },
+    {
+      "rank": 73,
+      "ticker": "BMY",
+      "company_name": "Bristol-Myers Squibb Company",
+      "exchange": "NYSE",
+      "short_float": "1.58%",
+      "scraped_at": "2025-11-18T21:37:36.873190"
+    },
+    {
+      "rank": 74,
+      "ticker": "GRMN",
+      "company_name": "Garmin Ltd",
+      "exchange": "NYSE",
+      "short_float": "1.60%",
+      "scraped_at": "2025-11-18T21:35:49.171176"
+    },
+    {
+      "rank": 75,
+      "ticker": "DE",
+      "company_name": "Deere & Company",
+      "exchange": "NYSE",
+      "short_float": "1.67%",
+      "scraped_at": "2025-11-18T21:34:45.097835"
+    },
+    {
+      "rank": 76,
+      "ticker": "SHW",
+      "company_name": "Sherwin-Williams Company (The)",
+      "exchange": "NYSE",
+      "short_float": "1.70%",
+      "scraped_at": "2025-11-18T21:38:07.354602"
+    },
+    {
+      "rank": 77,
+      "ticker": "ROK",
+      "company_name": "Rockwell Automation, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.72%",
+      "scraped_at": "2025-11-18T21:39:03.735511"
+    },
+    {
+      "rank": 78,
+      "ticker": "NDAQ",
+      "company_name": "Nasdaq, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.72%",
+      "scraped_at": "2025-11-18T21:39:46.230715"
+    },
+    {
+      "rank": 79,
+      "ticker": "ETN",
+      "company_name": "Eaton Corporation, PLC",
+      "exchange": "NYSE",
+      "short_float": "1.74%",
+      "scraped_at": "2025-11-18T21:32:42.596576"
+    },
+    {
+      "rank": 80,
+      "ticker": "ILPT",
+      "company_name": "Industrial Logistics Properties Trust - Common Shares of Beneficial Interest",
+      "exchange": "NASDAQ",
+      "short_float": "1.76%",
+      "scraped_at": "2025-11-18T21:38:38.063022"
+    },
+    {
+      "rank": 81,
+      "ticker": "EA",
+      "company_name": "Electronic Arts Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.82%",
+      "scraped_at": "2025-11-18T21:35:20.556233"
+    },
+    {
+      "rank": 82,
+      "ticker": "CRM",
+      "company_name": "Salesforce, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.82%",
+      "scraped_at": "2025-11-18T21:39:12.268366"
+    },
+    {
+      "rank": 83,
+      "ticker": "EQIX",
+      "company_name": "Equinix, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.82%",
+      "scraped_at": "2025-11-18T21:39:27.658858"
+    },
+    {
+      "rank": 84,
+      "ticker": "BABA",
+      "company_name": "Alibaba Group Holding Limited",
+      "exchange": "NYSE",
+      "short_float": "1.84%",
+      "scraped_at": "2025-11-18T21:33:15.524893"
+    },
+    {
+      "rank": 85,
+      "ticker": "BKNG",
+      "company_name": "Booking Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.84%",
+      "scraped_at": "2025-11-18T21:34:52.292297"
+    },
+    {
+      "rank": 86,
+      "ticker": "ADP",
+      "company_name": "Automatic Data Processing, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.84%",
+      "scraped_at": "2025-11-18T21:38:27.967525"
+    },
+    {
+      "rank": 87,
+      "ticker": "INTU",
+      "company_name": "Intuit Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.85%",
+      "scraped_at": "2025-11-18T21:39:53.136106"
+    },
+    {
+      "rank": 88,
+      "ticker": "NUE",
+      "company_name": "Nucor Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.88%",
+      "scraped_at": "2025-11-18T21:35:25.458802"
+    },
+    {
+      "rank": 89,
+      "ticker": "JD",
+      "company_name": "JD.com, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.90%",
+      "scraped_at": "2025-11-18T21:33:55.428745"
+    },
+    {
+      "rank": 90,
+      "ticker": "NEM",
+      "company_name": "Newmont Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.90%",
+      "scraped_at": "2025-11-18T21:39:42.858082"
+    },
+    {
+      "rank": 91,
+      "ticker": "ADI",
+      "company_name": "Analog Devices, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.91%",
+      "scraped_at": "2025-11-18T21:38:00.228144"
+    },
+    {
+      "rank": 92,
+      "ticker": "IBM",
+      "company_name": "International Business Machines Corporation",
+      "exchange": "NYSE",
+      "short_float": "1.93%",
+      "scraped_at": "2025-11-18T21:32:14.785906"
+    },
+    {
+      "rank": 93,
+      "ticker": "TXN",
+      "company_name": "Texas Instruments Incorporated",
+      "exchange": "NASDAQ",
+      "short_float": "1.94%",
+      "scraped_at": "2025-11-18T21:37:56.773264"
+    },
+    {
+      "rank": 94,
+      "ticker": "ISRG",
+      "company_name": "Intuitive Surgical, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "1.95%",
+      "scraped_at": "2025-11-18T21:37:54.879982"
+    },
+    {
+      "rank": 95,
+      "ticker": "FI",
+      "company_name": "Fiserv, Inc",
+      "exchange": "NYSE",
+      "short_float": "1.97%",
+      "scraped_at": "2025-11-18T21:32:04.123385"
+    },
+    {
+      "rank": 96,
+      "ticker": "BA",
+      "company_name": "Boeing Company (The)",
+      "exchange": "NYSE",
+      "short_float": "2.02%",
+      "scraped_at": "2025-11-18T21:36:44.641355"
+    },
+    {
+      "rank": 97,
+      "ticker": "HUBS",
+      "company_name": "HubSpot, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.03%",
+      "scraped_at": "2025-11-18T21:37:20.566046"
+    },
+    {
+      "rank": 98,
+      "ticker": "TDG",
+      "company_name": "Transdigm Group Incorporated",
+      "exchange": "NYSE",
+      "short_float": "2.06%",
+      "scraped_at": "2025-11-18T21:32:28.664749"
+    },
+    {
+      "rank": 99,
+      "ticker": "PTC",
+      "company_name": "PTC Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.12%",
+      "scraped_at": "2025-11-18T21:37:16.781779"
+    },
+    {
+      "rank": 100,
+      "ticker": "PSTG",
+      "company_name": "Pure Storage, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.14%",
+      "scraped_at": "2025-11-18T21:33:13.298958"
+    },
+    {
+      "rank": 101,
+      "ticker": "ZBRA",
+      "company_name": "Zebra Technologies Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "2.16%",
+      "scraped_at": "2025-11-18T21:34:26.598363"
+    },
+    {
+      "rank": 102,
+      "ticker": "AMAT",
+      "company_name": "Applied Materials, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.16%",
+      "scraped_at": "2025-11-18T21:38:24.473991"
+    },
+    {
+      "rank": 103,
+      "ticker": "SNPS",
+      "company_name": "Synopsys, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.21%",
+      "scraped_at": "2025-11-18T21:38:46.591013"
+    },
+    {
+      "rank": 104,
+      "ticker": "GM",
+      "company_name": "General Motors Company",
+      "exchange": "NYSE",
+      "short_float": "2.22%",
+      "scraped_at": "2025-11-18T21:37:27.873496"
+    },
+    {
+      "rank": 105,
+      "ticker": "KEYS",
+      "company_name": "Keysight Technologies Inc",
+      "exchange": "NYSE",
+      "short_float": "2.23%",
+      "scraped_at": "2025-11-18T21:31:58.005069"
+    },
+    {
+      "rank": 106,
+      "ticker": "PFE",
+      "company_name": "Pfizer, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.23%",
+      "scraped_at": "2025-11-18T21:34:13.459946"
+    },
+    {
+      "rank": 107,
+      "ticker": "ACN",
+      "company_name": "Accenture plc",
+      "exchange": "NYSE",
+      "short_float": "2.25%",
+      "scraped_at": "2025-11-18T21:37:00.876057"
+    },
+    {
+      "rank": 108,
+      "ticker": "PLTR",
+      "company_name": "Palantir Technologies Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.26%",
+      "scraped_at": "2025-11-18T21:32:21.529295"
+    },
+    {
+      "rank": 109,
+      "ticker": "QCOM",
+      "company_name": "QUALCOMM Incorporated",
+      "exchange": "NASDAQ",
+      "short_float": "2.28%",
+      "scraped_at": "2025-11-18T21:36:17.257143"
+    },
+    {
+      "rank": 110,
+      "ticker": "IBKR",
+      "company_name": "Interactive Brokers Group, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.29%",
+      "scraped_at": "2025-11-18T21:37:49.490206"
+    },
+    {
+      "rank": 111,
+      "ticker": "AMD",
+      "company_name": "Advanced Micro Devices, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.30%",
+      "scraped_at": "2025-11-18T21:39:13.964728"
+    },
+    {
+      "rank": 112,
+      "ticker": "MO",
+      "company_name": "Altria Group, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.31%",
+      "scraped_at": "2025-11-18T21:31:28.954373"
+    },
+    {
+      "rank": 113,
+      "ticker": "FR",
+      "company_name": "First Industrial Realty Trust, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.31%",
+      "scraped_at": "2025-11-18T21:34:00.338159"
+    },
+    {
+      "rank": 114,
+      "ticker": "BIDU",
+      "company_name": "Baidu, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.32%",
+      "scraped_at": "2025-11-18T21:34:05.237358"
+    },
+    {
+      "rank": 115,
+      "ticker": "IMXI",
+      "company_name": "International Money Express, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.34%",
+      "scraped_at": "2025-11-18T21:39:36.126273"
+    },
+    {
+      "rank": 116,
+      "ticker": "PNR",
+      "company_name": "Pentair plc",
+      "exchange": "NYSE",
+      "short_float": "2.36%",
+      "scraped_at": "2025-11-18T21:38:01.930582"
+    },
+    {
+      "rank": 117,
+      "ticker": "MU",
+      "company_name": "Micron Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.37%",
+      "scraped_at": "2025-11-18T21:36:39.312286"
+    },
+    {
+      "rank": 118,
+      "ticker": "DOCU",
+      "company_name": "DocuSign, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.38%",
+      "scraped_at": "2025-11-18T21:39:58.209259"
+    },
+    {
+      "rank": 119,
+      "ticker": "KLAC",
+      "company_name": "KLA Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "2.42%",
+      "scraped_at": "2025-11-18T21:32:47.755893"
+    },
+    {
+      "rank": 120,
+      "ticker": "CRUS",
+      "company_name": "Cirrus Logic, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.42%",
+      "scraped_at": "2025-11-18T21:32:51.145061"
+    },
+    {
+      "rank": 121,
+      "ticker": "TYL",
+      "company_name": "Tyler Technologies, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.44%",
+      "scraped_at": "2025-11-18T21:31:43.842553"
+    },
+    {
+      "rank": 122,
+      "ticker": "OVV",
+      "company_name": "Ovintiv Inc. (DE)",
+      "exchange": "NYSE",
+      "short_float": "2.46%",
+      "scraped_at": "2025-11-18T21:39:32.720765"
+    },
+    {
+      "rank": 123,
+      "ticker": "VRSN",
+      "company_name": "VeriSign, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.49%",
+      "scraped_at": "2025-11-18T21:34:40.056913"
+    },
+    {
+      "rank": 124,
+      "ticker": "RACE",
+      "company_name": "Ferrari N.V. Common Shares",
+      "exchange": "NYSE",
+      "short_float": "2.52%",
+      "scraped_at": "2025-11-18T21:38:03.680485"
+    },
+    {
+      "rank": 125,
+      "ticker": "ZM",
+      "company_name": "Zoom Communications, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.54%",
+      "scraped_at": "2025-11-18T21:34:55.639970"
+    },
+    {
+      "rank": 126,
+      "ticker": "UBER",
+      "company_name": "Uber Technologies, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.56%",
+      "scraped_at": "2025-11-18T21:39:29.355236"
+    },
+    {
+      "rank": 127,
+      "ticker": "UPS",
+      "company_name": "United Parcel Service, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.58%",
+      "scraped_at": "2025-11-18T21:32:52.987668"
+    },
+    {
+      "rank": 128,
+      "ticker": "NXPI",
+      "company_name": "NXP Semiconductors N.V",
+      "exchange": "NASDAQ",
+      "short_float": "2.59%",
+      "scraped_at": "2025-11-18T21:32:09.538890"
+    },
+    {
+      "rank": 129,
+      "ticker": "IRM",
+      "company_name": "Iron Mountain Incorporated (Delaware)Common Stock REIT",
+      "exchange": "NYSE",
+      "short_float": "2.62%",
+      "scraped_at": "2025-11-18T21:37:18.743542"
+    },
+    {
+      "rank": 130,
+      "ticker": "TMUS",
+      "company_name": "T-Mobile US, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.64%",
+      "scraped_at": "2025-11-18T21:37:07.732787"
+    },
+    {
+      "rank": 131,
+      "ticker": "LRCX",
+      "company_name": "Lam Research Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "2.67%",
+      "scraped_at": "2025-11-18T21:31:42.043466"
+    },
+    {
+      "rank": 132,
+      "ticker": "INTC",
+      "company_name": "Intel Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "2.67%",
+      "scraped_at": "2025-11-18T21:35:50.865630"
+    },
+    {
+      "rank": 133,
+      "ticker": "GEN",
+      "company_name": "Gen Digital Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.68%",
+      "scraped_at": "2025-11-18T21:35:02.209210"
+    },
+    {
+      "rank": 134,
+      "ticker": "IQV",
+      "company_name": "IQVIA Holdings, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.69%",
+      "scraped_at": "2025-11-18T21:36:24.114509"
+    },
+    {
+      "rank": 135,
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.75%",
+      "scraped_at": "2025-11-18T21:33:58.674457"
+    },
+    {
+      "rank": 136,
+      "ticker": "MNST",
+      "company_name": "Monster Beverage Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "2.75%",
+      "scraped_at": "2025-11-18T21:34:50.519713"
+    },
+    {
+      "rank": 137,
+      "ticker": "CRWD",
+      "company_name": "CrowdStrike Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.76%",
+      "scraped_at": "2025-11-18T21:38:19.426806"
+    },
+    {
+      "rank": 138,
+      "ticker": "WTS",
+      "company_name": "Watts Water Technologies, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.77%",
+      "scraped_at": "2025-11-18T21:39:08.776290"
+    },
+    {
+      "rank": 139,
+      "ticker": "RBLX",
+      "company_name": "Roblox Corporation",
+      "exchange": "NYSE",
+      "short_float": "2.82%",
+      "scraped_at": "2025-11-18T21:39:44.546858"
+    },
+    {
+      "rank": 140,
+      "ticker": "MORN",
+      "company_name": "Morningstar, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.84%",
+      "scraped_at": "2025-11-18T21:36:57.406175"
+    },
+    {
+      "rank": 141,
+      "ticker": "PWR",
+      "company_name": "Quanta Services, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.85%",
+      "scraped_at": "2025-11-18T21:33:27.614913"
+    },
+    {
+      "rank": 142,
+      "ticker": "AXON",
+      "company_name": "Axon Enterprise, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "2.87%",
+      "scraped_at": "2025-11-18T21:36:05.872764"
+    },
+    {
+      "rank": 143,
+      "ticker": "NET",
+      "company_name": "Cloudflare, Inc",
+      "exchange": "NYSE",
+      "short_float": "2.93%",
+      "scraped_at": "2025-11-18T21:37:13.027397"
+    },
+    {
+      "rank": 144,
+      "ticker": "VEEV",
+      "company_name": "Veeva Systems Inc",
+      "exchange": "NYSE",
+      "short_float": "2.94%",
+      "scraped_at": "2025-11-18T21:33:25.964740"
+    },
+    {
+      "rank": 145,
+      "ticker": "EGP",
+      "company_name": "EastGroup Properties, Inc",
+      "exchange": "NYSE",
+      "short_float": "3.00%",
+      "scraped_at": "2025-11-18T21:31:52.773369"
+    },
+    {
+      "rank": 146,
+      "ticker": "DVN",
+      "company_name": "Devon Energy Corporation",
+      "exchange": "NYSE",
+      "short_float": "3.00%",
+      "scraped_at": "2025-11-18T21:39:25.899819"
+    },
+    {
+      "rank": 147,
+      "ticker": "TSLA",
+      "company_name": "Tesla, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.02%",
+      "scraped_at": "2025-11-18T21:35:07.112666"
+    },
+    {
+      "rank": 148,
+      "ticker": "NVR",
+      "company_name": "NVR, Inc",
+      "exchange": "NYSE",
+      "short_float": "3.08%",
+      "scraped_at": "2025-11-18T21:34:21.725672"
+    },
+    {
+      "rank": 149,
+      "ticker": "DDOG",
+      "company_name": "Datadog, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.14%",
+      "scraped_at": "2025-11-18T21:32:44.312463"
+    },
+    {
+      "rank": 150,
+      "ticker": "NKE",
+      "company_name": "Nike, Inc",
+      "exchange": "NYSE",
+      "short_float": "3.14%",
+      "scraped_at": "2025-11-18T21:36:50.202448"
+    },
+    {
+      "rank": 151,
+      "ticker": "DOCS",
+      "company_name": "Doximity, Inc",
+      "exchange": "NYSE",
+      "short_float": "3.15%",
+      "scraped_at": "2025-11-18T21:37:14.720910"
+    },
+    {
+      "rank": 152,
+      "ticker": "DASH",
+      "company_name": "DoorDash, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.19%",
+      "scraped_at": "2025-11-18T21:31:56.181131"
+    },
+    {
+      "rank": 153,
+      "ticker": "MANH",
+      "company_name": "Manhattan Associates, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.24%",
+      "scraped_at": "2025-11-18T21:32:39.150610"
+    },
+    {
+      "rank": 154,
+      "ticker": "PAYO",
+      "company_name": "Payoneer Global Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.29%",
+      "scraped_at": "2025-11-18T21:37:33.315639"
+    },
+    {
+      "rank": 155,
+      "ticker": "DECK",
+      "company_name": "Deckers Outdoor Corporation",
+      "exchange": "NYSE",
+      "short_float": "3.33%",
+      "scraped_at": "2025-11-18T21:35:18.898123"
+    },
+    {
+      "rank": 156,
+      "ticker": "SBUX",
+      "company_name": "Starbucks Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "3.36%",
+      "scraped_at": "2025-11-18T21:32:40.832009"
+    },
+    {
+      "rank": 157,
+      "ticker": "UNP",
+      "company_name": "Union Pacific Corporation",
+      "exchange": "NYSE",
+      "short_float": "3.36%",
+      "scraped_at": "2025-11-18T21:33:11.265378"
+    },
+    {
+      "rank": 158,
+      "ticker": "CYBR",
+      "company_name": "CyberArk Software Ltd",
+      "exchange": "NASDAQ",
+      "short_float": "3.38%",
+      "scraped_at": "2025-11-18T21:38:10.985274"
+    },
+    {
+      "rank": 159,
+      "ticker": "GPN",
+      "company_name": "Global Payments Inc",
+      "exchange": "NYSE",
+      "short_float": "3.41%",
+      "scraped_at": "2025-11-18T21:34:03.608064"
+    },
+    {
+      "rank": 160,
+      "ticker": "FTNT",
+      "company_name": "Fortinet, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.41%",
+      "scraped_at": "2025-11-18T21:39:51.411784"
+    },
+    {
+      "rank": 161,
+      "ticker": "EBAY",
+      "company_name": "eBay Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.45%",
+      "scraped_at": "2025-11-18T21:38:14.388035"
+    },
+    {
+      "rank": 162,
+      "ticker": "NU",
+      "company_name": "Nu Holdings Ltd",
+      "exchange": "NYSE",
+      "short_float": "3.51%",
+      "scraped_at": "2025-11-18T21:38:09.226076"
+    },
+    {
+      "rank": 163,
+      "ticker": "LXP",
+      "company_name": "LXP Industrial Trust",
+      "exchange": "NYSE",
+      "short_float": "3.54%",
+      "scraped_at": "2025-11-18T21:31:35.448507"
+    },
+    {
+      "rank": 164,
+      "ticker": "HPE",
+      "company_name": "Hewlett Packard Enterprise Company",
+      "exchange": "NYSE",
+      "short_float": "3.55%",
+      "scraped_at": "2025-11-18T21:37:38.654825"
+    },
+    {
+      "rank": 165,
+      "ticker": "OKTA",
+      "company_name": "Okta, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.62%",
+      "scraped_at": "2025-11-18T21:38:58.635674"
+    },
+    {
+      "rank": 166,
+      "ticker": "PINS",
+      "company_name": "Pinterest, Inc",
+      "exchange": "NYSE",
+      "short_float": "3.63%",
+      "scraped_at": "2025-11-18T21:37:11.246747"
+    },
+    {
+      "rank": 167,
+      "ticker": "CPRT",
+      "company_name": "Copart, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.64%",
+      "scraped_at": "2025-11-18T21:35:44.039160"
+    },
+    {
+      "rank": 168,
+      "ticker": "MPWR",
+      "company_name": "Monolithic Power Systems, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.66%",
+      "scraped_at": "2025-11-18T21:34:36.668195"
+    },
+    {
+      "rank": 169,
+      "ticker": "AOS",
+      "company_name": "A.O. Smith Corporation",
+      "exchange": "NYSE",
+      "short_float": "3.68%",
+      "scraped_at": "2025-11-18T21:38:51.691333"
+    },
+    {
+      "rank": 170,
+      "ticker": "BB",
+      "company_name": "BlackBerry Limited",
+      "exchange": "NYSE",
+      "short_float": "3.70%",
+      "scraped_at": "2025-11-18T21:34:57.257444"
+    },
+    {
+      "rank": 171,
+      "ticker": "SE",
+      "company_name": "Sea Limited",
+      "exchange": "NYSE",
+      "short_float": "3.73%",
+      "scraped_at": "2025-11-18T21:35:45.746037"
+    },
+    {
+      "rank": 172,
+      "ticker": "TEAM",
+      "company_name": "Atlassian Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "3.73%",
+      "scraped_at": "2025-11-18T21:38:05.411862"
+    },
+    {
+      "rank": 173,
+      "ticker": "OXY",
+      "company_name": "Occidental Petroleum Corporation",
+      "exchange": "NYSE",
+      "short_float": "3.75%",
+      "scraped_at": "2025-11-18T21:32:11.178366"
+    },
+    {
+      "rank": 174,
+      "ticker": "ALGN",
+      "company_name": "Align Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.85%",
+      "scraped_at": "2025-11-18T21:33:01.257341"
+    },
+    {
+      "rank": 175,
+      "ticker": "SNOW",
+      "company_name": "Snowflake Inc",
+      "exchange": "NYSE",
+      "short_float": "3.89%",
+      "scraped_at": "2025-11-18T21:33:02.942118"
+    },
+    {
+      "rank": 176,
+      "ticker": "BILI",
+      "company_name": "Bilibili Inc",
+      "exchange": "NASDAQ",
+      "short_float": "3.92%",
+      "scraped_at": "2025-11-18T21:38:32.942672"
+    },
+    {
+      "rank": 177,
+      "ticker": "CSGP",
+      "company_name": "CoStar Group, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.00%",
+      "scraped_at": "2025-11-18T21:34:53.939093"
+    },
+    {
+      "rank": 178,
+      "ticker": "XYZ",
+      "company_name": "Block, Inc",
+      "exchange": "NYSE",
+      "short_float": "4.01%",
+      "scraped_at": "2025-11-18T21:31:38.761149"
+    },
+    {
+      "rank": 179,
+      "ticker": "LOGI",
+      "company_name": "Logitech International S.A. - Registered Shares",
+      "exchange": "NASDAQ",
+      "short_float": "4.06%",
+      "scraped_at": "2025-11-18T21:35:33.798972"
+    },
+    {
+      "rank": 180,
+      "ticker": "RL",
+      "company_name": "Ralph Lauren Corporation",
+      "exchange": "NYSE",
+      "short_float": "4.08%",
+      "scraped_at": "2025-11-18T21:36:15.619982"
+    },
+    {
+      "rank": 181,
+      "ticker": "KR",
+      "company_name": "Kroger Company (The)",
+      "exchange": "NYSE",
+      "short_float": "4.09%",
+      "scraped_at": "2025-11-18T21:39:48.014144"
+    },
+    {
+      "rank": 182,
+      "ticker": "MRVL",
+      "company_name": "Marvell Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.32%",
+      "scraped_at": "2025-11-18T21:34:15.105167"
+    },
+    {
+      "rank": 183,
+      "ticker": "ABNB",
+      "company_name": "Airbnb, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.33%",
+      "scraped_at": "2025-11-18T21:31:59.938219"
+    },
+    {
+      "rank": 184,
+      "ticker": "TTWO",
+      "company_name": "Take-Two Interactive Software, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.38%",
+      "scraped_at": "2025-11-18T21:31:54.443332"
+    },
+    {
+      "rank": 185,
+      "ticker": "CHKP",
+      "company_name": "Check Point Software Technologies Ltd",
+      "exchange": "NASDAQ",
+      "short_float": "4.38%",
+      "scraped_at": "2025-11-18T21:34:46.806386"
+    },
+    {
+      "rank": 186,
+      "ticker": "STAG",
+      "company_name": "Stag Industrial, Inc",
+      "exchange": "NYSE",
+      "short_float": "4.40%",
+      "scraped_at": "2025-11-18T21:36:25.767419"
+    },
+    {
+      "rank": 187,
+      "ticker": "MCHP",
+      "company_name": "Microchip Technology Incorporated",
+      "exchange": "NASDAQ",
+      "short_float": "4.47%",
+      "scraped_at": "2025-11-18T21:34:24.999306"
+    },
+    {
+      "rank": 188,
+      "ticker": "GDDY",
+      "company_name": "GoDaddy Inc",
+      "exchange": "NYSE",
+      "short_float": "4.47%",
+      "scraped_at": "2025-11-18T21:35:40.451030"
+    },
+    {
+      "rank": 189,
+      "ticker": "DELL",
+      "company_name": "Dell Technologies Inc",
+      "exchange": "NYSE",
+      "short_float": "4.48%",
+      "scraped_at": "2025-11-18T21:34:43.439814"
+    },
+    {
+      "rank": 190,
+      "ticker": "AGCO",
+      "company_name": "AGCO Corporation",
+      "exchange": "NYSE",
+      "short_float": "4.49%",
+      "scraped_at": "2025-11-18T21:34:20.084492"
+    },
+    {
+      "rank": 191,
+      "ticker": "FICO",
+      "company_name": "Fair Isaac Corporation",
+      "exchange": "NYSE",
+      "short_float": "4.51%",
+      "scraped_at": "2025-11-18T21:35:17.192681"
+    },
+    {
+      "rank": 192,
+      "ticker": "EPAM",
+      "company_name": "EPAM Systems, Inc",
+      "exchange": "NYSE",
+      "short_float": "4.53%",
+      "scraped_at": "2025-11-18T21:36:09.101232"
+    },
+    {
+      "rank": 193,
+      "ticker": "F",
+      "company_name": "Ford Motor Company",
+      "exchange": "NYSE",
+      "short_float": "4.54%",
+      "scraped_at": "2025-11-18T21:38:22.787558"
+    },
+    {
+      "rank": 194,
+      "ticker": "FFIV",
+      "company_name": "F5, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.56%",
+      "scraped_at": "2025-11-18T21:39:02.008225"
+    },
+    {
+      "rank": 195,
+      "ticker": "KHC",
+      "company_name": "The Kraft Heinz Company",
+      "exchange": "NASDAQ",
+      "short_float": "4.60%",
+      "scraped_at": "2025-11-18T21:38:17.750772"
+    },
+    {
+      "rank": 196,
+      "ticker": "MTCH",
+      "company_name": "Match Group, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.65%",
+      "scraped_at": "2025-11-18T21:33:09.536378"
+    },
+    {
+      "rank": 197,
+      "ticker": "AFRM",
+      "company_name": "Affirm Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.66%",
+      "scraped_at": "2025-11-18T21:33:22.504534"
+    },
+    {
+      "rank": 198,
+      "ticker": "CTRA",
+      "company_name": "Coterra Energy Inc",
+      "exchange": "NYSE",
+      "short_float": "4.74%",
+      "scraped_at": "2025-11-18T21:38:44.927501"
+    },
+    {
+      "rank": 199,
+      "ticker": "G",
+      "company_name": "Genpact Limited",
+      "exchange": "NYSE",
+      "short_float": "4.75%",
+      "scraped_at": "2025-11-18T21:33:04.579745"
+    },
+    {
+      "rank": 200,
+      "ticker": "PYPL",
+      "company_name": "PayPal Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.75%",
+      "scraped_at": "2025-11-18T21:37:22.361316"
+    },
+    {
+      "rank": 201,
+      "ticker": "HAYW",
+      "company_name": "Hayward Holdings, Inc",
+      "exchange": "NYSE",
+      "short_float": "4.79%",
+      "scraped_at": "2025-11-18T21:35:47.518335"
+    },
+    {
+      "rank": 202,
+      "ticker": "SPOT",
+      "company_name": "Spotify Technology S.A",
+      "exchange": "NYSE",
+      "short_float": "4.84%",
+      "scraped_at": "2025-11-18T21:32:57.983203"
+    },
+    {
+      "rank": 203,
+      "ticker": "MDB",
+      "company_name": "MongoDB, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.87%",
+      "scraped_at": "2025-11-18T21:32:05.934692"
+    },
+    {
+      "rank": 204,
+      "ticker": "PR",
+      "company_name": "Permian Resources Corporation",
+      "exchange": "NYSE",
+      "short_float": "4.96%",
+      "scraped_at": "2025-11-18T21:34:38.301377"
+    },
+    {
+      "rank": 205,
+      "ticker": "FANG",
+      "company_name": "Diamondback Energy, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "4.99%",
+      "scraped_at": "2025-11-18T21:37:51.278881"
+    },
+    {
+      "rank": 206,
+      "ticker": "ROKU",
+      "company_name": "Roku, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "5.07%",
+      "scraped_at": "2025-11-18T21:35:55.888041"
+    },
+    {
+      "rank": 207,
+      "ticker": "WDAY",
+      "company_name": "Workday, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "5.24%",
+      "scraped_at": "2025-11-18T21:36:35.633152"
+    },
+    {
+      "rank": 208,
+      "ticker": "TRNO",
+      "company_name": "Terreno Realty Corporation",
+      "exchange": "NYSE",
+      "short_float": "5.40%",
+      "scraped_at": "2025-11-18T21:36:53.893823"
+    },
+    {
+      "rank": 209,
+      "ticker": "BLDR",
+      "company_name": "Builders FirstSource, Inc",
+      "exchange": "NYSE",
+      "short_float": "5.48%",
+      "scraped_at": "2025-11-18T21:31:32.207306"
+    },
+    {
+      "rank": 210,
+      "ticker": "TOST",
+      "company_name": "Toast, Inc",
+      "exchange": "NYSE",
+      "short_float": "5.48%",
+      "scraped_at": "2025-11-18T21:36:33.999693"
+    },
+    {
+      "rank": 211,
+      "ticker": "BULL",
+      "company_name": "Webull Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "5.61%",
+      "scraped_at": "2025-11-18T21:35:22.194891"
+    },
+    {
+      "rank": 212,
+      "ticker": "DAVA",
+      "company_name": "Endava plc",
+      "exchange": "NYSE",
+      "short_float": "5.64%",
+      "scraped_at": "2025-11-18T21:38:12.654473"
+    },
+    {
+      "rank": 213,
+      "ticker": "PAYC",
+      "company_name": "Paycom Software, Inc",
+      "exchange": "NYSE",
+      "short_float": "5.66%",
+      "scraped_at": "2025-11-18T21:37:26.105782"
+    },
+    {
+      "rank": 214,
+      "ticker": "REXR",
+      "company_name": "Rexford Industrial Realty, Inc",
+      "exchange": "NYSE",
+      "short_float": "5.67%",
+      "scraped_at": "2025-11-18T21:35:35.467755"
+    },
+    {
+      "rank": 215,
+      "ticker": "EXPE",
+      "company_name": "Expedia Group, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "5.80%",
+      "scraped_at": "2025-11-18T21:32:54.658057"
+    },
+    {
+      "rank": 216,
+      "ticker": "ZS",
+      "company_name": "Zscaler, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "5.86%",
+      "scraped_at": "2025-11-18T21:33:42.351722"
+    },
+    {
+      "rank": 217,
+      "ticker": "CNH",
+      "company_name": "CNH Industrial N.V. Common Shares",
+      "exchange": "NYSE",
+      "short_float": "5.97%",
+      "scraped_at": "2025-11-18T21:36:41.132622"
+    },
+    {
+      "rank": 218,
+      "ticker": "FDS",
+      "company_name": "FactSet Research Systems Inc",
+      "exchange": "NYSE",
+      "short_float": "6.01%",
+      "scraped_at": "2025-11-18T21:31:30.590832"
+    },
+    {
+      "rank": 219,
+      "ticker": "CHRD",
+      "company_name": "Chord Energy Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "6.04%",
+      "scraped_at": "2025-11-18T21:39:56.526304"
+    },
+    {
+      "rank": 220,
+      "ticker": "COIN",
+      "company_name": "Coinbase Global, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "6.09%",
+      "scraped_at": "2025-11-18T21:40:03.312175"
+    },
+    {
+      "rank": 221,
+      "ticker": "HOOD",
+      "company_name": "Robinhood Markets, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "6.13%",
+      "scraped_at": "2025-11-18T21:35:30.466901"
+    },
+    {
+      "rank": 222,
+      "ticker": "HPQ",
+      "company_name": "HP Inc",
+      "exchange": "NYSE",
+      "short_float": "6.18%",
+      "scraped_at": "2025-11-18T21:33:32.505577"
+    },
+    {
+      "rank": 223,
+      "ticker": "IOT",
+      "company_name": "Samsara Inc",
+      "exchange": "NYSE",
+      "short_float": "6.22%",
+      "scraped_at": "2025-11-18T21:39:20.824074"
+    },
+    {
+      "rank": 224,
+      "ticker": "PUBM",
+      "company_name": "PubMatic, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "6.40%",
+      "scraped_at": "2025-11-18T21:36:20.731593"
+    },
+    {
+      "rank": 225,
+      "ticker": "SEE",
+      "company_name": "Sealed Air Corporation",
+      "exchange": "NYSE",
+      "short_float": "6.43%",
+      "scraped_at": "2025-11-18T21:32:35.583771"
+    },
+    {
+      "rank": 226,
+      "ticker": "BMI",
+      "company_name": "Badger Meter, Inc",
+      "exchange": "NYSE",
+      "short_float": "6.55%",
+      "scraped_at": "2025-11-18T21:38:31.295790"
+    },
+    {
+      "rank": 227,
+      "ticker": "ATKR",
+      "company_name": "Atkore Inc",
+      "exchange": "NYSE",
+      "short_float": "6.56%",
+      "scraped_at": "2025-11-18T21:34:23.380309"
+    },
+    {
+      "rank": 228,
+      "ticker": "PANW",
+      "company_name": "Palo Alto Networks, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "6.59%",
+      "scraped_at": "2025-11-18T21:32:37.433961"
+    },
+    {
+      "rank": 229,
+      "ticker": "U",
+      "company_name": "Unity Software Inc",
+      "exchange": "NYSE",
+      "short_float": "6.65%",
+      "scraped_at": "2025-11-18T21:34:29.936027"
+    },
+    {
+      "rank": 230,
+      "ticker": "STX",
+      "company_name": "Seagate Technology Holdings PLC - Ordinary Shares (Ireland)",
+      "exchange": "NASDAQ",
+      "short_float": "6.92%",
+      "scraped_at": "2025-11-18T21:39:54.844233"
+    },
+    {
+      "rank": 231,
+      "ticker": "SNAP",
+      "company_name": "Snap Inc",
+      "exchange": "NYSE",
+      "short_float": "6.99%",
+      "scraped_at": "2025-11-18T21:36:27.410989"
+    },
+    {
+      "rank": 232,
+      "ticker": "LULU",
+      "company_name": "lululemon athletica inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.12%",
+      "scraped_at": "2025-11-18T21:32:16.446384"
+    },
+    {
+      "rank": 233,
+      "ticker": "FIG",
+      "company_name": "Figma, Inc",
+      "exchange": "NYSE",
+      "short_float": "7.14%",
+      "scraped_at": "2025-11-18T21:39:49.696483"
+    },
+    {
+      "rank": 234,
+      "ticker": "APP",
+      "company_name": "Applovin Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "7.24%",
+      "scraped_at": "2025-11-18T21:39:19.054085"
+    },
+    {
+      "rank": 235,
+      "ticker": "GOOS",
+      "company_name": "Canada Goose Holdings Inc. Subordinate Voting Shares",
+      "exchange": "NYSE",
+      "short_float": "7.40%",
+      "scraped_at": "2025-11-18T21:32:19.797761"
+    },
+    {
+      "rank": 236,
+      "ticker": "MNDY",
+      "company_name": "monday.com Ltd",
+      "exchange": "NASDAQ",
+      "short_float": "7.40%",
+      "scraped_at": "2025-11-18T21:33:48.911539"
+    },
+    {
+      "rank": 237,
+      "ticker": "TREX",
+      "company_name": "Trex Company, Inc",
+      "exchange": "NYSE",
+      "short_float": "7.44%",
+      "scraped_at": "2025-11-18T21:32:23.168772"
+    },
+    {
+      "rank": 238,
+      "ticker": "CART",
+      "company_name": "Maplebear Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.44%",
+      "scraped_at": "2025-11-18T21:34:02.007349"
+    },
+    {
+      "rank": 239,
+      "ticker": "NTAP",
+      "company_name": "NetApp, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.48%",
+      "scraped_at": "2025-11-18T21:31:49.299184"
+    },
+    {
+      "rank": 240,
+      "ticker": "BRZE",
+      "company_name": "Braze, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.51%",
+      "scraped_at": "2025-11-18T21:34:10.070708"
+    },
+    {
+      "rank": 241,
+      "ticker": "RELY",
+      "company_name": "Remitly Global, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.55%",
+      "scraped_at": "2025-11-18T21:33:06.247830"
+    },
+    {
+      "rank": 242,
+      "ticker": "APPS",
+      "company_name": "Digital Turbine, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.77%",
+      "scraped_at": "2025-11-18T21:35:42.363936"
+    },
+    {
+      "rank": 243,
+      "ticker": "HQI",
+      "company_name": "HireQuest, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "7.82%",
+      "scraped_at": "2025-11-18T21:32:30.321379"
+    },
+    {
+      "rank": 244,
+      "ticker": "WIX",
+      "company_name": "Wix.com Ltd",
+      "exchange": "NASDAQ",
+      "short_float": "8.18%",
+      "scraped_at": "2025-11-18T21:37:06.011578"
+    },
+    {
+      "rank": 245,
+      "ticker": "Z",
+      "company_name": "Zillow Group, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "8.39%",
+      "scraped_at": "2025-11-18T21:36:04.242860"
+    },
+    {
+      "rank": 246,
+      "ticker": "SWKS",
+      "company_name": "Skyworks Solutions, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "8.61%",
+      "scraped_at": "2025-11-18T21:35:05.433940"
+    },
+    {
+      "rank": 247,
+      "ticker": "MTDR",
+      "company_name": "Matador Resources Company",
+      "exchange": "NYSE",
+      "short_float": "8.67%",
+      "scraped_at": "2025-11-18T21:38:34.602521"
+    },
+    {
+      "rank": 248,
+      "ticker": "YELP",
+      "company_name": "Yelp Inc",
+      "exchange": "NYSE",
+      "short_float": "8.68%",
+      "scraped_at": "2025-11-18T21:36:55.612562"
+    },
+    {
+      "rank": 249,
+      "ticker": "CRWV",
+      "company_name": "CoreWeave, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "8.71%",
+      "scraped_at": "2025-11-18T21:31:40.398563"
+    },
+    {
+      "rank": 250,
+      "ticker": "COLD",
+      "company_name": "Americold Realty Trust, Inc",
+      "exchange": "NYSE",
+      "short_float": "8.73%",
+      "scraped_at": "2025-11-18T21:34:18.455680"
+    },
+    {
+      "rank": 251,
+      "ticker": "SM",
+      "company_name": "SM Energy Company",
+      "exchange": "NYSE",
+      "short_float": "8.79%",
+      "scraped_at": "2025-11-18T21:34:11.778908"
+    },
+    {
+      "rank": 252,
+      "ticker": "QLYS",
+      "company_name": "Qualys, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "8.81%",
+      "scraped_at": "2025-11-18T21:36:00.835826"
+    },
+    {
+      "rank": 253,
+      "ticker": "SIRI",
+      "company_name": "SiriusXM Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_float": "8.88%",
+      "scraped_at": "2025-11-18T21:35:32.131605"
+    },
+    {
+      "rank": 254,
+      "ticker": "GAP",
+      "company_name": "Gap, Inc. (The)",
+      "exchange": "NYSE",
+      "short_float": "9.03%",
+      "scraped_at": "2025-11-18T21:33:07.914274"
+    },
+    {
+      "rank": 255,
+      "ticker": "SOFI",
+      "company_name": "SoFi Technologies, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "9.24%",
+      "scraped_at": "2025-11-18T21:35:00.588478"
+    },
+    {
+      "rank": 256,
+      "ticker": "WDC",
+      "company_name": "Western Digital Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "9.43%",
+      "scraped_at": "2025-11-18T21:33:37.369970"
+    },
+    {
+      "rank": 257,
+      "ticker": "MSTR",
+      "company_name": "Strategy Inc",
+      "exchange": "NASDAQ",
+      "short_float": "9.46%",
+      "scraped_at": "2025-11-18T21:37:47.538702"
+    },
+    {
+      "rank": 258,
+      "ticker": "TTD",
+      "company_name": "The Trade Desk, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "10.25%",
+      "scraped_at": "2025-11-18T21:36:46.355771"
+    },
+    {
+      "rank": 259,
+      "ticker": "APA",
+      "company_name": "APA Corporation",
+      "exchange": "NASDAQ",
+      "short_float": "10.32%",
+      "scraped_at": "2025-11-18T21:31:37.085121"
+    },
+    {
+      "rank": 260,
+      "ticker": "BOX",
+      "company_name": "Box, Inc",
+      "exchange": "NYSE",
+      "short_float": "11.20%",
+      "scraped_at": "2025-11-18T21:35:57.536753"
+    },
+    {
+      "rank": 261,
+      "ticker": "DUOL",
+      "company_name": "Duolingo, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "11.73%",
+      "scraped_at": "2025-11-18T21:35:54.197470"
+    },
+    {
+      "rank": 262,
+      "ticker": "PATH",
+      "company_name": "UiPath, Inc",
+      "exchange": "NYSE",
+      "short_float": "11.79%",
+      "scraped_at": "2025-11-18T21:32:18.177449"
+    },
+    {
+      "rank": 263,
+      "ticker": "MGY",
+      "company_name": "Magnolia Oil & Gas Corporation",
+      "exchange": "NYSE",
+      "short_float": "11.80%",
+      "scraped_at": "2025-11-18T21:35:23.816803"
+    },
+    {
+      "rank": 264,
+      "ticker": "CIVI",
+      "company_name": "Civitas Resources, Inc",
+      "exchange": "NYSE",
+      "short_float": "11.95%",
+      "scraped_at": "2025-11-18T21:34:16.771464"
+    },
+    {
+      "rank": 265,
+      "ticker": "RDDT",
+      "company_name": "Reddit, Inc",
+      "exchange": "NYSE",
+      "short_float": "12.99%",
+      "scraped_at": "2025-11-18T21:38:36.301240"
+    },
+    {
+      "rank": 266,
+      "ticker": "COLM",
+      "company_name": "Columbia Sportswear Company",
+      "exchange": "NASDAQ",
+      "short_float": "13.10%",
+      "scraped_at": "2025-11-18T21:40:01.609285"
+    },
+    {
+      "rank": 267,
+      "ticker": "CXM",
+      "company_name": "Sprinklr, Inc",
+      "exchange": "NYSE",
+      "short_float": "13.20%",
+      "scraped_at": "2025-11-18T21:36:30.729852"
+    },
+    {
+      "rank": 268,
+      "ticker": "TMC",
+      "company_name": "TMC the metals company Inc",
+      "exchange": "NASDAQ",
+      "short_float": "13.39%",
+      "scraped_at": "2025-11-18T21:36:37.583765"
+    },
+    {
+      "rank": 269,
+      "ticker": "TDOC",
+      "company_name": "Teladoc Health, Inc",
+      "exchange": "NYSE",
+      "short_float": "13.48%",
+      "scraped_at": "2025-11-18T21:36:12.358420"
+    },
+    {
+      "rank": 270,
+      "ticker": "DBX",
+      "company_name": "Dropbox, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "13.54%",
+      "scraped_at": "2025-11-18T21:37:04.296859"
+    },
+    {
+      "rank": 271,
+      "ticker": "GFS",
+      "company_name": "GlobalFoundries Inc",
+      "exchange": "NASDAQ",
+      "short_float": "13.94%",
+      "scraped_at": "2025-11-18T21:33:24.297407"
+    },
+    {
+      "rank": 272,
+      "ticker": "IONQ",
+      "company_name": "IonQ, Inc",
+      "exchange": "NYSE",
+      "short_float": "14.32%",
+      "scraped_at": "2025-11-18T21:31:51.114504"
+    },
+    {
+      "rank": 273,
+      "ticker": "SMCI",
+      "company_name": "Super Micro Computer, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "14.97%",
+      "scraped_at": "2025-11-18T21:33:29.245958"
+    },
+    {
+      "rank": 274,
+      "ticker": "DOCN",
+      "company_name": "DigitalOcean Holdings, Inc",
+      "exchange": "NYSE",
+      "short_float": "15.15%",
+      "scraped_at": "2025-11-18T21:39:24.182734"
+    },
+    {
+      "rank": 275,
+      "ticker": "GLOB",
+      "company_name": "Globant S.A. Common Shares",
+      "exchange": "NYSE",
+      "short_float": "15.82%",
+      "scraped_at": "2025-11-18T21:38:21.107052"
+    },
+    {
+      "rank": 276,
+      "ticker": "GME",
+      "company_name": "GameStop Corporation",
+      "exchange": "NYSE",
+      "short_float": "16.20%",
+      "scraped_at": "2025-11-18T21:38:55.191780"
+    },
+    {
+      "rank": 277,
+      "ticker": "SEMR",
+      "company_name": "SEMrush Holdings, Inc",
+      "exchange": "NYSE",
+      "short_float": "16.78%",
+      "scraped_at": "2025-11-18T21:39:15.676185"
+    },
+    {
+      "rank": 278,
+      "ticker": "LYFT",
+      "company_name": "Lyft, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "16.82%",
+      "scraped_at": "2025-11-18T21:38:49.969677"
+    },
+    {
+      "rank": 279,
+      "ticker": "FUN",
+      "company_name": "Six Flags Entertainment Corporation",
+      "exchange": "NYSE",
+      "short_float": "17.70%",
+      "scraped_at": "2025-11-18T21:39:10.447465"
+    },
+    {
+      "rank": 280,
+      "ticker": "MP",
+      "company_name": "MP Materials Corp",
+      "exchange": "NYSE",
+      "short_float": "17.72%",
+      "scraped_at": "2025-11-18T21:39:00.337385"
+    },
+    {
+      "rank": 281,
+      "ticker": "ETSY",
+      "company_name": "Etsy, Inc",
+      "exchange": "NYSE",
+      "short_float": "17.80%",
+      "scraped_at": "2025-11-18T21:39:59.913707"
+    },
+    {
+      "rank": 282,
+      "ticker": "WHR",
+      "company_name": "Whirlpool Corporation",
+      "exchange": "NYSE",
+      "short_float": "17.96%",
+      "scraped_at": "2025-11-18T21:35:27.104615"
+    },
+    {
+      "rank": 283,
+      "ticker": "FOUR",
+      "company_name": "Shift4 Payments, Inc",
+      "exchange": "NYSE",
+      "short_float": "18.71%",
+      "scraped_at": "2025-11-18T21:34:41.730232"
+    },
+    {
+      "rank": 284,
+      "ticker": "W",
+      "company_name": "Wayfair Inc",
+      "exchange": "NYSE",
+      "short_float": "18.73%",
+      "scraped_at": "2025-11-18T21:39:39.517527"
+    },
+    {
+      "rank": 285,
+      "ticker": "OPEN",
+      "company_name": "Opendoor Technologies Inc",
+      "exchange": "NASDAQ",
+      "short_float": "21.27%",
+      "scraped_at": "2025-11-18T21:35:15.555488"
+    },
+    {
+      "rank": 286,
+      "ticker": "NOG",
+      "company_name": "Northern Oil and Gas, Inc",
+      "exchange": "NYSE",
+      "short_float": "21.76%",
+      "scraped_at": "2025-11-18T21:31:33.823816"
+    },
+    {
+      "rank": 287,
+      "ticker": "ENPH",
+      "company_name": "Enphase Energy, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "22.41%",
+      "scraped_at": "2025-11-18T21:35:03.828257"
+    },
+    {
+      "rank": 288,
+      "ticker": "LMND",
+      "company_name": "Lemonade, Inc",
+      "exchange": "NYSE",
+      "short_float": "24.57%",
+      "scraped_at": "2025-11-18T21:31:45.801633"
+    },
+    {
+      "rank": 289,
+      "ticker": "REAL",
+      "company_name": "The RealReal, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "25.97%",
+      "scraped_at": "2025-11-18T21:37:09.392789"
+    },
+    {
+      "rank": 290,
+      "ticker": "UAA",
+      "company_name": "Under Armour, Inc",
+      "exchange": "NYSE",
+      "short_float": "27.46%",
+      "scraped_at": "2025-11-18T21:32:49.444063"
+    },
+    {
+      "rank": 291,
+      "ticker": "SYM",
+      "company_name": "Symbotic Inc",
+      "exchange": "NASDAQ",
+      "short_float": "29.10%",
+      "scraped_at": "2025-11-18T21:40:06.697841"
+    },
+    {
+      "rank": 292,
+      "ticker": "AI",
+      "company_name": "C3.ai, Inc",
+      "exchange": "NYSE",
+      "short_float": "31.43%",
+      "scraped_at": "2025-11-18T21:34:33.313125"
+    },
+    {
+      "rank": 293,
+      "ticker": "GRND",
+      "company_name": "Grindr Inc",
+      "exchange": "NYSE",
+      "short_float": "33.94%",
+      "scraped_at": "2025-11-18T21:39:22.498154"
+    },
+    {
+      "rank": 294,
+      "ticker": "HIMS",
+      "company_name": "Hims & Hers Health, Inc",
+      "exchange": "NYSE",
+      "short_float": "34.33%",
+      "scraped_at": "2025-11-18T21:34:48.619841"
+    },
+    {
+      "rank": 295,
+      "ticker": "UPST",
+      "company_name": "Upstart Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_float": "34.96%",
+      "scraped_at": "2025-11-18T21:35:28.767846"
+    }
+  ],
+  "total_tickers": 295,
+  "ranked_at": "2025-11-18T21:50:16.223215",
+  "sort_order": "ascending (lowest short float first)"
+}

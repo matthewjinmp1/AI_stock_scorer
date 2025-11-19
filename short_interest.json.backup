@@ -522,6 +522,12 @@
       "scraped_at": "2025-11-18T21:33:55.428745",
       "short_float": "1.90%"
     },
+    "DNP": {
+      "company_name": "DNP Select Income Fund, Inc",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:33:57.020805",
+      "short_float": "0.10%"
+    },
     "ADBE": {
       "company_name": "Adobe Inc",
       "exchange": "NASDAQ",
@@ -557,6 +563,12 @@
       "exchange": "NASDAQ",
       "scraped_at": "2025-11-18T21:34:06.847936",
       "short_float": "0.78%"
+    },
+    "DB": {
+      "company_name": "Deutsche Bank AG",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:34:08.452745",
+      "short_float": "0.50%"
     },
     "BRZE": {
       "company_name": "Braze, Inc",
@@ -732,6 +744,12 @@
       "scraped_at": "2025-11-18T21:34:57.257444",
       "short_float": "3.70%"
     },
+    "FAB": {
+      "company_name": "First Trust Multi Cap Value AlphaDEX Fund",
+      "exchange": "NASDAQ",
+      "scraped_at": "2025-11-18T21:34:58.853913",
+      "short_float": null
+    },
     "SOFI": {
       "company_name": "SoFi Technologies, Inc",
       "exchange": "NASDAQ",
@@ -863,6 +881,12 @@
       "exchange": "NYSE",
       "scraped_at": "2025-11-18T21:35:35.467755",
       "short_float": "5.67%"
+    },
+    "CAN": {
+      "company_name": "Canaan Inc",
+      "exchange": "NASDAQ",
+      "scraped_at": "2025-11-18T21:35:37.159216",
+      "short_float": "11.42%"
     },
     "ICE": {
       "company_name": "Intercontinental Exchange Inc",
@@ -1146,6 +1170,12 @@
       "scraped_at": "2025-11-18T21:36:57.406175",
       "short_float": "2.84%"
     },
+    "SAM": {
+      "company_name": "Boston Beer Company, Inc. (The)",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:36:59.166505",
+      "short_float": "12.79%"
+    },
     "ACN": {
       "company_name": "Accenture plc",
       "exchange": "NYSE",
@@ -1284,6 +1314,12 @@
       "scraped_at": "2025-11-18T21:37:40.392114",
       "short_float": "1.27%"
     },
+    "BYD": {
+      "company_name": "Boyd Gaming Corporation",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:37:42.306803",
+      "short_float": "6.04%"
+    },
     "NVS": {
       "company_name": "Novartis AG",
       "exchange": "NYSE",
@@ -1331,6 +1367,12 @@
       "exchange": "NASDAQ",
       "scraped_at": "2025-11-18T21:37:56.773264",
       "short_float": "1.94%"
+    },
+    "SNDR": {
+      "company_name": "Schneider National, Inc",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:37:58.521965",
+      "short_float": "7.12%"
     },
     "ADI": {
       "company_name": "Analog Devices, Inc",
@@ -1434,6 +1476,12 @@
       "scraped_at": "2025-11-18T21:38:27.967525",
       "short_float": "1.84%"
     },
+    "TEN": {
+      "company_name": "Tsakos Energy Navigation Ltd Common Shares",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:38:29.634676",
+      "short_float": "2.38%"
+    },
     "BMI": {
       "company_name": "Badger Meter, Inc",
       "exchange": "NYSE",
@@ -1469,6 +1517,12 @@
       "exchange": "NYSE",
       "scraped_at": "2025-11-18T21:38:39.762188",
       "short_float": "0.92%"
+    },
+    "TEL": {
+      "company_name": "TE Connectivity plc",
+      "exchange": "NYSE",
+      "scraped_at": "2025-11-18T21:38:41.454964",
+      "short_float": "1.15%"
     },
     "NOK": {
       "company_name": "Nokia Corporation Sponsored",
@@ -1553,6 +1607,12 @@
       "exchange": "NYSE",
       "scraped_at": "2025-11-18T21:39:05.431935",
       "short_float": "0.84%"
+    },
+    "EVO": {
+      "company_name": "Evotec SE",
+      "exchange": "NASDAQ",
+      "scraped_at": "2025-11-18T21:39:07.135788",
+      "short_float": "0.13%"
     },
     "WTS": {
       "company_name": "Watts Water Technologies, Inc",
@@ -1772,5 +1832,5 @@
     }
   },
   "last_updated": "2025-11-18T21:41:47.042077",
-  "total_scraped": 295
+  "total_scraped": 305
 }

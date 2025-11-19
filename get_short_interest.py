@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 SCORES_FILE = "scores.json"
 TICKER_FILE = "stock_tickers_clean.json"
 SHORT_INTEREST_FILE = "short_interest.json"
+TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
 
 # Rate limiting - delay between requests (in seconds)
 REQUEST_DELAY = 1.0  # 1 second delay between requests to be respectful
@@ -54,6 +55,31 @@ def load_scored_tickers():
         return None
 
 
+def load_custom_ticker_definitions():
+    """
+    Load custom ticker definitions from ticker_definitions.json.
+    These are OTC or private companies that should be excluded.
+    
+    Returns:
+        set: Set of ticker symbols (uppercase) to exclude
+    """
+    excluded_tickers = set()
+    
+    try:
+        if os.path.exists(TICKER_DEFINITIONS_FILE):
+            with open(TICKER_DEFINITIONS_FILE, 'r') as f:
+                data = json.load(f)
+                
+                for ticker in data.get('definitions', {}).keys():
+                    ticker_upper = ticker.strip().upper()
+                    if ticker_upper:
+                        excluded_tickers.add(ticker_upper)
+    except Exception as e:
+        print(f"Warning: Could not load custom ticker definitions: {e}")
+    
+    return excluded_tickers
+
+
 def load_us_tickers():
     """
     Load all US-listed tickers from stock_tickers_clean.json.
@@ -87,7 +113,8 @@ def load_us_tickers():
 
 def get_tickers_to_scrape():
     """
-    Get tickers that are in both scores.json and stock_tickers_clean.json.
+    Get tickers that are in both scores.json and stock_tickers_clean.json,
+    excluding tickers from ticker_definitions.json (OTC/private companies).
     
     Returns:
         list: List of (ticker, company_name, exchange) tuples
@@ -108,14 +135,26 @@ def get_tickers_to_scrape():
     
     print(f"Found {len(us_tickers)} US-listed tickers in {TICKER_FILE}")
     
-    # Find intersection - tickers in both files
+    # Load custom ticker definitions to exclude (OTC/private companies)
+    print(f"Loading custom ticker definitions from {TICKER_DEFINITIONS_FILE}...")
+    excluded_tickers = load_custom_ticker_definitions()
+    print(f"Found {len(excluded_tickers)} tickers in {TICKER_DEFINITIONS_FILE} (will exclude these)")
+    
+    # Find intersection - tickers in both files, excluding custom definitions
     tickers_to_scrape = []
+    excluded_count = 0
     for ticker in scored_tickers:
         if ticker in us_tickers:
+            # Exclude if in custom ticker definitions (OTC/private)
+            if ticker in excluded_tickers:
+                excluded_count += 1
+                continue
             name, exchange = us_tickers[ticker]
             tickers_to_scrape.append((ticker, name, exchange))
     
-    print(f"Found {len(tickers_to_scrape)} tickers in both files (will scrape these)")
+    if excluded_count > 0:
+        print(f"Excluded {excluded_count} ticker(s) from {TICKER_DEFINITIONS_FILE} (OTC/private)")
+    print(f"Found {len(tickers_to_scrape)} tickers to scrape (after exclusions)")
     
     return tickers_to_scrape
 
