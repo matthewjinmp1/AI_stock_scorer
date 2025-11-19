@@ -1,0 +1,116 @@
+{
+  "tickers": {
+    "ADSK": {
+      "company_name": "Autodesk, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.09M",
+        "Short Float": "1.46%",
+        "Short Ratio": "2.17",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:27.350921"
+    },
+    "MO": {
+      "company_name": "Altria Group, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "38.67M",
+        "Short Float": "2.31%",
+        "Short Ratio": "4.67",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:28.954373"
+    },
+    "FDS": {
+      "company_name": "FactSet Research Systems Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.25M",
+        "Short Float": "6.01%",
+        "Short Ratio": "2.95",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:30.590832"
+    },
+    "BLDR": {
+      "company_name": "Builders FirstSource, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.88M",
+        "Short Float": "5.48%",
+        "Short Ratio": "2.97",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:32.207306"
+    },
+    "NOG": {
+      "company_name": "Northern Oil and Gas, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "20.60M",
+        "Short Float": "21.76%",
+        "Short Ratio": "10.39",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:33.823816"
+    },
+    "LXP": {
+      "company_name": "LXP Industrial Trust",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.03M",
+        "Short Float": "3.54%",
+        "Short Ratio": "2.70",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:35.448507"
+    },
+    "APA": {
+      "company_name": "APA Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "35.96M",
+        "Short Float": "10.32%",
+        "Short Ratio": "4.92",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:37.085121"
+    },
+    "XYZ": {
+      "company_name": "Block, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "21.24M",
+        "Short Float": "4.01%",
+        "Short Ratio": "3.37",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:38.761149"
+    },
+    "CRWV": {
+      "company_name": "CoreWeave, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "26.21M",
+        "Short Float": "8.71%",
+        "Short Ratio": "0.87",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:40.398563"
+    },
+    "LRCX": {
+      "company_name": "Lam Research Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "33.33M",
+        "Short Float": "2.67%",
+        "Short Ratio": "2.92",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:42.043466"
+    }
+  },
+  "last_updated": "2025-11-18T21:31:42.044793",
+  "total_scraped": 10
+}
