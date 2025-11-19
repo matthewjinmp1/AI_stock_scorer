@@ -9,20 +9,15 @@ Expected API calls: ~n*log2(n) = ~33 calls for 10 companies
 from grok_client import GrokClient
 from config import XAI_API_KEY
 import time
+import sys
 
-# 10 well-known companies to rank
-COMPANIES = [
-    ("AAPL", "Apple Inc"),
-    ("MSFT", "Microsoft Corporation"),
-    ("GOOGL", "Alphabet Inc"),
-    ("AMZN", "Amazon.com Inc"),
-    ("NVDA", "NVIDIA Corporation"),
-    ("META", "Meta Platforms Inc"),
-    ("TSLA", "Tesla Inc"),
-    ("JPM", "JPMorgan Chase & Co"),
-    ("V", "Visa Inc"),
-    ("JNJ", "Johnson & Johnson"),
-]
+# Import ticker lookup functions from scorer.py
+try:
+    from scorer import load_ticker_lookup, resolve_to_company_name
+except ImportError:
+    print("Error: Could not import ticker lookup functions from scorer.py")
+    print("Make sure scorer.py is in the same directory.")
+    sys.exit(1)
 
 # Track API calls
 api_call_count = 0
@@ -145,6 +140,70 @@ def merge(grok, left, right):
     return result
 
 
+def parse_tickers_input(input_str):
+    """
+    Parse space-separated tickers and convert to (ticker, company_name) tuples.
+    
+    Args:
+        input_str: Space-separated ticker symbols (e.g., "AAPL MSFT GOOGL")
+        
+    Returns:
+        List of (ticker, company_name) tuples, or None if there are errors
+    """
+    if not input_str or not input_str.strip():
+        return None
+    
+    tickers_raw = input_str.strip().split()
+    
+    if not tickers_raw:
+        return None
+    
+    # Deduplicate tickers while preserving order (case-insensitive)
+    seen = set()
+    tickers = []
+    for ticker in tickers_raw:
+        ticker_upper = ticker.upper()
+        if ticker_upper not in seen:
+            seen.add(ticker_upper)
+            tickers.append(ticker)
+    
+    if len(tickers) < len(tickers_raw):
+        print(f"Note: Removed {len(tickers_raw) - len(tickers)} duplicate ticker(s).")
+    
+    # Load ticker lookup
+    ticker_lookup = load_ticker_lookup()
+    
+    # Convert tickers to company names
+    companies = []
+    invalid_tickers = []
+    
+    for ticker in tickers:
+        ticker_upper = ticker.strip().upper()
+        
+        # Check if it's a valid ticker
+        if ticker_upper in ticker_lookup:
+            company_name = ticker_lookup[ticker_upper]
+            companies.append((ticker_upper, company_name))
+        else:
+            # Try resolve_to_company_name as fallback
+            company_name, resolved_ticker = resolve_to_company_name(ticker)
+            if resolved_ticker:
+                companies.append((resolved_ticker, company_name))
+            else:
+                invalid_tickers.append(ticker_upper)
+    
+    if invalid_tickers:
+        print(f"\nError: The following ticker(s) are not valid: {', '.join(invalid_tickers)}")
+        print("Please enter valid NYSE or NASDAQ ticker symbols.")
+        return None
+    
+    if not companies:
+        print("Error: No valid tickers provided.")
+        return None
+    
+    return companies
+
+
 def main():
     """Main function to sort companies by moat strength."""
     global api_call_count
@@ -152,9 +211,48 @@ def main():
     print("=" * 80)
     print("Grok-Powered Moat Score Sorter")
     print("=" * 80)
-    print(f"\nRanking {len(COMPANIES)} companies by competitive moat strength...")
+    print("\nEnter ticker symbols separated by spaces (e.g., AAPL MSFT GOOGL)")
+    print("Or press Enter to use default companies")
+    print()
+    
+    # Get user input
+    user_input = input("Enter tickers (or press Enter for defaults): ").strip()
+    
+    # Parse tickers or use defaults
+    if user_input:
+        companies = parse_tickers_input(user_input)
+        if companies is None:
+            print("\nUsing default companies instead...")
+            companies = [
+                ("AAPL", "Apple Inc"),
+                ("MSFT", "Microsoft Corporation"),
+                ("GOOGL", "Alphabet Inc"),
+                ("AMZN", "Amazon.com Inc"),
+                ("NVDA", "NVIDIA Corporation"),
+                ("META", "Meta Platforms Inc"),
+                ("TSLA", "Tesla Inc"),
+                ("JPM", "JPMorgan Chase & Co"),
+                ("V", "Visa Inc"),
+                ("JNJ", "Johnson & Johnson"),
+            ]
+    else:
+        # Use default companies
+        companies = [
+            ("AAPL", "Apple Inc"),
+            ("MSFT", "Microsoft Corporation"),
+            ("GOOGL", "Alphabet Inc"),
+            ("AMZN", "Amazon.com Inc"),
+            ("NVDA", "NVIDIA Corporation"),
+            ("META", "Meta Platforms Inc"),
+            ("TSLA", "Tesla Inc"),
+            ("JPM", "JPMorgan Chase & Co"),
+            ("V", "Visa Inc"),
+            ("JNJ", "Johnson & Johnson"),
+        ]
+    
+    print(f"\nRanking {len(companies)} companies by competitive moat strength...")
     print("Using merge sort (O(n log n)) with Grok API comparisons")
-    print(f"Expected API calls: ~{len(COMPANIES)} * log2({len(COMPANIES)}) ≈ {int(len(COMPANIES) * __import__('math').log2(len(COMPANIES)))}")
+    print(f"Expected API calls: ~{len(companies)} * log2({len(companies)}) ≈ {int(len(companies) * __import__('math').log2(len(companies)))}")
     print()
     
     # Initialize Grok client
@@ -176,7 +274,7 @@ def main():
     
     # Sort companies using merge sort
     print("Starting merge sort with Grok comparisons...\n")
-    sorted_companies = merge_sort_companies(grok, COMPANIES.copy())
+    sorted_companies = merge_sort_companies(grok, companies.copy())
     
     # End timing
     elapsed_time = time.time() - start_time
@@ -193,7 +291,7 @@ def main():
     print()
     print("=" * 80)
     print(f"Total Grok API calls: {api_call_count}")
-    print(f"Expected calls (n*log2(n)): {int(len(COMPANIES) * __import__('math').log2(len(COMPANIES)))}")
+    print(f"Expected calls (n*log2(n)): {int(len(companies) * __import__('math').log2(len(companies)))}")
     print(f"Time elapsed: {elapsed_time:.2f} seconds")
     print("=" * 80)
 
