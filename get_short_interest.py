@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Batch Short Interest Scraper
-Scrapes Finviz for short interest data for tickers that are in both scores.json and stock_tickers_clean.json
+Batch Short Float Scraper
+Scrapes Finviz for "Short Float" metric for tickers that are in both scores.json and stock_tickers_clean.json
 Saves results to short_interest.json
 """
 
@@ -157,14 +157,14 @@ def save_short_interest(data):
 
 def scrape_ticker_short_interest(ticker):
     """
-    Scrape short interest for a single ticker.
-    Simplified version that only extracts short interest fields.
+    Scrape short float for a single ticker.
+    Only extracts the "Short Float" metric from Finviz.
     
     Args:
         ticker: Stock ticker symbol
         
     Returns:
-        dict: Short interest data or None if error
+        dict: Short float data or None if error
     """
     ticker_upper = ticker.strip().upper()
     url = f"https://finviz.com/quote.ashx?t={ticker_upper}"
@@ -192,39 +192,24 @@ def scrape_ticker_short_interest(ticker):
                     if label and value:
                         data[label] = value
         
-        # Extract short interest related fields
-        short_interest_fields = [
-            'Short Interest',
-            'Short Float',
-            'Short Ratio',
-            'Short Interest / Float',
-            'Short % of Float',
-            'Short % of Shares Outstanding'
-        ]
+        # Only extract "Short Float" metric
+        short_float = None
+        if 'Short Float' in data:
+            short_float = data['Short Float']
         
-        short_interest = {}
-        for field in short_interest_fields:
-            if field in data:
-                short_interest[field] = data[field]
-        
-        # Also include any field with "short" in the name (case-insensitive)
-        for field, value in data.items():
-            if 'short' in field.lower() and field not in short_interest:
-                short_interest[field] = value
-        
-        if short_interest:
+        if short_float:
             return {
                 'ticker': ticker_upper,
-                'short_interest': short_interest,
+                'short_float': short_float,
                 'scraped_at': datetime.now().isoformat()
             }
         else:
-            # Return empty dict to indicate ticker was checked but no short interest data found
+            # Return empty dict to indicate ticker was checked but no short float data found
             return {
                 'ticker': ticker_upper,
-                'short_interest': {},
+                'short_float': None,
                 'scraped_at': datetime.now().isoformat(),
-                'note': 'No short interest data available'
+                'note': 'No short float data available'
             }
         
     except requests.exceptions.RequestException as e:
@@ -300,27 +285,27 @@ def main():
         result = scrape_ticker_short_interest(ticker)
         
         if result:
-            if result.get('short_interest'):
-                # Has short interest data
+            if result.get('short_float'):
+                # Has short float data
                 short_interest_data["tickers"][ticker] = {
                     'company_name': name,
                     'exchange': exchange,
-                    'short_interest': result['short_interest'],
+                    'short_float': result['short_float'],
                     'scraped_at': result['scraped_at']
                 }
                 success_count += 1
-                print(f"✓ Found {len(result['short_interest'])} field(s)")
+                print(f"✓ Short Float: {result['short_float']}")
             else:
-                # No short interest data available
+                # No short float data available
                 short_interest_data["tickers"][ticker] = {
                     'company_name': name,
                     'exchange': exchange,
-                    'short_interest': {},
+                    'short_float': None,
                     'scraped_at': result['scraped_at'],
-                    'note': 'No short interest data available'
+                    'note': 'No short float data available'
                 }
                 no_data_count += 1
-                print("✓ (no short interest data)")
+                print("✓ (no short float data)")
         else:
             error_count += 1
             print("✗ Error")
@@ -346,8 +331,8 @@ def main():
     print("Scraping Complete!")
     print("=" * 80)
     print(f"Total tickers processed: {len(tickers_to_scrape)}")
-    print(f"  ✓ Success (with data): {success_count}")
-    print(f"  ✓ Success (no data): {no_data_count}")
+    print(f"  ✓ Success (with short float): {success_count}")
+    print(f"  ✓ Success (no short float data): {no_data_count}")
     print(f"  ✗ Errors: {error_count}")
     print(f"Total time: {elapsed_time / 60:.1f} minutes")
     print(f"Data saved to: {SHORT_INTEREST_FILE}")

@@ -109,8 +109,2425 @@
         "Option/Short": "Yes / Yes"
       },
       "scraped_at": "2025-11-18T21:31:42.043466"
+    },
+    "TYL": {
+      "company_name": "Tyler Technologies, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.04M",
+        "Short Float": "2.44%",
+        "Short Ratio": "2.96",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:43.842553"
+    },
+    "LMND": {
+      "company_name": "Lemonade, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "15.14M",
+        "Short Float": "24.57%",
+        "Short Ratio": "5.76",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:45.801633"
+    },
+    "SAP": {
+      "company_name": "SAP SE ADS",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.95M",
+        "Short Float": "0.17%",
+        "Short Ratio": "1.20",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:47.560663"
+    },
+    "NTAP": {
+      "company_name": "NetApp, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "14.85M",
+        "Short Float": "7.48%",
+        "Short Ratio": "7.28",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:49.299184"
+    },
+    "IONQ": {
+      "company_name": "IonQ, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "49.15M",
+        "Short Float": "14.32%",
+        "Short Ratio": "1.72",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:51.114504"
+    },
+    "EGP": {
+      "company_name": "EastGroup Properties, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.59M",
+        "Short Float": "3.00%",
+        "Short Ratio": "4.47",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:52.773369"
+    },
+    "TTWO": {
+      "company_name": "Take-Two Interactive Software, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "7.49M",
+        "Short Float": "4.38%",
+        "Short Ratio": "4.67",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:54.443332"
+    },
+    "DASH": {
+      "company_name": "DoorDash, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "11.15M",
+        "Short Float": "3.19%",
+        "Short Ratio": "2.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:56.181131"
+    },
+    "KEYS": {
+      "company_name": "Keysight Technologies Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "3.81M",
+        "Short Float": "2.23%",
+        "Short Ratio": "3.36",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:58.005069"
+    },
+    "ABNB": {
+      "company_name": "Airbnb, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "18.05M",
+        "Short Float": "4.33%",
+        "Short Ratio": "3.81",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:31:59.938219"
+    },
+    "ANET": {
+      "company_name": "Arista Networks, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "12.52M",
+        "Short Float": "1.20%",
+        "Short Ratio": "1.45",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:01.870685"
+    },
+    "FI": {
+      "company_name": "Fiserv, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "10.53M",
+        "Short Float": "1.97%",
+        "Short Ratio": "1.25",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:04.123385"
+    },
+    "MDB": {
+      "company_name": "MongoDB, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.82M",
+        "Short Float": "4.87%",
+        "Short Ratio": "1.57",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:05.934692"
+    },
+    "LLY": {
+      "company_name": "Eli Lilly and Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.44M",
+        "Short Float": "0.76%",
+        "Short Ratio": "1.66",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:07.713707"
+    },
+    "NXPI": {
+      "company_name": "NXP Semiconductors N.V",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.50M",
+        "Short Float": "2.59%",
+        "Short Ratio": "2.68",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:09.538890"
+    },
+    "OXY": {
+      "company_name": "Occidental Petroleum Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "36.86M",
+        "Short Float": "3.75%",
+        "Short Ratio": "3.62",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:11.178366"
+    },
+    "DSGX": {
+      "company_name": "The Descartes Systems Group Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.78M",
+        "Short Float": "0.91%",
+        "Short Ratio": "1.39",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:13.061162"
+    },
+    "IBM": {
+      "company_name": "International Business Machines Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "18.05M",
+        "Short Float": "1.93%",
+        "Short Ratio": "3.46",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:14.785906"
+    },
+    "LULU": {
+      "company_name": "lululemon athletica inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "7.34M",
+        "Short Float": "7.12%",
+        "Short Ratio": "1.45",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:16.446384"
+    },
+    "PATH": {
+      "company_name": "UiPath, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "47.85M",
+        "Short Float": "11.79%",
+        "Short Ratio": "2.15",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:18.177449"
+    },
+    "GOOS": {
+      "company_name": "Canada Goose Holdings Inc. Subordinate Voting Shares",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "3.38M",
+        "Short Float": "7.40%",
+        "Short Ratio": "3.37",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:19.797761"
+    },
+    "PLTR": {
+      "company_name": "Palantir Technologies Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "49.28M",
+        "Short Float": "2.26%",
+        "Short Ratio": "0.79",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:21.529295"
+    },
+    "TREX": {
+      "company_name": "Trex Company, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.92M",
+        "Short Float": "7.44%",
+        "Short Ratio": "3.30",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:23.168772"
+    },
+    "COF": {
+      "company_name": "Capital One Financial Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.07M",
+        "Short Float": "1.12%",
+        "Short Ratio": "2.02",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:25.024728"
+    },
+    "MCO": {
+      "company_name": "Moody's Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.03M",
+        "Short Float": "1.14%",
+        "Short Ratio": "2.51",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:26.863314"
+    },
+    "TDG": {
+      "company_name": "Transdigm Group Incorporated",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.14M",
+        "Short Float": "2.06%",
+        "Short Ratio": "3.47",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:28.664749"
+    },
+    "HQI": {
+      "company_name": "HireQuest, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.23M",
+        "Short Float": "7.82%",
+        "Short Ratio": "22.78",
+        "Option/Short": "No / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:30.321379"
+    },
+    "LMT": {
+      "company_name": "Lockheed Martin Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.62M",
+        "Short Float": "1.13%",
+        "Short Ratio": "1.95",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:32.009274"
+    },
+    "ABBV": {
+      "company_name": "AbbVie Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "18.89M",
+        "Short Float": "1.07%",
+        "Short Ratio": "3.35",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:33.886333"
+    },
+    "SEE": {
+      "company_name": "Sealed Air Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.32M",
+        "Short Float": "6.43%",
+        "Short Ratio": "4.79",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:35.583771"
+    },
+    "PANW": {
+      "company_name": "Palo Alto Networks, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "44.63M",
+        "Short Float": "6.59%",
+        "Short Ratio": "7.48",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:37.433961"
+    },
+    "MANH": {
+      "company_name": "Manhattan Associates, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.93M",
+        "Short Float": "3.24%",
+        "Short Ratio": "3.47",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:39.150610"
+    },
+    "SBUX": {
+      "company_name": "Starbucks Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "38.16M",
+        "Short Float": "3.36%",
+        "Short Ratio": "3.93",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:40.832009"
+    },
+    "ETN": {
+      "company_name": "Eaton Corporation, PLC",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.73M",
+        "Short Float": "1.74%",
+        "Short Ratio": "2.98",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:42.596576"
+    },
+    "DDOG": {
+      "company_name": "Datadog, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "9.93M",
+        "Short Float": "3.14%",
+        "Short Ratio": "2.20",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:44.312463"
+    },
+    "T": {
+      "company_name": "AT&T Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "86.63M",
+        "Short Float": "1.22%",
+        "Short Ratio": "1.88",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:46.057576"
+    },
+    "KLAC": {
+      "company_name": "KLA Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.17M",
+        "Short Float": "2.42%",
+        "Short Ratio": "3.16",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:47.755893"
+    },
+    "UAA": {
+      "company_name": "Under Armour, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "51.71M",
+        "Short Float": "27.46%",
+        "Short Ratio": "4.60",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:49.444063"
+    },
+    "CRUS": {
+      "company_name": "Cirrus Logic, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.23M",
+        "Short Float": "2.42%",
+        "Short Ratio": "2.24",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:51.145061"
+    },
+    "UPS": {
+      "company_name": "United Parcel Service, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "19.07M",
+        "Short Float": "2.58%",
+        "Short Ratio": "2.38",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:52.987668"
+    },
+    "EXPE": {
+      "company_name": "Expedia Group, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.70M",
+        "Short Float": "5.80%",
+        "Short Ratio": "3.56",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:54.658057"
+    },
+    "WM": {
+      "company_name": "Waste Management, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.25M",
+        "Short Float": "1.06%",
+        "Short Ratio": "2.44",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:56.303591"
+    },
+    "SPOT": {
+      "company_name": "Spotify Technology S.A",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.14M",
+        "Short Float": "4.84%",
+        "Short Ratio": "4.63",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:57.983203"
+    },
+    "TM": {
+      "company_name": "Toyota Motor Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "0.71M",
+        "Short Float": "0.05%",
+        "Short Ratio": "2.45",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:32:59.630648"
+    },
+    "ALGN": {
+      "company_name": "Align Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.58M",
+        "Short Float": "3.85%",
+        "Short Ratio": "2.04",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:01.257341"
+    },
+    "SNOW": {
+      "company_name": "Snowflake Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "12.70M",
+        "Short Float": "3.89%",
+        "Short Ratio": "2.37",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:02.942118"
+    },
+    "G": {
+      "company_name": "Genpact Limited",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.50M",
+        "Short Float": "4.75%",
+        "Short Ratio": "3.82",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:04.579745"
+    },
+    "RELY": {
+      "company_name": "Remitly Global, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "12.65M",
+        "Short Float": "7.55%",
+        "Short Ratio": "3.31",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:06.247830"
+    },
+    "GAP": {
+      "company_name": "Gap, Inc. (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "22.00M",
+        "Short Float": "9.03%",
+        "Short Ratio": "2.26",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:07.914274"
+    },
+    "MTCH": {
+      "company_name": "Match Group, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "10.89M",
+        "Short Float": "4.65%",
+        "Short Ratio": "2.78",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:09.536378"
+    },
+    "UNP": {
+      "company_name": "Union Pacific Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "19.91M",
+        "Short Float": "3.36%",
+        "Short Ratio": "4.99",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:11.265378"
+    },
+    "PSTG": {
+      "company_name": "Pure Storage, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.65M",
+        "Short Float": "2.14%",
+        "Short Ratio": "2.03",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:13.298958"
+    },
+    "BABA": {
+      "company_name": "Alibaba Group Holding Limited",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "41.33M",
+        "Short Float": "1.84%",
+        "Short Ratio": "2.14",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:15.524893"
+    },
+    "GOOGL": {
+      "company_name": "Alphabet Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "67.26M",
+        "Short Float": "1.16%",
+        "Short Ratio": "1.99",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:17.243606"
+    },
+    "ORCL": {
+      "company_name": "Oracle Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "20.57M",
+        "Short Float": "1.22%",
+        "Short Ratio": "0.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:19.067222"
+    },
+    "NOW": {
+      "company_name": "ServiceNow, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.68M",
+        "Short Float": "1.30%",
+        "Short Ratio": "1.82",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:20.789678"
+    },
+    "AFRM": {
+      "company_name": "Affirm Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "12.88M",
+        "Short Float": "4.66%",
+        "Short Ratio": "1.70",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:22.504534"
+    },
+    "GFS": {
+      "company_name": "GlobalFoundries Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "14.29M",
+        "Short Float": "13.94%",
+        "Short Ratio": "4.52",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:24.297407"
+    },
+    "VEEV": {
+      "company_name": "Veeva Systems Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.39M",
+        "Short Float": "2.94%",
+        "Short Ratio": "3.55",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:25.964740"
+    },
+    "PWR": {
+      "company_name": "Quanta Services, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.20M",
+        "Short Float": "2.85%",
+        "Short Ratio": "4.28",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:27.614913"
+    },
+    "SMCI": {
+      "company_name": "Super Micro Computer, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "76.82M",
+        "Short Float": "14.97%",
+        "Short Ratio": "2.62",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:29.245958"
+    },
+    "SSNC": {
+      "company_name": "SS&C Technologies Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.25M",
+        "Short Float": "1.54%",
+        "Short Ratio": "2.53",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:30.870750"
+    },
+    "HPQ": {
+      "company_name": "HP Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "57.57M",
+        "Short Float": "6.18%",
+        "Short Ratio": "5.23",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:32.505577"
+    },
+    "COST": {
+      "company_name": "Costco Wholesale Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.93M",
+        "Short Float": "1.57%",
+        "Short Ratio": "2.91",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:34.104427"
+    },
+    "SHOP": {
+      "company_name": "Shopify Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "19.12M",
+        "Short Float": "1.57%",
+        "Short Ratio": "2.44",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:35.731927"
+    },
+    "WDC": {
+      "company_name": "Western Digital Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "31.96M",
+        "Short Float": "9.43%",
+        "Short Ratio": "3.38",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:37.369970"
+    },
+    "NEE": {
+      "company_name": "NextEra Energy, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "26.88M",
+        "Short Float": "1.29%",
+        "Short Ratio": "2.70",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:38.980366"
+    },
+    "TSM": {
+      "company_name": "Taiwan Semiconductor Manufacturing Company Ltd",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "33.57M",
+        "Short Float": "0.65%",
+        "Short Ratio": "2.63",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:40.576700"
+    },
+    "ZS": {
+      "company_name": "Zscaler, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "5.93M",
+        "Short Float": "5.86%",
+        "Short Ratio": "4.04",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:42.351722"
+    },
+    "JNJ": {
+      "company_name": "Johnson & Johnson",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "19.53M",
+        "Short Float": "0.81%",
+        "Short Ratio": "2.34",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:44.013765"
+    },
+    "ROP": {
+      "company_name": "Roper Technologies, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.38M",
+        "Short Float": "1.29%",
+        "Short Ratio": "1.42",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:45.677503"
+    },
+    "ASML": {
+      "company_name": "ASML Holding N.V. - New York Registry Shares",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.38M",
+        "Short Float": "0.35%",
+        "Short Ratio": "0.92",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:47.304204"
+    },
+    "MNDY": {
+      "company_name": "monday.com Ltd",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.04M",
+        "Short Float": "7.40%",
+        "Short Ratio": "2.32",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:48.911539"
+    },
+    "SONY": {
+      "company_name": "Sony Group Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.10M",
+        "Short Float": "0.10%",
+        "Short Ratio": "1.51",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:50.530880"
+    },
+    "ERIC": {
+      "company_name": "Ericsson",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "31.76M",
+        "Short Float": "1.04%",
+        "Short Ratio": "2.12",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:52.138898"
+    },
+    "NVDA": {
+      "company_name": "NVIDIA Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "238.60M",
+        "Short Float": "1.02%",
+        "Short Ratio": "1.29",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:53.803749"
+    },
+    "JD": {
+      "company_name": "JD.com, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "25.70M",
+        "Short Float": "1.90%",
+        "Short Ratio": "1.59",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:55.428745"
+    },
+    "DNP": {
+      "company_name": "DNP Select Income Fund, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "0.37M",
+        "Short Float": "0.10%",
+        "Short Ratio": "0.71",
+        "Option/Short": "No / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:57.020805"
+    },
+    "ADBE": {
+      "company_name": "Adobe Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "11.46M",
+        "Short Float": "2.75%",
+        "Short Ratio": "2.72",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:33:58.674457"
+    },
+    "FR": {
+      "company_name": "First Industrial Realty Trust, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "3.03M",
+        "Short Float": "2.31%",
+        "Short Ratio": "3.14",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:00.338159"
+    },
+    "CART": {
+      "company_name": "Maplebear Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "15.50M",
+        "Short Float": "7.44%",
+        "Short Ratio": "2.52",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:02.007349"
+    },
+    "GPN": {
+      "company_name": "Global Payments Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.99M",
+        "Short Float": "3.41%",
+        "Short Ratio": "3.57",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:03.608064"
+    },
+    "BIDU": {
+      "company_name": "Baidu, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.46M",
+        "Short Float": "2.32%",
+        "Short Ratio": "1.14",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:05.237358"
+    },
+    "AAPL": {
+      "company_name": "Apple Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "115.56M",
+        "Short Float": "0.78%",
+        "Short Ratio": "2.30",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:06.847936"
+    },
+    "DB": {
+      "company_name": "Deutsche Bank AG",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "8.89M",
+        "Short Float": "0.50%",
+        "Short Ratio": "3.74",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:08.452745"
+    },
+    "BRZE": {
+      "company_name": "Braze, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "5.93M",
+        "Short Float": "7.51%",
+        "Short Ratio": "3.06",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:10.070708"
+    },
+    "SM": {
+      "company_name": "SM Energy Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.90M",
+        "Short Float": "8.79%",
+        "Short Ratio": "3.91",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:11.778908"
+    },
+    "PFE": {
+      "company_name": "Pfizer, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "126.59M",
+        "Short Float": "2.23%",
+        "Short Ratio": "1.95",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:13.459946"
+    },
+    "MRVL": {
+      "company_name": "Marvell Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "36.83M",
+        "Short Float": "4.32%",
+        "Short Ratio": "1.77",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:15.105167"
+    },
+    "CIVI": {
+      "company_name": "Civitas Resources, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.53M",
+        "Short Float": "11.95%",
+        "Short Ratio": "3.67",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:16.771464"
+    },
+    "COLD": {
+      "company_name": "Americold Realty Trust, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "24.85M",
+        "Short Float": "8.73%",
+        "Short Ratio": "3.98",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:18.455680"
+    },
+    "AGCO": {
+      "company_name": "AGCO Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.78M",
+        "Short Float": "4.49%",
+        "Short Ratio": "3.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:20.084492"
+    },
+    "NVR": {
+      "company_name": "NVR, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "0.08M",
+        "Short Float": "3.08%",
+        "Short Ratio": "4.10",
+        "Option/Short": "No / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:21.725672"
+    },
+    "ATKR": {
+      "company_name": "Atkore Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.17M",
+        "Short Float": "6.56%",
+        "Short Ratio": "4.17",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:23.380309"
+    },
+    "MCHP": {
+      "company_name": "Microchip Technology Incorporated",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "23.62M",
+        "Short Float": "4.47%",
+        "Short Ratio": "3.08",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:24.999306"
+    },
+    "ZBRA": {
+      "company_name": "Zebra Technologies Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.08M",
+        "Short Float": "2.16%",
+        "Short Ratio": "1.79",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:26.598363"
+    },
+    "XOM": {
+      "company_name": "Exxon Mobil Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "41.66M",
+        "Short Float": "0.99%",
+        "Short Ratio": "2.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:28.246175"
+    },
+    "U": {
+      "company_name": "Unity Software Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "22.78M",
+        "Short Float": "6.65%",
+        "Short Ratio": "2.10",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:29.936027"
+    },
+    "CSCO": {
+      "company_name": "Cisco Systems, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "48.00M",
+        "Short Float": "1.22%",
+        "Short Ratio": "2.43",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:31.648589"
+    },
+    "AI": {
+      "company_name": "C3.ai, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "39.43M",
+        "Short Float": "31.43%",
+        "Short Ratio": "4.96",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:33.313125"
+    },
+    "PDD": {
+      "company_name": "PDD Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "20.75M",
+        "Short Float": "1.53%",
+        "Short Ratio": "2.37",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:35.032575"
+    },
+    "MPWR": {
+      "company_name": "Monolithic Power Systems, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "1.67M",
+        "Short Float": "3.66%",
+        "Short Ratio": "2.94",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:36.668195"
+    },
+    "PR": {
+      "company_name": "Permian Resources Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "34.02M",
+        "Short Float": "4.96%",
+        "Short Ratio": "2.80",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:38.301377"
+    },
+    "VRSN": {
+      "company_name": "VeriSign, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.28M",
+        "Short Float": "2.49%",
+        "Short Ratio": "2.75",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:40.056913"
+    },
+    "FOUR": {
+      "company_name": "Shift4 Payments, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "12.27M",
+        "Short Float": "18.71%",
+        "Short Ratio": "5.83",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:41.730232"
+    },
+    "DELL": {
+      "company_name": "Dell Technologies Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "14.16M",
+        "Short Float": "4.48%",
+        "Short Ratio": "1.98",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:43.439814"
+    },
+    "DE": {
+      "company_name": "Deere & Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.19M",
+        "Short Float": "1.67%",
+        "Short Ratio": "3.20",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:45.097835"
+    },
+    "CHKP": {
+      "company_name": "Check Point Software Technologies Ltd",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.66M",
+        "Short Float": "4.38%",
+        "Short Ratio": "4.61",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:46.806386"
+    },
+    "HIMS": {
+      "company_name": "Hims & Hers Health, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "70.16M",
+        "Short Float": "34.33%",
+        "Short Ratio": "2.45",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:48.619841"
+    },
+    "MNST": {
+      "company_name": "Monster Beverage Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "19.10M",
+        "Short Float": "2.75%",
+        "Short Ratio": "3.56",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:50.519713"
+    },
+    "BKNG": {
+      "company_name": "Booking Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.59M",
+        "Short Float": "1.84%",
+        "Short Ratio": "2.52",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:52.292297"
+    },
+    "CSGP": {
+      "company_name": "CoStar Group, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "16.73M",
+        "Short Float": "4.00%",
+        "Short Ratio": "5.09",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:53.939093"
+    },
+    "ZM": {
+      "company_name": "Zoom Communications, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.75M",
+        "Short Float": "2.54%",
+        "Short Ratio": "2.16",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:55.639970"
+    },
+    "BB": {
+      "company_name": "BlackBerry Limited",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "21.77M",
+        "Short Float": "3.70%",
+        "Short Ratio": "2.20",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:57.257444"
+    },
+    "FAB": {
+      "company_name": "First Trust Multi Cap Value AlphaDEX Fund",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:34:58.853913"
+    },
+    "SOFI": {
+      "company_name": "SoFi Technologies, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "110.28M",
+        "Short Float": "9.24%",
+        "Short Ratio": "1.49",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:00.588478"
+    },
+    "GEN": {
+      "company_name": "Gen Digital Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "14.93M",
+        "Short Float": "2.68%",
+        "Short Ratio": "3.82",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:02.209210"
+    },
+    "ENPH": {
+      "company_name": "Enphase Energy, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "28.21M",
+        "Short Float": "22.41%",
+        "Short Ratio": "3.47",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:03.828257"
+    },
+    "SWKS": {
+      "company_name": "Skyworks Solutions, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "12.74M",
+        "Short Float": "8.61%",
+        "Short Ratio": "4.50",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:05.433940"
+    },
+    "TSLA": {
+      "company_name": "Tesla, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "72.22M",
+        "Short Float": "3.02%",
+        "Short Ratio": "0.82",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:07.112666"
+    },
+    "AXP": {
+      "company_name": "American Express Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "10.15M",
+        "Short Float": "1.47%",
+        "Short Ratio": "3.96",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:08.975133"
+    },
+    "NTES": {
+      "company_name": "NetEase, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.11M",
+        "Short Float": "0.34%",
+        "Short Ratio": "3.17",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:10.644566"
+    },
+    "LOW": {
+      "company_name": "Lowe's Companies, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.85M",
+        "Short Float": "1.40%",
+        "Short Ratio": "2.89",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:12.266019"
+    },
+    "CVX": {
+      "company_name": "Chevron Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "14.02M",
+        "Short Float": "0.70%",
+        "Short Ratio": "1.88",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:13.935541"
+    },
+    "OPEN": {
+      "company_name": "Opendoor Technologies Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "163.08M",
+        "Short Float": "21.27%",
+        "Short Ratio": "0.63",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:15.555488"
+    },
+    "FICO": {
+      "company_name": "Fair Isaac Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.04M",
+        "Short Float": "4.51%",
+        "Short Ratio": "3.25",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:17.192681"
+    },
+    "DECK": {
+      "company_name": "Deckers Outdoor Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.77M",
+        "Short Float": "3.33%",
+        "Short Ratio": "1.30",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:18.898123"
+    },
+    "EA": {
+      "company_name": "Electronic Arts Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "4.08M",
+        "Short Float": "1.82%",
+        "Short Ratio": "1.22",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:20.556233"
+    },
+    "BULL": {
+      "company_name": "Webull Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "10.03M",
+        "Short Float": "5.61%",
+        "Short Ratio": "0.48",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:22.194891"
+    },
+    "MGY": {
+      "company_name": "Magnolia Oil & Gas Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "21.07M",
+        "Short Float": "11.80%",
+        "Short Ratio": "9.17",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:23.816803"
+    },
+    "NUE": {
+      "company_name": "Nucor Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.28M",
+        "Short Float": "1.88%",
+        "Short Ratio": "2.72",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:25.458802"
+    },
+    "WHR": {
+      "company_name": "Whirlpool Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.71M",
+        "Short Float": "17.96%",
+        "Short Ratio": "7.30",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:27.104615"
+    },
+    "UPST": {
+      "company_name": "Upstart Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "29.59M",
+        "Short Float": "34.96%",
+        "Short Ratio": "4.08",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:28.767846"
+    },
+    "HOOD": {
+      "company_name": "Robinhood Markets, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "46.41M",
+        "Short Float": "6.13%",
+        "Short Ratio": "1.28",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:30.466901"
+    },
+    "SIRI": {
+      "company_name": "SiriusXM Holdings Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "29.29M",
+        "Short Float": "8.88%",
+        "Short Ratio": "8.61",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:32.131605"
+    },
+    "LOGI": {
+      "company_name": "Logitech International S.A. - Registered Shares",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "5.16M",
+        "Short Float": "4.06%",
+        "Short Ratio": "10.16",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:33.798972"
+    },
+    "REXR": {
+      "company_name": "Rexford Industrial Realty, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "13.17M",
+        "Short Float": "5.67%",
+        "Short Ratio": "5.67",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:35.467755"
+    },
+    "CAN": {
+      "company_name": "Canaan Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "30.56M",
+        "Short Float": "11.42%",
+        "Short Ratio": "0.59",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:37.159216"
+    },
+    "ICE": {
+      "company_name": "Intercontinental Exchange Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.97M",
+        "Short Float": "1.06%",
+        "Short Ratio": "1.69",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:38.801883"
+    },
+    "GDDY": {
+      "company_name": "GoDaddy Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.99M",
+        "Short Float": "4.47%",
+        "Short Ratio": "3.99",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:40.451030"
+    },
+    "APPS": {
+      "company_name": "Digital Turbine, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "7.59M",
+        "Short Float": "7.77%",
+        "Short Ratio": "2.14",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:42.363936"
+    },
+    "CPRT": {
+      "company_name": "Copart, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "32.15M",
+        "Short Float": "3.64%",
+        "Short Ratio": "4.32",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:44.039160"
+    },
+    "SE": {
+      "company_name": "Sea Limited",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "20.12M",
+        "Short Float": "3.73%",
+        "Short Ratio": "4.73",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:45.746037"
+    },
+    "HAYW": {
+      "company_name": "Hayward Holdings, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.93M",
+        "Short Float": "4.79%",
+        "Short Ratio": "4.43",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:47.518335"
+    },
+    "GRMN": {
+      "company_name": "Garmin Ltd",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.61M",
+        "Short Float": "1.60%",
+        "Short Ratio": "2.91",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:49.171176"
+    },
+    "INTC": {
+      "company_name": "Intel Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "115.14M",
+        "Short Float": "2.67%",
+        "Short Ratio": "0.97",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:50.865630"
+    },
+    "MA": {
+      "company_name": "Mastercard Incorporated",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.23M",
+        "Short Float": "0.76%",
+        "Short Ratio": "2.38",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:52.507102"
+    },
+    "DUOL": {
+      "company_name": "Duolingo, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "4.59M",
+        "Short Float": "11.73%",
+        "Short Ratio": "2.38",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:54.197470"
+    },
+    "ROKU": {
+      "company_name": "Roku, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.58M",
+        "Short Float": "5.07%",
+        "Short Ratio": "2.01",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:55.888041"
+    },
+    "BOX": {
+      "company_name": "Box, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "15.62M",
+        "Short Float": "11.20%",
+        "Short Ratio": "8.29",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:57.536753"
+    },
+    "PM": {
+      "company_name": "Philip Morris International Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "16.19M",
+        "Short Float": "1.04%",
+        "Short Ratio": "2.54",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:35:59.187576"
+    },
+    "QLYS": {
+      "company_name": "Qualys, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "3.12M",
+        "Short Float": "8.81%",
+        "Short Ratio": "8.48",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:00.835826"
+    },
+    "PG": {
+      "company_name": "Procter & Gamble Company (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "18.66M",
+        "Short Float": "0.80%",
+        "Short Ratio": "2.49",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:02.486195"
+    },
+    "Z": {
+      "company_name": "Zillow Group, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "14.02M",
+        "Short Float": "8.39%",
+        "Short Ratio": "4.80",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:04.242860"
+    },
+    "AXON": {
+      "company_name": "Axon Enterprise, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.15M",
+        "Short Float": "2.87%",
+        "Short Ratio": "3.10",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:05.872764"
+    },
+    "FELE": {
+      "company_name": "Franklin Electric Co., Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.47M",
+        "Short Float": "1.23%",
+        "Short Ratio": "2.13",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:07.507941"
+    },
+    "EPAM": {
+      "company_name": "EPAM Systems, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.41M",
+        "Short Float": "4.53%",
+        "Short Ratio": "2.86",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:09.101232"
+    },
+    "HD": {
+      "company_name": "Home Depot, Inc. (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "10.37M",
+        "Short Float": "1.04%",
+        "Short Ratio": "2.99",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:10.737329"
+    },
+    "TDOC": {
+      "company_name": "Teladoc Health, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "23.66M",
+        "Short Float": "13.48%",
+        "Short Ratio": "3.25",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:12.358420"
+    },
+    "VALU": {
+      "company_name": "Value Line, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.01M",
+        "Short Float": "1.56%",
+        "Short Ratio": "2.30",
+        "Option/Short": "No / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:13.982202"
+    },
+    "RL": {
+      "company_name": "Ralph Lauren Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.53M",
+        "Short Float": "4.08%",
+        "Short Ratio": "2.59",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:15.619982"
+    },
+    "QCOM": {
+      "company_name": "QUALCOMM Incorporated",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "24.44M",
+        "Short Float": "2.28%",
+        "Short Ratio": "2.57",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:17.257143"
+    },
+    "MCD": {
+      "company_name": "McDonald's Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.26M",
+        "Short Float": "1.02%",
+        "Short Ratio": "2.41",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:18.908105"
+    },
+    "PUBM": {
+      "company_name": "PubMatic, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.42M",
+        "Short Float": "6.40%",
+        "Short Ratio": "3.14",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:20.731593"
+    },
+    "META": {
+      "company_name": "Meta Platforms, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "27.95M",
+        "Short Float": "1.29%",
+        "Short Ratio": "1.83",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:22.484433"
+    },
+    "IQV": {
+      "company_name": "IQVIA Holdings, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.53M",
+        "Short Float": "2.69%",
+        "Short Ratio": "3.09",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:24.114509"
+    },
+    "STAG": {
+      "company_name": "Stag Industrial, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "8.17M",
+        "Short Float": "4.40%",
+        "Short Ratio": "5.73",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:25.767419"
+    },
+    "SNAP": {
+      "company_name": "Snap Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "77.67M",
+        "Short Float": "6.99%",
+        "Short Ratio": "0.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:27.410989"
+    },
+    "DIS": {
+      "company_name": "Walt Disney Company (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "18.35M",
+        "Short Float": "1.03%",
+        "Short Ratio": "2.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:29.023936"
+    },
+    "CXM": {
+      "company_name": "Sprinklr, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "14.45M",
+        "Short Float": "13.20%",
+        "Short Ratio": "8.43",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:30.729852"
+    },
+    "MRK": {
+      "company_name": "Merck & Company, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "25.82M",
+        "Short Float": "1.04%",
+        "Short Ratio": "2.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:32.360277"
+    },
+    "TOST": {
+      "company_name": "Toast, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "25.63M",
+        "Short Float": "5.48%",
+        "Short Ratio": "3.06",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:33.999693"
+    },
+    "WDAY": {
+      "company_name": "Workday, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "11.29M",
+        "Short Float": "5.24%",
+        "Short Ratio": "3.74",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:35.633152"
+    },
+    "TMC": {
+      "company_name": "TMC the metals company Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "24.97M",
+        "Short Float": "13.39%",
+        "Short Ratio": "2.70",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:37.583765"
+    },
+    "MU": {
+      "company_name": "Micron Technology, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "26.53M",
+        "Short Float": "2.37%",
+        "Short Ratio": "1.09",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:39.312286"
+    },
+    "CNH": {
+      "company_name": "CNH Industrial N.V. Common Shares",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "52.15M",
+        "Short Float": "5.97%",
+        "Short Ratio": "4.26",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:41.132622"
+    },
+    "AVGO": {
+      "company_name": "Broadcom Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "54.66M",
+        "Short Float": "1.18%",
+        "Short Ratio": "2.36",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:42.887753"
+    },
+    "BA": {
+      "company_name": "Boeing Company (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "15.33M",
+        "Short Float": "2.02%",
+        "Short Ratio": "1.97",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:44.641355"
+    },
+    "TTD": {
+      "company_name": "The Trade Desk, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "44.82M",
+        "Short Float": "10.25%",
+        "Short Ratio": "3.16",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:46.355771"
+    },
+    "BAC": {
+      "company_name": "Bank of America Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "110.41M",
+        "Short Float": "1.51%",
+        "Short Ratio": "3.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:48.083181"
+    },
+    "NKE": {
+      "company_name": "Nike, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "36.77M",
+        "Short Float": "3.14%",
+        "Short Ratio": "2.54",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:50.202448"
+    },
+    "CAT": {
+      "company_name": "Caterpillar, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "6.77M",
+        "Short Float": "1.45%",
+        "Short Ratio": "2.35",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:52.167474"
+    },
+    "TRNO": {
+      "company_name": "Terreno Realty Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.46M",
+        "Short Float": "5.40%",
+        "Short Ratio": "7.89",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:53.893823"
+    },
+    "YELP": {
+      "company_name": "Yelp Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.17M",
+        "Short Float": "8.68%",
+        "Short Ratio": "6.06",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:55.612562"
+    },
+    "MORN": {
+      "company_name": "Morningstar, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.66M",
+        "Short Float": "2.84%",
+        "Short Ratio": "1.58",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:57.406175"
+    },
+    "SAM": {
+      "company_name": "Boston Beer Company, Inc. (The)",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "0.99M",
+        "Short Float": "12.79%",
+        "Short Ratio": "4.74",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:36:59.166505"
+    },
+    "ACN": {
+      "company_name": "Accenture plc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "13.93M",
+        "Short Float": "2.25%",
+        "Short Ratio": "3.04",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:00.876057"
+    },
+    "APH": {
+      "company_name": "Amphenol Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.43M",
+        "Short Float": "0.78%",
+        "Short Ratio": "1.12",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:02.609011"
+    },
+    "DBX": {
+      "company_name": "Dropbox, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "22.01M",
+        "Short Float": "13.54%",
+        "Short Ratio": "6.57",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:04.296859"
+    },
+    "WIX": {
+      "company_name": "Wix.com Ltd",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "4.41M",
+        "Short Float": "8.18%",
+        "Short Ratio": "2.64",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:06.011578"
+    },
+    "TMUS": {
+      "company_name": "T-Mobile US, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "12.70M",
+        "Short Float": "2.64%",
+        "Short Ratio": "2.76",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:07.732787"
+    },
+    "REAL": {
+      "company_name": "The RealReal, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "24.57M",
+        "Short Float": "25.97%",
+        "Short Ratio": "6.04",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:09.392789"
+    },
+    "PINS": {
+      "company_name": "Pinterest, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "21.43M",
+        "Short Float": "3.63%",
+        "Short Ratio": "1.78",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:11.246747"
+    },
+    "NET": {
+      "company_name": "Cloudflare, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "9.15M",
+        "Short Float": "2.93%",
+        "Short Ratio": "3.66",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:13.027397"
+    },
+    "DOCS": {
+      "company_name": "Doximity, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "4.20M",
+        "Short Float": "3.15%",
+        "Short Ratio": "2.80",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:14.720910"
+    },
+    "PTC": {
+      "company_name": "PTC Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "2.54M",
+        "Short Float": "2.12%",
+        "Short Ratio": "3.05",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:16.781779"
+    },
+    "IRM": {
+      "company_name": "Iron Mountain Incorporated (Delaware)Common Stock REIT",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "7.67M",
+        "Short Float": "2.62%",
+        "Short Ratio": "5.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:18.743542"
+    },
+    "HUBS": {
+      "company_name": "HubSpot, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "1.02M",
+        "Short Float": "2.03%",
+        "Short Ratio": "1.15",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:20.566046"
+    },
+    "PYPL": {
+      "company_name": "PayPal Holdings, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "44.39M",
+        "Short Float": "4.75%",
+        "Short Ratio": "3.02",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:22.361316"
+    },
+    "UNH": {
+      "company_name": "UnitedHealth Group Incorporated",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "12.60M",
+        "Short Float": "1.39%",
+        "Short Ratio": "1.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:24.140496"
+    },
+    "PAYC": {
+      "company_name": "Paycom Software, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "2.82M",
+        "Short Float": "5.66%",
+        "Short Ratio": "3.95",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:26.105782"
+    },
+    "GM": {
+      "company_name": "General Motors Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "20.66M",
+        "Short Float": "2.22%",
+        "Short Ratio": "2.40",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:27.873496"
+    },
+    "MELI": {
+      "company_name": "MercadoLibre, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "0.58M",
+        "Short Float": "1.24%",
+        "Short Ratio": "1.23",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:29.791315"
+    },
+    "MSFT": {
+      "company_name": "Microsoft Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "52.55M",
+        "Short Float": "0.72%",
+        "Short Ratio": "2.48",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:31.552015"
+    },
+    "PAYO": {
+      "company_name": "Payoneer Global Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "9.36M",
+        "Short Float": "3.29%",
+        "Short Ratio": "3.25",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:33.315639"
+    },
+    "CVS": {
+      "company_name": "CVS Health Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "18.90M",
+        "Short Float": "1.49%",
+        "Short Ratio": "2.57",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:35.125171"
+    },
+    "BMY": {
+      "company_name": "Bristol-Myers Squibb Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "32.07M",
+        "Short Float": "1.58%",
+        "Short Ratio": "2.16",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:36.873190"
+    },
+    "HPE": {
+      "company_name": "Hewlett Packard Enterprise Company",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "46.73M",
+        "Short Float": "3.55%",
+        "Short Ratio": "1.55",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:38.654825"
+    },
+    "ARM": {
+      "company_name": "Arm Holdings plc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "13.38M",
+        "Short Float": "1.27%",
+        "Short Ratio": "2.79",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:40.392114"
+    },
+    "BYD": {
+      "company_name": "Boyd Gaming Corporation",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "3.32M",
+        "Short Float": "6.04%",
+        "Short Ratio": "3.72",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:42.306803"
+    },
+    "NVS": {
+      "company_name": "Novartis AG",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "5.75M",
+        "Short Float": "0.30%",
+        "Short Ratio": "3.96",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:44.050198"
+    },
+    "CMCSA": {
+      "company_name": "Comcast Corporation",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "49.37M",
+        "Short Float": "1.37%",
+        "Short Ratio": "1.79",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:45.780743"
+    },
+    "MSTR": {
+      "company_name": "Strategy Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "25.28M",
+        "Short Float": "9.46%",
+        "Short Ratio": "2.11",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:47.538702"
+    },
+    "IBKR": {
+      "company_name": "Interactive Brokers Group, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "9.87M",
+        "Short Float": "2.29%",
+        "Short Ratio": "1.52",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:49.490206"
+    },
+    "FANG": {
+      "company_name": "Diamondback Energy, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "8.97M",
+        "Short Float": "4.99%",
+        "Short Ratio": "4.89",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:51.278881"
+    },
+    "CPNG": {
+      "company_name": "Coupang, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "20.83M",
+        "Short Float": "1.56%",
+        "Short Ratio": "1.85",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:53.140784"
+    },
+    "ISRG": {
+      "company_name": "Intuitive Surgical, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "6.85M",
+        "Short Float": "1.95%",
+        "Short Ratio": "2.84",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:54.879982"
+    },
+    "TXN": {
+      "company_name": "Texas Instruments Incorporated",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "17.62M",
+        "Short Float": "1.94%",
+        "Short Ratio": "2.33",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:56.773264"
+    },
+    "SNDR": {
+      "company_name": "Schneider National, Inc",
+      "exchange": "NYSE",
+      "short_interest": {
+        "Short Interest": "3.67M",
+        "Short Float": "7.12%",
+        "Short Ratio": "3.49",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:37:58.521965"
+    },
+    "ADI": {
+      "company_name": "Analog Devices, Inc",
+      "exchange": "NASDAQ",
+      "short_interest": {
+        "Short Interest": "9.36M",
+        "Short Float": "1.91%",
+        "Short Ratio": "2.76",
+        "Option/Short": "Yes / Yes"
+      },
+      "scraped_at": "2025-11-18T21:38:00.228144"
     }
   },
-  "last_updated": "2025-11-18T21:31:42.044793",
-  "total_scraped": 10
+  "last_updated": "2025-11-18T21:38:00.229398",
+  "total_scraped": 230
 }
