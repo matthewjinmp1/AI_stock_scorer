@@ -67,12 +67,12 @@ TICKER_FILE = "stock_tickers_clean.json"
 # Model pricing per 1M tokens (update these based on current Grok API pricing)
 # Format: (input_cost_per_1M_tokens, output_cost_per_1M_tokens, cached_input_cost_per_1M_tokens) in USD
 MODEL_PRICING = {
-    "grok-4-fast": (0.20, 0.50, 0.05),  # $0.20 per 1M input tokens, $0.50 per 1M output tokens, $0.05 per 1M cached input tokens
+    "grok-4-1-fast-reasoning": (0.20, 0.50, 0.05),  # $0.20 per 1M input tokens, $0.50 per 1M output tokens, $0.05 per 1M cached input tokens
     "grok-4-latest": (3.00, 15.00, 0.75),  # $3.00 per 1M input tokens, $15.00 per 1M output tokens, $0.75 per 1M cached input tokens
 }
 
 
-def calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=None):
+def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=None):
     """Calculate the cost of tokens used.
     
     Args:
@@ -1092,7 +1092,7 @@ def query_score(grok, company_name, score_key, show_timing=True):
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
     start_time = time.time()
-    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-fast")
+    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-1-fast-reasoning")
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
     if show_timing:
@@ -1112,7 +1112,7 @@ def query_score_heavy(grok, company_name, score_key):
     return response.strip()
 
 
-def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, silent=False, model="grok-4-fast"):
+def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, silent=False, model="grok-4-1-fast-reasoning"):
     """Query all scores in parallel using ThreadPoolExecutor.
     
     Args:
@@ -1265,12 +1265,12 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             if missing_keys:
                 # Query missing scores in parallel
                 missing_scores, tokens_used, token_usage = query_all_scores_async(grok, company_name, missing_keys,
-                                                        batch_mode=batch_mode, silent=silent, model="grok-4-fast")
+                                                        batch_mode=batch_mode, silent=silent, model="grok-4-1-fast-reasoning")
                 # Update current_scores with the new scores
                 current_scores.update(missing_scores)
                 if not silent and not batch_mode:
                     print(f"Total tokens used: {tokens_used}")
-                    cost = calculate_token_cost(tokens_used, model="grok-4-fast", token_usage=token_usage)
+                    cost = calculate_token_cost(tokens_used, model="grok-4-1-fast-reasoning", token_usage=token_usage)
                     cost_cents = cost * 100
                     print(f"Total cost: {cost_cents:.4f} cents")
             
@@ -1306,7 +1306,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
-                                            batch_mode=batch_mode, silent=silent, model="grok-4-fast")
+                                            batch_mode=batch_mode, silent=silent, model="grok-4-1-fast-reasoning")
         
         # Always store tickers in uppercase
         storage_key = ticker if ticker else company_name.lower()
@@ -1318,7 +1318,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         if not silent:
             if not batch_mode:
                 print(f"Total tokens used: {total_tokens}")
-                cost = calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=token_usage)
+                cost = calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=token_usage)
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
             print(f"\nScores saved to {SCORES_FILE}")
@@ -1591,11 +1591,11 @@ def get_company_moat_score(input_str):
                 print("Querying missing metrics in parallel...")
                 # Query missing scores in parallel
                 missing_scores, tokens_used, token_usage = query_all_scores_async(grok, company_name, missing_keys,
-                                                        batch_mode=False, silent=False, model="grok-4-fast")
+                                                        batch_mode=False, silent=False, model="grok-4-1-fast-reasoning")
                 # Update current_scores with the new scores
                 current_scores.update(missing_scores)
                 print(f"Total tokens used: {tokens_used}")
-                cost = calculate_token_cost(tokens_used, model="grok-4-fast", token_usage=token_usage)
+                cost = calculate_token_cost(tokens_used, model="grok-4-1-fast-reasoning", token_usage=token_usage)
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
             
@@ -1623,10 +1623,10 @@ def get_company_moat_score(input_str):
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
-                                            batch_mode=False, silent=False, model="grok-4-fast")
+                                            batch_mode=False, silent=False, model="grok-4-1-fast-reasoning")
         
         print(f"Total tokens used: {total_tokens}")
-        cost = calculate_token_cost(total_tokens, model="grok-4-fast", token_usage=token_usage)
+        cost = calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=token_usage)
         cost_cents = cost * 100
         print(f"Total cost: {cost_cents:.4f} cents")
         
@@ -1804,7 +1804,7 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
             missing_scores, _, _ = await loop.run_in_executor(
                 None,
                 lambda: query_all_scores_async(grok, actual_company_name, missing_keys,
-                                              batch_mode=True, silent=True, model="grok-4-fast")
+                                              batch_mode=True, silent=True, model="grok-4-1-fast-reasoning")
             )
             # Update company_scores with the new scores
             company_scores.update(missing_scores)
