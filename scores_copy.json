@@ -1,31 +1,6 @@
 {
   "companies": {
-    "tsla": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "6",
-      "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "8",
-      "pricing_power": "7",
-      "ambition_score": "10",
-      "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "3",
-      "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "4",
-      "trailblazer_score": "9",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "9"
-    },
-    "msft": {
+    "MSFT": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -50,107 +25,107 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "googl": {
+    "GOOGL": {
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10",
       "moat_score": "9",
       "barriers_score": "10",
-      "disruption_risk": "7",
+      "management_quality_score": "9",
+      "disruption_risk": "6",
+      "long_term_orientation_score": "9",
+      "trailblazer_score": "9",
+      "pricing_power": "9",
+      "product_quality_score": "9",
+      "product_differentiation": "9",
+      "brand_strength": "10",
+      "culture_employee_satisfaction_score": "8",
+      "bargaining_power_of_suppliers": "2",
+      "network_effect": "9",
+      "growth_opportunity": "9",
+      "ethical_healthy_environmental_score": "7",
+      "innovativeness_score": "10",
+      "ambition_score": "10",
+      "riskiness_score": "3",
+      "competition_intensity": "8",
       "switching_cost": "7",
+      "bargaining_power_of_customers": "3"
+    },
+    "NVDA": {
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10",
+      "innovativeness_score": "10",
+      "culture_employee_satisfaction_score": "9",
+      "ambition_score": "10",
+      "product_quality_score": "9",
+      "trailblazer_score": "10",
+      "switching_cost": "9",
       "brand_strength": "10",
       "competition_intensity": "7",
-      "network_effect": "9",
       "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "9",
-      "riskiness_score": "4",
       "pricing_power": "9",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "9",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "9",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "6",
-      "long_term_orientation_score": "9"
-    },
-    "nvda": {
+      "long_term_orientation_score": "9",
       "moat_score": "9",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "8",
-      "brand_strength": "10",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "9",
-      "riskiness_score": "8",
-      "pricing_power": "9",
-      "ambition_score": "10",
-      "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "9",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "9",
       "management_quality_score": "10",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "9"
+      "bargaining_power_of_suppliers": "8",
+      "network_effect": "8",
+      "growth_opportunity": "9",
+      "disruption_risk": "5",
+      "riskiness_score": "7",
+      "barriers_score": "9",
+      "bargaining_power_of_customers": "2",
+      "ethical_healthy_environmental_score": "7"
     },
-    "asml": {
+    "ASML": {
+      "innovativeness_score": "10",
+      "ai_knowledge_score": "10",
+      "pricing_power": "9",
+      "growth_opportunity": "9",
       "moat_score": "10",
       "barriers_score": "10",
-      "disruption_risk": "4",
+      "size_well_known_score": "9",
       "switching_cost": "9",
+      "product_quality_score": "10",
       "brand_strength": "9",
-      "competition_intensity": "2",
-      "network_effect": "4",
-      "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "9",
-      "riskiness_score": "7",
-      "pricing_power": "9",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "9",
+      "product_differentiation": "10",
+      "ambition_score": "10",
+      "long_term_orientation_score": "10",
       "culture_employee_satisfaction_score": "8",
+      "disruption_risk": "2",
+      "competition_intensity": "2",
+      "bargaining_power_of_customers": "2",
       "trailblazer_score": "9",
+      "bargaining_power_of_suppliers": "7",
+      "network_effect": "0",
       "management_quality_score": "9",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "9"
-    },
-    "meta": {
-      "moat_score": "9",
-      "barriers_score": "9",
-      "disruption_risk": "8",
-      "switching_cost": "8",
-      "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "10",
-      "product_differentiation": "8",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
       "riskiness_score": "6",
-      "pricing_power": "8",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "9",
-      "management_quality_score": "8",
+      "ethical_healthy_environmental_score": "8"
+    },
+    "META": {
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
+      "network_effect": "10",
+      "brand_strength": "9",
+      "moat_score": "9",
+      "competition_intensity": "8",
+      "product_differentiation": "9",
+      "culture_employee_satisfaction_score": "7",
+      "barriers_score": "10",
+      "innovativeness_score": "9",
+      "management_quality_score": "9",
+      "pricing_power": "9",
+      "disruption_risk": "7",
+      "ambition_score": "10",
       "ethical_healthy_environmental_score": "4",
-      "long_term_orientation_score": "8"
+      "growth_opportunity": "8",
+      "long_term_orientation_score": "9",
+      "product_quality_score": "8",
+      "riskiness_score": "6",
+      "trailblazer_score": "9",
+      "switching_cost": "9",
+      "bargaining_power_of_suppliers": "3",
+      "bargaining_power_of_customers": "6"
     },
-    "aapl": {
+    "AAPL": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -175,32 +150,32 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "adbe": {
-      "moat_score": "9",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "8",
-      "brand_strength": "10",
-      "competition_intensity": "7",
-      "network_effect": "8",
-      "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "4",
-      "pricing_power": "9",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "1",
-      "product_quality_score": "9",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "8",
-      "management_quality_score": "9",
+    "ADBE": {
       "ai_knowledge_score": "10",
       "size_well_known_score": "10",
+      "moat_score": "9",
+      "long_term_orientation_score": "9",
+      "product_differentiation": "9",
+      "ambition_score": "9",
+      "pricing_power": "9",
+      "culture_employee_satisfaction_score": "8",
+      "switching_cost": "9",
+      "innovativeness_score": "8",
+      "management_quality_score": "9",
+      "barriers_score": "9",
+      "brand_strength": "9",
+      "riskiness_score": "3",
+      "trailblazer_score": "8",
+      "disruption_risk": "6",
+      "bargaining_power_of_customers": "3",
       "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "9"
+      "growth_opportunity": "8",
+      "product_quality_score": "9",
+      "competition_intensity": "8",
+      "bargaining_power_of_suppliers": "2",
+      "network_effect": "6"
     },
-    "amzn": {
+    "AMZN": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -225,7 +200,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "9"
     },
-    "crm": {
+    "CRM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -250,7 +225,7 @@
       "ethical_healthy_environmental_score": "9",
       "long_term_orientation_score": "8"
     },
-    "avgo": {
+    "AVGO": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -275,7 +250,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "tsm": {
+    "TSM": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "4",
@@ -300,7 +275,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "orcl": {
+    "ORCL": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -325,57 +300,57 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "lulu": {
-      "moat_score": "7",
-      "barriers_score": "8",
-      "disruption_risk": "5",
-      "switching_cost": "0",
+    "LULU": {
       "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "1",
-      "product_differentiation": "9",
-      "innovativeness_score": "8",
-      "growth_opportunity": "8",
-      "riskiness_score": "6",
-      "pricing_power": "8",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "8",
-      "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "7",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "8"
-    },
-    "pypl": {
-      "moat_score": "8",
       "barriers_score": "8",
-      "disruption_risk": "7",
-      "switching_cost": "6",
-      "brand_strength": "8",
-      "competition_intensity": "9",
-      "network_effect": "8",
-      "product_differentiation": "7",
-      "innovativeness_score": "8",
-      "growth_opportunity": "7",
-      "riskiness_score": "6",
-      "pricing_power": "7",
-      "ambition_score": "6",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "6",
-      "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "8",
-      "management_quality_score": "7",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "9",
       "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "8"
+      "competition_intensity": "9",
+      "product_differentiation": "9",
+      "ai_knowledge_score": "9",
+      "size_well_known_score": "9",
+      "switching_cost": "1",
+      "management_quality_score": "8",
+      "disruption_risk": "4",
+      "product_quality_score": "9",
+      "long_term_orientation_score": "9",
+      "moat_score": "8",
+      "pricing_power": "9",
+      "growth_opportunity": "8",
+      "ambition_score": "9",
+      "trailblazer_score": "8",
+      "culture_employee_satisfaction_score": "7",
+      "riskiness_score": "6",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "3",
+      "network_effect": "0",
+      "innovativeness_score": "6"
     },
-    "ntes": {
+    "PYPL": {
+      "ai_knowledge_score": "10",
+      "brand_strength": "9",
+      "network_effect": "9",
+      "disruption_risk": "8",
+      "moat_score": "8",
+      "size_well_known_score": "10",
+      "culture_employee_satisfaction_score": "6",
+      "product_differentiation": "6",
+      "ethical_healthy_environmental_score": "7",
+      "management_quality_score": "5",
+      "long_term_orientation_score": "7",
+      "ambition_score": "8",
+      "pricing_power": "7",
+      "barriers_score": "9",
+      "competition_intensity": "8",
+      "innovativeness_score": "7",
+      "trailblazer_score": "8",
+      "riskiness_score": "6",
+      "growth_opportunity": "7",
+      "product_quality_score": "6",
+      "switching_cost": "6",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "2"
+    },
+    "NTES": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "7",
@@ -400,7 +375,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "ko": {
+    "KO": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -425,57 +400,57 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "9"
     },
-    "dell": {
-      "moat_score": "6",
-      "barriers_score": "8",
-      "disruption_risk": "6",
-      "switching_cost": "5",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "1",
-      "product_differentiation": "5",
-      "innovativeness_score": "6",
-      "growth_opportunity": "7",
-      "riskiness_score": "6",
-      "pricing_power": "5",
-      "ambition_score": "8",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "6",
-      "product_quality_score": "8",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "7",
-      "management_quality_score": "8",
+    "DELL": {
       "ai_knowledge_score": "10",
-      "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "8"
-    },
-    "mu": {
       "moat_score": "7",
-      "barriers_score": "9",
-      "disruption_risk": "8",
-      "switching_cost": "6",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "0",
-      "product_differentiation": "4",
-      "innovativeness_score": "8",
-      "growth_opportunity": "8",
-      "riskiness_score": "7",
-      "pricing_power": "6",
       "ambition_score": "8",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "5",
-      "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "10",
+      "brand_strength": "8",
+      "competition_intensity": "9",
       "management_quality_score": "8",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "6",
-      "long_term_orientation_score": "8"
+      "product_differentiation": "7",
+      "switching_cost": "8",
+      "riskiness_score": "7",
+      "culture_employee_satisfaction_score": "7",
+      "growth_opportunity": "8",
+      "barriers_score": "9",
+      "ethical_healthy_environmental_score": "8",
+      "disruption_risk": "6",
+      "pricing_power": "7",
+      "network_effect": "1",
+      "innovativeness_score": "7",
+      "bargaining_power_of_customers": "8",
+      "product_quality_score": "8",
+      "size_well_known_score": "10",
+      "trailblazer_score": "6",
+      "long_term_orientation_score": "8",
+      "bargaining_power_of_suppliers": "3"
     },
-    "amat": {
+    "MU": {
+      "ai_knowledge_score": "10",
+      "growth_opportunity": "8",
+      "network_effect": "0",
+      "barriers_score": "9",
+      "innovativeness_score": "8",
+      "product_quality_score": "8",
+      "riskiness_score": "8",
+      "bargaining_power_of_customers": "8",
+      "culture_employee_satisfaction_score": "7",
+      "long_term_orientation_score": "8",
+      "product_differentiation": "4",
+      "moat_score": "7",
+      "size_well_known_score": "8",
+      "competition_intensity": "9",
+      "disruption_risk": "7",
+      "management_quality_score": "8",
+      "brand_strength": "6",
+      "ambition_score": "8",
+      "switching_cost": "4",
+      "ethical_healthy_environmental_score": "7",
+      "pricing_power": "5",
+      "bargaining_power_of_suppliers": "7",
+      "trailblazer_score": "7"
+    },
+    "AMAT": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -500,32 +475,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "amd": {
-      "moat_score": "7",
-      "barriers_score": "9",
-      "disruption_risk": "8",
-      "switching_cost": "6",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "3",
-      "product_differentiation": "7",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "7",
-      "pricing_power": "6",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "8",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "8",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "9"
-    },
-    "pld": {
+    "PLD": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "3",
@@ -550,7 +500,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "lrcx": {
+    "LRCX": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -575,7 +525,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "klac": {
+    "KLAC": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -600,7 +550,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "snps": {
+    "SNPS": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "3",
@@ -625,32 +575,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "cdns": {
-      "moat_score": "9",
-      "barriers_score": "9",
-      "disruption_risk": "4",
-      "switching_cost": "9",
-      "brand_strength": "8",
-      "competition_intensity": "7",
-      "network_effect": "5",
-      "product_differentiation": "9",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "5",
-      "pricing_power": "9",
-      "ambition_score": "8",
-      "bargaining_power_of_customers": "3",
-      "bargaining_power_of_suppliers": "4",
-      "product_quality_score": "8",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "7",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "7",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "8"
-    },
-    "wday": {
+    "WDAY": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -675,32 +600,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "qcom": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "8",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "8",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "6",
-      "pricing_power": "8",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "8",
-      "culture_employee_satisfaction_score": "6",
-      "trailblazer_score": "8",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "9"
-    },
-    "mpwr": {
+    "MPWR": {
       "moat_score": "7",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -725,7 +625,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "jpm": {
+    "JPM": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "7",
@@ -750,7 +650,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "lly": {
+    "LLY": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -775,7 +675,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "v": {
+    "V": {
       "moat_score": "10",
       "barriers_score": "10",
       "disruption_risk": "6",
@@ -800,7 +700,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "ma": {
+    "MA": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "6",
@@ -825,7 +725,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "xom": {
+    "XOM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -850,7 +750,7 @@
       "ethical_healthy_environmental_score": "2",
       "long_term_orientation_score": "8"
     },
-    "jnj": {
+    "JNJ": {
       "moat_score": "8",
       "barriers_score": "10",
       "disruption_risk": "6",
@@ -875,7 +775,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "pltr": {
+    "PLTR": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -900,7 +800,7 @@
       "ethical_healthy_environmental_score": "3",
       "long_term_orientation_score": "8"
     },
-    "baba": {
+    "BABA": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -925,7 +825,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "9"
     },
-    "cost": {
+    "COST": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -950,7 +850,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "hd": {
+    "HD": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "4",
@@ -975,7 +875,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "unh": {
+    "UNH": {
       "moat_score": "8",
       "barriers_score": "10",
       "disruption_risk": "6",
@@ -1000,7 +900,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "sap": {
+    "SAP": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -1025,7 +925,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "ibm": {
+    "IBM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -1050,7 +950,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "csco": {
+    "CSCO": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -1075,7 +975,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "tm": {
+    "TM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1100,7 +1000,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "tmus": {
+    "TMUS": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -1125,7 +1025,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "cat": {
+    "CAT": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -1150,7 +1050,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "pm": {
+    "PM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -1175,7 +1075,7 @@
       "ethical_healthy_environmental_score": "2",
       "long_term_orientation_score": "8"
     },
-    "shop": {
+    "SHOP": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -1200,32 +1100,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "xyz": {
-      "moat_score": "7",
-      "barriers_score": "8",
-      "disruption_risk": "8",
-      "switching_cost": "5",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "7",
-      "innovativeness_score": "5",
-      "growth_opportunity": "5",
-      "riskiness_score": "5",
-      "pricing_power": "5",
-      "ambition_score": "7",
-      "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "5",
-      "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "5",
-      "trailblazer_score": "8",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "0",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "8"
-    },
-    "mcd": {
+    "MCD": {
       "moat_score": "9",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -1250,7 +1125,7 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "8"
     },
-    "tmo": {
+    "TMO": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -1275,7 +1150,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "dis": {
+    "DIS": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "8",
@@ -1300,7 +1175,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "intc": {
+    "INTC": {
       "moat_score": "7",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1325,7 +1200,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "anet": {
+    "ANET": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -1350,32 +1225,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "now": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "4",
-      "switching_cost": "9",
-      "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "9",
-      "innovativeness_score": "8",
-      "growth_opportunity": "8",
-      "riskiness_score": "5",
-      "pricing_power": "9",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "5",
-      "product_quality_score": "5",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "9",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "0",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "8"
-    },
-    "intu": {
+    "INTU": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "7",
@@ -1400,7 +1250,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "arm": {
+    "ARM": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1425,57 +1275,57 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "t": {
+    "T": {
       "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "7",
+      "size_well_known_score": "10",
+      "ai_knowledge_score": "10",
+      "barriers_score": "10",
       "brand_strength": "8",
       "competition_intensity": "9",
-      "network_effect": "5",
-      "product_differentiation": "4",
-      "innovativeness_score": "9",
-      "growth_opportunity": "9",
+      "product_differentiation": "5",
+      "bargaining_power_of_suppliers": "4",
       "riskiness_score": "5",
-      "pricing_power": "8",
-      "ambition_score": "10",
-      "bargaining_power_of_customers": "5",
-      "bargaining_power_of_suppliers": "8",
-      "product_quality_score": "5",
-      "culture_employee_satisfaction_score": "6",
-      "trailblazer_score": "9",
-      "management_quality_score": "6",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "0",
+      "trailblazer_score": "5",
+      "network_effect": "7",
       "ethical_healthy_environmental_score": "6",
-      "long_term_orientation_score": "8"
-    },
-    "blk": {
-      "moat_score": "9",
-      "barriers_score": "9",
+      "culture_employee_satisfaction_score": "6",
+      "innovativeness_score": "6",
+      "ambition_score": "7",
+      "switching_cost": "7",
+      "bargaining_power_of_customers": "7",
       "disruption_risk": "6",
-      "switching_cost": "9",
+      "pricing_power": "7",
+      "growth_opportunity": "4",
+      "product_quality_score": "4",
+      "management_quality_score": "6",
+      "long_term_orientation_score": "7"
+    },
+    "BLK": {
+      "ai_knowledge_score": "10",
+      "management_quality_score": "9",
+      "moat_score": "9",
+      "product_differentiation": "8",
+      "culture_employee_satisfaction_score": "8",
       "brand_strength": "9",
       "competition_intensity": "7",
-      "network_effect": "5",
-      "product_differentiation": "8",
-      "innovativeness_score": "8",
-      "growth_opportunity": "7",
-      "riskiness_score": "3",
-      "pricing_power": "8",
+      "growth_opportunity": "9",
       "ambition_score": "9",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3",
-      "product_quality_score": "6",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "8",
-      "management_quality_score": "9",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "6",
-      "long_term_orientation_score": "9"
+      "barriers_score": "9",
+      "product_quality_score": "9",
+      "pricing_power": "9",
+      "size_well_known_score": "10",
+      "innovativeness_score": "8",
+      "riskiness_score": "3",
+      "long_term_orientation_score": "9",
+      "switching_cost": "9",
+      "disruption_risk": "4",
+      "bargaining_power_of_customers": "7",
+      "bargaining_power_of_suppliers": "1",
+      "trailblazer_score": "7",
+      "network_effect": "4",
+      "ethical_healthy_environmental_score": "6"
     },
-    "sony": {
+    "SONY": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1500,7 +1350,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "nee": {
+    "NEE": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -1525,7 +1375,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "ba": {
+    "BA": {
       "moat_score": "8",
       "barriers_score": "10",
       "disruption_risk": "7",
@@ -1550,7 +1400,7 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "7"
     },
-    "aph": {
+    "APH": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "5",
@@ -1575,32 +1425,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "bkng": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "7",
-      "switching_cost": "2",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "8",
-      "product_differentiation": "7",
-      "innovativeness_score": "7",
-      "growth_opportunity": "8",
-      "riskiness_score": "7",
-      "pricing_power": "8",
-      "ambition_score": "8",
-      "bargaining_power_of_customers": "9",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "7",
-      "trailblazer_score": "8",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "9",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "8"
-    },
-    "acn": {
+    "ACN": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -1625,7 +1450,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "txn": {
+    "TXN": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -1650,7 +1475,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "spgi": {
+    "SPGI": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -1675,7 +1500,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "cof": {
+    "COF": {
       "moat_score": "7",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1700,7 +1525,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "spot": {
+    "SPOT": {
       "moat_score": "7",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1725,32 +1550,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "hood": {
-      "moat_score": "6",
-      "barriers_score": "8",
-      "disruption_risk": "7",
-      "switching_cost": "2",
-      "brand_strength": "7",
-      "competition_intensity": "8",
-      "network_effect": "5",
-      "product_differentiation": "6",
-      "innovativeness_score": "8",
-      "growth_opportunity": "8",
-      "riskiness_score": "8",
-      "pricing_power": "3",
-      "ambition_score": "8",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "5",
-      "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "5",
-      "trailblazer_score": "8",
-      "management_quality_score": "5",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4",
-      "long_term_orientation_score": "5"
-    },
-    "unp": {
+    "UNP": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "3",
@@ -1775,7 +1575,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "9"
     },
-    "de": {
+    "DE": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -1800,32 +1600,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "9"
     },
-    "low": {
-      "moat_score": "7",
-      "barriers_score": "9",
-      "disruption_risk": "4",
-      "switching_cost": "0",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "1",
-      "product_differentiation": "4",
-      "innovativeness_score": "5",
-      "growth_opportunity": "6",
-      "riskiness_score": "4",
-      "pricing_power": "5",
-      "ambition_score": "7",
-      "bargaining_power_of_customers": "2",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "0",
-      "culture_employee_satisfaction_score": "0",
-      "trailblazer_score": "0",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "9",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "7",
-      "long_term_orientation_score": "8"
-    },
-    "pgr": {
+    "PGR": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -1850,7 +1625,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "ibkr": {
+    "IBKR": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -1875,7 +1650,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "meli": {
+    "MELI": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -1900,7 +1675,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "adp": {
+    "ADP": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -1925,7 +1700,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "dash": {
+    "DASH": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "8",
@@ -1950,7 +1725,7 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "8"
     },
-    "lmt": {
+    "LMT": {
       "moat_score": "9",
       "barriers_score": "10",
       "disruption_risk": "3",
@@ -1975,7 +1750,7 @@
       "ethical_healthy_environmental_score": "3",
       "long_term_orientation_score": "9"
     },
-    "rok": {
+    "ROK": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -2000,7 +1775,7 @@
       "ethical_healthy_environmental_score": "8",
       "long_term_orientation_score": "8"
     },
-    "cmcsa": {
+    "CMCSA": {
       "moat_score": "8",
       "barriers_score": "10",
       "disruption_risk": "7",
@@ -2025,7 +1800,7 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "7"
     },
-    "mo": {
+    "MO": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -2050,7 +1825,7 @@
       "ethical_healthy_environmental_score": "2",
       "long_term_orientation_score": "8"
     },
-    "cvs": {
+    "CVS": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -2075,7 +1850,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "nke": {
+    "NKE": {
       "moat_score": "9",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -2100,7 +1875,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "sbux": {
+    "SBUX": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -2125,7 +1900,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "se": {
+    "SE": {
       "moat_score": "7",
       "barriers_score": "8",
       "disruption_risk": "8",
@@ -2150,7 +1925,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "snow": {
+    "SNOW": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "6",
@@ -2175,7 +1950,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "8"
     },
-    "nem": {
+    "NEM": {
       "moat_score": "7",
       "barriers_score": "9",
       "disruption_risk": "3",
@@ -2200,7 +1975,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "ice": {
+    "ICE": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -2225,7 +2000,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "shw": {
+    "SHW": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "4",
@@ -2250,7 +2025,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "mco": {
+    "MCO": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "6",
@@ -2275,7 +2050,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "ups": {
+    "UPS": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -2300,7 +2075,7 @@
       "ethical_healthy_environmental_score": "7",
       "long_term_orientation_score": "9"
     },
-    "wm": {
+    "WM": {
       "moat_score": "8",
       "barriers_score": "9",
       "disruption_risk": "5",
@@ -2325,7 +2100,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "orly": {
+    "ORLY": {
       "moat_score": "7",
       "barriers_score": "8",
       "disruption_risk": "5",
@@ -2350,7 +2125,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "8"
     },
-    "abnb": {
+    "ABNB": {
       "moat_score": "8",
       "barriers_score": "8",
       "disruption_risk": "7",
@@ -2375,7 +2150,7 @@
       "ethical_healthy_environmental_score": "5",
       "long_term_orientation_score": "8"
     },
-    "tdg": {
+    "TDG": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -2400,7 +2175,7 @@
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "8"
     },
-    "race": {
+    "RACE": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "4",
@@ -2424,31 +2199,6 @@
       "size_well_known_score": "0",
       "ethical_healthy_environmental_score": "4",
       "long_term_orientation_score": "9"
-    },
-    "adsk": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "5",
-      "switching_cost": "8",
-      "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "4",
-      "product_differentiation": "8",
-      "innovativeness_score": "9",
-      "growth_opportunity": "8",
-      "riskiness_score": "4",
-      "pricing_power": "8",
-      "ambition_score": "8",
-      "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "9",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "8",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "8"
     },
     "EQIX": {
       "moat_score": "9",
@@ -3200,7 +2950,7 @@
       "ethical_healthy_environmental_score": "6",
       "long_term_orientation_score": "10"
     },
-    "byte": {
+    "BYTE": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "8",
@@ -3526,29 +3276,29 @@
       "long_term_orientation_score": "9"
     },
     "DNP": {
-      "moat_score": "6",
-      "barriers_score": "7",
-      "disruption_risk": "6",
-      "switching_cost": "0",
-      "brand_strength": "6",
       "competition_intensity": "8",
       "network_effect": "0",
-      "product_differentiation": "2",
-      "innovativeness_score": "4",
-      "growth_opportunity": "8",
-      "riskiness_score": "4",
-      "pricing_power": "5",
+      "innovativeness_score": "5",
+      "riskiness_score": "3",
+      "moat_score": "7",
       "ambition_score": "8",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "3",
+      "product_differentiation": "3",
+      "switching_cost": "1",
+      "disruption_risk": "5",
+      "culture_employee_satisfaction_score": "4",
+      "barriers_score": "8",
       "product_quality_score": "6",
-      "culture_employee_satisfaction_score": "6",
-      "trailblazer_score": "3",
-      "management_quality_score": "8",
       "ai_knowledge_score": "7",
+      "trailblazer_score": "4",
+      "bargaining_power_of_suppliers": "2",
+      "long_term_orientation_score": "8",
+      "brand_strength": "7",
       "size_well_known_score": "5",
+      "management_quality_score": "9",
+      "growth_opportunity": "8",
       "ethical_healthy_environmental_score": "5",
-      "long_term_orientation_score": "8"
+      "pricing_power": "6",
+      "bargaining_power_of_customers": "7"
     },
     "JOES": {
       "moat_score": "8",
@@ -3801,29 +3551,29 @@
       "long_term_orientation_score": "8"
     },
     "TSLA": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "8",
-      "switching_cost": "5",
-      "brand_strength": "9",
-      "competition_intensity": "8",
-      "network_effect": "8",
+      "ai_knowledge_score": "10",
+      "size_well_known_score": "10",
+      "trailblazer_score": "10",
+      "moat_score": "9",
+      "long_term_orientation_score": "10",
       "product_differentiation": "9",
+      "brand_strength": "10",
+      "bargaining_power_of_suppliers": "3",
+      "competition_intensity": "9",
+      "barriers_score": "9",
+      "management_quality_score": "9",
+      "ambition_score": "10",
       "innovativeness_score": "9",
       "growth_opportunity": "9",
       "riskiness_score": "8",
+      "network_effect": "8",
       "pricing_power": "8",
-      "ambition_score": "10",
-      "bargaining_power_of_customers": "6",
-      "bargaining_power_of_suppliers": "4",
       "product_quality_score": "7",
-      "culture_employee_satisfaction_score": "5",
-      "trailblazer_score": "9",
-      "management_quality_score": "8",
-      "ai_knowledge_score": "10",
-      "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "9"
+      "culture_employee_satisfaction_score": "4",
+      "bargaining_power_of_customers": "5",
+      "switching_cost": "4",
+      "ethical_healthy_environmental_score": "7",
+      "disruption_risk": "7"
     },
     "QCOM": {
       "moat_score": "8",
@@ -3976,29 +3726,29 @@
       "long_term_orientation_score": "8"
     },
     "X": {
-      "moat_score": "7",
-      "barriers_score": "9",
-      "disruption_risk": "8",
-      "switching_cost": "8",
-      "brand_strength": "8",
-      "competition_intensity": "9",
-      "network_effect": "9",
-      "product_differentiation": "7",
-      "innovativeness_score": "7",
-      "growth_opportunity": "5",
-      "riskiness_score": "9",
-      "pricing_power": "4",
       "ambition_score": "9",
-      "bargaining_power_of_customers": "8",
-      "bargaining_power_of_suppliers": "6",
-      "product_quality_score": "3",
+      "network_effect": "9",
       "culture_employee_satisfaction_score": "2",
-      "trailblazer_score": "8",
+      "moat_score": "7",
+      "disruption_risk": "9",
+      "barriers_score": "9",
+      "product_quality_score": "4",
+      "competition_intensity": "8",
+      "brand_strength": "8",
+      "long_term_orientation_score": "7",
+      "ai_knowledge_score": "10",
+      "switching_cost": "8",
+      "innovativeness_score": "7",
+      "ethical_healthy_environmental_score": "2",
       "management_quality_score": "2",
-      "ai_knowledge_score": "9",
+      "bargaining_power_of_customers": "9",
+      "pricing_power": "4",
       "size_well_known_score": "10",
-      "ethical_healthy_environmental_score": "3",
-      "long_term_orientation_score": "6"
+      "growth_opportunity": "7",
+      "riskiness_score": "9",
+      "product_differentiation": "7",
+      "trailblazer_score": "9",
+      "bargaining_power_of_suppliers": "8"
     },
     "TEN": {
       "moat_score": "9",
@@ -4151,29 +3901,29 @@
       "long_term_orientation_score": "8"
     },
     "GME": {
-      "moat_score": "3",
-      "barriers_score": "7",
-      "disruption_risk": "8",
-      "switching_cost": "1",
-      "brand_strength": "6",
-      "competition_intensity": "9",
-      "network_effect": "3",
-      "product_differentiation": "3",
-      "innovativeness_score": "2",
-      "growth_opportunity": "3",
-      "riskiness_score": "9",
-      "pricing_power": "2",
-      "ambition_score": "5",
-      "bargaining_power_of_customers": "9",
-      "bargaining_power_of_suppliers": "7",
-      "product_quality_score": "5",
-      "culture_employee_satisfaction_score": "3",
-      "trailblazer_score": "5",
-      "management_quality_score": "4",
+      "moat_score": "1",
       "ai_knowledge_score": "10",
+      "switching_cost": "0",
+      "pricing_power": "2",
+      "ambition_score": "4",
+      "bargaining_power_of_customers": "9",
       "size_well_known_score": "8",
-      "ethical_healthy_environmental_score": "4",
-      "long_term_orientation_score": "3"
+      "innovativeness_score": "2",
+      "competition_intensity": "9",
+      "disruption_risk": "9",
+      "riskiness_score": "9",
+      "brand_strength": "7",
+      "long_term_orientation_score": "3",
+      "product_quality_score": "5",
+      "management_quality_score": "4",
+      "culture_employee_satisfaction_score": "3",
+      "growth_opportunity": "2",
+      "product_differentiation": "4",
+      "bargaining_power_of_suppliers": "8",
+      "barriers_score": "7",
+      "trailblazer_score": "4",
+      "network_effect": "1",
+      "ethical_healthy_environmental_score": "3"
     },
     "NFLX": {
       "moat_score": "8",
@@ -5200,7 +4950,7 @@
       "ethical_healthy_environmental_score": "9",
       "long_term_orientation_score": "8"
     },
-    "strp": {
+    "STRP": {
       "moat_score": "9",
       "barriers_score": "9",
       "disruption_risk": "7",
@@ -7951,29 +7701,29 @@
       "long_term_orientation_score": "8"
     },
     "NOW": {
-      "moat_score": "8",
-      "barriers_score": "9",
-      "disruption_risk": "4",
       "switching_cost": "9",
-      "brand_strength": "8",
-      "competition_intensity": "8",
-      "network_effect": "7",
-      "product_differentiation": "9",
-      "innovativeness_score": "8",
-      "growth_opportunity": "9",
-      "riskiness_score": "4",
-      "pricing_power": "9",
-      "ambition_score": "9",
-      "bargaining_power_of_customers": "4",
-      "bargaining_power_of_suppliers": "2",
-      "product_quality_score": "9",
-      "culture_employee_satisfaction_score": "8",
-      "trailblazer_score": "8",
-      "management_quality_score": "9",
       "ai_knowledge_score": "9",
       "size_well_known_score": "8",
+      "moat_score": "8",
+      "barriers_score": "9",
+      "pricing_power": "9",
+      "growth_opportunity": "9",
+      "riskiness_score": "5",
+      "culture_employee_satisfaction_score": "8",
+      "competition_intensity": "8",
+      "brand_strength": "8",
+      "management_quality_score": "9",
+      "product_quality_score": "9",
       "ethical_healthy_environmental_score": "8",
-      "long_term_orientation_score": "9"
+      "network_effect": "6",
+      "disruption_risk": "4",
+      "innovativeness_score": "9",
+      "product_differentiation": "9",
+      "ambition_score": "9",
+      "long_term_orientation_score": "9",
+      "trailblazer_score": "8",
+      "bargaining_power_of_customers": "4",
+      "bargaining_power_of_suppliers": "5"
     },
     "DAVA": {
       "moat_score": "6",
@@ -8624,6 +8374,106 @@
       "trailblazer_score": "7",
       "long_term_orientation_score": "8",
       "product_quality_score": "6"
+    },
+    "TMC": {
+      "switching_cost": "2",
+      "product_differentiation": "7",
+      "network_effect": "0",
+      "growth_opportunity": "8",
+      "riskiness_score": "9",
+      "ai_knowledge_score": "8",
+      "long_term_orientation_score": "9",
+      "size_well_known_score": "4",
+      "brand_strength": "2",
+      "pricing_power": "0",
+      "moat_score": "8",
+      "ambition_score": "9",
+      "competition_intensity": "3",
+      "barriers_score": "9",
+      "disruption_risk": "8",
+      "innovativeness_score": "8",
+      "bargaining_power_of_customers": "8",
+      "bargaining_power_of_suppliers": "8",
+      "product_quality_score": "0",
+      "culture_employee_satisfaction_score": "6",
+      "ethical_healthy_environmental_score": "4",
+      "management_quality_score": "4",
+      "trailblazer_score": "9"
+    },
+    "MP": {
+      "network_effect": "0",
+      "disruption_risk": "5",
+      "ai_knowledge_score": "8",
+      "barriers_score": "9",
+      "innovativeness_score": "7",
+      "growth_opportunity": "8",
+      "switching_cost": "4",
+      "competition_intensity": "5",
+      "product_differentiation": "8",
+      "size_well_known_score": "5",
+      "ambition_score": "9",
+      "ethical_healthy_environmental_score": "6",
+      "pricing_power": "7",
+      "riskiness_score": "8",
+      "culture_employee_satisfaction_score": "5",
+      "product_quality_score": "8",
+      "long_term_orientation_score": "8",
+      "trailblazer_score": "8",
+      "moat_score": "8",
+      "management_quality_score": "7",
+      "bargaining_power_of_customers": "2",
+      "brand_strength": "4",
+      "bargaining_power_of_suppliers": "2"
+    },
+    "FUN": {
+      "brand_strength": "8",
+      "culture_employee_satisfaction_score": "4",
+      "ai_knowledge_score": "9",
+      "bargaining_power_of_customers": "8",
+      "product_differentiation": "7",
+      "switching_cost": "1",
+      "disruption_risk": "5",
+      "barriers_score": "9",
+      "network_effect": "0",
+      "management_quality_score": "4",
+      "product_quality_score": "6",
+      "bargaining_power_of_suppliers": "5",
+      "ethical_healthy_environmental_score": "5",
+      "innovativeness_score": "4",
+      "competition_intensity": "8",
+      "size_well_known_score": "8",
+      "moat_score": "5",
+      "trailblazer_score": "4",
+      "riskiness_score": "8",
+      "pricing_power": "6",
+      "long_term_orientation_score": "7",
+      "ambition_score": "7",
+      "growth_opportunity": "6"
+    },
+    "VALU": {
+      "network_effect": "0",
+      "ai_knowledge_score": "8",
+      "size_well_known_score": "4",
+      "culture_employee_satisfaction_score": "6",
+      "ethical_healthy_environmental_score": "6",
+      "riskiness_score": "2",
+      "product_differentiation": "8",
+      "pricing_power": "8",
+      "product_quality_score": "8",
+      "bargaining_power_of_suppliers": "2",
+      "switching_cost": "4",
+      "bargaining_power_of_customers": "8",
+      "disruption_risk": "7",
+      "ambition_score": "3",
+      "long_term_orientation_score": "8",
+      "innovativeness_score": "2",
+      "moat_score": "7",
+      "growth_opportunity": "4",
+      "management_quality_score": "8",
+      "barriers_score": "7",
+      "brand_strength": "7",
+      "trailblazer_score": "2",
+      "competition_intensity": "7"
     }
   }
 }

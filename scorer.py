@@ -64,11 +64,22 @@ HEAVY_SCORES_FILE = "scores_heavy.json"
 # Stock ticker lookup file
 TICKER_FILE = "stock_tickers_clean.json"
 
+def get_model_for_ticker(ticker):
+    """Get the model name to use for a given ticker.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        
+    Returns:
+        str: Model name to use (always grok-4-1-fast-reasoning)
+    """
+    # All tickers now use grok-4-1-fast-reasoning
+    return "grok-4-1-fast-reasoning"
+
 # Model pricing per 1M tokens (update these based on current Grok API pricing)
 # Format: (input_cost_per_1M_tokens, output_cost_per_1M_tokens, cached_input_cost_per_1M_tokens) in USD
 MODEL_PRICING = {
     "grok-4-1-fast-reasoning": (0.20, 0.50, 0.05),  # $0.20 per 1M input tokens, $0.50 per 1M output tokens, $0.05 per 1M cached input tokens
-    "grok-4-latest": (3.00, 15.00, 0.75),  # $3.00 per 1M input tokens, $15.00 per 1M output tokens, $0.75 per 1M cached input tokens
 }
 
 
@@ -1080,7 +1091,7 @@ def format_total_score(total, percentile=None):
         return f"{int(percentage)}"
 
 
-def query_score(grok, company_name, score_key, show_timing=True):
+def query_score(grok, company_name, score_key, show_timing=True, ticker=None):
     """Query a single score from Grok.
     
     Args:
@@ -1088,11 +1099,13 @@ def query_score(grok, company_name, score_key, show_timing=True):
         company_name: Company name to score
         score_key: Score metric key
         show_timing: If True, print timing and token information
+        ticker: Optional ticker symbol to determine model
     """
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
+    model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
     start_time = time.time()
-    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-1-fast-reasoning")
+    response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
     if show_timing:
@@ -1101,18 +1114,18 @@ def query_score(grok, company_name, score_key, show_timing=True):
 
 
 def query_score_heavy(grok, company_name, score_key):
-    """Query a single score from Grok using the main Grok 4 model."""
+    """Query a single score from Grok using grok-4-1-fast-reasoning model."""
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
     start_time = time.time()
-    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-latest")
+    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-1-fast-reasoning")
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
     print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
     return response.strip()
 
 
-def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, silent=False, model="grok-4-1-fast-reasoning"):
+def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, silent=False, model=None, ticker=None):
     """Query all scores in parallel using ThreadPoolExecutor.
     
     Args:
@@ -1121,11 +1134,16 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
         score_keys: List of score metric keys to query
         batch_mode: If True, show compact metric names during scoring
         silent: If True, don't print progress messages
-        model: Model to use for queries
+        model: Model to use for queries (if None, will be determined from ticker)
+        ticker: Optional ticker symbol to determine model
         
     Returns:
-        tuple: (dict mapping score_key to score value, total_tokens, combined_token_usage)
+        tuple: (dict mapping score_key to score value, total_tokens, combined_token_usage, model_name)
     """
+    # Determine model if not provided
+    if model is None:
+        model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+    
     def query_single_score(score_key):
         """Helper function to query a single score."""
         score_def = SCORE_DEFINITIONS[score_key]
@@ -1180,7 +1198,7 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
             'cached_tokens': sum(usage.get('cached_tokens', 0) or usage.get('cached_input_tokens', 0) for usage in all_token_usages),
         }
     
-    return all_scores, total_tokens, combined_token_usage
+    return all_scores, total_tokens, combined_token_usage, model
 
 
 def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore=False):
@@ -1239,6 +1257,9 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                     current_scores[score_key] = existing_data.get(score_key, existing_data.get('score'))
                 else:
                     current_scores[score_key] = existing_data.get(score_key)
+            # Preserve existing model if present
+            if 'model' in existing_data:
+                current_scores['model'] = existing_data['model']
             
             if all(current_scores.values()):
                 # All scores exist
@@ -1262,15 +1283,22 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             # Get list of missing score keys
             missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
             
+            # Preserve existing model or determine from ticker
+            existing_model = current_scores.get('model')
+            if not existing_model:
+                existing_model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+            
             if missing_keys:
                 # Query missing scores in parallel
-                missing_scores, tokens_used, token_usage = query_all_scores_async(grok, company_name, missing_keys,
-                                                        batch_mode=batch_mode, silent=silent, model="grok-4-1-fast-reasoning")
+                missing_scores, tokens_used, token_usage, model_used = query_all_scores_async(grok, company_name, missing_keys,
+                                                        batch_mode=batch_mode, silent=silent, ticker=ticker)
                 # Update current_scores with the new scores
                 current_scores.update(missing_scores)
+                # Use the model from the query (should match existing_model, but use query result)
+                current_scores['model'] = model_used
                 if not silent and not batch_mode:
                     print(f"Total tokens used: {tokens_used}")
-                    cost = calculate_token_cost(tokens_used, model="grok-4-1-fast-reasoning", token_usage=token_usage)
+                    cost = calculate_token_cost(tokens_used, model=model_used, token_usage=token_usage)
                     cost_cents = cost * 100
                     print(f"Total cost: {cost_cents:.4f} cents")
             
@@ -1282,7 +1310,8 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
             if not silent:
-                print(f"\nScores updated in {SCORES_FILE}")
+                model_name = current_scores.get('model', 'Unknown')
+                print(f"\nScores updated in {SCORES_FILE} (Model: {model_name})")
             
             total = calculate_total_score(current_scores)
             if not silent:
@@ -1305,8 +1334,12 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         grok = GrokClient(api_key=XAI_API_KEY)
         
         # Query all scores in parallel
-        all_scores, total_tokens, token_usage = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
-                                            batch_mode=batch_mode, silent=silent, model="grok-4-1-fast-reasoning")
+        all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
+                                            batch_mode=batch_mode, silent=silent, ticker=ticker)
+        
+        # Explicitly set model name based on ticker (ensures correct model is saved when rescoring)
+        model_to_save = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+        all_scores['model'] = model_to_save
         
         # Always store tickers in uppercase
         storage_key = ticker if ticker else company_name.lower()
@@ -1318,10 +1351,10 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         if not silent:
             if not batch_mode:
                 print(f"Total tokens used: {total_tokens}")
-                cost = calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=token_usage)
+                cost = calculate_token_cost(total_tokens, model=model_to_save, token_usage=token_usage)
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
-            print(f"\nScores saved to {SCORES_FILE}")
+            print(f"\nScores saved to {SCORES_FILE} (Model: {model_to_save})")
         
         total = calculate_total_score(all_scores)
         if not silent:
@@ -1413,15 +1446,17 @@ def score_multiple_tickers(input_str):
                     percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
                     total_str = format_total_score(total, percentile)
                     
+                    model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
                     if result.get('already_scored'):
-                        print(f"  ✓ {ticker.upper()} already scored - {total_str}")
+                        print(f"  ✓ {ticker.upper()} already scored - {total_str} (Model: {model_name})")
                     else:
-                        print(f"  ✓ {ticker.upper()} scored successfully - {total_str}")
+                        print(f"  ✓ {ticker.upper()} scored successfully - {total_str} (Model: {model_name})")
                 else:
+                    model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
                     if result.get('already_scored'):
-                        print(f"  ✓ {ticker.upper()} already scored")
+                        print(f"  ✓ {ticker.upper()} already scored (Model: {model_name})")
                     else:
-                        print(f"  ✓ {ticker.upper()} scored successfully")
+                        print(f"  ✓ {ticker.upper()} scored successfully (Model: {model_name})")
             else:
                 print(f"  ✗ Error scoring {ticker.upper()}: {result.get('error', 'Unknown error')}")
             results.append(result)
@@ -1542,12 +1577,17 @@ def get_company_moat_score(input_str):
                     current_scores[score_key] = existing_data.get(score_key, existing_data.get('score'))
                 else:
                     current_scores[score_key] = existing_data.get(score_key)
+            # Preserve existing model if present
+            if 'model' in existing_data:
+                current_scores['model'] = existing_data['model']
             
             if all(current_scores.values()):
                 if ticker:
-                    print(f"\n{ticker.upper()} ({company_name}) already scored:")
+                    model_name = current_scores.get('model', 'Unknown')
+                    print(f"\n{ticker.upper()} ({company_name}) already scored (Model: {model_name}):")
                 else:
-                    print(f"\n{company_name} already scored:")
+                    model_name = current_scores.get('model', 'Unknown')
+                    print(f"\n{company_name} already scored (Model: {model_name}):")
                 
                 # Create list of scores with their values for sorting
                 scores_list = []
@@ -1590,12 +1630,13 @@ def get_company_moat_score(input_str):
             if missing_keys:
                 print("Querying missing metrics in parallel...")
                 # Query missing scores in parallel
-                missing_scores, tokens_used, token_usage = query_all_scores_async(grok, company_name, missing_keys,
-                                                        batch_mode=False, silent=False, model="grok-4-1-fast-reasoning")
+                missing_scores, tokens_used, token_usage, model_used = query_all_scores_async(grok, company_name, missing_keys,
+                                                        batch_mode=False, silent=False, ticker=ticker)
                 # Update current_scores with the new scores
                 current_scores.update(missing_scores)
+                current_scores['model'] = model_used
                 print(f"Total tokens used: {tokens_used}")
-                cost = calculate_token_cost(tokens_used, model="grok-4-1-fast-reasoning", token_usage=token_usage)
+                cost = calculate_token_cost(tokens_used, model=model_used, token_usage=token_usage)
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")
             
@@ -1606,7 +1647,8 @@ def get_company_moat_score(input_str):
                 del scores_data["companies"][ticker.lower()]
             scores_data["companies"][storage_key] = current_scores
             save_scores(scores_data)
-            print(f"\nScores updated in {SCORES_FILE}")
+            model_name = current_scores.get('model', 'Unknown')
+            print(f"\nScores updated in {SCORES_FILE} (Model: {model_name})")
             
             # Calculate and display total
             total = calculate_total_score(current_scores)
@@ -1622,11 +1664,14 @@ def get_company_moat_score(input_str):
         grok = GrokClient(api_key=XAI_API_KEY)
         
         # Query all scores in parallel
-        all_scores, total_tokens, token_usage = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
-                                            batch_mode=False, silent=False, model="grok-4-1-fast-reasoning")
+        all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
+                                            batch_mode=False, silent=False, ticker=ticker)
+        
+        # Add model name to scores
+        all_scores['model'] = model_used
         
         print(f"Total tokens used: {total_tokens}")
-        cost = calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=token_usage)
+        cost = calculate_token_cost(total_tokens, model=model_used, token_usage=token_usage)
         cost_cents = cost * 100
         print(f"Total cost: {cost_cents:.4f} cents")
         
@@ -1637,7 +1682,8 @@ def get_company_moat_score(input_str):
             del scores_data["companies"][ticker.lower()]
         scores_data["companies"][storage_key] = all_scores
         save_scores(scores_data)
-        print(f"\nScores saved to {SCORES_FILE}")
+        model_name = all_scores.get('model', 'Unknown')
+        print(f"\nScores saved to {SCORES_FILE} (Model: {model_name})")
         
         # Calculate and display total
         total = calculate_total_score(all_scores)
@@ -1697,13 +1743,14 @@ def handle_redo_command(tickers_input):
             if result:
                 if result['success']:
                     total = result.get('total')
+                    model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
                     if total is not None:
                         all_totals = get_all_total_scores()
                         percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
                         total_str = format_total_score(total, percentile)
-                        print(f"  ✓ {ticker_upper} rescored successfully - {total_str}")
+                        print(f"  ✓ {ticker_upper} rescored successfully - {total_str} (Model: {model_name})")
                     else:
-                        print(f"  ✓ {ticker_upper} rescored successfully")
+                        print(f"  ✓ {ticker_upper} rescored successfully (Model: {model_name})")
                 else:
                     print(f"  ✗ Error rescoring {ticker_upper}: {result.get('error', 'Unknown error')}")
             else:
@@ -1793,6 +1840,11 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
         # Get list of missing score keys
         missing_keys = [key for key in SCORE_DEFINITIONS if not company_scores[key]]
         
+        # Preserve existing model or determine from ticker
+        existing_model = company_scores.get('model')
+        if not existing_model:
+            existing_model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+        
         if missing_keys:
             # Query missing scores in parallel (this uses ThreadPoolExecutor internally)
             # Run in executor to make it async-compatible
@@ -1801,13 +1853,15 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
             except RuntimeError:
                 loop = asyncio.get_event_loop()
             
-            missing_scores, _, _ = await loop.run_in_executor(
+            missing_scores, _, _, model_used = await loop.run_in_executor(
                 None,
                 lambda: query_all_scores_async(grok, actual_company_name, missing_keys,
-                                              batch_mode=True, silent=True, model="grok-4-1-fast-reasoning")
+                                              batch_mode=True, silent=True, ticker=ticker)
             )
             # Update company_scores with the new scores
             company_scores.update(missing_scores)
+            # Use the model from the query (should match existing_model, but use query result)
+            company_scores['model'] = model_used
             print(f"  ✓ {display_name} - filled {len(missing_keys)} missing score(s)")
         
         return company_name, company_scores
@@ -1959,7 +2013,8 @@ def view_scores(score_type=None):
             display_name = score_type.upper()
         else:
             display_name = score_type
-        print(f"\n{display_name} Scores:")
+        model_name = data.get('model', 'Unknown')
+        print(f"\n{display_name} Scores (Model: {model_name}):")
         print("=" * 80)
         
         total = 0
