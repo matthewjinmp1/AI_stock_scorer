@@ -86,10 +86,18 @@ MODEL_PRICING = {
 def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_usage=None):
     """Calculate the cost of tokens used.
     
+    This function calculates costs using separate rates for:
+    - Regular input tokens (non-cached)
+    - Cached input tokens (typically cheaper)
+    - Output tokens
+    
     Args:
-        total_tokens: Total number of tokens used
+        total_tokens: Total number of tokens used (fallback if token_usage not provided)
         model: Model name to get pricing for
-        token_usage: Optional token_usage dict with input_tokens, output_tokens, and cached_tokens if available
+        token_usage: Optional token_usage dict with token breakdown. Expected fields:
+            - input_tokens or prompt_tokens: total input tokens
+            - output_tokens or completion_tokens: output tokens
+            - cached_tokens, cached_input_tokens, or prompt_cache_hit_tokens: cached input tokens
         
     Returns:
         float: Total cost in USD
@@ -104,13 +112,22 @@ def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_us
     
     # If we have breakdown of input/output/cached tokens, use that for more accurate pricing
     if token_usage:
-        input_tokens = token_usage.get('input_tokens', 0) or token_usage.get('prompt_tokens', 0)
+        # Get total input/prompt tokens (may be called input_tokens or prompt_tokens)
+        # Standard OpenAI format: prompt_tokens includes all prompt tokens (cached + non-cached)
+        total_input_tokens = token_usage.get('input_tokens', 0) or token_usage.get('prompt_tokens', 0)
+        # Get output tokens (may be called output_tokens or completion_tokens)
         output_tokens = token_usage.get('output_tokens', 0) or token_usage.get('completion_tokens', 0)
-        cached_tokens = token_usage.get('cached_tokens', 0) or token_usage.get('cached_input_tokens', 0)
+        # Get cached tokens (may be called cached_tokens, cached_input_tokens, or prompt_cache_hit_tokens)
+        cached_tokens = (token_usage.get('cached_tokens', 0) or 
+                        token_usage.get('cached_input_tokens', 0) or
+                        token_usage.get('prompt_cache_hit_tokens', 0))
         
-        if input_tokens > 0 or output_tokens > 0 or cached_tokens > 0:
-            # Regular input tokens (non-cached)
-            regular_input_tokens = max(0, input_tokens - cached_tokens)
+        if total_input_tokens > 0 or output_tokens > 0 or cached_tokens > 0:
+            # Calculate regular (non-cached) input tokens
+            # Standard API format: prompt_tokens = regular_input + cached_input
+            # So regular_input = prompt_tokens - cached_tokens
+            regular_input_tokens = max(0, total_input_tokens - cached_tokens)
+            
             regular_input_cost = (regular_input_tokens / 1_000_000) * input_cost_per_1M
             cached_input_cost = (cached_tokens / 1_000_000) * cached_input_cost_per_1M
             output_cost = (output_tokens / 1_000_000) * output_cost_per_1M
@@ -1195,7 +1212,15 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
         combined_token_usage = {
             'input_tokens': sum(usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0) for usage in all_token_usages),
             'output_tokens': sum(usage.get('output_tokens', 0) or usage.get('completion_tokens', 0) for usage in all_token_usages),
-            'cached_tokens': sum(usage.get('cached_tokens', 0) or usage.get('cached_input_tokens', 0) for usage in all_token_usages),
+            'cached_tokens': sum(
+                usage.get('cached_tokens', 0) or 
+                usage.get('cached_input_tokens', 0) or 
+                usage.get('prompt_cache_hit_tokens', 0) 
+                for usage in all_token_usages
+            ),
+            # Also preserve prompt_tokens and completion_tokens for compatibility
+            'prompt_tokens': sum(usage.get('prompt_tokens', 0) or usage.get('input_tokens', 0) for usage in all_token_usages),
+            'completion_tokens': sum(usage.get('completion_tokens', 0) or usage.get('output_tokens', 0) for usage in all_token_usages),
         }
     
     return all_scores, total_tokens, combined_token_usage, model

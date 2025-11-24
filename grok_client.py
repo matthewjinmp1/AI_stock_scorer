@@ -116,11 +116,43 @@ class GrokClient:
             )
             
             response_text = response.choices[0].message.content
+            
+            # Extract all available token usage information from the API response
+            # The Grok API uses OpenAI-compatible format, which provides:
+            # - prompt_tokens: total input tokens (includes cached + non-cached)
+            # - completion_tokens: output tokens generated
+            # - total_tokens: sum of prompt_tokens + completion_tokens
+            # - prompt_cache_hit_tokens: cached input tokens (if available, typically cheaper)
+            usage = response.usage
             token_usage = {
-                'prompt_tokens': response.usage.prompt_tokens,
-                'completion_tokens': response.usage.completion_tokens,
-                'total_tokens': response.usage.total_tokens
+                'prompt_tokens': getattr(usage, 'prompt_tokens', 0),
+                'completion_tokens': getattr(usage, 'completion_tokens', 0),
+                'total_tokens': getattr(usage, 'total_tokens', 0),
             }
+            
+            # Check for cached token fields (various possible field names)
+            # Standard OpenAI format uses 'prompt_cache_hit_tokens' for cached tokens
+            # Some APIs may use alternative names like 'cached_tokens' or 'cached_input_tokens'
+            if hasattr(usage, 'prompt_cache_hit_tokens'):
+                cached_count = usage.prompt_cache_hit_tokens
+                token_usage['cached_tokens'] = cached_count
+                token_usage['cached_input_tokens'] = cached_count
+                token_usage['prompt_cache_hit_tokens'] = cached_count
+            elif hasattr(usage, 'cached_tokens'):
+                cached_count = usage.cached_tokens
+                token_usage['cached_tokens'] = cached_count
+                token_usage['cached_input_tokens'] = cached_count
+            elif hasattr(usage, 'cached_input_tokens'):
+                cached_count = usage.cached_input_tokens
+                token_usage['cached_tokens'] = cached_count
+                token_usage['cached_input_tokens'] = cached_count
+            
+            # Also check for input_tokens and output_tokens (alternative naming)
+            # Some APIs may provide these as separate fields
+            if hasattr(usage, 'input_tokens'):
+                token_usage['input_tokens'] = usage.input_tokens
+            if hasattr(usage, 'output_tokens'):
+                token_usage['output_tokens'] = usage.output_tokens
             
             return response_text, token_usage
             
