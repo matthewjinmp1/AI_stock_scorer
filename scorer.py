@@ -114,12 +114,13 @@ def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_us
     if token_usage:
         # Get total input/prompt tokens (may be called input_tokens or prompt_tokens)
         # Standard OpenAI format: prompt_tokens includes all prompt tokens (cached + non-cached)
-        total_input_tokens = token_usage.get('input_tokens', 0) or token_usage.get('prompt_tokens', 0)
+        # Use explicit check instead of 'or' to handle 0 values correctly
+        total_input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
         # Get output tokens (may be called output_tokens or completion_tokens)
-        output_tokens = token_usage.get('output_tokens', 0) or token_usage.get('completion_tokens', 0)
+        output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
         # Get cached tokens (may be called cached_tokens, cached_input_tokens, or prompt_cache_hit_tokens)
-        cached_tokens = (token_usage.get('cached_tokens', 0) or 
-                        token_usage.get('cached_input_tokens', 0) or
+        cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                        token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
                         token_usage.get('prompt_cache_hit_tokens', 0))
         
         if total_input_tokens > 0 or output_tokens > 0 or cached_tokens > 0:
@@ -131,6 +132,11 @@ def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_us
             regular_input_cost = (regular_input_tokens / 1_000_000) * input_cost_per_1M
             cached_input_cost = (cached_tokens / 1_000_000) * cached_input_cost_per_1M
             output_cost = (output_tokens / 1_000_000) * output_cost_per_1M
+            
+            # Debug: print token breakdown (can be removed later)
+            # print(f"DEBUG: input={regular_input_tokens}, cached={cached_tokens}, output={output_tokens}")
+            # print(f"DEBUG: input_cost=${regular_input_cost:.6f}, cached_cost=${cached_input_cost:.6f}, output_cost=${output_cost:.6f}")
+            
             return regular_input_cost + cached_input_cost + output_cost
     
     # Fallback: use total tokens with average of input/output pricing
@@ -1209,18 +1215,28 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
     # Combine all token usages for accurate cost calculation
     combined_token_usage = None
     if all_token_usages:
+        # Get input tokens (use explicit check to handle 0 values)
+        input_sum = sum(usage.get('input_tokens') if 'input_tokens' in usage else usage.get('prompt_tokens', 0) for usage in all_token_usages)
+        # Get output tokens - completion_tokens should already include thinking tokens from grok_client
+        output_sum = sum(usage.get('output_tokens') if 'output_tokens' in usage else usage.get('completion_tokens', 0) for usage in all_token_usages)
+        # Get cached tokens
+        cached_sum = sum(
+            usage.get('cached_tokens') if 'cached_tokens' in usage else
+            usage.get('cached_input_tokens') if 'cached_input_tokens' in usage else
+            usage.get('prompt_cache_hit_tokens', 0)
+            for usage in all_token_usages
+        )
+        # Get thinking tokens separately for display
+        thinking_sum = sum(usage.get('thinking_tokens', 0) for usage in all_token_usages)
+        
         combined_token_usage = {
-            'input_tokens': sum(usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0) for usage in all_token_usages),
-            'output_tokens': sum(usage.get('output_tokens', 0) or usage.get('completion_tokens', 0) for usage in all_token_usages),
-            'cached_tokens': sum(
-                usage.get('cached_tokens', 0) or 
-                usage.get('cached_input_tokens', 0) or 
-                usage.get('prompt_cache_hit_tokens', 0) 
-                for usage in all_token_usages
-            ),
+            'input_tokens': input_sum,
+            'output_tokens': output_sum,
+            'cached_tokens': cached_sum,
+            'thinking_tokens': thinking_sum,
             # Also preserve prompt_tokens and completion_tokens for compatibility
-            'prompt_tokens': sum(usage.get('prompt_tokens', 0) or usage.get('input_tokens', 0) for usage in all_token_usages),
-            'completion_tokens': sum(usage.get('completion_tokens', 0) or usage.get('output_tokens', 0) for usage in all_token_usages),
+            'prompt_tokens': input_sum,
+            'completion_tokens': output_sum,
         }
     
     return all_scores, total_tokens, combined_token_usage, model
@@ -1376,6 +1392,18 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
         if not silent:
             if not batch_mode:
                 print(f"Total tokens used: {total_tokens}")
+                # Debug: show token breakdown if available
+                if token_usage:
+                    input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
+                    output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
+                    cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                                    token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
+                                    token_usage.get('prompt_cache_hit_tokens', 0))
+                    thinking_tokens = token_usage.get('thinking_tokens', 0)
+                    if thinking_tokens > 0:
+                        print(f"Token breakdown: input={input_tokens}, output={output_tokens} (includes {thinking_tokens} thinking), cached={cached_tokens}")
+                    else:
+                        print(f"Token breakdown: input={input_tokens}, output={output_tokens}, cached={cached_tokens}")
                 cost = calculate_token_cost(total_tokens, model=model_to_save, token_usage=token_usage)
                 cost_cents = cost * 100
                 print(f"Total cost: {cost_cents:.4f} cents")

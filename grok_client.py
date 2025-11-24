@@ -120,19 +120,26 @@ class GrokClient:
             # Extract all available token usage information from the API response
             # The Grok API uses OpenAI-compatible format, which provides:
             # - prompt_tokens: total input tokens (includes cached + non-cached)
-            # - completion_tokens: output tokens generated
-            # - total_tokens: sum of prompt_tokens + completion_tokens
+            # - completion_tokens: final output tokens (the answer)
+            # - total_tokens: total tokens used (may include thinking/reasoning tokens)
             # - prompt_cache_hit_tokens: cached input tokens (if available, typically cheaper)
+            # For reasoning models, there may be additional "thinking" tokens that should be
+            # counted as output tokens for pricing purposes (they cost the same as output)
             usage = response.usage
+            prompt_tokens = getattr(usage, 'prompt_tokens', 0)
+            completion_tokens = getattr(usage, 'completion_tokens', 0)
+            total_tokens = getattr(usage, 'total_tokens', 0)
+            
             token_usage = {
-                'prompt_tokens': getattr(usage, 'prompt_tokens', 0),
-                'completion_tokens': getattr(usage, 'completion_tokens', 0),
-                'total_tokens': getattr(usage, 'total_tokens', 0),
+                'prompt_tokens': prompt_tokens,
+                'completion_tokens': completion_tokens,
+                'total_tokens': total_tokens,
             }
             
             # Check for cached token fields (various possible field names)
             # Standard OpenAI format uses 'prompt_cache_hit_tokens' for cached tokens
             # Some APIs may use alternative names like 'cached_tokens' or 'cached_input_tokens'
+            cached_count = 0
             if hasattr(usage, 'prompt_cache_hit_tokens'):
                 cached_count = usage.prompt_cache_hit_tokens
                 token_usage['cached_tokens'] = cached_count
@@ -153,6 +160,19 @@ class GrokClient:
                 token_usage['input_tokens'] = usage.input_tokens
             if hasattr(usage, 'output_tokens'):
                 token_usage['output_tokens'] = usage.output_tokens
+            
+            # For reasoning models, there may be "thinking" tokens not included in completion_tokens
+            # These should be counted as output tokens for pricing (they cost $0.50/1M like output)
+            # Calculate thinking tokens as: total_tokens - prompt_tokens - completion_tokens
+            # If this is positive, add it to output tokens
+            accounted_tokens = prompt_tokens + completion_tokens
+            if total_tokens > accounted_tokens:
+                thinking_tokens = total_tokens - accounted_tokens
+                # Add thinking tokens to output tokens (they're priced the same)
+                token_usage['thinking_tokens'] = thinking_tokens
+                # Update completion_tokens to include thinking tokens for cost calculation
+                token_usage['completion_tokens'] = completion_tokens + thinking_tokens
+                token_usage['output_tokens'] = completion_tokens + thinking_tokens
             
             return response_text, token_usage
             
