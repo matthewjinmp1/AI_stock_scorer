@@ -46,7 +46,8 @@ SCORE_WEIGHTS = {
 }
 
 from grok_client import GrokClient
-from config import XAI_API_KEY
+from openrouter_client import OpenRouterClient
+from config import XAI_API_KEY, OPENROUTER_KEY
 import sys
 import json
 import os
@@ -1118,7 +1119,7 @@ def query_score(grok, company_name, score_key, show_timing=True, ticker=None):
     """Query a single score from Grok.
     
     Args:
-        grok: GrokClient instance
+        grok: OpenRouterClient instance
         company_name: Company name to score
         score_key: Score metric key
         show_timing: If True, print timing and token information
@@ -1152,7 +1153,7 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
     """Query all scores in parallel using ThreadPoolExecutor.
     
     Args:
-        grok: GrokClient instance
+        grok: OpenRouterClient instance
         company_name: Company name to score
         score_keys: List of score metric keys to query
         batch_mode: If True, show compact metric names during scoring
@@ -1319,7 +1320,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                 print(f"\nFilling missing scores for {ticker.upper()} ({company_name})...")
                 if not batch_mode:
                     print("Querying missing metrics in parallel...")
-            grok = GrokClient(api_key=XAI_API_KEY)
+            grok = OpenRouterClient(api_key=OPENROUTER_KEY)
             
             # Get list of missing score keys
             missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
@@ -1372,7 +1373,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
             if not batch_mode:
                 print("Querying all metrics in parallel...")
-        grok = GrokClient(api_key=XAI_API_KEY)
+        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
@@ -1428,8 +1429,8 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             print(f"Error: {error_msg}")
             print("\nTo fix this:")
             print("1. Get an API key from https://console.x.ai/")
-            print("2. Set the XAI_API_KEY environment variable:")
-            print("   export XAI_API_KEY='your_api_key_here'")
+            print("2. Set the OPENROUTER_KEY environment variable:")
+            print("   export OPENROUTER_KEY='your_api_key_here'")
         return {
             'ticker': input_str.upper() if input_str else None,
             'company_name': None,
@@ -1675,7 +1676,7 @@ def get_company_moat_score(input_str):
                 print(f"{'Total':<35} {total_str:>8}")
                 return
             
-            grok = GrokClient(api_key=XAI_API_KEY)
+            grok = OpenRouterClient(api_key=OPENROUTER_KEY)
             
             # Get list of missing score keys
             missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
@@ -1714,7 +1715,7 @@ def get_company_moat_score(input_str):
         else:
             print(f"\nAnalyzing {company_name}...")
         print("Querying all metrics in parallel...")
-        grok = GrokClient(api_key=XAI_API_KEY)
+        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
@@ -1928,7 +1929,7 @@ def fill_missing_barriers_scores():
     Processes companies in batches of 20 using async."""
     try:
         scores_data = load_scores()
-        grok = GrokClient(api_key=XAI_API_KEY)
+        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
         
         companies_to_score = []
         for company_name, data in scores_data["companies"].items():
