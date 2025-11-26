@@ -8,6 +8,8 @@ import sys
 import json
 import os
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -125,13 +127,14 @@ def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_us
     return (total_tokens / 1_000_000) * avg_cost_per_1M
 
 
-def get_glassdoor_rating_with_grok(company_name, ticker):
+def get_glassdoor_rating_with_grok(company_name, ticker, silent=False):
     """
     Use Grok 4.1 via OpenRouter with search RAG to get Glassdoor rating.
     
     Args:
         company_name: Name of the company to search for
         ticker: Stock ticker symbol
+        silent: If True, suppress output messages
         
     Returns:
         dict: Dictionary containing rating data and snippet, or None if error
@@ -166,7 +169,8 @@ Format your response as JSON with the following structure:
 
 If you cannot find the rating, return null for the rating field."""
 
-        print(f"Querying Grok 4.1 (same model as scorer.py) to search for Glassdoor rating of {company_name}...")
+        if not silent:
+            print(f"Querying Grok 4.1 (same model as scorer.py) to search for Glassdoor rating of {company_name}...")
         
         # Use the same model as scorer.py: grok-4-1-fast-reasoning
         # This maps to x-ai/grok-4.1-fast on OpenRouter
@@ -211,8 +215,9 @@ If you cannot find the rating, return null for the rating field."""
         )
         
         cost_cents = total_cost * 100
-        print(f"Time: {elapsed_time:.2f}s | Tokens: {token_usage.get('total_tokens', 0)} | Cost: {cost_cents:.4f} cents")
-        print(f"\nGrok Response:\n{response_text}\n")
+        if not silent:
+            print(f"Time: {elapsed_time:.2f}s | Tokens: {token_usage.get('total_tokens', 0)} | Cost: {cost_cents:.4f} cents")
+            print(f"\nGrok Response:\n{response_text}\n")
         
         # Try to parse JSON from the response
         # Grok might return JSON or natural language, so we'll try both
@@ -261,12 +266,13 @@ If you cannot find the rating, return null for the rating field."""
         return None
 
 
-def get_glassdoor_rating(ticker):
+def get_glassdoor_rating(ticker, silent=False):
     """
     Main function to get Glassdoor rating for a ticker using Grok 4.1 with search RAG.
     
     Args:
         ticker: Stock ticker symbol (e.g., 'AAPL')
+        silent: If True, suppress output messages
         
     Returns:
         dict: Dictionary containing rating data and snippet, or None if error
@@ -276,13 +282,15 @@ def get_glassdoor_rating(ticker):
     # Step 1: Get company name from ticker
     company_name = get_company_name_from_ticker(ticker_upper)
     if not company_name:
-        print(f"Error: Could not find company name for ticker {ticker_upper}")
+        if not silent:
+            print(f"Error: Could not find company name for ticker {ticker_upper}")
         return None
     
-    print(f"Company name: {company_name}")
+    if not silent:
+        print(f"Company name: {company_name}")
     
     # Step 2: Use Grok 4.1 with search RAG to get Glassdoor rating
-    rating_data = get_glassdoor_rating_with_grok(company_name, ticker_upper)
+    rating_data = get_glassdoor_rating_with_grok(company_name, ticker_upper, silent=silent)
     
     return rating_data
 
@@ -353,38 +361,210 @@ def display_snippet(result):
     print("=" * 80)
 
 
-def main():
-    """Main function to get Glassdoor rating via Grok 4.1 with search RAG."""
+def fetch_single_ticker(ticker, output_file, existing_data, lock):
+    """
+    Fetch Glassdoor rating for a single ticker and save it thread-safely.
+    
+    Args:
+        ticker: Ticker symbol to fetch
+        output_file: Path to output JSON file
+        existing_data: Dictionary to store results (shared across threads)
+        lock: Thread lock for safe file writing
+        
+    Returns:
+        tuple: (ticker, success, result_dict or None)
+    """
+    # Fetch rating
+    result = get_glassdoor_rating(ticker, silent=True)
+    
+    if result:
+        # Prepare data to save
+        ticker_data = {
+            "rating": result.get("rating"),
+            "num_reviews": result.get("num_reviews"),
+            "snippet": result.get("snippet"),
+            "url": result.get("url"),
+            "company_name": result.get("company_name"),
+            "token_usage": result.get("token_usage"),
+            "elapsed_time": result.get("elapsed_time"),
+            "total_cost": result.get("total_cost"),
+            "fetched_at": time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        
+        # Thread-safe update
+        with lock:
+            existing_data["companies"][ticker] = ticker_data
+            
+            # Save to file
+            try:
+                with open(output_file, 'w') as f:
+                    json.dump(existing_data, f, indent=2)
+            except Exception as e:
+                print(f"  ✗ Error saving {ticker}: {e}")
+                return (ticker, False, None)
+        
+        return (ticker, True, ticker_data)
+    else:
+        return (ticker, False, None)
+
+
+def fetch_all_glassdoor_ratings(scores_file="scores.json", output_file="glassdoor.json", max_workers=20):
+    """
+    Fetch Glassdoor ratings for all tickers in scores.json and save to glassdoor.json.
+    Uses threading to fetch multiple tickers concurrently.
+    
+    Args:
+        scores_file: Path to scores.json file
+        output_file: Path to output glassdoor.json file
+        max_workers: Maximum number of concurrent threads (default: 20)
+    """
     print("=" * 80)
-    print("Glassdoor Rating Fetcher (via Grok 4.1 Search RAG)")
+    print("Batch Glassdoor Rating Fetcher (via Grok 4.1 Search RAG)")
+    print(f"Using {max_workers} concurrent threads")
     print("=" * 80)
     print()
     
-    # Get ticker from command line argument
-    if len(sys.argv) > 1:
-        ticker = sys.argv[1]
-    else:
-        ticker = input("Enter stock ticker symbol: ").strip()
-        if not ticker:
-            print("Error: No ticker provided.")
-            sys.exit(1)
-    
-    # Get the rating using Grok
-    result = get_glassdoor_rating(ticker)
-    
-    if result:
-        display_snippet(result)
-    else:
-        print(f"\nFailed to get Glassdoor rating for {ticker}")
-        print("\nPossible reasons:")
-        print("  - Company name not found for ticker")
-        print("  - OpenRouter API key not configured (check OPENROUTER_KEY)")
-        print("  - Network connection issue")
-        print("  - OpenRouter API rate limiting")
-        print("  - Grok could not find Glassdoor rating information")
+    # Load scores.json to get all tickers
+    try:
+        with open(scores_file, 'r') as f:
+            scores_data = json.load(f)
+    except FileNotFoundError:
+        print(f"Error: {scores_file} not found.")
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Error: Failed to parse {scores_file}: {e}")
         sys.exit(1)
     
-    print("\nNote: This uses Grok 4.1's search RAG capabilities to find and extract the rating.")
+    # Extract all tickers from scores.json
+    companies = scores_data.get('companies', {})
+    tickers = list(companies.keys())
+    
+    print(f"Found {len(tickers)} tickers in {scores_file}")
+    print(f"Starting batch fetch with {max_workers} concurrent threads...\n")
+    
+    # Load existing glassdoor.json if it exists
+    existing_data = {}
+    try:
+        with open(output_file, 'r') as f:
+            existing_data = json.load(f)
+    except FileNotFoundError:
+        existing_data = {"companies": {}}
+    except json.JSONDecodeError:
+        existing_data = {"companies": {}}
+    
+    if "companies" not in existing_data:
+        existing_data["companies"] = {}
+    
+    # Filter out tickers that already exist
+    tickers_to_fetch = [t for t in tickers if t not in existing_data["companies"]]
+    
+    if not tickers_to_fetch:
+        print(f"All {len(tickers)} tickers already exist in {output_file}")
+        return
+    
+    skipped = len(tickers) - len(tickers_to_fetch)
+    if skipped > 0:
+        print(f"Skipping {skipped} tickers (already exist in {output_file})")
+        print()
+    
+    print(f"Fetching {len(tickers_to_fetch)} tickers...\n")
+    
+    # Thread lock for safe file writing
+    lock = threading.Lock()
+    
+    # Track statistics
+    successful = 0
+    failed = 0
+    total_cost = 0.0
+    total_time = 0.0
+    start_time = time.time()
+    
+    # Process tickers with thread pool
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_ticker = {
+            executor.submit(fetch_single_ticker, ticker, output_file, existing_data, lock): ticker
+            for ticker in tickers_to_fetch
+        }
+        
+        # Process completed tasks
+        completed = 0
+        for future in as_completed(future_to_ticker):
+            completed += 1
+            ticker = future_to_ticker[future]
+            
+            try:
+                ticker_result, success, data = future.result()
+                
+                if success and data:
+                    successful += 1
+                    total_cost += data.get("total_cost", 0)
+                    total_time += data.get("elapsed_time", 0)
+                    
+                    rating = data.get("rating")
+                    elapsed = data.get("elapsed_time", 0)
+                    cost_cents = data.get("total_cost", 0) * 100
+                    
+                    if rating:
+                        print(f"[{completed}/{len(tickers_to_fetch)}] ✓ {ticker}: {rating:.1f}/5.0 | {elapsed:.2f}s | {cost_cents:.4f} cents")
+                    else:
+                        print(f"[{completed}/{len(tickers_to_fetch)}] ✓ {ticker}: No rating found | {elapsed:.2f}s | {cost_cents:.4f} cents")
+                else:
+                    failed += 1
+                    print(f"[{completed}/{len(tickers_to_fetch)}] ✗ {ticker}: Failed to fetch")
+                    
+            except Exception as e:
+                failed += 1
+                print(f"[{completed}/{len(tickers_to_fetch)}] ✗ {ticker}: Error - {e}")
+    
+    # Final summary
+    elapsed_total = time.time() - start_time
+    print()
+    print("=" * 80)
+    print("Batch Processing Complete")
+    print("=" * 80)
+    print(f"Total tickers: {len(tickers)}")
+    print(f"  - Already existed: {skipped}")
+    print(f"  - Fetched: {len(tickers_to_fetch)}")
+    print(f"  - Successful: {successful}")
+    print(f"  - Failed: {failed}")
+    print(f"Total wall-clock time: {elapsed_total:.2f} seconds ({elapsed_total/60:.1f} minutes)")
+    print(f"Total API time: {total_time:.2f} seconds")
+    print(f"Total cost: {total_cost * 100:.4f} cents (${total_cost:.6f} USD)")
+    print(f"\nResults saved to: {output_file}")
+
+
+def main():
+    """Main function to get Glassdoor rating via Grok 4.1 with search RAG."""
+    # By default, fetch all tickers from scores.json
+    # If a ticker is provided as argument, fetch only that ticker
+    if len(sys.argv) > 1:
+        # Single ticker mode
+        ticker = sys.argv[1]
+        print("=" * 80)
+        print("Glassdoor Rating Fetcher (via Grok 4.1 Search RAG)")
+        print("=" * 80)
+        print()
+        
+        # Get the rating using Grok
+        result = get_glassdoor_rating(ticker)
+        
+        if result:
+            display_snippet(result)
+        else:
+            print(f"\nFailed to get Glassdoor rating for {ticker}")
+            print("\nPossible reasons:")
+            print("  - Company name not found for ticker")
+            print("  - OpenRouter API key not configured (check OPENROUTER_KEY)")
+            print("  - Network connection issue")
+            print("  - OpenRouter API rate limiting")
+            print("  - Grok could not find Glassdoor rating information")
+            sys.exit(1)
+        
+        print("\nNote: This uses Grok 4.1's search RAG capabilities to find and extract the rating.")
+    else:
+        # Batch mode - fetch all tickers
+        fetch_all_glassdoor_ratings()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,769 @@
+{
+  "companies": {
+    "AMZN": {
+      "rating": 3.8,
+      "num_reviews": 199123,
+      "snippet": "3.8 out of 5 stars based on 199,123 reviews | 68% of employees recommend working here",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Amazon-EI_IE6036.11,17.htm",
+      "company_name": "Amazon.com, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 422,
+        "total_tokens": 787
+      },
+      "elapsed_time": 5.822129726409912,
+      "total_cost": 0.000284,
+      "fetched_at": "2025-11-26 14:39:31"
+    },
+    "AAPL": {
+      "rating": 4.1,
+      "num_reviews": 21983,
+      "snippet": "Apple has an overall rating of 4.1 out of 5, based on over 21k reviews. 82% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Apple-EI_IE1138.11,17.htm",
+      "company_name": "Apple Inc.",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 487,
+        "total_tokens": 848
+      },
+      "elapsed_time": 6.026176452636719,
+      "total_cost": 0.00031570000000000003,
+      "fetched_at": "2025-11-26 14:39:31"
+    },
+    "ADBE": {
+      "rating": 4.3,
+      "num_reviews": 13456,
+      "snippet": "Adobe has an overall rating of 4.3 out of 5 stars on Glassdoor, based on over 13,000 reviews from employees.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Adobe-EI_IE1090.11,16.htm",
+      "company_name": "Adobe Inc.",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 462,
+        "total_tokens": 823
+      },
+      "elapsed_time": 6.289874076843262,
+      "total_cost": 0.0003032,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "PLD": {
+      "rating": 4.1,
+      "num_reviews": 1323,
+      "snippet": "Prologis has an overall rating of 4.1 out of 5 stars on Glassdoor, based on 1,323 reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Prologis-EI_IE3475.11,19.htm",
+      "company_name": "Prologis, Inc.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 509,
+        "total_tokens": 876
+      },
+      "elapsed_time": 6.4258763790130615,
+      "total_cost": 0.0003279,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "ASML": {
+      "rating": 4.1,
+      "num_reviews": 2953,
+      "snippet": "4.1 out of 5 stars based on 2,953 reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-ASML-EI_IE9430.11,15.htm",
+      "company_name": "ASML Holding N.V.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 507,
+        "total_tokens": 874
+      },
+      "elapsed_time": 6.900583982467651,
+      "total_cost": 0.0003269,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "MSFT": {
+      "rating": 4.4,
+      "num_reviews": 53982,
+      "snippet": "Rated 4.4 out of 5 stars (53K Reviews)",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Microsoft-EI_IE1651.11,19.htm",
+      "company_name": "Microsoft Corporation",
+      "token_usage": {
+        "prompt_tokens": 359,
+        "completion_tokens": 508,
+        "total_tokens": 867
+      },
+      "elapsed_time": 7.517747640609741,
+      "total_cost": 0.0003258,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "KO": {
+      "rating": 4.1,
+      "num_reviews": 23456,
+      "snippet": "Rated 4.1 out of 5 stars based on 23k+ reviews on Glassdoor. 81% of employees recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-The-Coca-Cola-Company-EI_IE1139.11,32.htm",
+      "company_name": "The Coca-Cola Company",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 418,
+        "total_tokens": 780
+      },
+      "elapsed_time": 7.042518138885498,
+      "total_cost": 0.0002814,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "LULU": {
+      "rating": 3.9,
+      "num_reviews": 4702,
+      "snippet": "lululemon athletica inc. is rated 3.9 out of 5, based on 4.7k reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-lululemon-EI_IE35163.11,20.htm",
+      "company_name": "lululemon athletica inc.",
+      "token_usage": {
+        "prompt_tokens": 373,
+        "completion_tokens": 481,
+        "total_tokens": 854
+      },
+      "elapsed_time": 6.8902366161346436,
+      "total_cost": 0.0003151,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "NVDA": {
+      "rating": 4.7,
+      "num_reviews": 6200,
+      "snippet": "NVIDIA has an overall rating of 4.7 out of 5 stars based on more than 6,200 reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-NVIDIA-EI_IE7633.11,16.htm",
+      "company_name": "NVIDIA Corporation",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 575,
+        "total_tokens": 935
+      },
+      "elapsed_time": 7.333617210388184,
+      "total_cost": 0.0003595,
+      "fetched_at": "2025-11-26 14:39:32"
+    },
+    "DELL": {
+      "rating": 4.1,
+      "num_reviews": 29327,
+      "snippet": "Rated 4.1 out of 5 stars on Glassdoor. 29,327 reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Dell-Technologies-EI_IE1327.11,27.htm",
+      "company_name": "Dell Technologies Inc.",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 594,
+        "total_tokens": 956
+      },
+      "elapsed_time": 7.48382568359375,
+      "total_cost": 0.00036940000000000003,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "AVGO": {
+      "rating": 4.3,
+      "num_reviews": 6100,
+      "snippet": "Broadcom has an overall rating of 4.3 out of 5, based on over 6,100 reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Broadcom-EI_IE8330.11,19.htm",
+      "company_name": "Broadcom Inc.",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 604,
+        "total_tokens": 967
+      },
+      "elapsed_time": 7.5593132972717285,
+      "total_cost": 0.0003746,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "ORCL": {
+      "rating": 3.8,
+      "num_reviews": 26727,
+      "snippet": "Oracle has an overall rating of 3.8 out of 5 stars on Glassdoor, based on 26,727 anonymous reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Oracle-EI_IE1737.11,16.htm",
+      "company_name": "Oracle Corporation",
+      "token_usage": {
+        "prompt_tokens": 359,
+        "completion_tokens": 547,
+        "total_tokens": 906
+      },
+      "elapsed_time": 7.673680067062378,
+      "total_cost": 0.0003453,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "META": {
+      "rating": 4.3,
+      "num_reviews": 49422,
+      "snippet": "Meta is rated 4.3 out of 5, based on 49k reviews on Glassdoor, with 84% recommending to a friend.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Meta-EI_IE40772.11,15.htm",
+      "company_name": "Meta Platforms, Inc.",
+      "token_usage": {
+        "prompt_tokens": 364,
+        "completion_tokens": 670,
+        "total_tokens": 1034
+      },
+      "elapsed_time": 8.242045164108276,
+      "total_cost": 0.00040780000000000005,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "GOOGL": {
+      "rating": 4.4,
+      "num_reviews": 12345,
+      "snippet": "Alphabet Inc. is rated 4.4 out of 5.0 on Glassdoor, based on 12,345 anonymous reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Alphabet-Inc-EI_IE26022.11,23.htm",
+      "company_name": "Alphabet Inc.",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 652,
+        "total_tokens": 1014
+      },
+      "elapsed_time": 8.080193996429443,
+      "total_cost": 0.00039840000000000003,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "PYPL": {
+      "rating": 3.9,
+      "num_reviews": 24349,
+      "snippet": "PayPal has an overall rating of 3.9 out of 5 stars on Glassdoor, based on 24,349 anonymous reviews. 71% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-PayPal-EI_IE9848.11,17.htm",
+      "company_name": "PayPal Holdings, Inc.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 457,
+        "total_tokens": 824
+      },
+      "elapsed_time": 8.158318281173706,
+      "total_cost": 0.0003019,
+      "fetched_at": "2025-11-26 14:39:33"
+    },
+    "AMAT": {
+      "rating": 4.1,
+      "num_reviews": 6605,
+      "snippet": "4.1 out of 5 stars. 82% of employees recommend working here. CEO Approval 87%.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Applied-Materials-EI_IE1450.11,27.htm",
+      "company_name": "Applied Materials, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 595,
+        "total_tokens": 960
+      },
+      "elapsed_time": 8.399006128311157,
+      "total_cost": 0.0003705,
+      "fetched_at": "2025-11-26 14:39:34"
+    },
+    "NTES": {
+      "rating": 3.9,
+      "num_reviews": 1252,
+      "snippet": "3.9 out of 5 stars. 78% of employees recommend working here. Work wellbeing score is 74 out of 100.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-NetEase-EI_IE774625.11,18.htm",
+      "company_name": "NetEase, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 671,
+        "total_tokens": 1036
+      },
+      "elapsed_time": 8.331496000289917,
+      "total_cost": 0.0004085,
+      "fetched_at": "2025-11-26 14:39:34"
+    },
+    "CRM": {
+      "rating": 4.1,
+      "num_reviews": 35345,
+      "snippet": "Salesforce has an overall rating of 4.1 out of 5, based on over 35k reviews. 84% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Salesforce-EI_IE10891.11,20.htm",
+      "company_name": "Salesforce, Inc.",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 641,
+        "total_tokens": 1004
+      },
+      "elapsed_time": 8.488199234008789,
+      "total_cost": 0.00039309999999999996,
+      "fetched_at": "2025-11-26 14:39:34"
+    },
+    "MU": {
+      "rating": 3.8,
+      "num_reviews": 11346,
+      "snippet": "Micron Technology has an overall rating of 3.8 out of 5, based on over 11,000 reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Micron-Technology-EI_IE1648.11,29.htm",
+      "company_name": "Micron Technology, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 475,
+        "total_tokens": 840
+      },
+      "elapsed_time": 9.855224609375,
+      "total_cost": 0.0003105,
+      "fetched_at": "2025-11-26 14:39:35"
+    },
+    "TSM": {
+      "rating": 3.9,
+      "num_reviews": 1423,
+      "snippet": "3.9 out of 5 stars based on 1,423 reviews",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Taiwan-Semiconductor-Manufacturing-EI_IE2869.11,47.htm",
+      "company_name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 709,
+        "total_tokens": 1074
+      },
+      "elapsed_time": 11.01429557800293,
+      "total_cost": 0.0004275,
+      "fetched_at": "2025-11-26 14:39:36"
+    },
+    "LRCX": {
+      "rating": 3.9,
+      "num_reviews": 2456,
+      "snippet": "Rated 3.9 out of 5 stars on Glassdoor based on 2,456 reviews. 78% of employees recommend working at Lam Research to a friend.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Lam-Research-EI_IE12884.11,23.htm",
+      "company_name": "Lam Research Corporation",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 509,
+        "total_tokens": 871
+      },
+      "elapsed_time": 6.575475454330444,
+      "total_cost": 0.00032690000000000003,
+      "fetched_at": "2025-11-26 14:39:39"
+    },
+    "SNPS": {
+      "rating": 4.4,
+      "num_reviews": 3603,
+      "snippet": "Synopsys has an overall rating of 4.4 out of 5 stars on Glassdoor, based on 3,603 anonymous reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Synopsys-EI_IE8876.11,19.htm",
+      "company_name": "Synopsys, Inc.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 502,
+        "total_tokens": 869
+      },
+      "elapsed_time": 6.539051294326782,
+      "total_cost": 0.00032439999999999997,
+      "fetched_at": "2025-11-26 14:39:40"
+    },
+    "MPWR": {
+      "rating": 4.3,
+      "num_reviews": 614,
+      "snippet": "4.3 out of 5 stars based on 614 anonymous reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Monolithic-Power-Systems-EI_IE14790.11,35.htm",
+      "company_name": "Monolithic Power Systems, Inc.",
+      "token_usage": {
+        "prompt_tokens": 369,
+        "completion_tokens": 519,
+        "total_tokens": 888
+      },
+      "elapsed_time": 6.275139331817627,
+      "total_cost": 0.0003333,
+      "fetched_at": "2025-11-26 14:39:41"
+    },
+    "KLAC": {
+      "rating": 4.1,
+      "num_reviews": 2521,
+      "snippet": "KLA is rated 4.1 out of 5.0 on Glassdoor, based on 2,521 anonymous reviews. Employees rate the business outlook 71% positive.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-KLA-EI_IE1111.11,14.htm",
+      "company_name": "KLA Corporation",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 698,
+        "total_tokens": 1059
+      },
+      "elapsed_time": 8.24506688117981,
+      "total_cost": 0.00042120000000000005,
+      "fetched_at": "2025-11-26 14:39:41"
+    },
+    "JNJ": {
+      "rating": 4.1,
+      "num_reviews": 17927,
+      "snippet": "Rated 4.1 out of 5 stars (17,927 Reviews)",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Johnson-and-Johnson-EI_IE145.11,30.htm",
+      "company_name": "Johnson & Johnson",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 441,
+        "total_tokens": 802
+      },
+      "elapsed_time": 6.732436895370483,
+      "total_cost": 0.0002927,
+      "fetched_at": "2025-11-26 14:39:42"
+    },
+    "V": {
+      "rating": 4.1,
+      "num_reviews": 6573,
+      "snippet": "Visa is rated 4.1 out of 5, based on 6.6k company reviews on Glassdoor. Employees most frequently mention great people, good benefits and work life balance in their reviews of Visa.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Visa-EI_IE8996.11,15.htm",
+      "company_name": "Visa Inc.",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 499,
+        "total_tokens": 859
+      },
+      "elapsed_time": 6.238755941390991,
+      "total_cost": 0.0003215,
+      "fetched_at": "2025-11-26 14:39:42"
+    },
+    "MA": {
+      "rating": 4.3,
+      "num_reviews": 7133,
+      "snippet": "Mastercard Incorporated is rated 4.3 out of 5 stars on Glassdoor, based on 7,133 reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Mastercard-EI_IE3579.11,21.htm",
+      "company_name": "Mastercard Incorporated",
+      "token_usage": {
+        "prompt_tokens": 359,
+        "completion_tokens": 612,
+        "total_tokens": 971
+      },
+      "elapsed_time": 7.57256293296814,
+      "total_cost": 0.0003778,
+      "fetched_at": "2025-11-26 14:39:42"
+    },
+    "PLTR": {
+      "rating": 3.8,
+      "num_reviews": 3824,
+      "snippet": "Palantir Technologies has an overall rating of 3.8 out of 5 stars on Glassdoor, based on 3.8k reviews. 68% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Palantir-Technologies-EI_IE236375.11,32.htm",
+      "company_name": "Palantir Technologies Inc.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 548,
+        "total_tokens": 915
+      },
+      "elapsed_time": 6.669059991836548,
+      "total_cost": 0.0003474,
+      "fetched_at": "2025-11-26 14:39:42"
+    },
+    "SAP": {
+      "rating": 4.2,
+      "num_reviews": 25073,
+      "snippet": "SAP SE is rated 4.2 out of 5 stars on Glassdoor, based on 25,073 anonymous reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-SAP-EI_IE10471.11,14.htm",
+      "company_name": "SAP SE",
+      "token_usage": {
+        "prompt_tokens": 358,
+        "completion_tokens": 480,
+        "total_tokens": 838
+      },
+      "elapsed_time": 7.18204140663147,
+      "total_cost": 0.0003116,
+      "fetched_at": "2025-11-26 14:39:43"
+    },
+    "IBM": {
+      "rating": 4.0,
+      "num_reviews": 74068,
+      "snippet": "IBM\u2019s overall rating of 4.0 out of 5 on Glassdoor, based on 74,068 anonymous reviews. 80% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-IBM-EI_IE354.11,14.htm",
+      "company_name": "International Business Machines Corporation",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 580,
+        "total_tokens": 942
+      },
+      "elapsed_time": 6.986339330673218,
+      "total_cost": 0.0003624,
+      "fetched_at": "2025-11-26 14:39:43"
+    },
+    "JPM": {
+      "rating": 4.0,
+      "num_reviews": 68689,
+      "snippet": "Rated 4.0 out of 5.0 on Glassdoor based on 68,689 reviews.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-J-P-Morgan-EI_IE145.11,22.htm",
+      "company_name": "JPMorgan Chase & Co.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 558,
+        "total_tokens": 925
+      },
+      "elapsed_time": 7.749817848205566,
+      "total_cost": 0.0003524,
+      "fetched_at": "2025-11-26 14:39:43"
+    },
+    "XOM": {
+      "rating": 4.1,
+      "num_reviews": 13523,
+      "snippet": "ExxonMobil is rated 4.1 out of 5.0 on Glassdoor, based on 13,523 anonymous reviews. Employees rate ExxonMobil 4.0 out of 5 stars for work life balance.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-ExxonMobil-EI_IE237.11,21.htm",
+      "company_name": "Exxon Mobil Corporation",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 560,
+        "total_tokens": 922
+      },
+      "elapsed_time": 7.265262126922607,
+      "total_cost": 0.0003524,
+      "fetched_at": "2025-11-26 14:39:43"
+    },
+    "LLY": {
+      "rating": 4.2,
+      "num_reviews": 7134,
+      "snippet": "4.2 out of 5 stars based on 7,134 reviews on Glassdoor. 86% of employees would recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Eli-Lilly-and-Company-EI_IE223.11,32.htm",
+      "company_name": "Eli Lilly and Company",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 571,
+        "total_tokens": 934
+      },
+      "elapsed_time": 7.854481220245361,
+      "total_cost": 0.0003581,
+      "fetched_at": "2025-11-26 14:39:43"
+    },
+    "BABA": {
+      "rating": 3.9,
+      "num_reviews": 5106,
+      "snippet": "3.9 out of 5 stars based on 5,106 reviews. 82% of employees recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Alibaba-Group-EI_IE22572.11,25.htm",
+      "company_name": "Alibaba Group Holding Limited",
+      "token_usage": {
+        "prompt_tokens": 364,
+        "completion_tokens": 542,
+        "total_tokens": 906
+      },
+      "elapsed_time": 7.9854536056518555,
+      "total_cost": 0.0003438,
+      "fetched_at": "2025-11-26 14:39:44"
+    },
+    "CSCO": {
+      "rating": 4.1,
+      "num_reviews": 28249,
+      "snippet": "4.1 out of 5 stars based on 28,249 reviews. 82% of employees recommend working at Cisco Systems to a friend.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Cisco-Systems-EI_IE1425.11,24.htm",
+      "company_name": "Cisco Systems, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 628,
+        "total_tokens": 993
+      },
+      "elapsed_time": 7.717502593994141,
+      "total_cost": 0.000387,
+      "fetched_at": "2025-11-26 14:39:44"
+    },
+    "COST": {
+      "rating": 4.1,
+      "num_reviews": 24322,
+      "snippet": "Costco Wholesale is rated 4.1 out of 5.0 ('Great') based on 24,322 anonymous reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Costco-Wholesale-EI_IE2590.11,27.htm",
+      "company_name": "Costco Wholesale Corporation",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 705,
+        "total_tokens": 1066
+      },
+      "elapsed_time": 8.643121242523193,
+      "total_cost": 0.0004247,
+      "fetched_at": "2025-11-26 14:39:44"
+    },
+    "UNH": {
+      "rating": 3.7,
+      "num_reviews": 22345,
+      "snippet": "Rated 3.7 out of 5 stars on Glassdoor based on 22,345 reviews. 66% of employees recommend working here. Work wellbeing score is 71 out of 100.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-UnitedHealth-Group-EI_IE1992.11,30.htm",
+      "company_name": "UnitedHealth Group Incorporated",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 703,
+        "total_tokens": 1066
+      },
+      "elapsed_time": 8.413100242614746,
+      "total_cost": 0.00042409999999999995,
+      "fetched_at": "2025-11-26 14:39:44"
+    },
+    "WDAY": {
+      "rating": 4.3,
+      "num_reviews": 7234,
+      "snippet": "Workday has an overall rating of 4.3 out of 5 stars on Glassdoor, based on 7.2k reviews. 85% of employees would recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Workday-EI_IE243495.11,17.htm",
+      "company_name": "Workday, Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 444,
+        "total_tokens": 809
+      },
+      "elapsed_time": 11.798206090927124,
+      "total_cost": 0.000295,
+      "fetched_at": "2025-11-26 14:39:46"
+    },
+    "TMUS": {
+      "rating": 4.1,
+      "num_reviews": 29245,
+      "snippet": "4.1 out of 5 stars based on 29,245 reviews on Glassdoor",
+      "url": "https://www.glassdoor.com/Overview/Working-at-T-Mobile-EI_IE9304.11,18.htm",
+      "company_name": "T-Mobile US, Inc.",
+      "token_usage": {
+        "prompt_tokens": 367,
+        "completion_tokens": 538,
+        "total_tokens": 905
+      },
+      "elapsed_time": 6.334155082702637,
+      "total_cost": 0.0003424,
+      "fetched_at": "2025-11-26 14:39:46"
+    },
+    "HD": {
+      "rating": 3.5,
+      "num_reviews": 82337,
+      "snippet": "3.5 out of 5 stars, based on 82,337 reviews on Glassdoor",
+      "url": "https://www.glassdoor.com/Overview/Working-at-The-Home-Depot-EI_IE644.11,23.htm",
+      "company_name": "The Home Depot, Inc.",
+      "token_usage": {
+        "prompt_tokens": 366,
+        "completion_tokens": 591,
+        "total_tokens": 957
+      },
+      "elapsed_time": 12.679274559020996,
+      "total_cost": 0.0003687,
+      "fetched_at": "2025-11-26 14:39:48"
+    },
+    "TM": {
+      "rating": 4.1,
+      "num_reviews": 6200,
+      "snippet": "4.1 out of 5 stars. 73% of employees recommend to a friend.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Toyota-Motor-Corporation-EI_IE573.11,34.htm",
+      "company_name": "Toyota Motor Corporation",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 903,
+        "total_tokens": 1263
+      },
+      "elapsed_time": 10.954931735992432,
+      "total_cost": 0.0005235,
+      "fetched_at": "2025-11-26 14:39:48"
+    },
+    "MCD": {
+      "rating": 3.4,
+      "num_reviews": 64234,
+      "snippet": "McDonald's has an overall rating of 3.4 out of 5, based on over 64k reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-McDonald-s-EI_IE2438.11,20.htm",
+      "company_name": "McDonald's Corporation",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 471,
+        "total_tokens": 831
+      },
+      "elapsed_time": 5.4348485469818115,
+      "total_cost": 0.0003075,
+      "fetched_at": "2025-11-26 14:39:49"
+    },
+    "CAT": {
+      "rating": 4.0,
+      "num_reviews": 13318,
+      "snippet": "Caterpillar has an overall rating of 4.0 out of 5, based on over 13k reviews. 77% of employees would recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Caterpillar-EI_IE294.11,21.htm",
+      "company_name": "Caterpillar Inc.",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 679,
+        "total_tokens": 1041
+      },
+      "elapsed_time": 8.094569444656372,
+      "total_cost": 0.00041190000000000004,
+      "fetched_at": "2025-11-26 14:39:49"
+    },
+    "PM": {
+      "rating": 4.1,
+      "num_reviews": 3942,
+      "snippet": "Rated 4.1 out of 5.0 based on 3,942 reviews on Glassdoor. 82% of employees recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Philip-Morris-International-EI_IE651.11,37.htm",
+      "company_name": "Philip Morris International Inc.",
+      "token_usage": {
+        "prompt_tokens": 364,
+        "completion_tokens": 390,
+        "total_tokens": 754
+      },
+      "elapsed_time": 5.149226903915405,
+      "total_cost": 0.0002678,
+      "fetched_at": "2025-11-26 14:39:50"
+    },
+    "SHOP": {
+      "rating": 4.3,
+      "num_reviews": 7263,
+      "snippet": "Shopify has an overall rating of 4.3 out of 5 stars on Glassdoor, based on 7,263 anonymous reviews. 84% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Shopify-EI_IE415473.11,23.htm",
+      "company_name": "Shopify Inc.",
+      "token_usage": {
+        "prompt_tokens": 361,
+        "completion_tokens": 525,
+        "total_tokens": 886
+      },
+      "elapsed_time": 7.221179723739624,
+      "total_cost": 0.0003347,
+      "fetched_at": "2025-11-26 14:39:50"
+    },
+    "DIS": {
+      "rating": 3.9,
+      "num_reviews": 29123,
+      "snippet": "3.9 out of 5 stars based on 29,123 reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-The-Walt-Disney-Company-EI_IE210.11,34.htm",
+      "company_name": "The Walt Disney Company",
+      "token_usage": {
+        "prompt_tokens": 362,
+        "completion_tokens": 565,
+        "total_tokens": 927
+      },
+      "elapsed_time": 6.749023199081421,
+      "total_cost": 0.0003549,
+      "fetched_at": "2025-11-26 14:39:50"
+    },
+    "TMO": {
+      "rating": 3.8,
+      "num_reviews": 12456,
+      "snippet": "3.8 out of 5 stars. 79% Recommend to a Friend. CEO Approval: 84%.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Thermo-Fisher-Scientific-EI_IE4032.11,34.htm",
+      "company_name": "Thermo Fisher Scientific Inc.",
+      "token_usage": {
+        "prompt_tokens": 365,
+        "completion_tokens": 576,
+        "total_tokens": 941
+      },
+      "elapsed_time": 7.165460586547852,
+      "total_cost": 0.000361,
+      "fetched_at": "2025-11-26 14:39:51"
+    },
+    "INTU": {
+      "rating": 4.3,
+      "num_reviews": 7824,
+      "snippet": "Intuit has an overall rating of 4.3 out of 5, based on over 7.8k reviews on Glassdoor. 86% of employees would recommend working there.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Intuit-EI_IE2161.11,17.htm",
+      "company_name": "Intuit Inc.",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 478,
+        "total_tokens": 841
+      },
+      "elapsed_time": 5.882047653198242,
+      "total_cost": 0.0003116,
+      "fetched_at": "2025-11-26 14:39:51"
+    },
+    "BA": {
+      "rating": 3.9,
+      "num_reviews": 58000,
+      "snippet": "3.9 out of 5 stars. 58k reviews on Glassdoor. 74% of employees recommend working at The Boeing Company.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-The-Boeing-Company-EI_IE115.11,30.htm",
+      "company_name": "The Boeing Company",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 456,
+        "total_tokens": 816
+      },
+      "elapsed_time": 5.556636810302734,
+      "total_cost": 0.00030000000000000003,
+      "fetched_at": "2025-11-26 14:39:51"
+    },
+    "ARM": {
+      "rating": 4.4,
+      "num_reviews": 1378,
+      "snippet": "Rated 4.4 out of 5 stars on Glassdoor based on 1,378 reviews. 87% of employees would recommend working here.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Arm-EI_IE9079.11,14.htm",
+      "company_name": "Arm Holdings plc",
+      "token_usage": {
+        "prompt_tokens": 360,
+        "completion_tokens": 506,
+        "total_tokens": 866
+      },
+      "elapsed_time": 6.543504238128662,
+      "total_cost": 0.00032500000000000004,
+      "fetched_at": "2025-11-26 14:39:52"
+    },
+    "ANET": {
+      "rating": 4.6,
+      "num_reviews": 1291,
+      "snippet": "Arista Networks has an overall rating of 4.6 out of 5, based on over 1.2k anonymous reviews on Glassdoor.",
+      "url": "https://www.glassdoor.com/Overview/Working-at-Arista-Networks-EI_IE240309.11,26.htm",
+      "company_name": "Arista Networks Inc",
+      "token_usage": {
+        "prompt_tokens": 363,
+        "completion_tokens": 629,
+        "total_tokens": 992
+      },
+      "elapsed_time": 7.549715995788574,
+      "total_cost": 0.00038710000000000003,
+      "fetched_at": "2025-11-26 14:39:52"
+    }
+  }
+}
