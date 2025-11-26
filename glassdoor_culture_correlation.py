@@ -235,25 +235,6 @@ def main():
     
     # Display results
     display_results(matching_data, stats)
-    
-    # Optionally save results to JSON
-    output_file = "glassdoor_culture_correlation.json"
-    output_data = {
-        "correlation_stats": stats,
-        "sample_data": [
-            {
-                "ticker": ticker,
-                "glassdoor_rating": float(gd_rating),
-                "culture_score": float(culture_score)
-            }
-            for ticker, gd_rating, culture_score in matching_data
-        ]
-    }
-    
-    with open(output_file, 'w') as f:
-        json.dump(output_data, f, indent=2)
-    
-    print(f"\nDetailed results saved to: {output_file}")
 
 
 if __name__ == "__main__":
