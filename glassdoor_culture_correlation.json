@@ -1,0 +1,1724 @@
+{
+  "correlation_stats": {
+    "n": 341,
+    "pearson_correlation": 0.6559037594091789,
+    "pearson_p_value": 2.5805058703879017e-43,
+    "spearman_correlation": 0.7002468200824243,
+    "spearman_p_value": 1.4900401780317604e-51,
+    "glassdoor_mean": 3.98357771260997,
+    "glassdoor_std": 0.2916634222500978,
+    "glassdoor_min": 2.9,
+    "glassdoor_max": 4.8,
+    "culture_mean": 6.750733137829912,
+    "culture_std": 1.4808774413276955,
+    "culture_min": 2.0,
+    "culture_max": 9.0
+  },
+  "sample_data": [
+    {
+      "ticker": "AMZN",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "AAPL",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ADBE",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PLD",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ASML",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MSFT",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "KO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "LULU",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NVDA",
+      "glassdoor_rating": 4.7,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "DELL",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "AVGO",
+      "glassdoor_rating": 4.3,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ORCL",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "META",
+      "glassdoor_rating": 4.3,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "GOOGL",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PYPL",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "AMAT",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "NTES",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CRM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MU",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TSM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "LRCX",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SNPS",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MPWR",
+      "glassdoor_rating": 4.3,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "KLAC",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "JNJ",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "V",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MA",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PLTR",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "SAP",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "IBM",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "JPM",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "XOM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "LLY",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BABA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CSCO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "COST",
+      "glassdoor_rating": 4.1,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "UNH",
+      "glassdoor_rating": 3.7,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "WDAY",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "TMUS",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "HD",
+      "glassdoor_rating": 3.5,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MCD",
+      "glassdoor_rating": 3.4,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CAT",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SHOP",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "DIS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "TMO",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "INTU",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "ARM",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ANET",
+      "glassdoor_rating": 4.6,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "TXN",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "T",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ACN",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "INTC",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NEE",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BLK",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "APH",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "COF",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SPOT",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MELI",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "UNP",
+      "glassdoor_rating": 3.8,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "ADP",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "DE",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "IBKR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "SPGI",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ROK",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SONY",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "DASH",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "SBUX",
+      "glassdoor_rating": 3.7,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "CMCSA",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "LMT",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NKE",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NEM",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PGR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SE",
+      "glassdoor_rating": 3.8,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "ICE",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SNOW",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SHW",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "WM",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "MCO",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CVX",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "UPS",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "ABNB",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "TDG",
+      "glassdoor_rating": 3.1,
+      "culture_score": 2.0
+    },
+    {
+      "ticker": "EQIX",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ATKR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ORLY",
+      "glassdoor_rating": 3.6,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "PNR",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TEAM",
+      "glassdoor_rating": 4.4,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "FTNT",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SEE",
+      "glassdoor_rating": 3.6,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "TTWO",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "RDDT",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "HPQ",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NDAQ",
+      "glassdoor_rating": 3.8,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CVS",
+      "glassdoor_rating": 3.4,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "TTD",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "RACE",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NTAP",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "WMT",
+      "glassdoor_rating": 3.0,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "SMCI",
+      "glassdoor_rating": 3.7,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "HPE",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SKH",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "STX",
+      "glassdoor_rating": 3.7,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "WDC",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SAM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "AFRM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SOFI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "FI",
+      "glassdoor_rating": 3.7,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ATH",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BLM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "VRI",
+      "glassdoor_rating": 4.3,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "HQI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "OAI",
+      "glassdoor_rating": 4.3,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "IMXI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "AI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "SPX",
+      "glassdoor_rating": 4.0,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "BYTE",
+      "glassdoor_rating": 4.1,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "FAB",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "ADY",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "DECK",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ALO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "FIG",
+      "glassdoor_rating": 4.8,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "GPN",
+      "glassdoor_rating": 3.6,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "GAP",
+      "glassdoor_rating": 3.7,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CANV",
+      "glassdoor_rating": 4.4,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "DOCU",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "JOES",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "AXON",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "DNP",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "KR",
+      "glassdoor_rating": 3.4,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "PBLX",
+      "glassdoor_rating": 3.8,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "TSLA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "ADSK",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CDNS",
+      "glassdoor_rating": 4.5,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "HUBS",
+      "glassdoor_rating": 4.5,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "CPRT",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "BKNG",
+      "glassdoor_rating": 4.1,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "QCOM",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ISRG",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MNST",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "HOOD",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "AMD",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SNAP",
+      "glassdoor_rating": 3.7,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "PG",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ROKU",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "U",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "NFLX",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ANTH",
+      "glassdoor_rating": 4.5,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "GME",
+      "glassdoor_rating": 3.4,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "RBLX",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PINS",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TEN",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "NIK",
+      "glassdoor_rating": 3.7,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "OPEN",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "ASM",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TEL",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SMEE",
+      "glassdoor_rating": 2.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "EGP",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "X",
+      "glassdoor_rating": 2.9,
+      "culture_score": 2.0
+    },
+    {
+      "ticker": "TRNO",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ILPT",
+      "glassdoor_rating": 2.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CXM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "FR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "DBX",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CAN",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "LXP",
+      "glassdoor_rating": 3.6,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "REXR",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "APP",
+      "glassdoor_rating": 4.2,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "COLD",
+      "glassdoor_rating": 3.2,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "STAG",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "DB",
+      "glassdoor_rating": 4.6,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "BRZE",
+      "glassdoor_rating": 4.4,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "PUBM",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BOX",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SCRN",
+      "glassdoor_rating": 3.4,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "EA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "PDD",
+      "glassdoor_rating": 3.9,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "EVO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BILI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "UAA",
+      "glassdoor_rating": 3.7,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "RL",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "COLM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "GYM",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ADRL",
+      "glassdoor_rating": 4.4,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "GOOS",
+      "glassdoor_rating": 3.7,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "BDRK",
+      "glassdoor_rating": 3.7,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "NET",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "DDOG",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "LENO",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PUMA",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "CRWD",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "STRP",
+      "glassdoor_rating": 4.7,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "ZM",
+      "glassdoor_rating": 4.4,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "ALD",
+      "glassdoor_rating": 3.5,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "DUOL",
+      "glassdoor_rating": 4.0,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "ACER",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "RELY",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PSTG",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BAC",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "KHC",
+      "glassdoor_rating": 3.7,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "OXY",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "VRSN",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "AXP",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "LDL",
+      "glassdoor_rating": 3.4,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CRWV",
+      "glassdoor_rating": 4.6,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NVR",
+      "glassdoor_rating": 3.7,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "UBER",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PANW",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "SIRI",
+      "glassdoor_rating": 3.8,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "ASUS",
+      "glassdoor_rating": 3.7,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "ADI",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BRK",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "CPNG",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "NXPI",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "VEEV",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ROP",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "COIN",
+      "glassdoor_rating": 3.8,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "ZS",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "JD",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "FICO",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BIDU",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "SYM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "EBAY",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "GRMN",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "EXPE",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "Z",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "IQV",
+      "glassdoor_rating": 3.7,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ERIC",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PAYC",
+      "glassdoor_rating": 4.0,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "MRVL",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "W",
+      "glassdoor_rating": 3.7,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "TREX",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "NIN",
+      "glassdoor_rating": 4.1,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "IRM",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "KEYS",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MCHP",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MDB",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PWR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "BLDR",
+      "glassdoor_rating": 3.6,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "NOK",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "CYBR",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CSGP",
+      "glassdoor_rating": 3.9,
+      "culture_score": 2.0
+    },
+    {
+      "ticker": "CHKP",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TOST",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "IOT",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "GFS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PTC",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "GDDY",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TYL",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "IONQ",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "OKTA",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "GEN",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "LOGI",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MANH",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ZBRA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SSNC",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TDOC",
+      "glassdoor_rating": 3.6,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "FFIV",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SWKS",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "WHR",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "DOCS",
+      "glassdoor_rating": 4.3,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "FDS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "EPAM",
+      "glassdoor_rating": 4.0,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "ALGN",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "LYFT",
+      "glassdoor_rating": 3.7,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MNDY",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "HIMS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "G",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "BDX",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "CART",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "WIX",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ETSY",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MTCH",
+      "glassdoor_rating": 3.8,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "DSGX",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "QLYS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "UPST",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "GRND",
+      "glassdoor_rating": 3.4,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CRUS",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ENPH",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BYD",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "DOCN",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PAYO",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CNH",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "BULL",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "BB",
+      "glassdoor_rating": 3.9,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "LMND",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PATH",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "YELP",
+      "glassdoor_rating": 3.8,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "ABB",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "REAL",
+      "glassdoor_rating": 3.6,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "ETN",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "NUE",
+      "glassdoor_rating": 3.9,
+      "culture_score": 9.0
+    },
+    {
+      "ticker": "SNDR",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "AGCO",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "WTS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "BMI",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MORN",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "XYL",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "APA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NOW",
+      "glassdoor_rating": 4.5,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "COV",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "XYZ",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "AOS",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "FELE",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "LOW",
+      "glassdoor_rating": 3.6,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "DAVA",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "HAYW",
+      "glassdoor_rating": 3.4,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "CTRA",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "OVV",
+      "glassdoor_rating": 3.8,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "SEMR",
+      "glassdoor_rating": 4.4,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "APPS",
+      "glassdoor_rating": 3.4,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "GLOB",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "NU",
+      "glassdoor_rating": 4.5,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "FOUR",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "PR",
+      "glassdoor_rating": 4.3,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "DVN",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "NOG",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "MRK",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "CIVI",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ABBV",
+      "glassdoor_rating": 4.0,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MGY",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "CHRD",
+      "glassdoor_rating": 4.2,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "ROCH",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "GM",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "NVS",
+      "glassdoor_rating": 4.1,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "PFE",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "FANG",
+      "glassdoor_rating": 4.2,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "BMY",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "MTDR",
+      "glassdoor_rating": 4.1,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "TMC",
+      "glassdoor_rating": 2.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "F",
+      "glassdoor_rating": 3.9,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "SM",
+      "glassdoor_rating": 3.9,
+      "culture_score": 8.0
+    },
+    {
+      "ticker": "BBY",
+      "glassdoor_rating": 3.6,
+      "culture_score": 6.0
+    },
+    {
+      "ticker": "VALU",
+      "glassdoor_rating": 2.9,
+      "culture_score": 5.0
+    },
+    {
+      "ticker": "AWS",
+      "glassdoor_rating": 4.0,
+      "culture_score": 4.0
+    },
+    {
+      "ticker": "MP",
+      "glassdoor_rating": 3.9,
+      "culture_score": 7.0
+    },
+    {
+      "ticker": "FUN",
+      "glassdoor_rating": 3.4,
+      "culture_score": 3.0
+    },
+    {
+      "ticker": "YT",
+      "glassdoor_rating": 4.3,
+      "culture_score": 8.0
+    }
+  ]
+}
