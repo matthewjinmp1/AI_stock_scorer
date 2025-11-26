@@ -1807,10 +1807,90 @@ def handle_redo_command(tickers_input):
                         print(f"  ✓ {ticker_upper} rescored successfully (Model: {model_name})")
                 else:
                     print(f"  ✗ Error rescoring {ticker_upper}: {result.get('error', 'Unknown error')}")
-            else:
-                print(f"  ✗ '{ticker}' is not a valid ticker. Skipping.")
+
+
+def handle_upgrade_command():
+    """Handle the upgrade command - rescore all tickers that don't have the current model."""
+    # Get the current model
+    current_model = get_model_for_ticker("DUMMY")  # Get current model (doesn't depend on ticker)
+    
+    print(f"\nUpgrade: Rescoring all tickers not using current model '{current_model}'...")
+    print("=" * 80)
+    
+    # Load all scores
+    scores_data = load_scores()
+    companies = scores_data.get("companies", {})
+    
+    if not companies:
+        print("No companies found in scores.json")
+        return
+    
+    # Find tickers that need upgrading
+    tickers_to_upgrade = []
+    ticker_lookup = load_ticker_lookup()
+    
+    for ticker, company_data in companies.items():
+        ticker_upper = ticker.upper()
+        # company_data IS the scores dict, not a dict containing a "scores" key
+        existing_model = company_data.get("model")
         
-        print("\n" + "=" * 80)
+        # If no model specified or model doesn't match current, add to upgrade list
+        if not existing_model or existing_model != current_model:
+            company_name = ticker_lookup.get(ticker_upper, ticker_upper)
+            old_model = existing_model or "Unknown"
+            tickers_to_upgrade.append((ticker_upper, company_name, old_model))
+    
+    if not tickers_to_upgrade:
+        print(f"All tickers are already using the current model '{current_model}'.")
+        print("No upgrade needed!")
+        return
+    
+    print(f"Found {len(tickers_to_upgrade)} ticker(s) to upgrade:")
+    for ticker, company_name, old_model in tickers_to_upgrade:
+        print(f"  - {ticker} ({company_name}): {old_model} -> {current_model}")
+    
+    # Ask for confirmation
+    print()
+    confirm = input(f"Proceed with upgrading {len(tickers_to_upgrade)} ticker(s)? (y/n): ").strip().lower()
+    if confirm not in ['y', 'yes']:
+        print("Upgrade cancelled.")
+        return
+    
+    # Rescore all tickers that need upgrading
+    print(f"\nProcessing {len(tickers_to_upgrade)} ticker(s) for upgrade...")
+    print("=" * 80)
+    
+    successful = 0
+    failed = 0
+    
+    for i, (ticker, company_name, old_model) in enumerate(tickers_to_upgrade, 1):
+        print(f"\n[{i}/{len(tickers_to_upgrade)}] Upgrading {ticker} ({company_name})...")
+        print(f"  Old model: {old_model} -> New model: {current_model}")
+        result = score_single_ticker(ticker, silent=True, batch_mode=True, force_rescore=True)
+        if result:
+            if result['success']:
+                total = result.get('total')
+                model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
+                if total is not None:
+                    all_totals = get_all_total_scores()
+                    percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                    total_str = format_total_score(total, percentile)
+                    print(f"  ✓ {ticker} upgraded successfully - {total_str} (Model: {model_name})")
+                else:
+                    print(f"  ✓ {ticker} upgraded successfully (Model: {model_name})")
+                successful += 1
+            else:
+                print(f"  ✗ Error upgrading {ticker}: {result.get('error', 'Unknown error')}")
+                failed += 1
+        else:
+            print(f"  ✗ Error upgrading {ticker}: Invalid ticker or lookup failed")
+            failed += 1
+    
+    print("\n" + "=" * 80)
+    print(f"Upgrade complete!")
+    print(f"  Successful: {successful}")
+    print(f"  Failed: {failed}")
+    print(f"  Total: {len(tickers_to_upgrade)}")
 
 
 def migrate_scores_to_uppercase():
@@ -2729,6 +2809,7 @@ def main():
     print("  Type 'fill' to score companies with missing scores")
     print("  Type 'migrate' to fix duplicate entries")
     print("  Type 'redo TICKER1 TICKER2 ...' to rescore ticker(s) (forces new scoring even if scores exist)")
+    print("  Type 'upgrade' to rescore all tickers not using the current model")
     print("  Type 'define TICKER = Company Name' to add custom ticker definition")
     print("  Type 'define -r TICKER' to remove a custom ticker definition")
     print("  Type 'define -l' to list all custom ticker definitions")
@@ -2740,7 +2821,7 @@ def main():
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'define'/'redefine'/'correl'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2776,6 +2857,9 @@ def main():
             elif user_input.lower().startswith('redo '):
                 tickers = user_input[5:].strip()  # Remove 'redo ' prefix
                 handle_redo_command(tickers)
+                print()
+            elif user_input.lower() == 'upgrade':
+                handle_upgrade_command()
                 print()
             elif user_input.lower() == 'define':
                 print("Usage:")
