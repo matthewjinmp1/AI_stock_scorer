@@ -1312,7 +1312,10 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                     'scores': current_scores,
                     'total': total,
                     'success': True,
-                    'already_scored': True
+                    'already_scored': True,
+                    'total_tokens': 0,
+                    'token_usage': None,
+                    'model_used': current_scores.get('model')
                 }
             
             # Some scores missing, fill them in
@@ -1365,7 +1368,10 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                 'scores': current_scores,
                 'total': total,
                 'success': True,
-                'already_scored': False
+                'already_scored': False,
+                'total_tokens': tokens_used,
+                'token_usage': token_usage,
+                'model_used': model_used
             }
         
         # New scoring needed
@@ -1420,7 +1426,10 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             'scores': all_scores,
             'total': total,
             'success': True,
-            'already_scored': False
+            'already_scored': False,
+            'total_tokens': total_tokens,
+            'token_usage': token_usage,
+            'model_used': model_used
         }
         
     except ValueError as e:
@@ -1862,15 +1871,52 @@ def handle_upgrade_command():
     
     successful = 0
     failed = 0
+    total_upgrade_tokens = 0
+    total_upgrade_cost = 0.0
     
     for i, (ticker, company_name, old_model) in enumerate(tickers_to_upgrade, 1):
         print(f"\n[{i}/{len(tickers_to_upgrade)}] Upgrading {ticker} ({company_name})...")
         print(f"  Old model: {old_model} -> New model: {current_model}")
+        
+        # Track timing
+        start_time = time.time()
         result = score_single_ticker(ticker, silent=True, batch_mode=True, force_rescore=True)
+        elapsed_time = time.time() - start_time
+        
         if result:
             if result['success']:
                 total = result.get('total')
                 model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
+                total_tokens = result.get('total_tokens', 0)
+                token_usage = result.get('token_usage')
+                model_used = result.get('model_used', current_model)
+                
+                # Calculate cost
+                cost = 0.0
+                if total_tokens > 0 and model_used:
+                    cost = calculate_token_cost(total_tokens, model=model_used, token_usage=token_usage)
+                    total_upgrade_tokens += total_tokens
+                    total_upgrade_cost += cost
+                
+                # Format token breakdown
+                token_info = f"{total_tokens:,} tokens"
+                if token_usage:
+                    input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
+                    output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
+                    cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                                   token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
+                                   token_usage.get('prompt_cache_hit_tokens', 0))
+                    if cached_tokens > 0:
+                        token_info = f"{input_tokens:,} input, {output_tokens:,} output, {cached_tokens:,} cached"
+                    else:
+                        token_info = f"{input_tokens:,} input, {output_tokens:,} output"
+                
+                # Format cost
+                cost_str = f"{cost * 100:.4f} cents" if cost > 0 else "N/A"
+                
+                # Format time
+                time_str = f"{elapsed_time:.2f}s"
+                
                 if total is not None:
                     all_totals = get_all_total_scores()
                     percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
@@ -1878,6 +1924,7 @@ def handle_upgrade_command():
                     print(f"  ✓ {ticker} upgraded successfully - {total_str} (Model: {model_name})")
                 else:
                     print(f"  ✓ {ticker} upgraded successfully (Model: {model_name})")
+                print(f"    Time: {time_str} | Tokens: {token_info} | Cost: {cost_str}")
                 successful += 1
             else:
                 print(f"  ✗ Error upgrading {ticker}: {result.get('error', 'Unknown error')}")
@@ -1891,6 +1938,9 @@ def handle_upgrade_command():
     print(f"  Successful: {successful}")
     print(f"  Failed: {failed}")
     print(f"  Total: {len(tickers_to_upgrade)}")
+    if successful > 0:
+        print(f"  Total tokens: {total_upgrade_tokens:,}")
+        print(f"  Total cost: {total_upgrade_cost * 100:.4f} cents")
 
 
 def migrate_scores_to_uppercase():

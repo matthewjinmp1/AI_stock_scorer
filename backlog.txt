@@ -18,8 +18,6 @@ add stock peer groups
 
 compounder score, ecosystem score, visionary, disruptor
 
-switch to open router
-
 automate size score weight
 
 add AI competitor finder
