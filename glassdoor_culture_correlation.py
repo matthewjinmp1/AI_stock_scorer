@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Glassdoor Rating vs Culture Score Correlation Analysis
-Calculates correlation between Glassdoor ratings and culture_employee_satisfaction_score from scores.json
+Calculates correlation between Glassdoor ratings and culture_employee_satisfaction_score from scores_copy.json
 """
 
 import json
@@ -10,13 +10,13 @@ from scipy.stats import pearsonr, spearmanr
 import numpy as np
 
 
-def load_data(glassdoor_file="glassdoor.json", scores_file="scores.json"):
+def load_data(glassdoor_file="glassdoor.json", scores_file="scores_copy.json"):
     """
     Load data from both JSON files.
     
     Args:
         glassdoor_file: Path to glassdoor.json
-        scores_file: Path to scores.json
+        scores_file: Path to scores_copy.json
         
     Returns:
         tuple: (glassdoor_data, scores_data)
@@ -217,7 +217,7 @@ def display_results(matching_data, stats):
 def main():
     """Main function to run correlation analysis."""
     print("Loading data...")
-    glassdoor_data, scores_data = load_data()
+    glassdoor_data, scores_data = load_data(scores_file="scores_copy.json")
     
     print("Extracting matching data...")
     matching_data = extract_matching_data(glassdoor_data, scores_data)

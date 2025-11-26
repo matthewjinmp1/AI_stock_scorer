@@ -2308,21 +2308,21 @@ def view_scores(score_type=None):
         print(f"{'Company':<{min(max_name_len, 30)}} {'Score':>8} {'Percentile':>12}")
         print("-" * (min(max_name_len, 30) + 8 + 12 + 2))
         
-        # Display companies with percentiles
+        # Display companies with percentiles (only show companies with complete scores)
         for company, data in sorted_companies:
-            if company in company_totals:
-                total = company_totals[company]
-                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-                percentage = int((total / max_score) * 100)
-                percentage_str = f"{percentage}"
+            # Skip companies that don't have all scores
+            if company not in company_totals:
+                continue
                 
-                percentile = calculate_percentile_rank(total, all_totals) if len(all_totals) > 1 else None
-                if percentile is not None:
-                    percentile_str = f"{percentile}"
-                else:
-                    percentile_str = 'N/A'
+            total = company_totals[company]
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+            percentage = int((total / max_score) * 100)
+            percentage_str = f"{percentage}"
+            
+            percentile = calculate_percentile_rank(total, all_totals) if len(all_totals) > 1 else None
+            if percentile is not None:
+                percentile_str = f"{percentile}"
             else:
-                percentage_str = 'N/A'
                 percentile_str = 'N/A'
             
             # Display ticker if available, otherwise company name
