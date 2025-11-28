@@ -332,6 +332,69 @@ def main():
     print(f"  Std Dev: {np.std(percentile_returns):.2f}%")
     print()
     
+    # 10-Bucket Analysis: Split stocks by score percentiles
+    print("=" * 60)
+    print("10-BUCKET ANALYSIS BY SCORE PERCENTILE")
+    print("=" * 60)
+    print("Stocks are split into 10 buckets based on their total score percentile")
+    print("Each bucket shows the median return for stocks in that score range")
+    print()
+    
+    # Create buckets: 0-10, 10-20, 20-30, ..., 90-100
+    buckets = [[] for _ in range(10)]
+    
+    for item in matched_data:
+        score_percentile = item['total_score_percent']
+        # Determine which bucket (0-9) this stock belongs to
+        # Bucket 0: 0-10%, Bucket 1: 10-20%, ..., Bucket 9: 90-100%
+        bucket_index = min(int(score_percentile / 10), 9)  # Cap at 9 for 100%
+        buckets[bucket_index].append(item)
+    
+    # Display results
+    print(f"{'Bucket':<10} {'Score Range':<20} {'Count':<10} {'Median Return %':<20}")
+    print("-" * 60)
+    
+    bucket_medians = []
+    for i in range(10):
+        bucket = buckets[i]
+        if len(bucket) > 0:
+            bucket_returns = [item['return'] for item in bucket]
+            median_return = np.median(bucket_returns)
+            bucket_medians.append(median_return)
+            score_min = i * 10
+            score_max = (i + 1) * 10
+            if i == 9:
+                score_range = f"{score_min}-{score_max}%"
+            else:
+                score_range = f"{score_min}-{score_max}%"
+            print(f"{i+1:<10} {score_range:<20} {len(bucket):<10} {median_return:>+8.2f}%")
+        else:
+            bucket_medians.append(None)
+            score_min = i * 10
+            score_max = (i + 1) * 10
+            if i == 9:
+                score_range = f"{score_min}-{score_max}%"
+            else:
+                score_range = f"{score_min}-{score_max}%"
+            print(f"{i+1:<10} {score_range:<20} {0:<10} {'N/A':<20}")
+    
+    print()
+    
+    # Show trend analysis
+    valid_medians = [m for m in bucket_medians if m is not None]
+    if len(valid_medians) >= 2:
+        # Calculate correlation between bucket number and median return
+        bucket_numbers = [i for i, m in enumerate(bucket_medians) if m is not None]
+        bucket_corr, bucket_p = pearsonr(bucket_numbers, valid_medians)
+        print(f"Correlation between score bucket and median return: {bucket_corr:+.4f} (p={bucket_p:.6f})")
+        if bucket_corr > 0:
+            print("Trend: Higher score buckets tend to have higher returns")
+        elif bucket_corr < 0:
+            print("Trend: Higher score buckets tend to have lower returns")
+        else:
+            print("Trend: No clear relationship between score buckets and returns")
+    print()
+    
     # Show top and bottom performers
     print("=" * 60)
     print("TOP 10 BY TOTAL SCORE")
