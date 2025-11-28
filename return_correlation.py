@@ -208,6 +208,8 @@ def main():
     print("Calculating total scores and matching with returns...")
     matched_data = []
     excluded_count = 0
+    no_return_data_count = 0
+    failed_return_count = 0
     
     for ticker, scores_dict in scores_data.items():
         ticker_upper = ticker.upper()
@@ -234,11 +236,23 @@ def main():
                     'return': return_pct,
                     'scores_dict': scores_dict  # Store scores dict for individual metric analysis
                 })
+            else:
+                failed_return_count += 1
+        else:
+            no_return_data_count += 1
     
+    # Print diagnostic information
+    print()
+    print("=" * 60)
+    print("FILTERING SUMMARY")
+    print("=" * 60)
+    print(f"Total tickers in scores.json: {len(scores_data)}")
     if excluded_count > 0:
-        print(f"Excluded {excluded_count} tickers from custom definitions")
-    
-    print(f"Found {len(matched_data)} companies with both scores and returns")
+        print(f"Excluded by ticker_definitions.json: {excluded_count}")
+    print(f"Missing return data in returns.json: {no_return_data_count}")
+    if failed_return_count > 0:
+        print(f"Return data exists but status != 'success': {failed_return_count}")
+    print(f"Successfully matched: {len(matched_data)}")
     print()
     
     if len(matched_data) < 2:
@@ -336,7 +350,7 @@ def main():
     print("=" * 60)
     print("10-BUCKET ANALYSIS BY SCORE PERCENTILE")
     print("=" * 60)
-    print("Stocks are split into 10 buckets based on their total score percentile")
+    print("Stocks are split into 10 buckets based on their total score percentile rank")
     print("Each bucket shows the median return for stocks in that score range")
     print()
     
@@ -344,10 +358,16 @@ def main():
     buckets = [[] for _ in range(10)]
     
     for item in matched_data:
-        score_percentile = item['total_score_percent']
+        # Use percentile rank (0-100) to determine bucket
+        # This is the percentile rank of the score among all scores
+        score_percentile_rank = item['percentile_total_score']
         # Determine which bucket (0-9) this stock belongs to
-        # Bucket 0: 0-10%, Bucket 1: 10-20%, ..., Bucket 9: 90-100%
-        bucket_index = min(int(score_percentile / 10), 9)  # Cap at 9 for 100%
+        # Bucket 0: [0, 10), Bucket 1: [10, 20), ..., Bucket 9: [90, 100]
+        # For 100%, we want it in bucket 9 (90-100%)
+        if score_percentile_rank >= 100:
+            bucket_index = 9
+        else:
+            bucket_index = int(score_percentile_rank / 10)
         buckets[bucket_index].append(item)
     
     # Display results
