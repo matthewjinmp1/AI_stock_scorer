@@ -1,8 +1,8 @@
 import json
 import statistics
 
-# Load the stricter_scores.json file
-with open('stricter_scores.json', 'r') as f:
+# Load the scores.json file
+with open('scores.json', 'r') as f:
     data = json.load(f)
 
 # Get all companies
@@ -24,9 +24,24 @@ if companies:
     for metric in metrics:
         values = []
         for ticker, company_data in companies.items():
-            # Convert string to int
-            value = int(company_data[metric])
-            values.append(value)
+            # Get the value and handle markdown formatting (e.g., "**2**" -> "2")
+            value_str = str(company_data[metric]).strip()
+            # Remove markdown formatting (asterisks)
+            value_str = value_str.replace('*', '')
+            # Convert to int, skip if invalid
+            try:
+                value = int(value_str)
+                values.append(value)
+            except (ValueError, TypeError):
+                # Skip invalid values
+                continue
+        
+        # Skip if no valid values found
+        if len(values) == 0:
+            print(f"{metric}:")
+            print(f"  No valid values found")
+            print()
+            continue
         
         # Calculate statistics
         avg = statistics.mean(values)
