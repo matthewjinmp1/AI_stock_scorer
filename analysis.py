@@ -20,6 +20,9 @@ if companies:
     all_maxes = []
     all_stdevs = []
     
+    # Store metric statistics for ranking
+    metric_stats = []
+    
     # For each metric, collect all values across all tickers
     for metric in metrics:
         values = []
@@ -57,6 +60,16 @@ if companies:
         all_maxes.append(max_val)
         all_stdevs.append(stdev)
         
+        # Store metric statistics for ranking
+        metric_stats.append({
+            'metric': metric,
+            'avg': avg,
+            'median': median,
+            'min': min_val,
+            'max': max_val,
+            'stdev': stdev
+        })
+        
         # Print results
         print(f"{metric}:")
         print(f"  Average: {avg:.2f}")
@@ -76,4 +89,51 @@ if companies:
     print(f"  Average of Maxes: {statistics.mean(all_maxes):.2f}")
     print(f"  Average of Std Devs: {statistics.mean(all_stdevs):.2f}")
     print()
+    
+    # Display rankings for each statistic
+    if metric_stats:
+        # Rank by Average
+        print("=" * 50)
+        print("RANKING BY AVERAGE (Highest to Lowest):")
+        print("=" * 50)
+        sorted_by_avg = sorted(metric_stats, key=lambda x: x['avg'], reverse=True)
+        for rank, stat in enumerate(sorted_by_avg, 1):
+            print(f"  {rank:2d}. {stat['metric']:<40} {stat['avg']:>6.2f}")
+        print()
+        
+        # Rank by Median
+        print("=" * 50)
+        print("RANKING BY MEDIAN (Highest to Lowest):")
+        print("=" * 50)
+        sorted_by_median = sorted(metric_stats, key=lambda x: x['median'], reverse=True)
+        for rank, stat in enumerate(sorted_by_median, 1):
+            print(f"  {rank:2d}. {stat['metric']:<40} {stat['median']:>6.2f}")
+        print()
+        
+        # Rank by Min
+        print("=" * 50)
+        print("RANKING BY MIN (Highest to Lowest):")
+        print("=" * 50)
+        sorted_by_min = sorted(metric_stats, key=lambda x: x['min'], reverse=True)
+        for rank, stat in enumerate(sorted_by_min, 1):
+            print(f"  {rank:2d}. {stat['metric']:<40} {stat['min']:>6.0f}")
+        print()
+        
+        # Rank by Max
+        print("=" * 50)
+        print("RANKING BY MAX (Highest to Lowest):")
+        print("=" * 50)
+        sorted_by_max = sorted(metric_stats, key=lambda x: x['max'], reverse=True)
+        for rank, stat in enumerate(sorted_by_max, 1):
+            print(f"  {rank:2d}. {stat['metric']:<40} {stat['max']:>6.0f}")
+        print()
+        
+        # Rank by Std Dev (Highest variability to lowest)
+        print("=" * 50)
+        print("RANKING BY STANDARD DEVIATION (Highest to Lowest Variability):")
+        print("=" * 50)
+        sorted_by_stdev = sorted(metric_stats, key=lambda x: x['stdev'], reverse=True)
+        for rank, stat in enumerate(sorted_by_stdev, 1):
+            print(f"  {rank:2d}. {stat['metric']:<40} {stat['stdev']:>6.2f}")
+        print()
 
