@@ -7,6 +7,8 @@ Calculates total return from December 1st to today for each ticker
 import json
 import os
 from datetime import datetime, date
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 import yfinance as yf
 
 SCORES_FILE = "scores.json"
@@ -88,6 +90,26 @@ def calculate_return(ticker):
         return None, str(e)
 
 
+def process_ticker(ticker, total, completed_lock, completed_count):
+    """Wrapper function to process a ticker and update progress."""
+    return_pct, error = calculate_return(ticker)
+    
+    # Thread-safe progress update
+    with completed_lock:
+        completed_count[0] += 1
+        current = completed_count[0]
+        if error:
+            print(f"[{current}/{total}] {ticker}: Error - {error}")
+        else:
+            print(f"[{current}/{total}] {ticker}: {return_pct:.2f}%")
+    
+    return {
+        'ticker': ticker,
+        'return': return_pct,
+        'error': error
+    }
+
+
 def main():
     """Main function to calculate and display returns."""
     print("=" * 60)
@@ -122,31 +144,34 @@ def main():
     start_date = get_december_start_date()
     end_date = date.today()
     print(f"Calculating returns from {start_date} to {end_date}")
+    print("Using multithreading to speed up processing...")
     print("=" * 60)
     print()
     
-    # Calculate returns for each ticker
+    # Calculate returns for each ticker using multithreading
     results = []
     total = len(common_tickers)
+    sorted_tickers = sorted(common_tickers)
     
-    for i, ticker in enumerate(sorted(common_tickers), 1):
-        print(f"[{i}/{total}] Calculating return for {ticker}...", end=" ", flush=True)
-        return_pct, error = calculate_return(ticker)
+    # Thread-safe progress tracking
+    completed_lock = Lock()
+    completed_count = [0]
+    
+    # Use ThreadPoolExecutor with reasonable number of workers
+    # Too many threads might overwhelm the API, 10-20 is usually good
+    max_workers = min(20, total)
+    
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_ticker = {
+            executor.submit(process_ticker, ticker, total, completed_lock, completed_count): ticker
+            for ticker in sorted_tickers
+        }
         
-        if error:
-            print(f"Error: {error}")
-            results.append({
-                'ticker': ticker,
-                'return': None,
-                'error': error
-            })
-        else:
-            print(f"{return_pct:.2f}%")
-            results.append({
-                'ticker': ticker,
-                'return': return_pct,
-                'error': None
-            })
+        # Collect results as they complete
+        for future in as_completed(future_to_ticker):
+            result = future.result()
+            results.append(result)
     
     # Sort by return (highest first), with errors at the end
     results.sort(key=lambda x: (x['return'] is None, x['return'] or 0), reverse=True)

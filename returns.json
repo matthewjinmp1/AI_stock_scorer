@@ -1,714 +1,1234 @@
 {
-  "date_calculated": "2025-11-08T21:02:42.559985",
+  "date_calculated": "2025-11-27T22:09:59.103736",
   "start_date": "2024-12-01",
-  "end_date": "2025-11-08",
+  "end_date": "2025-11-27",
   "returns": {
-    "ASM": {
-      "return": 304.7169993805615,
+    "TMC": {
+      "return": 626.9326713501648,
       "status": "success"
     },
-    "HOOD": {
-      "return": 246.5178211365263,
+    "ASM": {
+      "return": 381.132092447034,
       "status": "success"
     },
     "OPEN": {
-      "return": 207.98120142361628,
+      "return": 265.25820618795797,
+      "status": "success"
+    },
+    "HOOD": {
+      "return": 240.77618444477545,
+      "status": "success"
+    },
+    "SYM": {
+      "return": 240.35089415241106,
+      "status": "success"
+    },
+    "APPS": {
+      "return": 223.44826917160728,
+      "status": "success"
+    },
+    "MP": {
+      "return": 189.04374372676133,
       "status": "success"
     },
     "WDC": {
-      "return": 194.49713010160116,
+      "return": 185.06367824047584,
       "status": "success"
     },
     "STX": {
-      "return": 177.3707304542453,
+      "return": 170.3508161782859,
       "status": "success"
     },
     "PLTR": {
-      "return": 168.00722143631197,
-      "status": "success"
-    },
-    "MU": {
-      "return": 142.428541665371,
-      "status": "success"
-    },
-    "NET": {
-      "return": 121.61826824877767,
-      "status": "success"
-    },
-    "DB": {
-      "return": 119.49865180544454,
+      "return": 149.69122728792777,
       "status": "success"
     },
     "AVGO": {
-      "return": 111.91348247688502,
+      "return": 141.10822352507012,
+      "status": "success"
+    },
+    "REAL": {
+      "return": 139.9006599773676,
+      "status": "success"
+    },
+    "MU": {
+      "return": 134.62340047634228,
+      "status": "success"
+    },
+    "W": {
+      "return": 134.0890157351496,
       "status": "success"
     },
     "NEM": {
-      "return": 106.69293579544798,
+      "return": 125.01764493860281,
+      "status": "success"
+    },
+    "DB": {
+      "return": 113.48169307299416,
       "status": "success"
     },
     "LRCX": {
-      "return": 105.11784960162913,
-      "status": "success"
-    },
-    "RBLX": {
-      "return": 104.83128192185266,
-      "status": "success"
-    },
-    "BABA": {
-      "return": 96.80215352533531,
+      "return": 99.69866233535511,
       "status": "success"
     },
     "APH": {
-      "return": 91.84142706048652,
+      "return": 91.33110717296398,
       "status": "success"
     },
-    "APP": {
-      "return": 82.01650058469849,
-      "status": "success"
-    },
-    "KLAC": {
-      "return": 80.40540846024818,
-      "status": "success"
-    },
-    "SOFI": {
-      "return": 77.30986395365203,
-      "status": "success"
-    },
-    "MPWR": {
-      "return": 66.55197661587475,
-      "status": "success"
-    },
-    "U": {
-      "return": 65.0721599146263,
-      "status": "success"
-    },
-    "AMD": {
-      "return": 64.39532401780271,
+    "NET": {
+      "return": 87.52022824417026,
       "status": "success"
     },
     "GOOGL": {
-      "return": 63.30958590897976,
+      "return": 87.39343395991017,
       "status": "success"
     },
-    "NTES": {
-      "return": 59.80746644298982,
+    "BABA": {
+      "return": 86.46159239882535,
       "status": "success"
     },
-    "INTC": {
-      "return": 59.33974334245269,
+    "CRWV": {
+      "return": 85.72500228881836,
       "status": "success"
     },
-    "TEL": {
-      "return": 58.99127957799638,
+    "SOFI": {
+      "return": 79.06976772065963,
       "status": "success"
     },
-    "CRWD": {
-      "return": 55.65456071493501,
+    "RBLX": {
+      "return": 77.77991493137311,
       "status": "success"
     },
-    "IBKR": {
-      "return": 52.57468215667198,
+    "KLAC": {
+      "return": 75.5141590544333,
       "status": "success"
     },
-    "SNOW": {
-      "return": 52.45330480400526,
+    "U": {
+      "return": 75.13402565238401,
       "status": "success"
     },
-    "TEN": {
-      "return": 50.12336910985247,
+    "APP": {
+      "return": 72.16301166269864,
       "status": "success"
     },
-    "ILPT": {
-      "return": 49.633789949261974,
+    "LMND": {
+      "return": 68.87388158784135,
       "status": "success"
     },
-    "TSM": {
-      "return": 49.43322850121912,
-      "status": "success"
-    },
-    "ASML": {
-      "return": 44.30373092336818,
-      "status": "success"
-    },
-    "CAT": {
-      "return": 42.009734911303084,
+    "PSTG": {
+      "return": 61.70813567606373,
       "status": "success"
     },
     "RL": {
-      "return": 41.00566084148159,
+      "return": 61.21757660001739,
       "status": "success"
     },
-    "BILI": {
-      "return": 39.70883442327647,
+    "MPWR": {
+      "return": 60.76247702503754,
       "status": "success"
     },
-    "CVS": {
-      "return": 39.41753654695684,
+    "BB": {
+      "return": 58.98438525910047,
       "status": "success"
     },
-    "SONY": {
-      "return": 38.86819707595291,
+    "NTES": {
+      "return": 58.197768570776674,
       "status": "success"
     },
-    "IBM": {
-      "return": 37.461056310856144,
+    "INTC": {
+      "return": 53.82365609635801,
+      "status": "success"
+    },
+    "TSM": {
+      "return": 51.237885552660266,
+      "status": "success"
+    },
+    "AMD": {
+      "return": 50.809523564013226,
+      "status": "success"
+    },
+    "ILPT": {
+      "return": 49.633799620017385,
+      "status": "success"
+    },
+    "NOK": {
+      "return": 48.7176502518792,
+      "status": "success"
+    },
+    "ASML": {
+      "return": 47.71069985603291,
+      "status": "success"
+    },
+    "TEL": {
+      "return": 47.38926769438186,
+      "status": "success"
+    },
+    "TEN": {
+      "return": 47.38280426888185,
       "status": "success"
     },
     "RDDT": {
-      "return": 37.376449215994064,
+      "return": 46.54052418314468,
       "status": "success"
     },
-    "PDD": {
-      "return": 37.17922224114112,
+    "IONQ": {
+      "return": 46.28820810017494,
       "status": "success"
     },
-    "NVDA": {
-      "return": 35.759900936411626,
+    "SONY": {
+      "return": 45.733933374136,
       "status": "success"
     },
-    "SHOP": {
-      "return": 34.89998153089625,
+    "CAT": {
+      "return": 44.69054514210317,
       "status": "success"
     },
-    "ORCL": {
-      "return": 33.20089536009786,
+    "CRWD": {
+      "return": 44.61938471702865,
       "status": "success"
     },
-    "ROKU": {
-      "return": 32.770926670876946,
+    "SNOW": {
+      "return": 44.21761182160579,
       "status": "success"
     },
-    "SE": {
-      "return": 32.40904739488579,
-      "status": "success"
-    },
-    "ANET": {
-      "return": 31.33381311142592,
+    "NU": {
+      "return": 43.75,
       "status": "success"
     },
     "GOOS": {
-      "return": 30.737279366261145,
+      "return": 41.433018937713776,
       "status": "success"
     },
-    "JPM": {
-      "return": 30.299084543029565,
+    "SHOP": {
+      "return": 41.03380386216984,
       "status": "success"
     },
-    "SPOT": {
-      "return": 28.45066051523982,
+    "CVS": {
+      "return": 40.95308400054618,
       "status": "success"
     },
-    "ROK": {
-      "return": 27.289922567373793,
+    "EXPE": {
+      "return": 40.37051719160926,
       "status": "success"
     },
-    "MNST": {
-      "return": 26.827944593499183,
-      "status": "success"
-    },
-    "AMAT": {
-      "return": 26.544688760957357,
-      "status": "success"
-    },
-    "DDOG": {
-      "return": 25.091574689414585,
-      "status": "success"
-    },
-    "BA": {
-      "return": 24.3196684278836,
-      "status": "success"
-    },
-    "TTWO": {
-      "return": 23.43708633519602,
-      "status": "success"
-    },
-    "JNJ": {
-      "return": 23.428887768821614,
-      "status": "success"
-    },
-    "CSCO": {
-      "return": 22.669953391462922,
-      "status": "success"
-    },
-    "PM": {
-      "return": 21.448450837324252,
-      "status": "success"
-    },
-    "EA": {
-      "return": 21.337696369870905,
-      "status": "success"
-    },
-    "TSLA": {
-      "return": 20.283400100417694,
-      "status": "success"
-    },
-    "DELL": {
-      "return": 18.697049108599035,
-      "status": "success"
-    },
-    "COF": {
-      "return": 17.194020048108893,
-      "status": "success"
-    },
-    "TM": {
-      "return": 17.146939262801354,
-      "status": "success"
-    },
-    "ORLY": {
-      "return": 16.805152218762593,
+    "CYBR": {
+      "return": 39.63680914898118,
       "status": "success"
     },
     "LLY": {
-      "return": 16.266457075721128,
+      "return": 39.10691750982132,
       "status": "success"
     },
-    "AMZN": {
-      "return": 15.993543673511892,
+    "IBKR": {
+      "return": 38.839924651786795,
       "status": "success"
     },
-    "MSFT": {
-      "return": 15.910245624547532,
+    "JNJ": {
+      "return": 38.18704683993299,
       "status": "success"
     },
-    "DASH": {
-      "return": 15.841698256464632,
+    "AMAT": {
+      "return": 37.75971482738656,
       "status": "success"
     },
-    "DNP": {
-      "return": 14.588033541166862,
+    "IBM": {
+      "return": 36.788860273759866,
       "status": "success"
     },
-    "T": {
-      "return": 14.283227373045177,
+    "MNST": {
+      "return": 36.48599770882259,
       "status": "success"
     },
-    "HPE": {
-      "return": 13.355411472020668,
+    "LOGI": {
+      "return": 36.38691730962205,
       "status": "success"
     },
-    "KO": {
-      "return": 13.314797856570507,
+    "ROK": {
+      "return": 34.76972021188164,
       "status": "success"
     },
-    "AAPL": {
-      "return": 12.451711201684597,
+    "PWR": {
+      "return": 34.660423426893864,
       "status": "success"
     },
-    "PLD": {
-      "return": 12.390742128142287,
+    "BIDU": {
+      "return": 34.46602040201761,
       "status": "success"
     },
-    "WMT": {
-      "return": 11.820279599845557,
+    "GM": {
+      "return": 33.68971401850882,
       "status": "success"
     },
-    "NEE": {
-      "return": 11.542687344904596,
+    "BILI": {
+      "return": 32.58032001135217,
       "status": "success"
     },
-    "STAG": {
-      "return": 11.361075380576937,
+    "VRSN": {
+      "return": 32.40917079491253,
       "status": "success"
     },
-    "FR": {
-      "return": 9.85325041248587,
+    "EBAY": {
+      "return": 32.11414320503719,
       "status": "success"
     },
-    "KR": {
-      "return": 9.521617136788096,
+    "CSCO": {
+      "return": 31.300173872552676,
       "status": "success"
     },
-    "TDG": {
-      "return": 8.935677180179887,
+    "NVDA": {
+      "return": 30.06684611498932,
       "status": "success"
     },
-    "MO": {
-      "return": 8.882657340434989,
+    "WTS": {
+      "return": 30.00907965237902,
       "status": "success"
     },
-    "DBX": {
-      "return": 8.81212522398908,
+    "ABBV": {
+      "return": 29.625509870831706,
       "status": "success"
     },
-    "LXP": {
-      "return": 8.691833098202356,
+    "TTWO": {
+      "return": 29.624904942086015,
       "status": "success"
     },
-    "ARM": {
-      "return": 8.579171197876947,
+    "NVS": {
+      "return": 29.09617968294062,
       "status": "success"
     },
-    "TMO": {
-      "return": 8.393112115816386,
+    "F": {
+      "return": 29.02872713462204,
       "status": "success"
     },
-    "BLK": {
-      "return": 8.270356957420196,
+    "JPM": {
+      "return": 27.574594594731412,
       "status": "success"
     },
-    "NDAQ": {
-      "return": 8.160003526281868,
+    "ANET": {
+      "return": 24.50621763088495,
       "status": "success"
     },
-    "MELI": {
-      "return": 7.998205370533714,
+    "HIMS": {
+      "return": 24.473261105514094,
       "status": "success"
     },
-    "EGP": {
-      "return": 7.7373091601552755,
+    "ROKU": {
+      "return": 24.114203070412824,
       "status": "success"
     },
-    "AFRM": {
-      "return": 7.647321835954295,
+    "PM": {
+      "return": 23.902911964509865,
       "status": "success"
     },
-    "QCOM": {
-      "return": 7.180562228087671,
+    "SPOT": {
+      "return": 23.407669852245153,
       "status": "success"
     },
-    "V": {
-      "return": 6.659599748838008,
+    "EA": {
+      "return": 22.136125041717982,
       "status": "success"
     },
-    "SAP": {
-      "return": 5.235360817672736,
+    "ORLY": {
+      "return": 22.122687181748415,
       "status": "success"
     },
-    "META": {
-      "return": 5.2013006582403145,
+    "AXP": {
+      "return": 21.71337021775306,
       "status": "success"
     },
-    "CDNS": {
-      "return": 4.76359277488665,
-      "status": "success"
-    },
-    "MA": {
-      "return": 4.475553510490732,
-      "status": "success"
-    },
-    "MCD": {
-      "return": 4.233450019208214,
-      "status": "success"
-    },
-    "TRNO": {
-      "return": 4.224088307331931,
-      "status": "success"
-    },
-    "REXR": {
-      "return": 3.796573156010207,
-      "status": "success"
-    },
-    "ISRG": {
-      "return": 3.159256734892772,
-      "status": "success"
-    },
-    "INTU": {
-      "return": 3.0071285927593965,
+    "ZS": {
+      "return": 20.843128799009374,
       "status": "success"
     },
     "SEE": {
-      "return": 2.5848831630931044,
+      "return": 20.386792362172187,
       "status": "success"
     },
-    "DE": {
-      "return": 2.465646012718178,
+    "ERIC": {
+      "return": 20.243825765526307,
       "status": "success"
     },
-    "XOM": {
-      "return": 2.2218505288214634,
+    "TSLA": {
+      "return": 19.460077556645196,
       "status": "success"
     },
-    "ADSK": {
-      "return": 0.17866131474852393,
+    "BA": {
+      "return": 19.407184224980885,
       "status": "success"
     },
-    "PNR": {
-      "return": -0.4309480184209846,
+    "WMT": {
+      "return": 18.91599332006016,
       "status": "success"
     },
-    "CVX": {
-      "return": -1.1067942244852647,
+    "T": {
+      "return": 18.839816589516992,
       "status": "success"
     },
-    "MCO": {
-      "return": -1.3435493454114016,
+    "SE": {
+      "return": 18.562342846698012,
       "status": "success"
     },
-    "ZM": {
-      "return": -1.7085767759800112,
+    "ADI": {
+      "return": 17.58557261019783,
       "status": "success"
     },
-    "FAB": {
-      "return": -2.393151083568351,
+    "COF": {
+      "return": 17.450700685233485,
       "status": "success"
     },
-    "SPGI": {
-      "return": -4.544281978272981,
+    "LYFT": {
+      "return": 17.414092940199566,
       "status": "success"
     },
-    "DIS": {
-      "return": -4.656007124666089,
+    "TM": {
+      "return": 17.413739835678744,
       "status": "success"
     },
-    "BKNG": {
-      "return": -4.763231606823003,
+    "DNP": {
+      "return": 17.313613462561317,
       "status": "success"
     },
-    "RACE": {
-      "return": -4.765881895156773,
+    "UBER": {
+      "return": 17.23005887486947,
       "status": "success"
     },
-    "ICE": {
-      "return": -4.810550861654416,
+    "KO": {
+      "return": 17.057148112379934,
       "status": "success"
     },
-    "COST": {
-      "return": -4.866155919060004,
+    "PDD": {
+      "return": 16.993331101605758,
       "status": "success"
     },
-    "AXON": {
-      "return": -5.323780088147504,
+    "AAPL": {
+      "return": 16.367673543588467,
       "status": "success"
     },
-    "SMCI": {
-      "return": -5.333337329682849,
+    "APA": {
+      "return": 16.26939162600877,
       "status": "success"
     },
-    "UNP": {
-      "return": -5.828134764347688,
+    "BAC": {
+      "return": 15.299810395833042,
+      "status": "success"
+    },
+    "DOCN": {
+      "return": 14.951612321803056,
+      "status": "success"
+    },
+    "TDG": {
+      "return": 14.892222576781784,
+      "status": "success"
+    },
+    "IQV": {
+      "return": 14.871901860401774,
+      "status": "success"
+    },
+    "PLD": {
+      "return": 14.681513516879049,
+      "status": "success"
+    },
+    "NEE": {
+      "return": 14.452177760165405,
+      "status": "success"
+    },
+    "KEYS": {
+      "return": 14.336503659032617,
+      "status": "success"
+    },
+    "ORCL": {
+      "return": 14.105395946244414,
+      "status": "success"
+    },
+    "KR": {
+      "return": 13.701892045040193,
+      "status": "success"
+    },
+    "MSFT": {
+      "return": 13.48123516916902,
+      "status": "success"
+    },
+    "STAG": {
+      "return": 12.503256867742849,
+      "status": "success"
+    },
+    "XYL": {
+      "return": 12.437092992650237,
+      "status": "success"
+    },
+    "TMO": {
+      "return": 12.339436382376784,
+      "status": "success"
+    },
+    "SSNC": {
+      "return": 12.32956493765002,
+      "status": "success"
+    },
+    "FR": {
+      "return": 12.273616756676784,
+      "status": "success"
+    },
+    "CPNG": {
+      "return": 12.233396223388361,
+      "status": "success"
+    },
+    "BYD": {
+      "return": 12.158596574481805,
+      "status": "success"
+    },
+    "NDAQ": {
+      "return": 11.55704720459423,
+      "status": "success"
+    },
+    "DASH": {
+      "return": 11.118671629673669,
+      "status": "success"
+    },
+    "CRUS": {
+      "return": 11.062686118604828,
+      "status": "success"
+    },
+    "MO": {
+      "return": 10.121026093531537,
       "status": "success"
     },
     "GAP": {
-      "return": -6.252712428398369,
+      "return": 10.011210227434692,
       "status": "success"
     },
-    "NTAP": {
-      "return": -6.512710768884005,
+    "LXP": {
+      "return": 9.866866997591977,
+      "status": "success"
+    },
+    "EGP": {
+      "return": 9.847177343554568,
+      "status": "success"
+    },
+    "AMZN": {
+      "return": 8.756108566450898,
+      "status": "success"
+    },
+    "MCD": {
+      "return": 8.664904542776618,
+      "status": "success"
+    },
+    "MRK": {
+      "return": 7.847238556382402,
+      "status": "success"
+    },
+    "DELL": {
+      "return": 7.822559084284565,
+      "status": "success"
+    },
+    "TRNO": {
+      "return": 7.387053823429566,
+      "status": "success"
+    },
+    "META": {
+      "return": 7.214926916466253,
+      "status": "success"
+    },
+    "PFE": {
+      "return": 6.778716064474824,
+      "status": "success"
+    },
+    "V": {
+      "return": 6.1616296913172235,
+      "status": "success"
+    },
+    "VEEV": {
+      "return": 5.807610597539288,
+      "status": "success"
+    },
+    "ISRG": {
+      "return": 5.780603535800434,
+      "status": "success"
+    },
+    "AGCO": {
+      "return": 5.191600593390067,
+      "status": "success"
+    },
+    "CTRA": {
+      "return": 4.704433121022964,
+      "status": "success"
+    },
+    "DBX": {
+      "return": 4.5823024272271216,
+      "status": "success"
+    },
+    "MELI": {
+      "return": 4.142509235114216,
+      "status": "success"
+    },
+    "HPE": {
+      "return": 4.074286030925806,
+      "status": "success"
+    },
+    "BLK": {
+      "return": 4.05440665485331,
+      "status": "success"
+    },
+    "DDOG": {
+      "return": 3.61066773768298,
+      "status": "success"
+    },
+    "QCOM": {
+      "return": 3.5741977666683065,
+      "status": "success"
+    },
+    "NUE": {
+      "return": 3.5638908763920867,
+      "status": "success"
+    },
+    "HAYW": {
+      "return": 3.4999966621398926,
+      "status": "success"
+    },
+    "REXR": {
+      "return": 3.350028825796419,
+      "status": "success"
+    },
+    "MA": {
+      "return": 3.1430552532627978,
+      "status": "success"
+    },
+    "DE": {
+      "return": 2.921250373503729,
+      "status": "success"
+    },
+    "MTCH": {
+      "return": 2.4130818933125915,
+      "status": "success"
+    },
+    "ADSK": {
+      "return": 1.5944753357988122,
+      "status": "success"
+    },
+    "ZM": {
+      "return": 1.5882561486346678,
+      "status": "success"
+    },
+    "CHKP": {
+      "return": 1.1856426330818066,
+      "status": "success"
+    },
+    "XOM": {
+      "return": 0.9607257993883886,
+      "status": "success"
+    },
+    "FAB": {
+      "return": 0.6414420801404592,
+      "status": "success"
+    },
+    "AFRM": {
+      "return": 0.5995082113883357,
+      "status": "success"
+    },
+    "MDB": {
+      "return": 0.34445490949142216,
+      "status": "success"
+    },
+    "SAP": {
+      "return": 0.24841673288308716,
+      "status": "success"
+    },
+    "INTU": {
+      "return": -0.12349314382925254,
+      "status": "success"
+    },
+    "ICE": {
+      "return": -0.15329955206233517,
+      "status": "success"
+    },
+    "OKTA": {
+      "return": -0.35869006926471225,
+      "status": "success"
+    },
+    "DVN": {
+      "return": -0.5151150780241859,
+      "status": "success"
+    },
+    "CDNS": {
+      "return": -1.2634102713632154,
+      "status": "success"
+    },
+    "MCO": {
+      "return": -1.3199175582412301,
+      "status": "success"
+    },
+    "PNR": {
+      "return": -1.6180523115245296,
+      "status": "success"
+    },
+    "UNP": {
+      "return": -1.9248546182704507,
       "status": "success"
     },
     "WM": {
-      "return": -9.016698386650202,
+      "return": -2.0640781482487593,
       "status": "success"
     },
-    "LMT": {
-      "return": -10.000078499384198,
+    "ETSY": {
+      "return": -2.344030397621324,
       "status": "success"
     },
-    "WDAY": {
-      "return": -10.454946251089902,
+    "PR": {
+      "return": -2.9108339213792878,
       "status": "success"
     },
-    "BOX": {
-      "return": -10.709200123947781,
+    "CART": {
+      "return": -3.0107966194644256,
       "status": "success"
     },
-    "PINS": {
-      "return": -10.976010907301227,
+    "G": {
+      "return": -3.07999493547328,
       "status": "success"
     },
-    "HD": {
-      "return": -11.48632989465005,
+    "CVX": {
+      "return": -3.556626635997562,
       "status": "success"
     },
-    "CXM": {
-      "return": -11.771697848755643,
+    "SPGI": {
+      "return": -4.512675709186832,
       "status": "success"
     },
-    "ABNB": {
-      "return": -12.080884119662018,
+    "DOCS": {
+      "return": -4.568430319565355,
+      "status": "success"
+    },
+    "PANW": {
+      "return": -4.990132647471966,
+      "status": "success"
+    },
+    "BKNG": {
+      "return": -5.305933988350885,
+      "status": "success"
+    },
+    "ARM": {
+      "return": -5.508048973385948,
+      "status": "success"
+    },
+    "FFIV": {
+      "return": -5.520741731832016,
+      "status": "success"
+    },
+    "OVV": {
+      "return": -5.811327130079139,
+      "status": "success"
+    },
+    "COST": {
+      "return": -6.359031722415212,
+      "status": "success"
+    },
+    "BBY": {
+      "return": -6.3838522675886855,
+      "status": "success"
+    },
+    "PATH": {
+      "return": -6.404960577522028,
+      "status": "success"
+    },
+    "ETN": {
+      "return": -7.275839623157151,
+      "status": "success"
+    },
+    "GRMN": {
+      "return": -7.340713506055777,
+      "status": "success"
+    },
+    "QLYS": {
+      "return": -8.972293710169891,
+      "status": "success"
+    },
+    "MRVL": {
+      "return": -9.153009490721628,
+      "status": "success"
+    },
+    "AOS": {
+      "return": -9.316478907542821,
       "status": "success"
     },
     "LOW": {
-      "return": -12.578501497170944,
+      "return": -9.410242001729392,
       "status": "success"
     },
-    "EQIX": {
-      "return": -13.085445510044211,
+    "NTAP": {
+      "return": -9.591163688261721,
       "status": "success"
     },
-    "DOCU": {
-      "return": -13.157245087115877,
+    "FELE": {
+      "return": -10.249579531360919,
       "status": "success"
     },
-    "SHW": {
-      "return": -13.4460646226077,
+    "LMT": {
+      "return": -10.822822656549477,
       "status": "success"
     },
-    "SBUX": {
-      "return": -14.085548061418729,
+    "DIS": {
+      "return": -10.949707400899293,
       "status": "success"
     },
-    "FTNT": {
-      "return": -14.194291672906436,
+    "Z": {
+      "return": -11.063315226357854,
       "status": "success"
     },
-    "TMUS": {
-      "return": -14.552262285045364,
-      "status": "success"
-    },
-    "ADP": {
-      "return": -15.216720080080929,
+    "BDX": {
+      "return": -11.157790087231191,
       "status": "success"
     },
     "PGR": {
-      "return": -16.0329265874923,
+      "return": -11.44173617333239,
+      "status": "success"
+    },
+    "RACE": {
+      "return": -11.785272258297002,
+      "status": "success"
+    },
+    "SBUX": {
+      "return": -12.322122327774663,
+      "status": "success"
+    },
+    "COIN": {
+      "return": -12.377643330440689,
+      "status": "success"
+    },
+    "SHW": {
+      "return": -12.419992848644535,
+      "status": "success"
+    },
+    "FANG": {
+      "return": -12.67183742213791,
+      "status": "success"
+    },
+    "PTC": {
+      "return": -13.000299696140564,
+      "status": "success"
+    },
+    "GEN": {
+      "return": -13.666259158040447,
+      "status": "success"
+    },
+    "SEMR": {
+      "return": -13.722628763611352,
+      "status": "success"
+    },
+    "BMY": {
+      "return": -13.75027473720426,
+      "status": "success"
+    },
+    "MGY": {
+      "return": -13.964479171214059,
+      "status": "success"
+    },
+    "DOCU": {
+      "return": -14.191376883239373,
+      "status": "success"
+    },
+    "TMUS": {
+      "return": -14.240932074764181,
+      "status": "success"
+    },
+    "CXM": {
+      "return": -14.268725696046186,
+      "status": "success"
+    },
+    "WDAY": {
+      "return": -14.364117319489702,
+      "status": "success"
+    },
+    "GRND": {
+      "return": -14.643801381091532,
+      "status": "success"
+    },
+    "ABNB": {
+      "return": -15.092011637475869,
+      "status": "success"
+    },
+    "ADP": {
+      "return": -15.160020335813753,
+      "status": "success"
+    },
+    "HD": {
+      "return": -15.216638268562143,
+      "status": "success"
+    },
+    "CSGP": {
+      "return": -15.299113334194066,
       "status": "success"
     },
     "PG": {
-      "return": -16.047175087545995,
-      "status": "success"
-    },
-    "NOW": {
-      "return": -17.794230328806126,
+      "return": -15.321774593060084,
       "status": "success"
     },
     "TXN": {
-      "return": -17.84985138604985,
+      "return": -15.393788125046992,
       "status": "success"
     },
-    "GME": {
-      "return": -21.15878386837714,
+    "BOX": {
+      "return": -15.465679893992487,
+      "status": "success"
+    },
+    "NXPI": {
+      "return": -15.492539228496586,
+      "status": "success"
+    },
+    "FTNT": {
+      "return": -15.495170678088455,
+      "status": "success"
+    },
+    "KHC": {
+      "return": -15.508478913494441,
+      "status": "success"
+    },
+    "PINS": {
+      "return": -15.971083015483684,
+      "status": "success"
+    },
+    "OXY": {
+      "return": -16.14725426378081,
+      "status": "success"
+    },
+    "AXON": {
+      "return": -16.21961837275265,
       "status": "success"
     },
     "NKE": {
-      "return": -21.445898080242593,
+      "return": -17.279652914183888,
       "status": "success"
     },
-    "PYPL": {
-      "return": -23.471625846657368,
+    "NVR": {
+      "return": -17.574401722494553,
+      "status": "success"
+    },
+    "JD": {
+      "return": -19.16910983037965,
+      "status": "success"
+    },
+    "BMI": {
+      "return": -19.1789133589595,
+      "status": "success"
+    },
+    "BULL": {
+      "return": -19.75736343594478,
+      "status": "success"
+    },
+    "SIRI": {
+      "return": -20.239460697595927,
+      "status": "success"
+    },
+    "EQIX": {
+      "return": -20.44073160750565,
+      "status": "success"
+    },
+    "GME": {
+      "return": -20.68207261577578,
+      "status": "success"
+    },
+    "TOST": {
+      "return": -20.840212978416123,
+      "status": "success"
+    },
+    "ROP": {
+      "return": -21.067938768309517,
+      "status": "success"
+    },
+    "GFS": {
+      "return": -21.830670893833812,
+      "status": "success"
+    },
+    "SMCI": {
+      "return": -21.83332897367932,
+      "status": "success"
+    },
+    "SWKS": {
+      "return": -22.441420897167085,
+      "status": "success"
+    },
+    "CNH": {
+      "return": -22.58773033840233,
+      "status": "success"
+    },
+    "MCHP": {
+      "return": -22.87127584649062,
+      "status": "success"
+    },
+    "FICO": {
+      "return": -22.93374082932497,
+      "status": "success"
+    },
+    "CHRD": {
+      "return": -23.29061592292028,
+      "status": "success"
+    },
+    "NOW": {
+      "return": -23.436001489857823,
       "status": "success"
     },
     "UPS": {
-      "return": -24.79272241996926,
+      "return": -23.708614444944956,
       "status": "success"
     },
-    "HPQ": {
-      "return": -24.97175472889114,
+    "EPAM": {
+      "return": -24.242172555196618,
       "status": "success"
     },
-    "CRM": {
-      "return": -27.092242682175527,
+    "WHR": {
+      "return": -24.445840747379812,
       "status": "success"
     },
-    "IMXI": {
-      "return": -28.58490661099608,
+    "YELP": {
+      "return": -24.669256834616593,
       "status": "success"
     },
-    "ATKR": {
-      "return": -28.724639290841253,
+    "TYL": {
+      "return": -25.51552499667545,
       "status": "success"
     },
-    "BRZE": {
-      "return": -28.869121076266225,
+    "IRM": {
+      "return": -26.825955308711663,
       "status": "success"
     },
-    "XYZ": {
-      "return": -29.456781839442275,
+    "VALU": {
+      "return": -27.036686460316663,
+      "status": "success"
+    },
+    "MTDR": {
+      "return": -27.123078385685528,
       "status": "success"
     },
     "SNPS": {
-      "return": -30.480801907034543,
+      "return": -27.609422017241435,
+      "status": "success"
+    },
+    "ATKR": {
+      "return": -27.653882893010934,
+      "status": "success"
+    },
+    "BRZE": {
+      "return": -28.030493537505112,
+      "status": "success"
+    },
+    "PYPL": {
+      "return": -28.379827956373475,
+      "status": "success"
+    },
+    "IMXI": {
+      "return": -28.490569330950706,
+      "status": "success"
+    },
+    "DSGX": {
+      "return": -29.08511080614878,
+      "status": "success"
+    },
+    "XYZ": {
+      "return": -29.909463639907045,
+      "status": "success"
+    },
+    "PAYC": {
+      "return": -30.307683691111908,
+      "status": "success"
+    },
+    "IOT": {
+      "return": -30.382111068338467,
       "status": "success"
     },
     "ACN": {
-      "return": -31.02309341984515,
+      "return": -30.436494551526877,
       "status": "success"
     },
-    "SNAP": {
-      "return": -32.20478719320096,
-      "status": "success"
-    },
-    "CMCSA": {
-      "return": -34.43456056320717,
-      "status": "success"
-    },
-    "CPRT": {
-      "return": -34.68236371729637,
+    "CRM": {
+      "return": -30.65739516224329,
       "status": "success"
     },
     "EVO": {
-      "return": -34.74576142765052,
+      "return": -30.93220052175282,
+      "status": "success"
+    },
+    "SNDR": {
+      "return": -30.936365172477704,
+      "status": "success"
+    },
+    "HPQ": {
+      "return": -31.538164219850668,
+      "status": "success"
+    },
+    "TDOC": {
+      "return": -35.21739296291185,
+      "status": "success"
+    },
+    "RELY": {
+      "return": -35.66264876400132,
+      "status": "success"
+    },
+    "GDDY": {
+      "return": -35.70994525305098,
       "status": "success"
     },
     "GPN": {
-      "return": -34.92911707648017,
+      "return": -35.83632865984694,
       "status": "success"
     },
-    "MSTR": {
-      "return": -36.384433226044344,
+    "CMCSA": {
+      "return": -36.304441600795386,
       "status": "success"
     },
-    "SAM": {
-      "return": -36.482284310203624,
+    "ALGN": {
+      "return": -37.1188194621443,
       "status": "success"
     },
-    "ADBE": {
-      "return": -36.66214558788075,
-      "status": "success"
-    },
-    "HQI": {
-      "return": -37.397527395793745,
+    "SNAP": {
+      "return": -37.15936953542042,
       "status": "success"
     },
     "COLM": {
-      "return": -40.536913175950765,
+      "return": -37.45841791959445,
+      "status": "success"
+    },
+    "CPRT": {
+      "return": -37.520155249935556,
+      "status": "success"
+    },
+    "UPST": {
+      "return": -37.58717650359303,
+      "status": "success"
+    },
+    "FOUR": {
+      "return": -37.764968364571786,
+      "status": "success"
+    },
+    "SAM": {
+      "return": -37.977899467783615,
+      "status": "success"
+    },
+    "ADBE": {
+      "return": -38.488961351220425,
+      "status": "success"
+    },
+    "MANH": {
+      "return": -38.52358625081684,
+      "status": "success"
+    },
+    "ZBRA": {
+      "return": -38.90840045367024,
+      "status": "success"
+    },
+    "MORN": {
+      "return": -39.28661714239742,
+      "status": "success"
+    },
+    "BLDR": {
+      "return": -39.53576692378135,
+      "status": "success"
+    },
+    "CIVI": {
+      "return": -40.83461777584879,
+      "status": "success"
+    },
+    "FDS": {
+      "return": -42.892789543030915,
+      "status": "success"
+    },
+    "HQI": {
+      "return": -44.00089004076123,
       "status": "success"
     },
     "TEAM": {
-      "return": -40.638634371690046,
-      "status": "success"
-    },
-    "DUOL": {
-      "return": -41.934083720079855,
-      "status": "success"
-    },
-    "CAN": {
-      "return": -42.78845668897103,
-      "status": "success"
-    },
-    "HUBS": {
-      "return": -44.94119886811796,
+      "return": -44.32450877810778,
       "status": "success"
     },
     "UNH": {
-      "return": -45.566088519596384,
-      "status": "success"
-    },
-    "COLD": {
-      "return": -47.05900602088925,
+      "return": -44.64265456927748,
       "status": "success"
     },
     "LULU": {
-      "return": -50.31997370961703,
+      "return": -45.59210354001175,
       "status": "success"
     },
-    "UAA": {
-      "return": -54.133859080725536,
+    "DUOL": {
+      "return": -45.622186699207475,
       "status": "success"
     },
     "PUBM": {
-      "return": -56.03089644139515,
+      "return": -45.92988459464081,
       "status": "success"
     },
-    "AI": {
-      "return": -57.115222308105906,
+    "PAYO": {
+      "return": -46.001884202048686,
+      "status": "success"
+    },
+    "NOG": {
+      "return": -46.21758230044452,
+      "status": "success"
+    },
+    "MNDY": {
+      "return": -47.226066698735856,
+      "status": "success"
+    },
+    "HUBS": {
+      "return": -49.9979291960498,
+      "status": "success"
+    },
+    "COLD": {
+      "return": -51.38439386335199,
+      "status": "success"
+    },
+    "TREX": {
+      "return": -53.74734923484302,
+      "status": "success"
+    },
+    "MSTR": {
+      "return": -53.81540756575964,
+      "status": "success"
+    },
+    "UAA": {
+      "return": -54.52755949857756,
+      "status": "success"
+    },
+    "CAN": {
+      "return": -55.76922834448551,
+      "status": "success"
+    },
+    "SM": {
+      "return": -56.34639218886974,
+      "status": "success"
+    },
+    "WIX": {
+      "return": -56.5688635305383,
       "status": "success"
     },
     "DECK": {
-      "return": -59.499752790982996,
+      "return": -56.815252562063364,
+      "status": "success"
+    },
+    "AI": {
+      "return": -60.873168320703584,
+      "status": "success"
+    },
+    "ENPH": {
+      "return": -62.96592295307121,
       "status": "success"
     },
     "FIG": {
-      "return": -61.68831168831169,
+      "return": -68.71861379383962,
+      "status": "success"
+    },
+    "FUN": {
+      "return": -69.14167415273086,
       "status": "success"
     },
     "TTD": {
-      "return": -68.18585466489257,
+      "return": -71.06392457037524,
+      "status": "success"
+    },
+    "GLOB": {
+      "return": -72.12410853630435,
       "status": "success"
     },
     "FI": {
-      "return": -70.84801502708991,
+      "return": -72.17518613998296,
+      "status": "success"
+    },
+    "DAVA": {
+      "return": -77.58925433930227,
       "status": "success"
     }
   }
