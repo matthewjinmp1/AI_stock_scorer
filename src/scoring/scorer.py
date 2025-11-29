@@ -70,6 +70,9 @@ HEAVY_SCORES_FILE = os.path.join(PROJECT_ROOT, "data", "scores_heavy.json")
 # Stock ticker lookup file
 TICKER_FILE = os.path.join(PROJECT_ROOT, "data", "stock_tickers_clean.json")
 
+# Peers file
+PEERS_FILE = os.path.join(PROJECT_ROOT, "data", "peers.json")
+
 def get_model_for_ticker(ticker):
     """Get the model name to use for a given ticker.
     
@@ -2852,6 +2855,280 @@ def handle_redefine_command(command_input):
         print("  redefine NEW_TICKER = OLD_TICKER    - Rename a ticker definition")
 
 
+def load_peers():
+    """Load peers data from JSON file.
+    
+    Returns:
+        dict: Dictionary mapping ticker to list of peer tickers
+    """
+    if os.path.exists(PEERS_FILE):
+        try:
+            with open(PEERS_FILE, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {}
+    return {}
+
+
+def save_peers(peers_data):
+    """Save peers data to JSON file.
+    
+    Args:
+        peers_data: Dictionary mapping ticker to list of peer tickers
+    """
+    try:
+        with open(PEERS_FILE, 'w') as f:
+            json.dump(peers_data, f, indent=2)
+        return True
+    except Exception as e:
+        print(f"Error saving peers: {e}")
+        return False
+
+
+def query_peers_from_ai(ticker, company_name):
+    """Query AI model to rank all tickers from scores.json by comparability.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        company_name: Company name
+        
+    Returns:
+        tuple: (list of ticker symbols ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
+    """
+    # Load tickers from scores.json
+    scores_data = load_scores()
+    companies = scores_data.get("companies", {})
+    
+    if not companies:
+        print("Error: No companies found in scores.json")
+        return None
+    
+    ticker_lookup = load_ticker_lookup()
+    
+    # Build list of all tickers from scores.json with company names
+    ticker_list = []
+    valid_tickers = []
+    for company_key in sorted(companies.keys()):
+        # Skip the target ticker itself
+        if company_key.upper() == ticker:
+            continue
+        
+        # Get company name
+        if company_key.upper() in ticker_lookup:
+            company_name_for_ticker = ticker_lookup[company_key.upper()]
+        else:
+            # Try to find ticker from company name
+            ticker_from_name = get_ticker_from_company_name(company_key)
+            if ticker_from_name and ticker_from_name.upper() in ticker_lookup:
+                company_name_for_ticker = ticker_lookup[ticker_from_name.upper()]
+            else:
+                company_name_for_ticker = company_key
+        
+        # Use uppercase ticker if it looks like a ticker, otherwise use the key
+        if len(company_key) <= 5 and company_key.replace(' ', '').isalpha():
+            ticker_symbol = company_key.upper()
+        else:
+            ticker_symbol = get_ticker_from_company_name(company_key)
+            if not ticker_symbol:
+                continue  # Skip if we can't find a ticker
+        
+        ticker_list.append(f"{ticker_symbol}: {company_name_for_ticker}")
+        valid_tickers.append(ticker_symbol)
+    
+    if not ticker_list:
+        print("Error: No other companies found in scores.json to compare")
+        return None
+    
+    # Create prompt asking for ranking
+    prompt = f"""You are analyzing companies to rank them by comparability to {ticker} ({company_name}).
+
+Below is a list of all ticker symbols and their company names from the database:
+
+{chr(10).join(ticker_list)}
+
+Your task is to rank ALL of these tickers from MOST comparable to {ticker} ({company_name}) to LEAST comparable.
+
+Consider factors such as:
+1. Industry and market segment similarity
+2. Business model similarity
+3. Product/service similarity
+4. Market overlap and customer base similarity
+5. Competitive dynamics
+6. Company size and scale (if relevant)
+
+Return ONLY a comma-separated list of ticker symbols in ranked order, starting with the most comparable ticker first, and ending with the least comparable ticker last.
+Do not include explanations, company names, rankings numbers, or any other text - just the ticker symbols separated by commas in order from most to least comparable.
+
+Example format: "MSFT, GOOGL, META, AMZN, ..."
+
+Return only the ticker symbols in ranked order, nothing else."""
+
+    try:
+        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        model = get_model_for_ticker(ticker)
+        
+        # Track time
+        start_time = time.time()
+        response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
+        elapsed_time = time.time() - start_time
+        
+        # Parse response to extract ranked tickers
+        response_clean = response.strip()
+        
+        # Try to extract tickers from the response
+        # Handle various formats: comma-separated, numbered lists, etc.
+        tickers = []
+        
+        # First, try splitting by comma
+        for item in response_clean.split(','):
+            # Remove any leading numbers, dots, dashes, etc.
+            item_clean = item.strip()
+            # Remove common prefixes like "1.", "1)", "-", etc.
+            while item_clean and (item_clean[0].isdigit() or item_clean[0] in '.)- '):
+                item_clean = item_clean[1:].strip()
+            
+            ticker_clean = item_clean.upper()
+            # Validate it's a valid ticker format (1-5 uppercase letters)
+            if ticker_clean and len(ticker_clean) <= 5 and ticker_clean.isalpha():
+                # Check if it exists in valid_tickers (from scores.json)
+                if ticker_clean in valid_tickers:
+                    tickers.append(ticker_clean)
+        
+        # If we didn't get enough tickers, try parsing line by line
+        if len(tickers) < len(valid_tickers) * 0.5:  # If we got less than half, try alternative parsing
+            lines = response_clean.split('\n')
+            for line in lines:
+                line_clean = line.strip()
+                # Skip empty lines
+                if not line_clean:
+                    continue
+                # Try to extract ticker from line
+                for word in line_clean.split():
+                    word_clean = word.strip('.,;:()[]{}').upper()
+                    if word_clean and len(word_clean) <= 5 and word_clean.isalpha():
+                        if word_clean in valid_tickers and word_clean not in tickers:
+                            tickers.append(word_clean)
+        
+        # Add any missing tickers from valid_tickers that weren't in the response
+        # (in case the AI didn't return all of them)
+        for valid_ticker in valid_tickers:
+            if valid_ticker not in tickers:
+                tickers.append(valid_ticker)
+        
+        return (tickers, elapsed_time, token_usage) if tickers else (None, None, None)
+        
+    except Exception as e:
+        print(f"Error querying AI for peers: {e}")
+        return (None, None, None)
+
+
+def get_peers_for_ticker(ticker):
+    """Get ranked peers for a ticker, using cache if available, otherwise querying AI.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        
+    Returns:
+        list: List of ticker symbols ranked from most comparable to least, or None if error
+    """
+    ticker_upper = ticker.strip().upper()
+    
+    # Validate ticker
+    ticker_lookup = load_ticker_lookup()
+    if ticker_upper not in ticker_lookup:
+        print(f"Error: '{ticker_upper}' is not a valid ticker symbol.")
+        return None
+    
+    # Check if ticker exists in scores.json
+    scores_data = load_scores()
+    companies = scores_data.get("companies", {})
+    ticker_found = False
+    for company_key in companies.keys():
+        if company_key.upper() == ticker_upper:
+            ticker_found = True
+            break
+    
+    if not ticker_found:
+        print(f"Error: '{ticker_upper}' not found in scores.json. Please score it first.")
+        return None
+    
+    company_name = ticker_lookup[ticker_upper]
+    
+    # Load existing peers
+    peers_data = load_peers()
+    
+    # Check if already cached
+    if ticker_upper in peers_data:
+        cached_peers = peers_data[ticker_upper]
+        print(f"\n{ticker_upper} ({company_name}) - Found cached ranking:")
+        print(f"  Total companies ranked: {len(cached_peers)}")
+        print(f"  Top 10 most comparable: {', '.join(cached_peers[:10])}")
+        if len(cached_peers) > 10:
+            print(f"  ... and {len(cached_peers) - 10} more")
+        return cached_peers
+    
+    # Not cached, query AI
+    print(f"\nQuerying AI to rank all companies in scores.json by comparability to {ticker_upper} ({company_name})...")
+    print("This may take a moment...")
+    ranked_peers, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
+    
+    if ranked_peers:
+        # Calculate cost
+        model = get_model_for_ticker(ticker_upper)
+        total_tokens = token_usage.get('total_tokens', 0) if token_usage else 0
+        cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage) if token_usage else 0.0
+        cost_cents = cost * 100
+        
+        # Display timing and cost information
+        print(f"\nTime taken: {elapsed_time:.2f}s")
+        if token_usage:
+            input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
+            output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
+            cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                           token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
+                           token_usage.get('prompt_cache_hit_tokens', 0))
+            thinking_tokens = token_usage.get('thinking_tokens', 0)
+            
+            if thinking_tokens > 0:
+                print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,} includes {thinking_tokens:,} thinking, cached={cached_tokens:,})")
+            else:
+                print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,}, cached={cached_tokens:,})")
+        else:
+            print(f"Tokens: {total_tokens:,}")
+        print(f"Cost: {cost_cents:.4f} cents")
+        
+        # Save to cache
+        peers_data[ticker_upper] = ranked_peers
+        save_peers(peers_data)
+        print(f"\n{ticker_upper} ({company_name}) - Ranking complete:")
+        print(f"  Total companies ranked: {len(ranked_peers)}")
+        print(f"  Top 10 most comparable: {', '.join(ranked_peers[:10])}")
+        if len(ranked_peers) > 10:
+            print(f"  ... and {len(ranked_peers) - 10} more")
+        print(f"\nRanking saved to {PEERS_FILE}")
+        return ranked_peers
+    else:
+        print(f"Error: Could not rank peers for {ticker_upper}")
+        return None
+
+
+def handle_peer_command(command_input):
+    """Handle the peer command - find peers for a ticker.
+    
+    Args:
+        command_input: Command input after 'peer' keyword (ticker symbol)
+    """
+    command_input = command_input.strip()
+    
+    if not command_input:
+        print("Usage: peer TICKER")
+        print("Example: peer AAPL")
+        return
+    
+    ticker = command_input.upper()
+    get_peers_for_ticker(ticker)
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -2870,13 +3147,14 @@ def main():
     print("  Type 'define -l' to list all custom ticker definitions")
     print("  Type 'redefine NEW_TICKER = OLD_TICKER' to rename a ticker definition")
     print("  Type 'correl TICKER1 TICKER2' to show correlation between two companies' scores")
+    print("  Type 'peer TICKER' to find peers and competitors for a ticker")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -2947,6 +3225,14 @@ def main():
                     print("Error: Please provide exactly 2 ticker symbols.")
                     print("Usage: correl TICKER1 TICKER2")
                     print("Example: correl AAPL MSFT")
+                print()
+            elif user_input.lower() == 'peer':
+                print("Usage: peer TICKER")
+                print("Example: peer AAPL")
+                print()
+            elif user_input.lower().startswith('peer '):
+                command_input = user_input[5:].strip()  # Remove 'peer ' prefix
+                handle_peer_command(command_input)
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers

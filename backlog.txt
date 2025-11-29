@@ -4,15 +4,7 @@ clean up tickers -> names
 
 chop down code
 
-other models 
-
-make scoring stricter for certain metrics
-
-adjust strictness of scoring 
-
 adjust prompts
-
-use AI to rank companies on a metric using sorting algorithms 
 
 add stock peer groups
 
@@ -23,5 +15,3 @@ automate size score weight
 add AI competitor finder
 
 analyze light vs heavy 
-
-folders
