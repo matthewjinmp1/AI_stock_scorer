@@ -3067,6 +3067,17 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
         print("Error: No score data found for tickers.")
         return
     
+    # Calculate median score of peers (excluding target ticker)
+    peer_scores = [item['total'] for item in ticker_scores if item['ticker'] != target_ticker]
+    median_score = None
+    median_percentage = None
+    if peer_scores:
+        import statistics
+        sorted_peer_scores = sorted(peer_scores)
+        median_score = statistics.median(sorted_peer_scores)
+        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+        median_percentage = (median_score / max_score) * 100
+    
     # Sort by total score (descending)
     ticker_scores.sort(key=lambda x: x['total'], reverse=True)
     
@@ -3097,6 +3108,10 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
         
         print(f"{rank:<6} {ticker_display:<8} {name_display:<40} {percentage_str:>15} {percentile_str:>12}")
     
+    print("-" * 80)
+    # Display median of peers
+    if median_percentage is not None:
+        print(f"{'Median (Peers)':<54} {int(median_percentage):>15}%")
     print("=" * 80)
     print("* Target ticker")
 
