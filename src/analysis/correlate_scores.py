@@ -77,17 +77,17 @@ def main():
     
     # Load both JSON files
     try:
-        with open('scores.json', 'r') as f:
+        with open('data/scores.json', 'r') as f:
             scores_data = json.load(f)
     except FileNotFoundError:
-        print("Error: scores.json not found")
+        print("Error: data/scores.json not found")
         return
     
     try:
-        with open('scores_heavy.json', 'r') as f:
+        with open('data/scores_heavy.json', 'r') as f:
             heavy_data = json.load(f)
     except FileNotFoundError:
-        print("Error: scores_heavy.json not found")
+        print("Error: data/scores_heavy.json not found")
         return
     
     # Get companies from both files

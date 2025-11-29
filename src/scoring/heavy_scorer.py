@@ -6,15 +6,19 @@ Usage: python heavy_scorer.py
 Then enter ticker(s) to score, or commands: 'view', 'correl TICKER1 TICKER2 ...', 'clear', or 'quit'
 """
 
+import sys
+import os
+# Add parent directory to path to import config and clients
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 # Import necessary constants and functions from scorer
-from scorer import (
+from src.scoring.scorer import (
     SCORE_DEFINITIONS, SCORE_WEIGHTS, HEAVY_SCORES_FILE, SCORES_FILE,
     TICKER_FILE, MODEL_PRICING,
     load_ticker_lookup, load_scores, calculate_total_score,
     calculate_percentile_rank, format_total_score, query_all_scores_async,
     calculate_token_cost
 )
-from grok_client import GrokClient
+from src.clients.grok_client import GrokClient
 from config import XAI_API_KEY
 import json
 import os

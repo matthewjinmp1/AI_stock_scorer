@@ -195,7 +195,7 @@ def combine_data():
     
     return sorted(companies, key=lambda x: x['ticker'])
 
-def save_to_json(companies, filename='stock_tickers_clean.json'):
+def save_to_json(companies, filename='data/stock_tickers_clean.json'):
     """Save companies to JSON file."""
     output = {
         'last_updated': datetime.now().isoformat(),

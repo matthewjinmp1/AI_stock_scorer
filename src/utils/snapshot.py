@@ -8,8 +8,8 @@ import json
 import os
 from datetime import datetime
 
-SCORES_FILE = "scores.json"
-SNAPSHOTS_FILE = "snapshots.json"
+SCORES_FILE = "data/scores.json"
+SNAPSHOTS_FILE = "data/snapshots.json"
 
 
 def load_scores():

@@ -7,17 +7,19 @@ Saves results to short_interest.json
 
 import json
 import os
+import sys
 import time
 from datetime import datetime
-from finviz_scraper import HEADERS
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.scrapers.finviz_scraper import HEADERS
 import requests
 from bs4 import BeautifulSoup
 
 # File paths
-SCORES_FILE = "scores.json"
-TICKER_FILE = "stock_tickers_clean.json"
-SHORT_INTEREST_FILE = "short_interest.json"
-TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+SCORES_FILE = "data/scores.json"
+TICKER_FILE = "data/stock_tickers_clean.json"
+SHORT_INTEREST_FILE = "data/short_interest.json"
+TICKER_DEFINITIONS_FILE = "data/ticker_definitions.json"
 
 # Rate limiting - delay between requests (in seconds)
 REQUEST_DELAY = 1.0  # 1 second delay between requests to be respectful

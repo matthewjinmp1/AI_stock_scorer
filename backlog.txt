@@ -22,8 +22,6 @@ automate size score weight
 
 add AI competitor finder
 
-change prompts to rate with public company standards 
-
 analyze light vs heavy 
 
 folders

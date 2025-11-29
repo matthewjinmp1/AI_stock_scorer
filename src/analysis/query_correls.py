@@ -7,9 +7,11 @@ Usage: python query_correls.py
 
 import json
 import os
-from scorer import load_ticker_lookup
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.scoring.scorer import load_ticker_lookup
 
-CORRELS_FILE = "correls.json"
+CORRELS_FILE = "data/correls.json"
 
 
 def load_correlations():

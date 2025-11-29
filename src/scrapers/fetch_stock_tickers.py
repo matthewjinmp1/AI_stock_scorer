@@ -85,7 +85,7 @@ def fetch_other_listed():
     print(f"  Found {len(companies)} NYSE and other stocks")
     return companies
 
-def save_to_json(all_companies, filename='stock_tickers.json'):
+def save_to_json(all_companies, filename='data/stock_tickers.json'):
     """Save companies to JSON file."""
     output = {
         'last_updated': datetime.now().isoformat(),

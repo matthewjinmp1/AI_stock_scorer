@@ -11,7 +11,10 @@ from unittest.mock import patch, mock_open, MagicMock
 import sys
 
 # Import the scorer module
-import scorer
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from src.scoring import scorer
 
 
 class TestCalculateTotalScore:

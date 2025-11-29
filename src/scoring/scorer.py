@@ -45,12 +45,14 @@ SCORE_WEIGHTS = {
     'long_term_orientation_score': 10,
 }
 
-from grok_client import GrokClient
-from openrouter_client import OpenRouterClient
-from config import XAI_API_KEY, OPENROUTER_KEY
 import sys
-import json
 import os
+import json
+# Add parent directory to path to import config and clients
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.clients.grok_client import GrokClient
+from src.clients.openrouter_client import OpenRouterClient
+from config import XAI_API_KEY, OPENROUTER_KEY
 import time
 import tempfile
 import shutil
@@ -58,12 +60,15 @@ from datetime import datetime
 import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# JSON file to store moat scores
-SCORES_FILE = "scores.json"
-HEAVY_SCORES_FILE = "scores_heavy.json"
+# Get project root directory (two levels up from this file: src/scoring/scorer.py -> project root)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+
+# JSON file to store moat scores (paths relative to project root)
+SCORES_FILE = os.path.join(PROJECT_ROOT, "data", "scores.json")
+HEAVY_SCORES_FILE = os.path.join(PROJECT_ROOT, "data", "scores_heavy.json")
 
 # Stock ticker lookup file
-TICKER_FILE = "stock_tickers_clean.json"
+TICKER_FILE = os.path.join(PROJECT_ROOT, "data", "stock_tickers_clean.json")
 
 def get_model_for_ticker(ticker):
     """Get the model name to use for a given ticker.
@@ -146,7 +151,7 @@ def calculate_token_cost(total_tokens, model="grok-4-1-fast-reasoning", token_us
     return (total_tokens / 1_000_000) * avg_cost_per_1M
 
 # Custom ticker definitions file
-TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+TICKER_DEFINITIONS_FILE = os.path.join(PROJECT_ROOT, "data", "ticker_definitions.json")
 
 # Cache for ticker lookups
 _ticker_cache = None

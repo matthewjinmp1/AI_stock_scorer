@@ -10,9 +10,9 @@ import os
 from scipy.stats import pearsonr, rankdata, percentileofscore
 import numpy as np
 
-SCORES_FILE = "scores.json"
-RETURNS_FILE = "returns.json"
-TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+SCORES_FILE = "data/scores.json"
+RETURNS_FILE = "data/returns.json"
+TICKER_DEFINITIONS_FILE = "data/ticker_definitions.json"
 
 # Score weightings - must match scorer.py
 SCORE_WEIGHTS = {

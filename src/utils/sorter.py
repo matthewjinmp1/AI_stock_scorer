@@ -12,8 +12,11 @@ import time
 import sys
 
 # Import ticker lookup functions from scorer.py
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 try:
-    from scorer import load_ticker_lookup, resolve_to_company_name
+    from src.scoring.scorer import load_ticker_lookup, resolve_to_company_name
 except ImportError:
     print("Error: Could not import ticker lookup functions from scorer.py")
     print("Make sure scorer.py is in the same directory.")

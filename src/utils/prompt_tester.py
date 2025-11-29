@@ -5,7 +5,10 @@ This tool scores multiple tickers with a single metric and displays statistics.
 Scores are NOT saved - this is purely for testing prompts.
 """
 
-from grok_client import GrokClient
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.clients.grok_client import GrokClient
 from config import XAI_API_KEY
 import json
 import os
@@ -15,10 +18,10 @@ import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Stock ticker lookup file
-TICKER_FILE = "stock_tickers_clean.json"
+TICKER_FILE = "data/stock_tickers_clean.json"
 
 # Custom ticker definitions file
-TICKER_DEFINITIONS_FILE = "ticker_definitions.json"
+TICKER_DEFINITIONS_FILE = "data/ticker_definitions.json"
 
 # Cache for ticker lookups
 _ticker_cache = None

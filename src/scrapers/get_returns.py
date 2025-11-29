@@ -11,9 +11,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 import yfinance as yf
 
-SCORES_FILE = "scores.json"
-TICKER_FILE = "stock_tickers_clean.json"
-RETURNS_FILE = "returns.json"
+SCORES_FILE = "data/scores.json"
+TICKER_FILE = "data/stock_tickers_clean.json"
+RETURNS_FILE = "data/returns.json"
 
 
 def load_scores():

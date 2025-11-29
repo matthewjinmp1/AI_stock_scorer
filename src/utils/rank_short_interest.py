@@ -9,8 +9,8 @@ import json
 import os
 from datetime import datetime
 
-SHORT_INTEREST_FILE = "short_interest.json"
-RANKED_OUTPUT_FILE = "short_interest_ranked.json"
+SHORT_INTEREST_FILE = "data/short_interest.json"
+RANKED_OUTPUT_FILE = "data/short_interest_ranked.json"
 
 
 def parse_short_float(short_float_str):

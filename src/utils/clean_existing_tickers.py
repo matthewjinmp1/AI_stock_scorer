@@ -55,7 +55,7 @@ def main():
     
     # Load existing tickers
     try:
-        with open('stock_tickers.json', 'r') as f:
+        with open('data/stock_tickers.json', 'r') as f:
             data = json.load(f)
         
         print(f"\nLoaded {len(data['companies'])} tickers")
@@ -77,7 +77,7 @@ def main():
         data['description'] = 'Clean company names without share class descriptors'
         
         # Save to new file
-        output_filename = 'stock_tickers_clean.json'
+        output_filename = 'data/stock_tickers_clean.json'
         with open(output_filename, 'w') as f:
             json.dump(data, f, indent=2)
         
@@ -100,7 +100,7 @@ def main():
         print("=" * 60)
         
         # Re-load original for comparison
-        with open('stock_tickers.json', 'r') as f:
+        with open('data/stock_tickers.json', 'r') as f:
             original_data = json.load(f)
         
         sample_count = 0
@@ -115,7 +115,7 @@ def main():
                     break
         
     except FileNotFoundError:
-        print("Error: stock_tickers.json not found. Please run fetch_stock_tickers.py first.")
+        print("Error: data/stock_tickers.json not found. Please run fetch_stock_tickers.py first.")
     except Exception as e:
         print(f"Error: {e}")
         import traceback

@@ -7,15 +7,17 @@ Usage: python batch_correlate.py
 
 import json
 import os
+import sys
 import time
-from scorer import (
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.scoring.scorer import (
     SCORE_DEFINITIONS,
     load_scores,
     load_ticker_lookup,
     SCORES_FILE
 )
 
-CORRELS_FILE = "correls.json"
+CORRELS_FILE = "data/correls.json"
 
 
 def get_ticker_from_storage_key(storage_key, ticker_lookup):

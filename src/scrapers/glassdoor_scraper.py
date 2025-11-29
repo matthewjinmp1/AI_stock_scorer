@@ -16,7 +16,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 try:
-    from openrouter_client import OpenRouterClient
+    import sys
+    import os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+    from src.clients.openrouter_client import OpenRouterClient
     from config import OPENROUTER_KEY
     OPENROUTER_AVAILABLE = True
 except ImportError:
@@ -40,7 +43,7 @@ def get_company_name_from_ticker(ticker):
     
     # First, check ticker_definitions.json
     try:
-        with open('ticker_definitions.json', 'r') as f:
+        with open('data/ticker_definitions.json', 'r') as f:
             definitions = json.load(f)
             if ticker_upper in definitions.get('definitions', {}):
                 return definitions['definitions'][ticker_upper]
@@ -408,7 +411,7 @@ def fetch_single_ticker(ticker, output_file, existing_data, lock):
         return (ticker, False, None)
 
 
-def fetch_all_glassdoor_ratings(scores_file="scores.json", output_file="glassdoor.json", max_workers=20):
+def fetch_all_glassdoor_ratings(scores_file="data/scores.json", output_file="data/glassdoor.json", max_workers=20):
     """
     Fetch Glassdoor ratings for all tickers in scores.json and save to glassdoor.json.
     Uses threading to fetch multiple tickers concurrently.

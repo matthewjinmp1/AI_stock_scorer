@@ -10,7 +10,7 @@ from scipy.stats import pearsonr, spearmanr
 import numpy as np
 
 
-def load_data(glassdoor_file="glassdoor.json", scores_file="scores_copy.json"):
+def load_data(glassdoor_file="data/glassdoor.json", scores_file="data/scores_copy.json"):
     """
     Load data from both JSON files.
     
@@ -217,7 +217,7 @@ def display_results(matching_data, stats):
 def main():
     """Main function to run correlation analysis."""
     print("Loading data...")
-    glassdoor_data, scores_data = load_data(scores_file="scores_copy.json")
+    glassdoor_data, scores_data = load_data(scores_file="data/scores_copy.json")
     
     print("Extracting matching data...")
     matching_data = extract_matching_data(glassdoor_data, scores_data)

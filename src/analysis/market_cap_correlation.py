@@ -106,7 +106,7 @@ def calculate_percentile_rank(score, all_scores):
 
 def load_scores():
     """Load scores from scores.json."""
-    scores_file = "scores.json"
+    scores_file = "data/scores.json"
     if not os.path.exists(scores_file):
         print(f"Error: {scores_file} not found")
         return None
@@ -125,7 +125,7 @@ def load_excluded_tickers():
     Returns:
         set: Set of ticker symbols (uppercase) to exclude
     """
-    ticker_def_file = "ticker_definitions.json"
+    ticker_def_file = "data/ticker_definitions.json"
     if not os.path.exists(ticker_def_file):
         return set()
     

@@ -4,7 +4,10 @@ Credit Status Checker for Grok API
 This script will periodically check if your credits are available.
 """
 
-from grok_client import GrokClient
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+from src.clients.grok_client import GrokClient
 from config import XAI_API_KEY
 import time
 

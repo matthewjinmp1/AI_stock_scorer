@@ -2,7 +2,7 @@ import json
 import statistics
 
 # Load the scores.json file
-with open('scores.json', 'r') as f:
+with open('data/scores.json', 'r') as f:
     data = json.load(f)
 
 # Get all companies
