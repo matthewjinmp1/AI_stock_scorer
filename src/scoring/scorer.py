@@ -3022,8 +3022,88 @@ Return only the ticker symbols in ranked order, nothing else."""
         return (None, None, None)
 
 
+def display_peer_scores_comparison(target_ticker, peer_tickers):
+    """Display total scores comparison between target ticker and peer tickers.
+    
+    Args:
+        target_ticker: Target ticker symbol (uppercase)
+        peer_tickers: List of peer ticker symbols (uppercase)
+    """
+    scores_data = load_scores()
+    ticker_lookup = load_ticker_lookup()
+    
+    # Get all tickers to display (target + top 9 peers)
+    all_tickers = [target_ticker] + peer_tickers[:9]
+    
+    # Get company data and calculate total scores
+    ticker_scores = []
+    for ticker in all_tickers:
+        # Find the company data in scores.json
+        company_data = None
+        for company_key in scores_data.get("companies", {}).keys():
+            if company_key.upper() == ticker:
+                company_data = scores_data["companies"][company_key]
+                break
+        
+        if company_data:
+            company_name = ticker_lookup.get(ticker, ticker)
+            total = calculate_total_score(company_data)
+            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+            percentage = (total / max_score) * 100
+            
+            # Calculate percentile
+            all_totals = get_all_total_scores()
+            percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+            
+            ticker_scores.append({
+                'ticker': ticker,
+                'name': company_name,
+                'total': total,
+                'percentage': percentage,
+                'percentile': percentile
+            })
+    
+    if not ticker_scores:
+        print("Error: No score data found for tickers.")
+        return
+    
+    # Sort by total score (descending)
+    ticker_scores.sort(key=lambda x: x['total'], reverse=True)
+    
+    # Display comparison table
+    print("\n" + "=" * 80)
+    print(f"Total Score Comparison: {target_ticker} vs Top 9 Peers")
+    print("=" * 80)
+    print(f"{'Rank':<6} {'Ticker':<8} {'Company Name':<40} {'Total Score':>15} {'Percentile':>12}")
+    print("-" * 80)
+    
+    for rank, item in enumerate(ticker_scores, 1):
+        ticker = item['ticker']
+        name = item['name']
+        percentage = item['percentage']
+        percentile = item['percentile']
+        
+        # Highlight target ticker
+        if ticker == target_ticker:
+            ticker_display = f"*{ticker}*"
+        else:
+            ticker_display = ticker
+        
+        # Truncate company name if too long
+        name_display = name[:38] + "..." if len(name) > 40 else name
+        
+        percentage_str = f"{int(percentage)}%"
+        percentile_str = f"{percentile}th" if percentile is not None else "N/A"
+        
+        print(f"{rank:<6} {ticker_display:<8} {name_display:<40} {percentage_str:>15} {percentile_str:>12}")
+    
+    print("=" * 80)
+    print("* Target ticker")
+
+
 def get_peers_for_ticker(ticker):
     """Get ranked peers for a ticker, using cache if available, otherwise querying AI.
+    Displays scores comparison between target and top 9 peers.
     
     Args:
         ticker: Ticker symbol (uppercase)
@@ -3062,9 +3142,12 @@ def get_peers_for_ticker(ticker):
         cached_peers = peers_data[ticker_upper]
         print(f"\n{ticker_upper} ({company_name}) - Found cached ranking:")
         print(f"  Total companies ranked: {len(cached_peers)}")
-        print(f"  Top 10 most comparable: {', '.join(cached_peers[:10])}")
-        if len(cached_peers) > 10:
-            print(f"  ... and {len(cached_peers) - 10} more")
+        print(f"  Top 9 most comparable: {', '.join(cached_peers[:9])}")
+        if len(cached_peers) > 9:
+            print(f"  ... and {len(cached_peers) - 9} more")
+        
+        # Display scores comparison
+        display_peer_scores_comparison(ticker_upper, cached_peers)
         return cached_peers
     
     # Not cached, query AI
@@ -3102,10 +3185,13 @@ def get_peers_for_ticker(ticker):
         save_peers(peers_data)
         print(f"\n{ticker_upper} ({company_name}) - Ranking complete:")
         print(f"  Total companies ranked: {len(ranked_peers)}")
-        print(f"  Top 10 most comparable: {', '.join(ranked_peers[:10])}")
-        if len(ranked_peers) > 10:
-            print(f"  ... and {len(ranked_peers) - 10} more")
+        print(f"  Top 9 most comparable: {', '.join(ranked_peers[:9])}")
+        if len(ranked_peers) > 9:
+            print(f"  ... and {len(ranked_peers) - 9} more")
         print(f"\nRanking saved to {PEERS_FILE}")
+        
+        # Display scores comparison
+        display_peer_scores_comparison(ticker_upper, ranked_peers)
         return ranked_peers
     else:
         print(f"Error: Could not rank peers for {ticker_upper}")
