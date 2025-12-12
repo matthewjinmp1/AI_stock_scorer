@@ -48,6 +48,7 @@ SCORE_WEIGHTS = {
 import sys
 import os
 import json
+import re
 # Add parent directory to path to import config and clients
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 from src.clients.grok_client import GrokClient
@@ -2886,67 +2887,19 @@ def save_peers(peers_data):
 
 
 def query_peers_from_ai(ticker, company_name):
-    """Query AI model to find the 10 most similar tickers from scores.json.
+    """Query AI model to find the 10 most similar companies (not limited to scores.json).
     
     Args:
         ticker: Ticker symbol (uppercase)
         company_name: Company name
         
     Returns:
-        tuple: (list of 10 ticker symbols ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
+        tuple: (list of 10 company names ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
     """
-    # Load tickers from scores.json
-    scores_data = load_scores()
-    companies = scores_data.get("companies", {})
-    
-    if not companies:
-        print("Error: No companies found in scores.json")
-        return None
-    
-    ticker_lookup = load_ticker_lookup()
-    
-    # Build list of all tickers from scores.json with company names
-    ticker_list = []
-    valid_tickers = []
-    for company_key in sorted(companies.keys()):
-        # Skip the target ticker itself
-        if company_key.upper() == ticker:
-            continue
-        
-        # Get company name
-        if company_key.upper() in ticker_lookup:
-            company_name_for_ticker = ticker_lookup[company_key.upper()]
-        else:
-            # Try to find ticker from company name
-            ticker_from_name = get_ticker_from_company_name(company_key)
-            if ticker_from_name and ticker_from_name.upper() in ticker_lookup:
-                company_name_for_ticker = ticker_lookup[ticker_from_name.upper()]
-            else:
-                company_name_for_ticker = company_key
-        
-        # Use uppercase ticker if it looks like a ticker, otherwise use the key
-        if len(company_key) <= 5 and company_key.replace(' ', '').isalpha():
-            ticker_symbol = company_key.upper()
-        else:
-            ticker_symbol = get_ticker_from_company_name(company_key)
-            if not ticker_symbol:
-                continue  # Skip if we can't find a ticker
-        
-        ticker_list.append(f"{ticker_symbol}: {company_name_for_ticker}")
-        valid_tickers.append(ticker_symbol)
-    
-    if not ticker_list:
-        print("Error: No other companies found in scores.json to compare")
-        return None
-    
-    # Create prompt asking for top 10 most similar
+    # Create prompt asking for top 10 most similar companies
     prompt = f"""You are analyzing companies to find the 10 most similar companies to {ticker} ({company_name}).
 
-Below is a list of all ticker symbols and their company names from the database:
-
-{chr(10).join(ticker_list)}
-
-Your task is to find the 10 MOST comparable tickers to {ticker} ({company_name}).
+Your task is to find the 10 MOST comparable companies to {ticker} ({company_name}).
 
 Consider factors such as:
 1. Industry and market segment similarity
@@ -2956,12 +2909,12 @@ Consider factors such as:
 5. Competitive dynamics
 6. Company size and scale (if relevant)
 
-Return ONLY a comma-separated list of exactly 10 ticker symbols, starting with the most comparable ticker first.
-Do not include explanations, company names, ranking numbers, or any other text - just the 10 ticker symbols separated by commas in order from most to least comparable.
+Return ONLY a comma-separated list of exactly 10 company names, starting with the most comparable company first.
+Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 company names separated by commas in order from most to least comparable.
 
-Example format: "MSFT, GOOGL, META, AMZN, NVDA, INTC, AMD, CRM, ORCL, ADBE"
+Example format: "Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation, Intel Corporation, Advanced Micro Devices Inc., Salesforce Inc., Oracle Corporation, Adobe Inc."
 
-Return only the 10 ticker symbols in ranked order, nothing else."""
+Return only the 10 company names in ranked order, nothing else."""
 
     try:
         grok = OpenRouterClient(api_key=OPENROUTER_KEY)
@@ -2972,12 +2925,12 @@ Return only the 10 ticker symbols in ranked order, nothing else."""
         response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
         elapsed_time = time.time() - start_time
         
-        # Parse response to extract ranked tickers
+        # Parse response to extract ranked company names
         response_clean = response.strip()
         
-        # Try to extract tickers from the response
+        # Try to extract company names from the response
         # Handle various formats: comma-separated, numbered lists, etc.
-        tickers = []
+        company_names = []
         
         # First, try splitting by comma
         for item in response_clean.split(','):
@@ -2987,89 +2940,221 @@ Return only the 10 ticker symbols in ranked order, nothing else."""
             while item_clean and (item_clean[0].isdigit() or item_clean[0] in '.)- '):
                 item_clean = item_clean[1:].strip()
             
-            ticker_clean = item_clean.upper()
-            # Validate it's a valid ticker format (1-5 uppercase letters)
-            if ticker_clean and len(ticker_clean) <= 5 and ticker_clean.isalpha():
-                # Check if it exists in valid_tickers (from scores.json)
-                if ticker_clean in valid_tickers:
-                    tickers.append(ticker_clean)
+            # Clean up the company name
+            if item_clean:
+                # Remove trailing punctuation
+                item_clean = item_clean.rstrip('.,;:()[]{}')
+                if item_clean:
+                    company_names.append(item_clean.strip())
         
-        # If we didn't get enough tickers, try parsing line by line
-        if len(tickers) < 10:
+        # If we didn't get enough names, try parsing line by line
+        if len(company_names) < 10:
             lines = response_clean.split('\n')
             for line in lines:
                 line_clean = line.strip()
                 # Skip empty lines
                 if not line_clean:
                     continue
-                # Try to extract ticker from line
-                for word in line_clean.split():
-                    word_clean = word.strip('.,;:()[]{}').upper()
-                    if word_clean and len(word_clean) <= 5 and word_clean.isalpha():
-                        if word_clean in valid_tickers and word_clean not in tickers:
-                            tickers.append(word_clean)
-                            if len(tickers) >= 10:
-                                break
-                if len(tickers) >= 10:
-                    break
+                # Try to extract company name from line
+                # Remove leading numbers, dots, dashes
+                while line_clean and (line_clean[0].isdigit() or line_clean[0] in '.)- '):
+                    line_clean = line_clean[1:].strip()
+                # Remove trailing punctuation
+                line_clean = line_clean.rstrip('.,;:()[]{}')
+                if line_clean and line_clean not in company_names:
+                    company_names.append(line_clean)
+                    if len(company_names) >= 10:
+                        break
         
         # Limit to top 10
-        tickers = tickers[:10]
+        company_names = company_names[:10]
         
-        return (tickers, elapsed_time, token_usage) if tickers else (None, None, None)
+        return (company_names, elapsed_time, token_usage) if company_names else (None, None, None)
         
     except Exception as e:
         print(f"Error querying AI for peers: {e}")
         return (None, None, None)
 
 
-def display_peer_scores_comparison(target_ticker, peer_tickers):
-    """Display total scores comparison between target ticker and peer tickers.
+def convert_company_name_to_ticker(company_name):
+    """Convert a company name to a ticker symbol using AI.
+    If the company is public, returns the actual ticker.
+    If the company is private, generates a ticker and adds it to ticker definitions.
+    
+    Args:
+        company_name: Company name
+        
+    Returns:
+        tuple: (ticker_symbol, is_public) where is_public is True if it's a real public company ticker, False if generated
+    """
+    # First check if we already have this company in our lookup
+    ticker_lookup = load_ticker_lookup()
+    company_lower = company_name.lower()
+    
+    # Try exact match (case insensitive)
+    for ticker, name in ticker_lookup.items():
+        if name.lower() == company_lower:
+            return (ticker, True)
+    
+    # Try partial match
+    for ticker, name in ticker_lookup.items():
+        if company_lower in name.lower() or name.lower() in company_lower:
+            return (ticker, True)
+    
+    # Not found in lookup, use AI to find ticker
+    prompt = f"""Given the company name "{company_name}", determine if it is a publicly traded company.
+
+If it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., "AAPL", "MSFT", "GOOGL").
+If it is a private company or not publicly traded, return ONLY the word "PRIVATE".
+
+Do not include any explanations, company names, or other text - just the ticker symbol or the word "PRIVATE"."""
+
+    try:
+        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        model = get_model_for_ticker("AAPL")  # Use default model
+        
+        response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
+        response_clean = response.strip().upper()
+        
+        # Check if response is "PRIVATE"
+        if "PRIVATE" in response_clean:
+            # Generate a ticker for the private company
+            # Use first letters of words in company name, up to 5 characters
+            words = company_name.split()
+            ticker = ""
+            for word in words:
+                if word and word[0].isalpha():
+                    ticker += word[0].upper()
+                    if len(ticker) >= 5:
+                        break
+            
+            # If we don't have enough letters, pad with X
+            while len(ticker) < 3:
+                ticker += "X"
+            
+            ticker = ticker[:5]  # Limit to 5 characters
+            
+            # Make sure it's unique by checking if it exists
+            original_ticker = ticker
+            counter = 1
+            while ticker in ticker_lookup:
+                # Append a number if it conflicts
+                ticker = (original_ticker[:4] + str(counter))[:5]
+                counter += 1
+                if counter > 9:
+                    # Fallback: use first 5 chars of company name
+                    ticker = company_name.replace(" ", "").upper()[:5]
+                    break
+            
+            # Add to ticker definitions
+            add_ticker_definition(ticker, company_name)
+            
+            return (ticker, False)
+        else:
+            # Extract ticker from response
+            # Look for a valid ticker format (1-5 uppercase letters)
+            ticker_match = re.search(r'\b([A-Z]{1,5})\b', response_clean)
+            if ticker_match:
+                ticker = ticker_match.group(1)
+                # Verify it's a valid ticker by checking if it exists in our lookup
+                # If not, we'll still use it but mark it as potentially new
+                is_public = ticker in ticker_lookup
+                return (ticker, is_public)
+            else:
+                # Couldn't parse ticker, generate one
+                words = company_name.split()
+                ticker = ""
+                for word in words:
+                    if word and word[0].isalpha():
+                        ticker += word[0].upper()
+                        if len(ticker) >= 5:
+                            break
+                while len(ticker) < 3:
+                    ticker += "X"
+                ticker = ticker[:5]
+                
+                # Make sure it's unique
+                original_ticker = ticker
+                counter = 1
+                while ticker in ticker_lookup:
+                    ticker = (original_ticker[:4] + str(counter))[:5]
+                    counter += 1
+                    if counter > 9:
+                        ticker = company_name.replace(" ", "").upper()[:5]
+                        break
+                
+                add_ticker_definition(ticker, company_name)
+                return (ticker, False)
+        
+    except Exception as e:
+        print(f"Error converting company name to ticker: {e}")
+        # Fallback: generate a ticker
+        words = company_name.split()
+        ticker = ""
+        for word in words:
+            if word and word[0].isalpha():
+                ticker += word[0].upper()
+                if len(ticker) >= 5:
+                    break
+        while len(ticker) < 3:
+            ticker += "X"
+        ticker = ticker[:5]
+        
+        # Make sure it's unique
+        original_ticker = ticker
+        counter = 1
+        while ticker in ticker_lookup:
+            ticker = (original_ticker[:4] + str(counter))[:5]
+            counter += 1
+            if counter > 9:
+                ticker = company_name.replace(" ", "").upper()[:5]
+                break
+        
+        add_ticker_definition(ticker, company_name)
+        return (ticker, False)
+
+
+def display_peer_scores_comparison(target_ticker, peer_data_list):
+    """Display total scores comparison between target ticker and peer companies.
     
     Args:
         target_ticker: Target ticker symbol (uppercase)
-        peer_tickers: List of peer ticker symbols (uppercase)
+        peer_data_list: List of dicts with keys: 'ticker', 'name', 'has_score', 'total' (optional), 'percentage' (optional), 'percentile' (optional)
     """
     scores_data = load_scores()
     ticker_lookup = load_ticker_lookup()
     
-    # Get all tickers to display (target + top 10 peers)
-    all_tickers = [target_ticker] + peer_tickers[:10]
+    # Get target company data
+    target_company_data = None
+    for company_key in scores_data.get("companies", {}).keys():
+        if company_key.upper() == target_ticker:
+            target_company_data = scores_data["companies"][company_key]
+            break
     
-    # Get company data and calculate total scores
-    ticker_scores = []
-    for ticker in all_tickers:
-        # Find the company data in scores.json
-        company_data = None
-        for company_key in scores_data.get("companies", {}).keys():
-            if company_key.upper() == ticker:
-                company_data = scores_data["companies"][company_key]
-                break
-        
-        if company_data:
-            company_name = ticker_lookup.get(ticker, ticker)
-            total = calculate_total_score(company_data)
-            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-            percentage = (total / max_score) * 100
-            
-            # Calculate percentile
-            all_totals = get_all_total_scores()
-            percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
-            
-            ticker_scores.append({
-                'ticker': ticker,
-                'name': company_name,
-                'total': total,
-                'percentage': percentage,
-                'percentile': percentile
-            })
+    target_name = ticker_lookup.get(target_ticker, target_ticker)
+    target_total = None
+    target_percentage = None
+    target_percentile = None
     
-    if not ticker_scores:
-        print("Error: No score data found for tickers.")
-        return
+    if target_company_data:
+        target_total = calculate_total_score(target_company_data)
+        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+        target_percentage = (target_total / max_score) * 100
+        all_totals = get_all_total_scores()
+        target_percentile = calculate_percentile_rank(target_total, all_totals) if all_totals and len(all_totals) > 1 else None
     
-    # Calculate median score of peers (excluding target ticker)
-    peer_scores = [item['total'] for item in ticker_scores if item['ticker'] != target_ticker]
+    # Build list of all items to display (target + peers)
+    all_items = [{
+        'ticker': target_ticker,
+        'name': target_name,
+        'has_score': target_company_data is not None,
+        'total': target_total,
+        'percentage': target_percentage,
+        'percentile': target_percentile
+    }] + peer_data_list
+    
+    # Calculate median score of peers that have scores (excluding target ticker)
+    peer_scores = [item['total'] for item in all_items if item['ticker'] != target_ticker and item.get('has_score') and item.get('total') is not None]
     median_score = None
     median_percentage = None
     if peer_scores:
@@ -3079,8 +3164,8 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
         max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
         median_percentage = (median_score / max_score) * 100
     
-    # Sort by total score (descending)
-    ticker_scores.sort(key=lambda x: x['total'], reverse=True)
+    # Sort by total score (descending), with items without scores at the end
+    all_items.sort(key=lambda x: (x.get('total') is not None, x.get('total') or 0), reverse=True)
     
     # Display comparison table
     # Column widths: Rank=6, Ticker=8, Company Name=40, Total Score=15, Percentile=12
@@ -3090,15 +3175,15 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
     print(f"Total Score Comparison: {target_ticker} vs Top 10 Peers")
     print("=" * table_width)
     # Headers: right-align Total Score and Percentile to match right-aligned numeric data
-    # This ensures both headers and data align on the right edge of their columns
     print(f"{'Rank':<6} {'Ticker':<8} {'Company Name':<40} {'Total Score':>15} {'Percentile':>12}")
     print("-" * table_width)
     
-    for rank, item in enumerate(ticker_scores, 1):
+    for rank, item in enumerate(all_items, 1):
         ticker = item['ticker']
         name = item['name']
-        percentage = item['percentage']
-        percentile = item['percentile']
+        has_score = item.get('has_score', False)
+        percentage = item.get('percentage')
+        percentile = item.get('percentile')
         
         # Highlight target ticker
         if ticker == target_ticker:
@@ -3106,15 +3191,18 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
         else:
             ticker_display = ticker
         
-        # Truncate company name if too long - ensure it fits exactly in 40-character column
-        # Format specifier is :<40, so we must ensure name_display is <= 40 chars
+        # Truncate company name if too long
         if len(name) > 40:
-            name_display = (name[:37] + "...")[:40]  # Truncate to exactly 40 chars
+            name_display = (name[:37] + "...")[:40]
         else:
             name_display = name
         
-        percentage_str = f"{int(percentage)}%"
-        percentile_str = f"{percentile}th" if percentile is not None else "N/A"
+        if has_score and percentage is not None:
+            percentage_str = f"{int(percentage)}%"
+            percentile_str = f"{percentile}th" if percentile is not None else "N/A"
+        else:
+            percentage_str = "Not scored"
+            percentile_str = "N/A"
         
         print(f"{rank:<6} {ticker_display:<8} {name_display:<40} {percentage_str:>15} {percentile_str:>12}")
     
@@ -3127,8 +3215,9 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
 
 
 def get_peers_for_ticker(ticker):
-    """Get the 10 most similar peers for a ticker, using cache if available, otherwise querying AI.
+    """Get the 10 most similar peers for a ticker using AI.
     Displays scores comparison between target and top 10 peers.
+    For peers without scores, asks user if they want to score them.
     
     Args:
         ticker: Ticker symbol (uppercase)
@@ -3159,65 +3248,134 @@ def get_peers_for_ticker(ticker):
     
     company_name = ticker_lookup[ticker_upper]
     
-    # Load existing peers
-    peers_data = load_peers()
-    
-    # Check if already cached
-    if ticker_upper in peers_data:
-        cached_peers = peers_data[ticker_upper]
-        # Limit cached peers to 10 for consistency
-        cached_peers = cached_peers[:10]
-        print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
-        print(f"  10 most comparable: {', '.join(cached_peers)}")
-        
-        # Display scores comparison
-        display_peer_scores_comparison(ticker_upper, cached_peers)
-        return cached_peers
-    
-    # Not cached, query AI
+    # Query AI for peers (returns company names)
     print(f"\nQuerying AI to find the 10 most similar companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
-    ranked_peers, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
+    ranked_peer_names, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
     
-    if ranked_peers:
-        # Calculate cost
-        model = get_model_for_ticker(ticker_upper)
-        total_tokens = token_usage.get('total_tokens', 0) if token_usage else 0
-        cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage) if token_usage else 0.0
-        cost_cents = cost * 100
-        
-        # Display timing and cost information
-        print(f"\nTime taken: {elapsed_time:.2f}s")
-        if token_usage:
-            input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
-            output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
-            cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
-                           token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
-                           token_usage.get('prompt_cache_hit_tokens', 0))
-            thinking_tokens = token_usage.get('thinking_tokens', 0)
-            
-            if thinking_tokens > 0:
-                print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,} includes {thinking_tokens:,} thinking, cached={cached_tokens:,})")
-            else:
-                print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,}, cached={cached_tokens:,})")
-        else:
-            print(f"Tokens: {total_tokens:,}")
-        print(f"Cost: {cost_cents:.4f} cents")
-        
-        # Save to cache (limit to 10)
-        ranked_peers = ranked_peers[:10]
-        peers_data[ticker_upper] = ranked_peers
-        save_peers(peers_data)
-        print(f"\n{ticker_upper} ({company_name}) - Found 10 most similar companies:")
-        print(f"  {', '.join(ranked_peers)}")
-        print(f"\nPeers saved to {PEERS_FILE}")
-        
-        # Display scores comparison
-        display_peer_scores_comparison(ticker_upper, ranked_peers)
-        return ranked_peers
-    else:
-        print(f"Error: Could not rank peers for {ticker_upper}")
+    if not ranked_peer_names:
+        print(f"Error: Could not find peers for {ticker_upper}")
         return None
+    
+    # Calculate cost
+    model = get_model_for_ticker(ticker_upper)
+    total_tokens = token_usage.get('total_tokens', 0) if token_usage else 0
+    cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage) if token_usage else 0.0
+    cost_cents = cost * 100
+    
+    # Display timing and cost information
+    print(f"\nTime taken: {elapsed_time:.2f}s")
+    if token_usage:
+        input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
+        output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
+        cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                       token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
+                       token_usage.get('prompt_cache_hit_tokens', 0))
+        thinking_tokens = token_usage.get('thinking_tokens', 0)
+        
+        if thinking_tokens > 0:
+            print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,} includes {thinking_tokens:,} thinking, cached={cached_tokens:,})")
+        else:
+            print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,}, cached={cached_tokens:,})")
+    else:
+        print(f"Tokens: {total_tokens:,}")
+    print(f"Cost: {cost_cents:.4f} cents")
+    
+    # Convert company names to tickers and check which have scores
+    peer_data_list = []
+    peer_tickers = []
+    scores_data = load_scores()  # Reload to get latest scores
+    
+    for peer_name in ranked_peer_names[:10]:
+        # Convert company name to ticker
+        peer_ticker, is_public = convert_company_name_to_ticker(peer_name)
+        peer_tickers.append(peer_ticker)
+        
+        # Check if this peer has scores
+        has_score = False
+        total = None
+        percentage = None
+        percentile = None
+        
+        for company_key in scores_data.get("companies", {}).keys():
+            if company_key.upper() == peer_ticker:
+                has_score = True
+                company_data = scores_data["companies"][company_key]
+                total = calculate_total_score(company_data)
+                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                percentage = (total / max_score) * 100
+                all_totals = get_all_total_scores()
+                percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                break
+        
+        # Get company name from lookup (may have been updated)
+        ticker_lookup = load_ticker_lookup()  # Reload to get latest definitions
+        peer_display_name = ticker_lookup.get(peer_ticker, peer_name)
+        
+        peer_data_list.append({
+            'ticker': peer_ticker,
+            'name': peer_display_name,
+            'has_score': has_score,
+            'total': total,
+            'percentage': percentage,
+            'percentile': percentile
+        })
+    
+    # Display scores comparison (shows all peers, with scores for those that have them)
+    display_peer_scores_comparison(ticker_upper, peer_data_list)
+    
+    # Ask user if they want to score peers without scores
+    unscored_peers = [item for item in peer_data_list if not item.get('has_score')]
+    if unscored_peers:
+        print(f"\nFound {len(unscored_peers)} peer(s) without scores:")
+        for item in unscored_peers:
+            print(f"  - {item['ticker']}: {item['name']}")
+        
+        while True:
+            response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
+            if response in ['y', 'yes']:
+                # Score each unscored peer
+                for item in unscored_peers:
+                    peer_ticker = item['ticker']
+                    peer_name = item['name']
+                    print(f"\nScoring {peer_ticker} ({peer_name})...")
+                    result = score_single_ticker(peer_ticker, silent=False, batch_mode=False, force_rescore=False)
+                    if result and result.get('success'):
+                        print(f"✓ Successfully scored {peer_ticker}")
+                    else:
+                        print(f"✗ Failed to score {peer_ticker}")
+                
+                # Reload scores and redisplay
+                scores_data = load_scores()
+                for item in peer_data_list:
+                    if not item.get('has_score'):
+                        peer_ticker = item['ticker']
+                        for company_key in scores_data.get("companies", {}).keys():
+                            if company_key.upper() == peer_ticker:
+                                item['has_score'] = True
+                                company_data = scores_data["companies"][company_key]
+                                item['total'] = calculate_total_score(company_data)
+                                max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                                item['percentage'] = (item['total'] / max_score) * 100
+                                all_totals = get_all_total_scores()
+                                item['percentile'] = calculate_percentile_rank(item['total'], all_totals) if all_totals and len(all_totals) > 1 else None
+                                break
+                
+                print("\nUpdated scores comparison:")
+                display_peer_scores_comparison(ticker_upper, peer_data_list)
+                break
+            elif response in ['n', 'no']:
+                break
+            else:
+                print("Please enter 'y' or 'n'")
+    
+    # Save to cache (limit to 10 tickers)
+    peers_data = load_peers()
+    peers_data[ticker_upper] = peer_tickers[:10]
+    save_peers(peers_data)
+    print(f"\nPeers saved to {PEERS_FILE}")
+    
+    return peer_tickers[:10]
 
 
 def handle_peer_command(command_input):
