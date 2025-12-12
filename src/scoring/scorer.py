@@ -3399,7 +3399,10 @@ def get_peers_for_ticker(ticker, force_redo=False):
             return cached_peer_tickers
     
     # Not cached or force_redo is True, query AI for peers (returns company names)
-    print(f"\nQuerying AI to find the top 10 most comparable companies to {ticker_upper} ({company_name})...")
+    if force_redo:
+        print(f"\nForcing new peer calculation for {ticker_upper} ({company_name}) (bypassing cache)...")
+    else:
+        print(f"\nQuerying AI to find the top 10 most comparable companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
     ranked_peer_names, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
     
@@ -3521,8 +3524,15 @@ def get_peers_for_ticker(ticker, force_redo=False):
     if len(peer_data_list) < 10:
         print(f"\nNote: Found {len(peer_data_list)} valid peer(s) after filtering (some may have been invalid or duplicates).")
     
+    # If no valid peers found, still save empty list to cache
+    if not peer_tickers:
+        print(f"\nWarning: No valid peers found for {ticker_upper} after processing.")
+    
     # Display scores comparison (shows all peers, with scores for those that have them)
-    display_peer_scores_comparison(ticker_upper, peer_data_list)
+    if peer_data_list:
+        display_peer_scores_comparison(ticker_upper, peer_data_list)
+    else:
+        print(f"\nNo peers to display for {ticker_upper}.")
     
     # Ask user if they want to score peers without scores
     unscored_peers = [item for item in peer_data_list if not item.get('has_score')]
@@ -3572,11 +3582,16 @@ def get_peers_for_ticker(ticker, force_redo=False):
             else:
                 print("Please enter 'y' or 'n'")
     
-    # Save to cache
+    # Save to cache (always save, even if force_redo was used)
     peers_data = load_peers()
     peers_data[ticker_upper] = peer_tickers
-    save_peers(peers_data)
-    print(f"\nPeers saved to {PEERS_FILE}")
+    if save_peers(peers_data):
+        if force_redo:
+            print(f"\n✓ Peers recalculated and saved to {PEERS_FILE}")
+        else:
+            print(f"\n✓ Peers saved to {PEERS_FILE}")
+    else:
+        print(f"\n✗ Error: Failed to save peers to {PEERS_FILE}")
     
     return peer_tickers
 
