@@ -2887,19 +2887,19 @@ def save_peers(peers_data):
 
 
 def query_peers_from_ai(ticker, company_name):
-    """Query AI model to find comparable companies (not limited to scores.json).
+    """Query AI model to find the top 10 most comparable companies (not limited to scores.json).
     
     Args:
         ticker: Ticker symbol (uppercase)
         company_name: Company name
         
     Returns:
-        tuple: (list of company names ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
+        tuple: (list of 10 company names ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
     """
-    # Create prompt asking for comparable companies (no fixed number)
-    prompt = f"""You are analyzing companies to find the most comparable companies to {ticker} ({company_name}).
+    # Create prompt asking for top 10 comparable companies
+    prompt = f"""You are analyzing companies to find the 10 most comparable companies to {ticker} ({company_name}).
 
-Your task is to find the MOST comparable companies to {ticker} ({company_name}).
+Your task is to find the 10 MOST comparable companies to {ticker} ({company_name}).
 
 IMPORTANT: Only include companies that are DIRECT competitors or operate in the SAME or VERY SIMILAR industries. 
 Do NOT include companies from completely different industries, even if they are large tech companies.
@@ -2912,13 +2912,12 @@ Consider factors such as:
 5. Competitive dynamics (direct competitors)
 6. Company size and scale (if relevant)
 
-Return ONLY a comma-separated list of company names, starting with the most comparable company first.
-Include as many companies as you find to be genuinely comparable - do not force a specific number.
-Do not include explanations, ticker symbols, ranking numbers, or any other text - just the company names separated by commas in order from most to least comparable.
+Return ONLY a comma-separated list of exactly 10 company names, starting with the most comparable company first.
+Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 company names separated by commas in order from most to least comparable.
 
-Example format: "Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation"
+Example format: "Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation, Intel Corporation, Advanced Micro Devices Inc., Salesforce Inc., Oracle Corporation, Adobe Inc."
 
-Return only the company names in ranked order, nothing else."""
+Return exactly 10 company names in ranked order, nothing else."""
 
     try:
         grok = OpenRouterClient(api_key=OPENROUTER_KEY)
@@ -2951,8 +2950,8 @@ Return only the company names in ranked order, nothing else."""
                 if item_clean:
                     company_names.append(item_clean.strip())
         
-        # If we didn't get many names from comma splitting, try parsing line by line
-        if len(company_names) < 3:
+        # If we didn't get enough names from comma splitting, try parsing line by line
+        if len(company_names) < 10:
             lines = response_clean.split('\n')
             for line in lines:
                 line_clean = line.strip()
@@ -2967,6 +2966,11 @@ Return only the company names in ranked order, nothing else."""
                 line_clean = line_clean.rstrip('.,;:()[]{}')
                 if line_clean and line_clean not in company_names:
                     company_names.append(line_clean)
+                    if len(company_names) >= 10:
+                        break
+        
+        # Limit to top 10
+        company_names = company_names[:10]
         
         return (company_names, elapsed_time, token_usage) if company_names else (None, None, None)
         
@@ -3177,11 +3181,7 @@ def display_peer_scores_comparison(target_ticker, peer_data_list):
     # Plus 4 spaces between columns = 85 total
     table_width = 85
     print("\n" + "=" * table_width)
-    num_peers = len(peer_data_list)
-    if num_peers == 1:
-        print(f"Total Score Comparison: {target_ticker} vs {num_peers} Peer")
-    else:
-        print(f"Total Score Comparison: {target_ticker} vs {num_peers} Peers")
+    print(f"Total Score Comparison: {target_ticker} vs Top 10 Peers")
     print("=" * table_width)
     # Headers: right-align Total Score and Percentile to match right-aligned numeric data
     print(f"{'Rank':<6} {'Ticker':<8} {'Company Name':<40} {'Total Score':>15} {'Percentile':>12}")
@@ -3224,15 +3224,15 @@ def display_peer_scores_comparison(target_ticker, peer_data_list):
 
 
 def get_peers_for_ticker(ticker):
-    """Get comparable peers for a ticker using AI.
-    Displays scores comparison between target and peers.
+    """Get the top 10 most comparable peers for a ticker using AI.
+    Displays scores comparison between target and top 10 peers.
     For peers without scores, asks user if they want to score them.
     
     Args:
         ticker: Ticker symbol (uppercase)
         
     Returns:
-        list: List of ticker symbols ranked from most comparable to least, or None if error
+        list: List of 10 ticker symbols ranked from most comparable to least, or None if error
     """
     ticker_upper = ticker.strip().upper()
     
@@ -3258,7 +3258,7 @@ def get_peers_for_ticker(ticker):
     company_name = ticker_lookup[ticker_upper]
     
     # Query AI for peers (returns company names)
-    print(f"\nQuerying AI to find comparable companies to {ticker_upper} ({company_name})...")
+    print(f"\nQuerying AI to find the top 10 most comparable companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
     ranked_peer_names, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
     
@@ -3266,7 +3266,9 @@ def get_peers_for_ticker(ticker):
         print(f"Error: Could not find peers for {ticker_upper}")
         return None
     
-    print(f"Found {len(ranked_peer_names)} comparable peer(s)")
+    # Limit to top 10
+    ranked_peer_names = ranked_peer_names[:10]
+    print(f"Found {len(ranked_peer_names)} peer(s)")
     
     # Calculate cost
     model = get_model_for_ticker(ticker_upper)
@@ -3293,6 +3295,9 @@ def get_peers_for_ticker(ticker):
     print(f"Cost: {cost_cents:.4f} cents")
     
     # Convert company names to tickers and check which have scores
+    # Limit to top 10 peers
+    ranked_peer_names = ranked_peer_names[:10]
+    
     peer_data_list = []
     peer_tickers = []
     seen_tickers = set()  # Track seen tickers to avoid duplicates
