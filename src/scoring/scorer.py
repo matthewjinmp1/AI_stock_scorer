@@ -2872,16 +2872,36 @@ def load_peers():
 
 
 def save_peers(peers_data):
-    """Save peers data to JSON file.
+    """Save peers data to JSON file using atomic write to prevent corruption.
     
     Args:
         peers_data: Dictionary mapping ticker to list of peer tickers
     """
+    # Create a temporary file in the same directory as the target file
+    temp_dir = os.path.dirname(os.path.abspath(PEERS_FILE)) or '.'
+    temp_fd, temp_path = tempfile.mkstemp(dir=temp_dir, suffix='.json', prefix='.peers_temp_')
+    
     try:
-        with open(PEERS_FILE, 'w') as f:
+        # Write to temporary file
+        with os.fdopen(temp_fd, 'w') as f:
             json.dump(peers_data, f, indent=2)
+        
+        # Atomically replace the original file (on Windows, this may require removing the original first)
+        if os.name == 'nt':  # Windows
+            # On Windows, replace() may fail if file is open, so try remove first
+            if os.path.exists(PEERS_FILE):
+                os.remove(PEERS_FILE)
+            shutil.move(temp_path, PEERS_FILE)
+        else:  # Unix-like systems
+            # On Unix, replace() is atomic
+            os.replace(temp_path, PEERS_FILE)
         return True
     except Exception as e:
+        # If anything goes wrong, try to clean up temp file and raise
+        try:
+            os.remove(temp_path)
+        except:
+            pass
         print(f"Error saving peers: {e}")
         return False
 
@@ -3279,7 +3299,101 @@ def get_peers_for_ticker(ticker):
     
     company_name = ticker_lookup[ticker_upper]
     
-    # Query AI for peers (returns company names)
+    # Check if peers are already cached
+    peers_data = load_peers()
+    if ticker_upper in peers_data:
+        cached_peer_tickers = peers_data[ticker_upper]
+        # Limit to 10 for consistency
+        cached_peer_tickers = cached_peer_tickers[:10]
+        if cached_peer_tickers:
+            print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
+            print(f"  {len(cached_peer_tickers)} peer(s): {', '.join(cached_peer_tickers)}")
+            
+            # Convert cached tickers to peer_data_list format for display
+            peer_data_list = []
+            scores_data = load_scores()
+            ticker_lookup = load_ticker_lookup()
+            
+            for peer_ticker in cached_peer_tickers:
+                # Check if this peer has scores
+                has_score = False
+                total = None
+                percentage = None
+                percentile = None
+                
+                for company_key in scores_data.get("companies", {}).keys():
+                    if company_key.upper() == peer_ticker:
+                        has_score = True
+                        company_data = scores_data["companies"][company_key]
+                        total = calculate_total_score(company_data)
+                        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                        percentage = (total / max_score) * 100
+                        all_totals = get_all_total_scores()
+                        percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                        break
+                
+                peer_display_name = ticker_lookup.get(peer_ticker, peer_ticker)
+                
+                peer_data_list.append({
+                    'ticker': peer_ticker,
+                    'name': peer_display_name,
+                    'has_score': has_score,
+                    'total': total,
+                    'percentage': percentage,
+                    'percentile': percentile
+                })
+            
+            # Display scores comparison
+            display_peer_scores_comparison(ticker_upper, peer_data_list)
+            
+            # Ask user if they want to score peers without scores
+            unscored_peers = [item for item in peer_data_list if not item.get('has_score')]
+            if unscored_peers:
+                print(f"\nFound {len(unscored_peers)} peer(s) without scores:")
+                for item in unscored_peers:
+                    print(f"  - {item['ticker']}: {item['name']}")
+                
+                while True:
+                    response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
+                    if response in ['y', 'yes']:
+                        # Score each unscored peer
+                        for item in unscored_peers:
+                            peer_ticker = item['ticker']
+                            peer_name = item['name']
+                            print(f"\nScoring {peer_ticker} ({peer_name})...")
+                            result = score_single_ticker(peer_ticker, silent=False, batch_mode=False, force_rescore=False)
+                            if result and result.get('success'):
+                                print(f"✓ Successfully scored {peer_ticker}")
+                            else:
+                                print(f"✗ Failed to score {peer_ticker}")
+                        
+                        # Reload scores and redisplay
+                        scores_data = load_scores()
+                        for item in peer_data_list:
+                            if not item.get('has_score'):
+                                peer_ticker = item['ticker']
+                                for company_key in scores_data.get("companies", {}).keys():
+                                    if company_key.upper() == peer_ticker:
+                                        item['has_score'] = True
+                                        company_data = scores_data["companies"][company_key]
+                                        item['total'] = calculate_total_score(company_data)
+                                        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                                        item['percentage'] = (item['total'] / max_score) * 100
+                                        all_totals = get_all_total_scores()
+                                        item['percentile'] = calculate_percentile_rank(item['total'], all_totals) if all_totals and len(all_totals) > 1 else None
+                                        break
+                        
+                        print("\nUpdated scores comparison:")
+                        display_peer_scores_comparison(ticker_upper, peer_data_list)
+                        break
+                    elif response in ['n', 'no']:
+                        break
+                    else:
+                        print("Please enter 'y' or 'n'")
+            
+            return cached_peer_tickers
+    
+    # Not cached, query AI for peers (returns company names)
     print(f"\nQuerying AI to find the top 10 most comparable companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
     ranked_peer_names, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
