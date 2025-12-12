@@ -3262,15 +3262,34 @@ def convert_company_name_to_ticker(company_name, return_cost=False):
                 return (ticker, True, None)
             return (ticker, True)
     
-    # Try partial match - match on significant words (at least 2 words or main company name)
-    company_words = set(word.strip('.,;:()[]{}') for word in company_lower.split() if len(word) > 2)
+    # Try partial match - match on significant words (excluding common corporate suffixes)
+    # Common corporate suffixes that should not count as significant matches
+    corporate_suffixes = {
+        'inc', 'incorporated', 'corp', 'corporation', 'ltd', 'limited', 'llc', 
+        'company', 'co', 'plc', 'ag', 'sa', 'se', 'nv', 'spa', 'srl',
+        'common', 'stock', 'shares', 'holdings', 'group', 'industries',
+        'technologies', 'technology', 'systems', 'solutions', 'services',
+        'international', 'global', 'worldwide', 'usa', 'us', 'america'
+    }
+    
+    # Extract meaningful words (excluding suffixes and short words)
+    company_words = set(
+        word.strip('.,;:()[]{}') 
+        for word in company_lower.split() 
+        if len(word) > 2 and word.strip('.,;:()[]{}') not in corporate_suffixes
+    )
+    
     for ticker, name in ticker_lookup.items():
         name_lower = name.lower()
-        name_words = set(word.strip('.,;:()[]{}') for word in name_lower.split() if len(word) > 2)
+        name_words = set(
+            word.strip('.,;:()[]{}') 
+            for word in name_lower.split() 
+            if len(word) > 2 and word.strip('.,;:()[]{}') not in corporate_suffixes
+        )
         
-        # If there's significant word overlap (at least 2 words match, or one long word matches)
+        # Require at least 2 meaningful words to match (no single long word shortcut)
         common_words = company_words.intersection(name_words)
-        if len(common_words) >= 2 or (len(common_words) >= 1 and any(len(word) >= 8 for word in common_words)):
+        if len(common_words) >= 2:
             # Record conversion from lookup
             save_ticker_conversion(company_name, ticker, True, "partial_match")
             if return_cost:
