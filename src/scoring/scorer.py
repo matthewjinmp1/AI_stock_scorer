@@ -74,6 +74,9 @@ TICKER_FILE = os.path.join(PROJECT_ROOT, "data", "stock_tickers_clean.json")
 # Peers file
 PEERS_FILE = os.path.join(PROJECT_ROOT, "data", "peers.json")
 
+# Peer AI responses file
+PEER_RESPONSES_FILE = os.path.join(PROJECT_ROOT, "data", "peer_responses.json")
+
 def get_model_for_ticker(ticker):
     """Get the model name to use for a given ticker.
     
@@ -2906,6 +2909,81 @@ def save_peers(peers_data):
         return False
 
 
+def load_peer_responses():
+    """Load peer AI responses from JSON file.
+    
+    Returns:
+        dict: Dictionary mapping ticker to list of response records
+    """
+    if os.path.exists(PEER_RESPONSES_FILE):
+        try:
+            with open(PEER_RESPONSES_FILE, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {}
+    return {}
+
+
+def save_peer_response(ticker, company_name, prompt, raw_response, parsed_company_names, model, elapsed_time, token_usage):
+    """Save AI response for peer query to JSON file.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        company_name: Company name
+        prompt: The prompt sent to AI
+        raw_response: Raw response from AI
+        parsed_company_names: List of parsed company names
+        model: Model used
+        elapsed_time: Time taken for query
+        token_usage: Token usage dictionary
+    """
+    responses_data = load_peer_responses()
+    
+    # Create response record
+    response_record = {
+        'timestamp': datetime.now().isoformat(),
+        'ticker': ticker,
+        'company_name': company_name,
+        'model': model,
+        'prompt': prompt,
+        'raw_response': raw_response,
+        'parsed_company_names': parsed_company_names,
+        'elapsed_time': elapsed_time,
+        'token_usage': token_usage
+    }
+    
+    # Add to responses data (append to list for this ticker)
+    if ticker not in responses_data:
+        responses_data[ticker] = []
+    responses_data[ticker].append(response_record)
+    
+    # Save to file using atomic write
+    temp_dir = os.path.dirname(os.path.abspath(PEER_RESPONSES_FILE)) or '.'
+    temp_fd, temp_path = tempfile.mkstemp(dir=temp_dir, suffix='.json', prefix='.peer_responses_temp_')
+    
+    try:
+        # Write to temporary file
+        with os.fdopen(temp_fd, 'w') as f:
+            json.dump(responses_data, f, indent=2)
+        
+        # Atomically replace the original file
+        if os.name == 'nt':  # Windows
+            if os.path.exists(PEER_RESPONSES_FILE):
+                os.remove(PEER_RESPONSES_FILE)
+            shutil.move(temp_path, PEER_RESPONSES_FILE)
+        else:  # Unix-like systems
+            os.replace(temp_path, PEER_RESPONSES_FILE)
+        return True
+    except Exception as e:
+        # If anything goes wrong, try to clean up temp file
+        try:
+            os.remove(temp_path)
+        except:
+            pass
+        print(f"Error saving peer response: {e}")
+        return False
+
+
 def query_peers_from_ai(ticker, company_name):
     """Query AI model to find the top 10 most comparable companies (not limited to scores.json).
     
@@ -3011,6 +3089,19 @@ Return exactly 10 complete company names in ranked order, nothing else."""
         
         # Limit to top 10
         valid_company_names = valid_company_names[:10]
+        
+        # Save AI response to JSON
+        if valid_company_names:
+            save_peer_response(
+                ticker=ticker,
+                company_name=company_name,
+                prompt=prompt,
+                raw_response=response,
+                parsed_company_names=valid_company_names,
+                model=model,
+                elapsed_time=elapsed_time,
+                token_usage=token_usage
+            )
         
         return (valid_company_names, elapsed_time, token_usage) if valid_company_names else (None, None, None)
         

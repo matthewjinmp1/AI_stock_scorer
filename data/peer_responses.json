@@ -1,0 +1,30 @@
+{
+  "LULU": [
+    {
+      "timestamp": "2025-12-12T15:03:47.445220",
+      "ticker": "LULU",
+      "company_name": "lululemon athletica inc",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to lululemon athletica inc.\n\nYour task is to find the 10 MOST comparable companies to lululemon athletica inc.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a comma-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Each company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by commas in order from most to least comparable.\n\nExample format: \"Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation, Intel Corporation, Advanced Micro Devices Inc., Salesforce Inc., Oracle Corporation, Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, nothing else.",
+      "raw_response": "Nike, Inc., Under Armour, Inc., Gap Inc., VF Corporation, Adidas AG, Puma SE, Skechers U.S.A., Inc., Columbia Sportswear Company, Deckers Outdoor Corporation, ASICS Corporation",
+      "parsed_company_names": [
+        "Nike",
+        "Under Armour",
+        "Gap Inc",
+        "VF Corporation",
+        "Adidas AG",
+        "Puma SE",
+        "Skechers U.S.A",
+        "Columbia Sportswear Company",
+        "Deckers Outdoor Corporation",
+        "ASICS Corporation"
+      ],
+      "elapsed_time": 30.33221960067749,
+      "token_usage": {
+        "prompt_tokens": 432,
+        "completion_tokens": 2026,
+        "total_tokens": 2458
+      }
+    }
+  ]
+}
