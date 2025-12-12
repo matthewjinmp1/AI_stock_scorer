@@ -3083,11 +3083,16 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
     ticker_scores.sort(key=lambda x: x['total'], reverse=True)
     
     # Display comparison table
-    print("\n" + "=" * 80)
+    # Column widths: Rank=6, Ticker=8, Company Name=40, Total Score=15, Percentile=12
+    # Plus 4 spaces between columns = 85 total
+    table_width = 85
+    print("\n" + "=" * table_width)
     print(f"Total Score Comparison: {target_ticker} vs Top 10 Peers")
-    print("=" * 80)
+    print("=" * table_width)
+    # Headers: right-align Total Score and Percentile to match right-aligned numeric data
+    # This ensures both headers and data align on the right edge of their columns
     print(f"{'Rank':<6} {'Ticker':<8} {'Company Name':<40} {'Total Score':>15} {'Percentile':>12}")
-    print("-" * 80)
+    print("-" * table_width)
     
     for rank, item in enumerate(ticker_scores, 1):
         ticker = item['ticker']
@@ -3101,19 +3106,23 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
         else:
             ticker_display = ticker
         
-        # Truncate company name if too long
-        name_display = name[:38] + "..." if len(name) > 40 else name
+        # Truncate company name if too long - ensure it fits exactly in 40-character column
+        # Format specifier is :<40, so we must ensure name_display is <= 40 chars
+        if len(name) > 40:
+            name_display = (name[:37] + "...")[:40]  # Truncate to exactly 40 chars
+        else:
+            name_display = name
         
         percentage_str = f"{int(percentage)}%"
         percentile_str = f"{percentile}th" if percentile is not None else "N/A"
         
         print(f"{rank:<6} {ticker_display:<8} {name_display:<40} {percentage_str:>15} {percentile_str:>12}")
     
-    print("-" * 80)
+    print("-" * table_width)
     # Display median of peers
     if median_percentage is not None:
         print(f"{'Median (Peers)':<54} {int(median_percentage):>15}%")
-    print("=" * 80)
+    print("=" * table_width)
     print("* Target ticker")
 
 

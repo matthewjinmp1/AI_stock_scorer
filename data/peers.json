@@ -1041,5 +1041,41 @@
     "PUMA",
     "DECK",
     "COLM"
+  ],
+  "ADBE": [
+    "ADSK",
+    "FIG",
+    "CANV",
+    "PTC",
+    "DOCU",
+    "CRM",
+    "HUBS",
+    "INTU",
+    "WDAY",
+    "NOW"
+  ],
+  "CRM": [
+    "NOW",
+    "HUBS",
+    "WDAY",
+    "ORCL",
+    "SAP",
+    "MSFT",
+    "ADBE",
+    "VEEV",
+    "BRZE",
+    "CXM"
+  ],
+  "PLD": [
+    "FR",
+    "REXR",
+    "STAG",
+    "TRNO",
+    "EGP",
+    "LXP",
+    "ILPT",
+    "COLD",
+    "EQIX",
+    "IRM"
   ]
 }
