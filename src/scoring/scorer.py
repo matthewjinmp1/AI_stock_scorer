@@ -2886,14 +2886,14 @@ def save_peers(peers_data):
 
 
 def query_peers_from_ai(ticker, company_name):
-    """Query AI model to rank all tickers from scores.json by comparability.
+    """Query AI model to find the 10 most similar tickers from scores.json.
     
     Args:
         ticker: Ticker symbol (uppercase)
         company_name: Company name
         
     Returns:
-        tuple: (list of ticker symbols ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
+        tuple: (list of 10 ticker symbols ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
     """
     # Load tickers from scores.json
     scores_data = load_scores()
@@ -2939,14 +2939,14 @@ def query_peers_from_ai(ticker, company_name):
         print("Error: No other companies found in scores.json to compare")
         return None
     
-    # Create prompt asking for ranking
-    prompt = f"""You are analyzing companies to rank them by comparability to {ticker} ({company_name}).
+    # Create prompt asking for top 10 most similar
+    prompt = f"""You are analyzing companies to find the 10 most similar companies to {ticker} ({company_name}).
 
 Below is a list of all ticker symbols and their company names from the database:
 
 {chr(10).join(ticker_list)}
 
-Your task is to rank ALL of these tickers from MOST comparable to {ticker} ({company_name}) to LEAST comparable.
+Your task is to find the 10 MOST comparable tickers to {ticker} ({company_name}).
 
 Consider factors such as:
 1. Industry and market segment similarity
@@ -2956,12 +2956,12 @@ Consider factors such as:
 5. Competitive dynamics
 6. Company size and scale (if relevant)
 
-Return ONLY a comma-separated list of ticker symbols in ranked order, starting with the most comparable ticker first, and ending with the least comparable ticker last.
-Do not include explanations, company names, rankings numbers, or any other text - just the ticker symbols separated by commas in order from most to least comparable.
+Return ONLY a comma-separated list of exactly 10 ticker symbols, starting with the most comparable ticker first.
+Do not include explanations, company names, ranking numbers, or any other text - just the 10 ticker symbols separated by commas in order from most to least comparable.
 
-Example format: "MSFT, GOOGL, META, AMZN, ..."
+Example format: "MSFT, GOOGL, META, AMZN, NVDA, INTC, AMD, CRM, ORCL, ADBE"
 
-Return only the ticker symbols in ranked order, nothing else."""
+Return only the 10 ticker symbols in ranked order, nothing else."""
 
     try:
         grok = OpenRouterClient(api_key=OPENROUTER_KEY)
@@ -2995,7 +2995,7 @@ Return only the ticker symbols in ranked order, nothing else."""
                     tickers.append(ticker_clean)
         
         # If we didn't get enough tickers, try parsing line by line
-        if len(tickers) < len(valid_tickers) * 0.5:  # If we got less than half, try alternative parsing
+        if len(tickers) < 10:
             lines = response_clean.split('\n')
             for line in lines:
                 line_clean = line.strip()
@@ -3008,12 +3008,13 @@ Return only the ticker symbols in ranked order, nothing else."""
                     if word_clean and len(word_clean) <= 5 and word_clean.isalpha():
                         if word_clean in valid_tickers and word_clean not in tickers:
                             tickers.append(word_clean)
+                            if len(tickers) >= 10:
+                                break
+                if len(tickers) >= 10:
+                    break
         
-        # Add any missing tickers from valid_tickers that weren't in the response
-        # (in case the AI didn't return all of them)
-        for valid_ticker in valid_tickers:
-            if valid_ticker not in tickers:
-                tickers.append(valid_ticker)
+        # Limit to top 10
+        tickers = tickers[:10]
         
         return (tickers, elapsed_time, token_usage) if tickers else (None, None, None)
         
@@ -3032,8 +3033,8 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
     scores_data = load_scores()
     ticker_lookup = load_ticker_lookup()
     
-    # Get all tickers to display (target + top 9 peers)
-    all_tickers = [target_ticker] + peer_tickers[:9]
+    # Get all tickers to display (target + top 10 peers)
+    all_tickers = [target_ticker] + peer_tickers[:10]
     
     # Get company data and calculate total scores
     ticker_scores = []
@@ -3083,7 +3084,7 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
     
     # Display comparison table
     print("\n" + "=" * 80)
-    print(f"Total Score Comparison: {target_ticker} vs Top 9 Peers")
+    print(f"Total Score Comparison: {target_ticker} vs Top 10 Peers")
     print("=" * 80)
     print(f"{'Rank':<6} {'Ticker':<8} {'Company Name':<40} {'Total Score':>15} {'Percentile':>12}")
     print("-" * 80)
@@ -3117,14 +3118,14 @@ def display_peer_scores_comparison(target_ticker, peer_tickers):
 
 
 def get_peers_for_ticker(ticker):
-    """Get ranked peers for a ticker, using cache if available, otherwise querying AI.
-    Displays scores comparison between target and top 9 peers.
+    """Get the 10 most similar peers for a ticker, using cache if available, otherwise querying AI.
+    Displays scores comparison between target and top 10 peers.
     
     Args:
         ticker: Ticker symbol (uppercase)
         
     Returns:
-        list: List of ticker symbols ranked from most comparable to least, or None if error
+        list: List of 10 ticker symbols ranked from most comparable to least, or None if error
     """
     ticker_upper = ticker.strip().upper()
     
@@ -3155,18 +3156,17 @@ def get_peers_for_ticker(ticker):
     # Check if already cached
     if ticker_upper in peers_data:
         cached_peers = peers_data[ticker_upper]
-        print(f"\n{ticker_upper} ({company_name}) - Found cached ranking:")
-        print(f"  Total companies ranked: {len(cached_peers)}")
-        print(f"  Top 9 most comparable: {', '.join(cached_peers[:9])}")
-        if len(cached_peers) > 9:
-            print(f"  ... and {len(cached_peers) - 9} more")
+        # Limit cached peers to 10 for consistency
+        cached_peers = cached_peers[:10]
+        print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
+        print(f"  10 most comparable: {', '.join(cached_peers)}")
         
         # Display scores comparison
         display_peer_scores_comparison(ticker_upper, cached_peers)
         return cached_peers
     
     # Not cached, query AI
-    print(f"\nQuerying AI to rank all companies in scores.json by comparability to {ticker_upper} ({company_name})...")
+    print(f"\nQuerying AI to find the 10 most similar companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
     ranked_peers, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
     
@@ -3195,15 +3195,13 @@ def get_peers_for_ticker(ticker):
             print(f"Tokens: {total_tokens:,}")
         print(f"Cost: {cost_cents:.4f} cents")
         
-        # Save to cache
+        # Save to cache (limit to 10)
+        ranked_peers = ranked_peers[:10]
         peers_data[ticker_upper] = ranked_peers
         save_peers(peers_data)
-        print(f"\n{ticker_upper} ({company_name}) - Ranking complete:")
-        print(f"  Total companies ranked: {len(ranked_peers)}")
-        print(f"  Top 9 most comparable: {', '.join(ranked_peers[:9])}")
-        if len(ranked_peers) > 9:
-            print(f"  ... and {len(ranked_peers) - 9} more")
-        print(f"\nRanking saved to {PEERS_FILE}")
+        print(f"\n{ticker_upper} ({company_name}) - Found 10 most similar companies:")
+        print(f"  {', '.join(ranked_peers)}")
+        print(f"\nPeers saved to {PEERS_FILE}")
         
         # Display scores comparison
         display_peer_scores_comparison(ticker_upper, ranked_peers)
