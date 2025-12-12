@@ -6,6 +6,13 @@
       "ticker": "NKE",
       "is_public": true,
       "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.458839",
+      "company_name": "Nike, Inc",
+      "ticker": "NKE",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Under Armour, Inc": [
@@ -15,11 +22,25 @@
       "ticker": "UA",
       "is_public": true,
       "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.462612",
+      "company_name": "Under Armour, Inc",
+      "ticker": "UA",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Adidas AG": [
     {
       "timestamp": "2025-12-12T17:46:34.064856",
+      "company_name": "Adidas AG",
+      "ticker": "ADS",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.466214",
       "company_name": "Adidas AG",
       "ticker": "ADS",
       "is_public": true,
@@ -42,11 +63,25 @@
       "ticker": "AA",
       "is_public": true,
       "method": "partial_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.468540",
+      "company_name": "VF Corporation",
+      "ticker": "AA",
+      "is_public": true,
+      "method": "partial_match"
     }
   ],
   "Puma SE": [
     {
       "timestamp": "2025-12-12T17:46:34.072890",
+      "company_name": "Puma SE",
+      "ticker": "PUM",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.467318",
       "company_name": "Puma SE",
       "ticker": "PUM",
       "is_public": true,
@@ -60,11 +95,25 @@
       "ticker": "SKX",
       "is_public": true,
       "method": "partial_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.475861",
+      "company_name": "Skechers U.S.A., Inc",
+      "ticker": "SKX",
+      "is_public": true,
+      "method": "partial_match"
     }
   ],
   "Deckers Outdoor Corporation": [
     {
       "timestamp": "2025-12-12T17:46:34.080475",
+      "company_name": "Deckers Outdoor Corporation",
+      "ticker": "DECK",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.476805",
       "company_name": "Deckers Outdoor Corporation",
       "ticker": "DECK",
       "is_public": true,
@@ -85,6 +134,31 @@
       "timestamp": "2025-12-12T17:46:34.086738",
       "company_name": "ASICS Corporation",
       "ticker": "AA",
+      "is_public": true,
+      "method": "partial_match"
+    },
+    {
+      "timestamp": "2025-12-12T17:58:08.480403",
+      "company_name": "ASICS Corporation",
+      "ticker": "AA",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Columbia Sportswear Incorporated": [
+    {
+      "timestamp": "2025-12-12T17:58:08.481663",
+      "company_name": "Columbia Sportswear Incorporated",
+      "ticker": "ABM",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Gildan Activewear Inc": [
+    {
+      "timestamp": "2025-12-12T17:58:08.485201",
+      "company_name": "Gildan Activewear Inc",
+      "ticker": "GIL",
       "is_public": true,
       "method": "partial_match"
     }

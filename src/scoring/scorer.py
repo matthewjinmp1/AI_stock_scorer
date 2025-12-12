@@ -3856,10 +3856,6 @@ def get_peers_for_ticker(ticker, force_redo=False):
         total_tokens = peer_total_tokens + ticker_conversion_total_tokens
         print(f"\nTotal - Tokens: {total_tokens:,}")
         print(f"Total - Cost: {total_cost_cents:.4f} cents")
-    else:
-        # No ticker conversion costs, just show peer query as total
-        print(f"\nTotal - Tokens: {peer_total_tokens:,}")
-        print(f"Total - Cost: {peer_cost_cents:.4f} cents")
     
     # Display scores comparison (shows all peers, with scores for those that have them)
     if peer_data_list:
