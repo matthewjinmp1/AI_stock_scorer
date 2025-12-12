@@ -412,16 +412,11 @@ def print_segments(result: Dict[str, any]):
     print()
 
 
-if __name__ == "__main__":
-    # Get company name or ticker from command line or user input
-    if len(sys.argv) > 1:
-        user_input = sys.argv[1]
-    else:
-        user_input = input("Enter company name or ticker symbol: ").strip()
-    
+def process_company_input(user_input: str):
+    """Process a single company name or ticker input."""
     if not user_input:
         print("Error: No company name or ticker provided.")
-        sys.exit(1)
+        return
     
     # Check if input looks like a ticker (short, uppercase, alphanumeric)
     is_ticker = len(user_input) <= 5 and user_input.isalnum() and user_input.isupper()
@@ -443,3 +438,33 @@ if __name__ == "__main__":
         print(f"Fetching business segments for: {user_input}...")
         result = get_company_segments_from_wikipedia(user_input)
         print_segments(result)
+
+
+if __name__ == "__main__":
+    # If command-line argument provided, run once and exit
+    if len(sys.argv) > 1:
+        user_input = sys.argv[1]
+        process_company_input(user_input)
+    else:
+        # Interactive mode: loop until user quits
+        print("Company Business Segments Lookup")
+        print("Enter company names or ticker symbols (type 'quit' or 'exit' to stop)")
+        print("-" * 80)
+        
+        while True:
+            try:
+                user_input = input("\nEnter company name or ticker symbol: ").strip()
+                
+                # Check for quit commands
+                if user_input.lower() in ['quit', 'exit', 'q', '']:
+                    print("\nGoodbye!")
+                    break
+                
+                process_company_input(user_input)
+                
+            except KeyboardInterrupt:
+                print("\n\nGoodbye!")
+                break
+            except EOFError:
+                print("\n\nGoodbye!")
+                break
