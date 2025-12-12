@@ -2912,12 +2912,15 @@ Consider factors such as:
 5. Competitive dynamics (direct competitors)
 6. Company size and scale (if relevant)
 
-Return ONLY a comma-separated list of exactly 10 company names, starting with the most comparable company first.
-Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 company names separated by commas in order from most to least comparable.
+Return ONLY a comma-separated list of exactly 10 FULL company names, starting with the most comparable company first.
+CRITICAL: Each company name must be complete (e.g., "Microsoft Corporation", "Alphabet Inc.", "Meta Platforms Inc.").
+DO NOT return partial names, suffixes alone (like "Inc" or "Corporation"), or abbreviations.
+Each name should be the full legal company name or commonly used full name.
+Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by commas in order from most to least comparable.
 
 Example format: "Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation, Intel Corporation, Advanced Micro Devices Inc., Salesforce Inc., Oracle Corporation, Adobe Inc."
 
-Return exactly 10 company names in ranked order, nothing else."""
+Return exactly 10 complete company names in ranked order, nothing else."""
 
     try:
         grok = OpenRouterClient(api_key=OPENROUTER_KEY)
@@ -2969,10 +2972,30 @@ Return exactly 10 company names in ranked order, nothing else."""
                     if len(company_names) >= 10:
                         break
         
-        # Limit to top 10
-        company_names = company_names[:10]
+        # Filter out invalid company names
+        invalid_suffixes = {'inc', 'corp', 'corporation', 'llc', 'ltd', 'limited', 'co', 'company', 'plc', 'sa', 'ag', 'nv', 'bv', 'gmbh'}
+        valid_company_names = []
+        for name in company_names:
+            name_lower = name.lower().strip()
+            # Skip if too short (less than 3 characters)
+            if len(name_lower) < 3:
+                continue
+            # Skip if it's just a legal suffix
+            if name_lower in invalid_suffixes:
+                continue
+            # Skip if it's just a single word that's a common suffix
+            words = name_lower.split()
+            if len(words) == 1 and words[0] in invalid_suffixes:
+                continue
+            # Skip if it's just punctuation or numbers
+            if not any(c.isalpha() for c in name):
+                continue
+            valid_company_names.append(name)
         
-        return (company_names, elapsed_time, token_usage) if company_names else (None, None, None)
+        # Limit to top 10
+        valid_company_names = valid_company_names[:10]
+        
+        return (valid_company_names, elapsed_time, token_usage) if valid_company_names else (None, None, None)
         
     except Exception as e:
         print(f"Error querying AI for peers: {e}")
@@ -3303,13 +3326,37 @@ def get_peers_for_ticker(ticker):
     seen_tickers = set()  # Track seen tickers to avoid duplicates
     scores_data = load_scores()  # Reload to get latest scores
     
+    # Additional validation for invalid company names
+    invalid_suffixes = {'inc', 'corp', 'corporation', 'llc', 'ltd', 'limited', 'co', 'company', 'plc', 'sa', 'ag', 'nv', 'bv', 'gmbh'}
+    
     for peer_name in ranked_peer_names:
         # Skip if empty
         if not peer_name or not peer_name.strip():
             continue
+        
+        # Additional validation: skip invalid names
+        peer_name_clean = peer_name.strip()
+        peer_name_lower = peer_name_clean.lower()
+        
+        # Skip if too short
+        if len(peer_name_lower) < 3:
+            continue
+        
+        # Skip if it's just a legal suffix
+        if peer_name_lower in invalid_suffixes:
+            continue
+        
+        # Skip if it's just a single word that's a common suffix
+        words = peer_name_lower.split()
+        if len(words) == 1 and words[0] in invalid_suffixes:
+            continue
+        
+        # Skip if it's just punctuation or numbers
+        if not any(c.isalpha() for c in peer_name_clean):
+            continue
             
         # Convert company name to ticker
-        peer_ticker, is_public = convert_company_name_to_ticker(peer_name)
+        peer_ticker, is_public = convert_company_name_to_ticker(peer_name_clean)
         
         # Skip if we've already seen this ticker (duplicate)
         if peer_ticker in seen_tickers:
@@ -3351,6 +3398,10 @@ def get_peers_for_ticker(ticker):
             'percentage': percentage,
             'percentile': percentile
         })
+    
+    # Check if we have fewer than 10 peers due to filtering
+    if len(peer_data_list) < 10:
+        print(f"\nNote: Found {len(peer_data_list)} valid peer(s) after filtering (some may have been invalid or duplicates).")
     
     # Display scores comparison (shows all peers, with scores for those that have them)
     display_peer_scores_comparison(ticker_upper, peer_data_list)
