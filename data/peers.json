@@ -8,8 +8,15 @@
   ],
   "META": [
     "SNAP",
+    "GOOG",
     "PINS",
-    "RDDT"
+    "RDDT",
+    "TTD",
+    "APP",
+    "RBLX",
+    "MTCH",
+    "U",
+    "BMBL"
   ],
   "ASML": [
     "AMAT",

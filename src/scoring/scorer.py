@@ -2897,12 +2897,9 @@ def query_peers_from_ai(ticker, company_name):
         tuple: (list of 10 company names ranked from most comparable to least, elapsed_time, token_usage) or (None, None, None) if error
     """
     # Create prompt asking for top 10 comparable companies
-    prompt = f"""You are analyzing companies to find the 10 most comparable companies to {ticker} ({company_name}).
+    prompt = f"""You are analyzing companies to find the 10 most comparable companies to {company_name}.
 
-Your task is to find the 10 MOST comparable companies to {ticker} ({company_name}).
-
-IMPORTANT: Only include companies that are DIRECT competitors or operate in the SAME or VERY SIMILAR industries. 
-Do NOT include companies from completely different industries, even if they are large tech companies.
+Your task is to find the 10 MOST comparable companies to {company_name}.
 
 Consider factors such as:
 1. Industry and market segment similarity (MUST be in same or very similar industry)
@@ -3089,8 +3086,10 @@ Do not include any explanations, company names, or other text - just the ticker 
             if ticker_match:
                 ticker = ticker_match.group(1)
                 # Verify it's a valid ticker by checking if it exists in our lookup
-                # If not, we'll still use it but mark it as potentially new
                 is_public = ticker in ticker_lookup
+                # If it's not in our lookup, add it to ticker definitions
+                if not is_public:
+                    add_ticker_definition(ticker, company_name)
                 return (ticker, is_public)
             else:
                 # Couldn't parse ticker, generate one
