@@ -77,6 +77,9 @@ PEERS_FILE = os.path.join(PROJECT_ROOT, "data", "peers.json")
 # Peer AI responses file
 PEER_RESPONSES_FILE = os.path.join(PROJECT_ROOT, "data", "peer_responses.json")
 
+# Ticker conversions file
+TICKER_CONVERSIONS_FILE = os.path.join(PROJECT_ROOT, "data", "ticker_conversions.json")
+
 def get_model_for_ticker(ticker):
     """Get the model name to use for a given ticker.
     
@@ -2984,6 +2987,84 @@ def save_peer_response(ticker, company_name, prompt, raw_response, parsed_compan
         return False
 
 
+def load_ticker_conversions():
+    """Load ticker conversions from JSON file.
+    
+    Returns:
+        dict: Dictionary mapping company name to list of conversion records
+    """
+    if os.path.exists(TICKER_CONVERSIONS_FILE):
+        try:
+            with open(TICKER_CONVERSIONS_FILE, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {}
+    return {}
+
+
+def save_ticker_conversion(company_name, ticker, is_public, method, ai_response=None, prompt=None, token_usage=None):
+    """Save ticker conversion to JSON file.
+    
+    Args:
+        company_name: Company name
+        ticker: Ticker symbol
+        is_public: True if public company, False if generated
+        method: Method used (e.g., "exact_match", "partial_match", "ai_public", "ai_private", "generated_fallback", "exception_fallback")
+        ai_response: Raw AI response (if AI was used)
+        prompt: Prompt sent to AI (if AI was used)
+        token_usage: Token usage dictionary (if AI was used)
+    """
+    conversions_data = load_ticker_conversions()
+    
+    # Create conversion record
+    conversion_record = {
+        'timestamp': datetime.now().isoformat(),
+        'company_name': company_name,
+        'ticker': ticker,
+        'is_public': is_public,
+        'method': method
+    }
+    
+    # Add AI-related fields if available
+    if ai_response is not None:
+        conversion_record['ai_response'] = ai_response
+    if prompt is not None:
+        conversion_record['prompt'] = prompt
+    if token_usage is not None:
+        conversion_record['token_usage'] = token_usage
+    
+    # Add to conversions data (append to list for this company name)
+    if company_name not in conversions_data:
+        conversions_data[company_name] = []
+    conversions_data[company_name].append(conversion_record)
+    
+    # Save to file using atomic write
+    temp_dir = os.path.dirname(os.path.abspath(TICKER_CONVERSIONS_FILE)) or '.'
+    temp_fd, temp_path = tempfile.mkstemp(dir=temp_dir, suffix='.json', prefix='.ticker_conversions_temp_')
+    
+    try:
+        # Write to temporary file
+        with os.fdopen(temp_fd, 'w') as f:
+            json.dump(conversions_data, f, indent=2)
+        
+        # Atomically replace the original file
+        if os.name == 'nt':  # Windows
+            if os.path.exists(TICKER_CONVERSIONS_FILE):
+                os.remove(TICKER_CONVERSIONS_FILE)
+            shutil.move(temp_path, TICKER_CONVERSIONS_FILE)
+        else:  # Unix-like systems
+            os.replace(temp_path, TICKER_CONVERSIONS_FILE)
+        return True
+    except Exception as e:
+        # If anything goes wrong, try to clean up temp file
+        try:
+            os.remove(temp_path)
+        except:
+            pass
+        print(f"Error saving ticker conversion: {e}")
+        return False
+
+
 def query_peers_from_ai(ticker, company_name):
     """Query AI model to find the top 10 most comparable companies (not limited to scores.json).
     
@@ -3172,6 +3253,8 @@ def convert_company_name_to_ticker(company_name):
     # Try exact match (case insensitive)
     for ticker, name in ticker_lookup.items():
         if name.lower() == company_lower:
+            # Record conversion from lookup
+            save_ticker_conversion(company_name, ticker, True, "exact_match")
             return (ticker, True)
     
     # Try partial match - match on significant words (at least 2 words or main company name)
@@ -3183,6 +3266,8 @@ def convert_company_name_to_ticker(company_name):
         # If there's significant word overlap (at least 2 words match, or one long word matches)
         common_words = company_words.intersection(name_words)
         if len(common_words) >= 2 or (len(common_words) >= 1 and any(len(word) >= 8 for word in common_words)):
+            # Record conversion from lookup
+            save_ticker_conversion(company_name, ticker, True, "partial_match")
             return (ticker, True)
     
     # Not found in lookup, use AI to find ticker
@@ -3233,6 +3318,9 @@ Do not include any explanations, company names, or other text - just the ticker 
             # Add to ticker definitions
             add_ticker_definition(ticker, company_name)
             
+            # Record conversion
+            save_ticker_conversion(company_name, ticker, False, "ai_private", ai_response=response, prompt=prompt, token_usage=token_usage)
+            
             return (ticker, False)
         else:
             # Extract ticker from response
@@ -3245,6 +3333,10 @@ Do not include any explanations, company names, or other text - just the ticker 
                 # If it's not in our lookup, add it to ticker definitions
                 if not is_public:
                     add_ticker_definition(ticker, company_name)
+                
+                # Record conversion
+                save_ticker_conversion(company_name, ticker, is_public, "ai_public", ai_response=response, prompt=prompt, token_usage=token_usage)
+                
                 return (ticker, is_public)
             else:
                 # Couldn't parse ticker, generate one
@@ -3270,6 +3362,10 @@ Do not include any explanations, company names, or other text - just the ticker 
                         break
                 
                 add_ticker_definition(ticker, company_name)
+                
+                # Record conversion
+                save_ticker_conversion(company_name, ticker, False, "generated_fallback", ai_response=response, prompt=prompt, token_usage=token_usage)
+                
                 return (ticker, False)
         
     except Exception as e:
@@ -3297,6 +3393,10 @@ Do not include any explanations, company names, or other text - just the ticker 
                 break
         
         add_ticker_definition(ticker, company_name)
+        
+        # Record conversion
+        save_ticker_conversion(company_name, ticker, False, "exception_fallback")
+        
         return (ticker, False)
 
 
