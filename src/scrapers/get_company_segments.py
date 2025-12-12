@@ -1,0 +1,315 @@
+#!/usr/bin/env python3
+"""
+Fetch company business segments from Wikipedia.
+Wikipedia is a free, open-source that provides detailed information about
+company operations and business segments.
+"""
+
+import requests
+import json
+import re
+from bs4 import BeautifulSoup
+from typing import List, Dict, Optional
+
+
+def get_company_segments_from_wikipedia(company_name: str) -> Dict[str, any]:
+    """
+    Fetch company business segments from Wikipedia.
+    
+    Args:
+        company_name: Name of the company (e.g., "Google", "Alphabet Inc.")
+        
+    Returns:
+        Dictionary with company info and segments
+    """
+    # Wikipedia API endpoint
+    api_url = "https://en.wikipedia.org/api/rest_v1/page/summary/"
+    
+    # Clean company name for URL
+    url_name = company_name.replace(" ", "_")
+    
+    result = {
+        "company_name": company_name,
+        "segments": [],
+        "description": "",
+        "source": "Wikipedia",
+        "url": f"https://en.wikipedia.org/wiki/{url_name}"
+    }
+    
+    try:
+        # Get page summary
+        response = requests.get(f"{api_url}{url_name}", 
+                              headers={'User-Agent': 'Mozilla/5.0'})
+        response.raise_for_status()
+        summary_data = response.json()
+        
+        result["description"] = summary_data.get("extract", "")
+        
+        # Now get full page content to extract segments
+        content_url = f"https://en.wikipedia.org/api/rest_v1/page/html/{url_name}"
+        content_response = requests.get(content_url,
+                                       headers={'User-Agent': 'Mozilla/5.0'})
+        content_response.raise_for_status()
+        
+        # Parse HTML to find business segments
+        soup = BeautifulSoup(content_response.text, 'html.parser')
+        segments = extract_segments_from_html(soup, company_name)
+        
+        # Also try to extract from summary (often more reliable)
+        summary_segments = extract_segments_from_summary(summary_data.get("extract", ""))
+        
+        # Combine and deduplicate
+        all_segments = segments + summary_segments
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_segments = []
+        for seg in all_segments:
+            seg = seg.strip()
+            seg_lower = seg.lower()
+            # Filter out segments that are too long (likely concatenated) or contain irrelevant info
+            if (seg_lower and seg_lower not in seen and len(seg) > 3 and len(seg) < 80 and
+                not any(x in seg_lower for x in ['full list', 'see also', 'references', 's&p', 'nasdaq-100', 'nyse'])):
+                # Check if it looks like concatenated words (no spaces and very long)
+                if len(seg) > 20 and ' ' not in seg:
+                    continue  # Skip concatenated segments
+                seen.add(seg_lower)
+                unique_segments.append(seg)
+        
+        if unique_segments:
+            result["segments"] = unique_segments[:20]
+    
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            result["error"] = f"Wikipedia page not found for '{company_name}'"
+        else:
+            result["error"] = f"Error fetching from Wikipedia: {e}"
+    except Exception as e:
+        result["error"] = f"Error: {e}"
+    
+    return result
+
+
+def extract_segments_from_html(soup: BeautifulSoup, company_name: str) -> List[str]:
+    """Extract business segments from Wikipedia HTML."""
+    segments = []
+    
+    # Look for common section headings related to business segments
+    segment_keywords = [
+        "products and services",
+        "business segments",
+        "divisions",
+        "operations",
+        "services",
+        "products"
+    ]
+    
+    # Find all headings - Wikipedia uses span.mw-headline inside headings
+    headings = soup.find_all(['h2', 'h3'])
+    
+    for heading in headings:
+        heading_text = heading.get_text().lower().strip()
+        
+        # Check if this heading is about business segments
+        if any(keyword in heading_text for keyword in segment_keywords):
+            # Get the parent section
+            section = heading.find_next_sibling(['div', 'ul', 'p', 'section'])
+            if not section:
+                # Try finding parent and then next sibling
+                parent = heading.parent
+                if parent:
+                    section = parent.find_next_sibling(['div', 'ul', 'p', 'section'])
+            
+            if section:
+                # Extract list items (most common format)
+                items = section.find_all('li', recursive=True)
+                if not items:
+                    # Try paragraphs
+                    items = section.find_all('p', recursive=True)
+                
+                for item in items[:15]:  # Limit items per section
+                    text = item.get_text().strip()
+                    if text and len(text) > 5 and len(text) < 150:
+                        # Clean up the text
+                        text = re.sub(r'\[.*?\]', '', text)  # Remove citations
+                        text = re.sub(r'\s+', ' ', text)  # Normalize whitespace
+                        text = text.strip()
+                        # Only add if it looks like a business segment (not too long, has some structure)
+                        if text and not text.startswith('See also') and not text.startswith('References'):
+                            segments.append(text)
+    
+    # Check infobox for industry/products/services
+    infobox = soup.find('table', class_=lambda x: x and 'infobox' in str(x).lower())
+    if infobox:
+        rows = infobox.find_all('tr')
+        for row in rows:
+            header = row.find('th')
+            if header:
+                header_text = header.get_text().lower().strip()
+                if any(keyword in header_text for keyword in ['products', 'services', 'industry']):
+                    data = row.find('td')
+                    if data:
+                        text = data.get_text().strip()
+                        # Clean up
+                        text = re.sub(r'\[.*?\]', '', text)
+                        text = re.sub(r'\s+', ' ', text)
+                        if text and len(text) < 200:
+                            segments.append(text)
+    
+    return segments
+
+
+def extract_segments_from_summary(summary_text: str) -> List[str]:
+    """Extract business segments from Wikipedia summary text."""
+    segments = []
+    
+    # Pattern 1: "focused on X, Y, Z, and W" - very common pattern
+    pattern1 = r'(?:focused on|focuses on|provides|offers|operates in|produces|develops|manufactures|specializes in)\s+([^.]{10,400})'
+    matches = re.finditer(pattern1, summary_text, re.IGNORECASE)
+    for match in matches:
+        text = match.group(1)
+        # Split by commas and "and"
+        parts = re.split(r',\s*|\s+and\s+', text)
+        for part in parts:
+                part = part.strip()
+                # Remove trailing phrases like "(AI)" or citations
+                part = re.sub(r'\s*\([^)]*\)\s*$', '', part)
+                part = re.sub(r'\.$', '', part)
+                # Remove leading "and" or "or"
+                part = re.sub(r'^(and|or)\s+', '', part, flags=re.IGNORECASE)
+                # Clean up
+                if part and len(part) > 3 and len(part) < 80:
+                    # Capitalize first letter of each word for consistency
+                    part = ' '.join(word.capitalize() for word in part.split())
+                    segments.append(part)
+    
+    # Pattern 2: Look for lists after "including" or "such as"
+    pattern2 = r'(?:including|such as|like)\s+([^.]{10,200})'
+    matches = re.finditer(pattern2, summary_text, re.IGNORECASE)
+    for match in matches:
+        text = match.group(1)
+        parts = re.split(r'[,;]|\sand\s', text)
+        for part in parts:
+            part = part.strip()
+            part = re.sub(r'\s*\([^)]*\)\s*$', '', part)
+            part = re.sub(r'\.$', '', part)
+            if part and len(part) > 3 and len(part) < 80:
+                part = ' '.join(word.capitalize() for word in part.split())
+                segments.append(part)
+    
+    # Pattern 3: Look for common business segment keywords mentioned in the text
+    # This helps catch segments even if they're not in a list format
+    keywords = [
+        'search engine', 'search engine technology', 'digital advertising', 'online advertising',
+        'cloud computing', 'software', 'hardware', 'consumer electronics', 
+        'e-commerce', 'artificial intelligence', 'machine learning', 
+        'mobile operating system', 'web browser', 'email', 'productivity software',
+        'video streaming', 'social media', 'gaming', 'enterprise software',
+        'data analytics', 'cybersecurity', 'fintech', 'quantum computing',
+        'information technology', 'advertising technology'
+    ]
+    
+    summary_lower = summary_text.lower()
+    for keyword in keywords:
+        if keyword in summary_lower:
+            # Format nicely
+            formatted = ' '.join(word.capitalize() for word in keyword.split())
+            segments.append(formatted)
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_segments = []
+    for seg in segments:
+        seg_lower = seg.lower().strip()
+        if seg_lower and seg_lower not in seen:
+            seen.add(seg_lower)
+            unique_segments.append(seg)
+    
+    return unique_segments[:20]
+
+
+def get_segments_for_ticker(ticker: str) -> Optional[Dict[str, any]]:
+    """
+    Get company segments using ticker symbol.
+    First tries to get company name, then fetches segments.
+    """
+    try:
+        import yfinance as yf
+        stock = yf.Ticker(ticker)
+        info = stock.info
+        company_name = info.get('longName') or info.get('shortName') or info.get('name')
+        
+        if not company_name:
+            return None
+        
+        # Sometimes yfinance returns names like "Alphabet Inc." but Wikipedia uses "Alphabet"
+        # Try the company name first, then try variations
+        variations = [
+            company_name,
+            company_name.replace(" Inc.", "").replace(" Inc", ""),
+            company_name.replace(" Corporation", "").replace(" Corp.", "").replace(" Corp", ""),
+            company_name.split("(")[0].strip() if "(" in company_name else company_name
+        ]
+        
+        for name in variations:
+            result = get_company_segments_from_wikipedia(name)
+            if "error" not in result or "not found" not in result.get("error", ""):
+                result["ticker"] = ticker
+                return result
+        
+        return result
+        
+    except Exception as e:
+        return {"error": f"Error getting company name for ticker {ticker}: {e}"}
+
+
+def print_segments(result: Dict[str, any]):
+    """Pretty print the segments information."""
+    print("\n" + "=" * 80)
+    print(f"Company: {result.get('company_name', 'Unknown')}")
+    if 'ticker' in result:
+        print(f"Ticker: {result['ticker']}")
+    print(f"Source: {result.get('source', 'Unknown')}")
+    print("=" * 80)
+    
+    if "error" in result:
+        print(f"\n[ERROR] {result['error']}")
+        return
+    
+    if result.get('description'):
+        print(f"\nDescription:")
+        print(f"{result['description'][:500]}...")
+    
+    segments = result.get('segments', [])
+    if segments:
+        print(f"\nBusiness Segments ({len(segments)} found):")
+        print("-" * 80)
+        for i, segment in enumerate(segments, 1):
+            print(f"  {i}. {segment}")
+    else:
+        print("\n[WARNING] No specific business segments found in structured format.")
+        print("   The description above may contain segment information.")
+    
+    if result.get('url'):
+        print(f"\nSource URL: {result['url']}")
+    print()
+
+
+if __name__ == "__main__":
+    # Test with Google
+    print("Fetching business segments for Google...")
+    result = get_company_segments_from_wikipedia("Google")
+    
+    # If Google doesn't work, try Alphabet Inc (Google's parent)
+    if "error" in result or not result.get('segments'):
+        print("\nTrying 'Alphabet Inc' (Google's parent company)...")
+        result = get_company_segments_from_wikipedia("Alphabet Inc")
+    
+    print_segments(result)
+    
+    # Also try with ticker
+    print("\n" + "=" * 80)
+    print("Trying with ticker symbol GOOGL...")
+    print("=" * 80)
+    ticker_result = get_segments_for_ticker("GOOGL")
+    if ticker_result:
+        print_segments(ticker_result)
