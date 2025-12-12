@@ -2901,12 +2901,15 @@ def query_peers_from_ai(ticker, company_name):
 
 Your task is to find the MOST comparable companies to {ticker} ({company_name}).
 
+IMPORTANT: Only include companies that are DIRECT competitors or operate in the SAME or VERY SIMILAR industries. 
+Do NOT include companies from completely different industries, even if they are large tech companies.
+
 Consider factors such as:
-1. Industry and market segment similarity
+1. Industry and market segment similarity (MUST be in same or very similar industry)
 2. Business model similarity
 3. Product/service similarity
 4. Market overlap and customer base similarity
-5. Competitive dynamics
+5. Competitive dynamics (direct competitors)
 6. Company size and scale (if relevant)
 
 Return ONLY a comma-separated list of company names, starting with the most comparable company first.
@@ -2992,9 +2995,15 @@ def convert_company_name_to_ticker(company_name):
         if name.lower() == company_lower:
             return (ticker, True)
     
-    # Try partial match
+    # Try partial match - match on significant words (at least 2 words or main company name)
+    company_words = set(word.strip('.,;:()[]{}') for word in company_lower.split() if len(word) > 2)
     for ticker, name in ticker_lookup.items():
-        if company_lower in name.lower() or name.lower() in company_lower:
+        name_lower = name.lower()
+        name_words = set(word.strip('.,;:()[]{}') for word in name_lower.split() if len(word) > 2)
+        
+        # If there's significant word overlap (at least 2 words match, or one long word matches)
+        common_words = company_words.intersection(name_words)
+        if len(common_words) >= 2 or (len(common_words) >= 1 and any(len(word) >= 8 for word in common_words)):
             return (ticker, True)
     
     # Not found in lookup, use AI to find ticker
@@ -3286,11 +3295,26 @@ def get_peers_for_ticker(ticker):
     # Convert company names to tickers and check which have scores
     peer_data_list = []
     peer_tickers = []
+    seen_tickers = set()  # Track seen tickers to avoid duplicates
     scores_data = load_scores()  # Reload to get latest scores
     
     for peer_name in ranked_peer_names:
+        # Skip if empty
+        if not peer_name or not peer_name.strip():
+            continue
+            
         # Convert company name to ticker
         peer_ticker, is_public = convert_company_name_to_ticker(peer_name)
+        
+        # Skip if we've already seen this ticker (duplicate)
+        if peer_ticker in seen_tickers:
+            continue
+        
+        # Skip if it's the same as the target ticker
+        if peer_ticker == ticker_upper:
+            continue
+        
+        seen_tickers.add(peer_ticker)
         peer_tickers.append(peer_ticker)
         
         # Check if this peer has scores

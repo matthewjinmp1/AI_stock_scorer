@@ -1,17 +1,10 @@
-add financial scores
 
 clean up tickers -> names
-
-chop down code
-
-adjust prompts
-
-add stock peer groups
 
 compounder score, ecosystem score, visionary, disruptor
 
 automate size score weight
 
-add AI competitor finder
 
-analyze light vs heavy 
+
+
