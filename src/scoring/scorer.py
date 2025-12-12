@@ -3235,16 +3235,19 @@ Return exactly 10 complete company names in ranked order, separated by semicolon
         return (None, None, None)
 
 
-def convert_company_name_to_ticker(company_name):
+def convert_company_name_to_ticker(company_name, return_cost=False):
     """Convert a company name to a ticker symbol using AI.
     If the company is public, returns the actual ticker.
     If the company is private, generates a ticker and adds it to ticker definitions.
     
     Args:
         company_name: Company name
+        return_cost: If True, also return cost information when AI is used
         
     Returns:
-        tuple: (ticker_symbol, is_public) where is_public is True if it's a real public company ticker, False if generated
+        tuple: (ticker_symbol, is_public) or (ticker_symbol, is_public, cost_info) if return_cost=True
+               where is_public is True if it's a real public company ticker, False if generated
+               and cost_info is a dict with 'cost', 'tokens', 'token_usage' if AI was used, None otherwise
     """
     # First check if we already have this company in our lookup
     ticker_lookup = load_ticker_lookup()
@@ -3255,6 +3258,8 @@ def convert_company_name_to_ticker(company_name):
         if name.lower() == company_lower:
             # Record conversion from lookup
             save_ticker_conversion(company_name, ticker, True, "exact_match")
+            if return_cost:
+                return (ticker, True, None)
             return (ticker, True)
     
     # Try partial match - match on significant words (at least 2 words or main company name)
@@ -3268,6 +3273,8 @@ def convert_company_name_to_ticker(company_name):
         if len(common_words) >= 2 or (len(common_words) >= 1 and any(len(word) >= 8 for word in common_words)):
             # Record conversion from lookup
             save_ticker_conversion(company_name, ticker, True, "partial_match")
+            if return_cost:
+                return (ticker, True, None)
             return (ticker, True)
     
     # Not found in lookup, use AI to find ticker
@@ -3283,7 +3290,8 @@ Do not include any explanations, company names, or other text - just the ticker 
         model = get_model_for_ticker("AAPL")  # Use default model
         
         response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
-        response_clean = response.strip().upper()
+        # response is the full raw AI response - save this, not response_clean
+        response_clean = response.strip().upper()  # Only used for parsing, not saved
         
         # Check if response is "PRIVATE"
         if "PRIVATE" in response_clean:
@@ -3321,6 +3329,19 @@ Do not include any explanations, company names, or other text - just the ticker 
             # Record conversion
             save_ticker_conversion(company_name, ticker, False, "ai_private", ai_response=response, prompt=prompt, token_usage=token_usage)
             
+            # Calculate cost if requested
+            cost_info = None
+            if return_cost and token_usage:
+                model_used = get_model_for_ticker("AAPL")
+                cost = calculate_token_cost(token_usage.get('total_tokens', 0), model=model_used, token_usage=token_usage)
+                cost_info = {
+                    'cost': cost,
+                    'tokens': token_usage.get('total_tokens', 0),
+                    'token_usage': token_usage
+                }
+            
+            if return_cost:
+                return (ticker, False, cost_info)
             return (ticker, False)
         else:
             # Extract ticker from response
@@ -3337,6 +3358,19 @@ Do not include any explanations, company names, or other text - just the ticker 
                 # Record conversion
                 save_ticker_conversion(company_name, ticker, is_public, "ai_public", ai_response=response, prompt=prompt, token_usage=token_usage)
                 
+                # Calculate cost if requested
+                cost_info = None
+                if return_cost and token_usage:
+                    model_used = get_model_for_ticker("AAPL")
+                    cost = calculate_token_cost(token_usage.get('total_tokens', 0), model=model_used, token_usage=token_usage)
+                    cost_info = {
+                        'cost': cost,
+                        'tokens': token_usage.get('total_tokens', 0),
+                        'token_usage': token_usage
+                    }
+                
+                if return_cost:
+                    return (ticker, is_public, cost_info)
                 return (ticker, is_public)
             else:
                 # Couldn't parse ticker, generate one
@@ -3366,6 +3400,19 @@ Do not include any explanations, company names, or other text - just the ticker 
                 # Record conversion
                 save_ticker_conversion(company_name, ticker, False, "generated_fallback", ai_response=response, prompt=prompt, token_usage=token_usage)
                 
+                # Calculate cost if requested
+                cost_info = None
+                if return_cost and token_usage:
+                    model_used = get_model_for_ticker("AAPL")
+                    cost = calculate_token_cost(token_usage.get('total_tokens', 0), model=model_used, token_usage=token_usage)
+                    cost_info = {
+                        'cost': cost,
+                        'tokens': token_usage.get('total_tokens', 0),
+                        'token_usage': token_usage
+                    }
+                
+                if return_cost:
+                    return (ticker, False, cost_info)
                 return (ticker, False)
         
     except Exception as e:
@@ -3397,6 +3444,8 @@ Do not include any explanations, company names, or other text - just the ticker 
         # Record conversion
         save_ticker_conversion(company_name, ticker, False, "exception_fallback")
         
+        if return_cost:
+            return (ticker, False, None)
         return (ticker, False)
 
 
@@ -3649,29 +3698,22 @@ def get_peers_for_ticker(ticker, force_redo=False):
     ranked_peer_names = ranked_peer_names[:10]
     print(f"Found {len(ranked_peer_names)} peer(s)")
     
-    # Calculate cost
+    # Calculate cost for peer query
     model = get_model_for_ticker(ticker_upper)
-    total_tokens = token_usage.get('total_tokens', 0) if token_usage else 0
-    cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage) if token_usage else 0.0
-    cost_cents = cost * 100
+    peer_total_tokens = token_usage.get('total_tokens', 0) if token_usage else 0
+    peer_cost = calculate_token_cost(peer_total_tokens, model=model, token_usage=token_usage) if token_usage else 0.0
+    peer_cost_cents = peer_cost * 100
     
-    # Display timing and cost information
-    print(f"\nTime taken: {elapsed_time:.2f}s")
-    if token_usage:
-        input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
-        output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
-        cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
-                       token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
-                       token_usage.get('prompt_cache_hit_tokens', 0))
-        thinking_tokens = token_usage.get('thinking_tokens', 0)
-        
-        if thinking_tokens > 0:
-            print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,} includes {thinking_tokens:,} thinking, cached={cached_tokens:,})")
-        else:
-            print(f"Tokens: {total_tokens:,} (input={input_tokens:,}, output={output_tokens:,}, cached={cached_tokens:,})")
-    else:
-        print(f"Tokens: {total_tokens:,}")
-    print(f"Cost: {cost_cents:.4f} cents")
+    # Track ticker conversion costs
+    ticker_conversion_total_tokens = 0
+    ticker_conversion_cost = 0.0
+    ticker_conversion_token_usage_combined = {
+        'input_tokens': 0,
+        'output_tokens': 0,
+        'cached_tokens': 0,
+        'thinking_tokens': 0,
+        'total_tokens': 0
+    }
     
     # Convert company names to tickers and check which have scores
     # Limit to top 10 peers
@@ -3711,8 +3753,24 @@ def get_peers_for_ticker(ticker, force_redo=False):
         if not any(c.isalpha() for c in peer_name_clean):
             continue
             
-        # Convert company name to ticker
-        peer_ticker, is_public = convert_company_name_to_ticker(peer_name_clean)
+        # Convert company name to ticker (with cost tracking)
+        result = convert_company_name_to_ticker(peer_name_clean, return_cost=True)
+        if len(result) == 3:
+            peer_ticker, is_public, cost_info = result
+            # Accumulate ticker conversion costs
+            if cost_info:
+                ticker_conversion_cost += cost_info['cost']
+                ticker_conversion_total_tokens += cost_info['tokens']
+                # Accumulate token usage details
+                tu = cost_info.get('token_usage', {})
+                ticker_conversion_token_usage_combined['input_tokens'] += tu.get('input_tokens', tu.get('prompt_tokens', 0) or 0)
+                ticker_conversion_token_usage_combined['output_tokens'] += tu.get('output_tokens', tu.get('completion_tokens', 0) or 0)
+                cached = tu.get('cached_tokens', 0) or tu.get('cached_input_tokens', 0) or tu.get('prompt_cache_hit_tokens', 0) or 0
+                ticker_conversion_token_usage_combined['cached_tokens'] += cached
+                ticker_conversion_token_usage_combined['thinking_tokens'] += tu.get('thinking_tokens', 0) or 0
+                ticker_conversion_token_usage_combined['total_tokens'] += tu.get('total_tokens', 0) or 0
+        else:
+            peer_ticker, is_public = result
         
         # Skip if we've already seen this ticker (duplicate)
         if peer_ticker in seen_tickers:
@@ -3762,6 +3820,46 @@ def get_peers_for_ticker(ticker, force_redo=False):
     # If no valid peers found, still save empty list to cache
     if not peer_tickers:
         print(f"\nWarning: No valid peers found for {ticker_upper} after processing.")
+    
+    # Display timing and cost information (peer query + ticker conversions)
+    print(f"\nTime taken: {elapsed_time:.2f}s")
+    
+    # Display peer query tokens and cost
+    if token_usage:
+        peer_input_tokens = token_usage.get('input_tokens') if 'input_tokens' in token_usage else token_usage.get('prompt_tokens', 0)
+        peer_output_tokens = token_usage.get('output_tokens') if 'output_tokens' in token_usage else token_usage.get('completion_tokens', 0)
+        peer_cached_tokens = (token_usage.get('cached_tokens') if 'cached_tokens' in token_usage else
+                           token_usage.get('cached_input_tokens') if 'cached_input_tokens' in token_usage else
+                           token_usage.get('prompt_cache_hit_tokens', 0))
+        peer_thinking_tokens = token_usage.get('thinking_tokens', 0)
+        
+        if peer_thinking_tokens > 0:
+            print(f"Peer Query - Tokens: {peer_total_tokens:,} (input={peer_input_tokens:,}, output={peer_output_tokens:,} includes {peer_thinking_tokens:,} thinking, cached={peer_cached_tokens:,})")
+        else:
+            print(f"Peer Query - Tokens: {peer_total_tokens:,} (input={peer_input_tokens:,}, output={peer_output_tokens:,}, cached={peer_cached_tokens:,})")
+    else:
+        print(f"Peer Query - Tokens: {peer_total_tokens:,}")
+    print(f"Peer Query - Cost: {peer_cost_cents:.4f} cents")
+    
+    # Display ticker conversion tokens and cost (if any)
+    if ticker_conversion_total_tokens > 0:
+        ticker_conversion_cost_cents = ticker_conversion_cost * 100
+        tu_combined = ticker_conversion_token_usage_combined
+        if tu_combined.get('thinking_tokens', 0) > 0:
+            print(f"Ticker Conversions - Tokens: {ticker_conversion_total_tokens:,} (input={tu_combined['input_tokens']:,}, output={tu_combined['output_tokens']:,} includes {tu_combined['thinking_tokens']:,} thinking, cached={tu_combined['cached_tokens']:,})")
+        else:
+            print(f"Ticker Conversions - Tokens: {ticker_conversion_total_tokens:,} (input={tu_combined['input_tokens']:,}, output={tu_combined['output_tokens']:,}, cached={tu_combined['cached_tokens']:,})")
+        print(f"Ticker Conversions - Cost: {ticker_conversion_cost_cents:.4f} cents")
+        
+        # Display total
+        total_cost_cents = peer_cost_cents + ticker_conversion_cost_cents
+        total_tokens = peer_total_tokens + ticker_conversion_total_tokens
+        print(f"\nTotal - Tokens: {total_tokens:,}")
+        print(f"Total - Cost: {total_cost_cents:.4f} cents")
+    else:
+        # No ticker conversion costs, just show peer query as total
+        print(f"\nTotal - Tokens: {peer_total_tokens:,}")
+        print(f"Total - Cost: {peer_cost_cents:.4f} cents")
     
     # Display scores comparison (shows all peers, with scores for those that have them)
     if peer_data_list:
