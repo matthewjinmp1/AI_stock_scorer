@@ -8,6 +8,7 @@ company operations and business segments.
 import requests
 import json
 import re
+import sys
 from bs4 import BeautifulSoup
 from typing import List, Dict, Optional
 
@@ -295,21 +296,33 @@ def print_segments(result: Dict[str, any]):
 
 
 if __name__ == "__main__":
-    # Test with Google
-    print("Fetching business segments for Google...")
-    result = get_company_segments_from_wikipedia("Google")
+    # Get company name or ticker from command line or user input
+    if len(sys.argv) > 1:
+        user_input = sys.argv[1]
+    else:
+        user_input = input("Enter company name or ticker symbol: ").strip()
     
-    # If Google doesn't work, try Alphabet Inc (Google's parent)
-    if "error" in result or not result.get('segments'):
-        print("\nTrying 'Alphabet Inc' (Google's parent company)...")
-        result = get_company_segments_from_wikipedia("Alphabet Inc")
+    if not user_input:
+        print("Error: No company name or ticker provided.")
+        sys.exit(1)
     
-    print_segments(result)
+    # Check if input looks like a ticker (short, uppercase, alphanumeric)
+    is_ticker = len(user_input) <= 5 and user_input.isalnum() and user_input.isupper()
     
-    # Also try with ticker
-    print("\n" + "=" * 80)
-    print("Trying with ticker symbol GOOGL...")
-    print("=" * 80)
-    ticker_result = get_segments_for_ticker("GOOGL")
-    if ticker_result:
-        print_segments(ticker_result)
+    if is_ticker:
+        # Try as ticker first
+        print(f"Fetching business segments for ticker: {user_input}...")
+        result = get_segments_for_ticker(user_input)
+        
+        if result and "error" not in result:
+            print_segments(result)
+        else:
+            # If ticker lookup fails, try as company name
+            print(f"\nTicker lookup failed, trying as company name: {user_input}...")
+            result = get_company_segments_from_wikipedia(user_input)
+            print_segments(result)
+    else:
+        # Treat as company name
+        print(f"Fetching business segments for: {user_input}...")
+        result = get_company_segments_from_wikipedia(user_input)
+        print_segments(result)
