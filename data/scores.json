@@ -8995,6 +8995,32 @@
       "riskiness_score": "8",
       "bargaining_power_of_suppliers": "3",
       "model": "grok-4-1-fast-reasoning"
+    },
+    "UA": {
+      "brand_strength": "8",
+      "competition_intensity": "9",
+      "bargaining_power_of_suppliers": "2",
+      "moat_score": "5",
+      "size_well_known_score": "8",
+      "ai_knowledge_score": "10",
+      "product_differentiation": "6",
+      "riskiness_score": "7",
+      "product_quality_score": "8",
+      "switching_cost": "0",
+      "barriers_score": "8",
+      "management_quality_score": "4",
+      "network_effect": "1",
+      "trailblazer_score": "7",
+      "ethical_healthy_environmental_score": "6",
+      "pricing_power": "4",
+      "ambition_score": "7",
+      "bargaining_power_of_customers": "8",
+      "disruption_risk": "5",
+      "growth_opportunity": "4",
+      "innovativeness_score": "6",
+      "long_term_orientation_score": "5",
+      "culture_employee_satisfaction_score": "5",
+      "model": "grok-4-1-fast-reasoning"
     }
   }
 }

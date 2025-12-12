@@ -3357,6 +3357,9 @@ def get_peers_for_ticker(ticker, force_redo=False):
                 
                 while True:
                     response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
+                    # Treat empty input (just pressing Enter) as 'no'
+                    if not response:
+                        response = 'n'
                     if response in ['y', 'yes']:
                         # Score each unscored peer
                         for item in unscored_peers:
@@ -3530,6 +3533,9 @@ def get_peers_for_ticker(ticker, force_redo=False):
         
         while True:
             response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
+            # Treat empty input (just pressing Enter) as 'no'
+            if not response:
+                response = 'n'
             if response in ['y', 'yes']:
                 # Score each unscored peer
                 for item in unscored_peers:
