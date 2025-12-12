@@ -3007,15 +3007,16 @@ Consider factors such as:
 5. Competitive dynamics (direct competitors)
 6. Company size and scale (if relevant)
 
-Return ONLY a comma-separated list of exactly 10 FULL company names, starting with the most comparable company first.
-CRITICAL: Each company name must be complete (e.g., "Microsoft Corporation", "Alphabet Inc.", "Meta Platforms Inc.").
+Return ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.
+CRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., "Nike, Inc.").
+Each company name must be complete (e.g., "Microsoft Corporation", "Alphabet Inc.", "Meta Platforms Inc.", "Nike, Inc.").
 DO NOT return partial names, suffixes alone (like "Inc" or "Corporation"), or abbreviations.
 Each name should be the full legal company name or commonly used full name.
-Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by commas in order from most to least comparable.
+Do not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.
 
-Example format: "Microsoft Corporation, Alphabet Inc., Meta Platforms Inc., Amazon.com Inc., NVIDIA Corporation, Intel Corporation, Advanced Micro Devices Inc., Salesforce Inc., Oracle Corporation, Adobe Inc."
+Example format: "Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc."
 
-Return exactly 10 complete company names in ranked order, nothing else."""
+Return exactly 10 complete company names in ranked order, separated by semicolons, nothing else."""
 
     try:
         grok = OpenRouterClient(api_key=OPENROUTER_KEY)
@@ -3030,25 +3031,68 @@ Return exactly 10 complete company names in ranked order, nothing else."""
         response_clean = response.strip()
         
         # Try to extract company names from the response
-        # Handle various formats: comma-separated, numbered lists, etc.
+        # Handle various formats: semicolon-separated (preferred), comma-separated (fallback), numbered lists, etc.
         company_names = []
         
-        # First, try splitting by comma
-        for item in response_clean.split(','):
-            # Remove any leading numbers, dots, dashes, etc.
-            item_clean = item.strip()
-            # Remove common prefixes like "1.", "1)", "-", etc.
-            while item_clean and (item_clean[0].isdigit() or item_clean[0] in '.)- '):
-                item_clean = item_clean[1:].strip()
-            
-            # Clean up the company name
-            if item_clean:
-                # Remove trailing punctuation
-                item_clean = item_clean.rstrip('.,;:()[]{}')
+        # First, try splitting by semicolon (preferred separator to avoid issues with commas in company names)
+        if ';' in response_clean:
+            for item in response_clean.split(';'):
+                # Remove any leading numbers, dots, dashes, etc.
+                item_clean = item.strip()
+                # Remove common prefixes like "1.", "1)", "-", etc.
+                while item_clean and (item_clean[0].isdigit() or item_clean[0] in '.)- '):
+                    item_clean = item_clean[1:].strip()
+                
+                # Clean up the company name
                 if item_clean:
-                    company_names.append(item_clean.strip())
+                    # Remove trailing punctuation (but keep commas that are part of the name)
+                    item_clean = item_clean.rstrip('.;:()[]{}')
+                    if item_clean:
+                        company_names.append(item_clean.strip())
+        else:
+            # Fallback: try splitting by comma (but this may break on names like "Nike, Inc.")
+            # Use a smarter approach: split on ", " (comma followed by space) which is more likely to be a separator
+            # than a comma within a name
+            import re
+            # Split on ", " but be careful - we'll try to reconstruct names that might have been split incorrectly
+            parts = re.split(r',\s+', response_clean)
+            current_name = ""
+            for part in parts:
+                part = part.strip()
+                # Remove leading numbers, dots, dashes, etc.
+                while part and (part[0].isdigit() or part[0] in '.)- '):
+                    part = part[1:].strip()
+                
+                if not part:
+                    continue
+                
+                # Check if this part looks like the start of a new company name (starts with capital, or is very short)
+                # vs continuation of previous name (likely a suffix like "Inc." or "Corporation")
+                if current_name:
+                    # Check if this looks like a suffix
+                    part_lower = part.lower().rstrip('.')
+                    common_suffixes = ['inc', 'corp', 'corporation', 'llc', 'ltd', 'limited', 'co', 'company', 'plc', 'sa', 'ag', 'nv', 'bv', 'gmbh', 'se', 'usa']
+                    if part_lower in common_suffixes or (len(part) <= 5 and part[0].isupper()):
+                        # Likely a suffix, append to current name
+                        current_name += ", " + part.rstrip('.,;:()[]{}')
+                    else:
+                        # Likely a new company name
+                        # Save previous name
+                        prev_clean = current_name.rstrip('.,;:()[]{}')
+                        if prev_clean:
+                            company_names.append(prev_clean.strip())
+                        # Start new name
+                        current_name = part
+                else:
+                    current_name = part
+            
+            # Don't forget the last name
+            if current_name:
+                current_name = current_name.rstrip('.,;:()[]{}')
+                if current_name:
+                    company_names.append(current_name.strip())
         
-        # If we didn't get enough names from comma splitting, try parsing line by line
+        # If we didn't get enough names, try parsing line by line
         if len(company_names) < 10:
             lines = response_clean.split('\n')
             for line in lines:
