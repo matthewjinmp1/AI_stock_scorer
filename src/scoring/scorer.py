@@ -3265,13 +3265,14 @@ def display_peer_scores_comparison(target_ticker, peer_data_list):
     print("* Target ticker")
 
 
-def get_peers_for_ticker(ticker):
+def get_peers_for_ticker(ticker, force_redo=False):
     """Get the top 10 most comparable peers for a ticker using AI.
     Displays scores comparison between target and top 10 peers.
     For peers without scores, asks user if they want to score them.
     
     Args:
         ticker: Ticker symbol (uppercase)
+        force_redo: If True, bypass cache and force a new AI query
         
     Returns:
         list: List of 10 ticker symbols ranked from most comparable to least, or None if error
@@ -3299,12 +3300,13 @@ def get_peers_for_ticker(ticker):
     
     company_name = ticker_lookup[ticker_upper]
     
-    # Check if peers are already cached
-    peers_data = load_peers()
-    if ticker_upper in peers_data:
-        cached_peer_tickers = peers_data[ticker_upper]
-        # Limit to 10 for consistency
-        cached_peer_tickers = cached_peer_tickers[:10]
+    # Check if peers are already cached (unless force_redo is True)
+    if not force_redo:
+        peers_data = load_peers()
+        if ticker_upper in peers_data:
+            cached_peer_tickers = peers_data[ticker_upper]
+            # Limit to 10 for consistency
+            cached_peer_tickers = cached_peer_tickers[:10]
         if cached_peer_tickers:
             print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
             print(f"  {len(cached_peer_tickers)} peer(s): {', '.join(cached_peer_tickers)}")
@@ -3393,7 +3395,7 @@ def get_peers_for_ticker(ticker):
             
             return cached_peer_tickers
     
-    # Not cached, query AI for peers (returns company names)
+    # Not cached or force_redo is True, query AI for peers (returns company names)
     print(f"\nQuerying AI to find the top 10 most comparable companies to {ticker_upper} ({company_name})...")
     print("This may take a moment...")
     ranked_peer_names, elapsed_time, token_usage = query_peers_from_ai(ticker_upper, company_name)
@@ -3590,6 +3592,24 @@ def handle_peer_command(command_input):
     get_peers_for_ticker(ticker)
 
 
+def handle_redopeer_command(command_input):
+    """Handle the redopeer command - force a new peer calculation, bypassing cache.
+    
+    Args:
+        command_input: Command input after 'redopeer' keyword (ticker symbol)
+    """
+    command_input = command_input.strip()
+    
+    if not command_input:
+        print("Usage: redopeer TICKER")
+        print("Example: redopeer AAPL")
+        print("This will force a new AI query for peers, bypassing any cached results.")
+        return
+    
+    ticker = command_input.upper()
+    get_peers_for_ticker(ticker, force_redo=True)
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -3609,13 +3629,14 @@ def main():
     print("  Type 'redefine NEW_TICKER = OLD_TICKER' to rename a ticker definition")
     print("  Type 'correl TICKER1 TICKER2' to show correlation between two companies' scores")
     print("  Type 'peer TICKER' to find peers and competitors for a ticker")
+    print("  Type 'redopeer TICKER' to force a new peer calculation (bypasses cache)")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'quit' or 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'redopeer'/'clear'/'quit'): ").strip()
             
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("Goodbye!")
@@ -3694,6 +3715,10 @@ def main():
             elif user_input.lower().startswith('peer '):
                 command_input = user_input[5:].strip()  # Remove 'peer ' prefix
                 handle_peer_command(command_input)
+                print()
+            elif user_input.lower().startswith('redopeer '):
+                command_input = user_input[9:].strip()  # Remove 'redopeer ' prefix
+                handle_redopeer_command(command_input)
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers
