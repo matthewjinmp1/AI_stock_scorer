@@ -13,6 +13,83 @@ from bs4 import BeautifulSoup
 from typing import List, Dict, Optional
 
 
+def search_wikipedia_for_company(company_name: str) -> Optional[str]:
+    """
+    Search Wikipedia for a company page, handling disambiguation.
+    Returns the best matching company page title.
+    """
+    # Use Wikipedia search API
+    search_url = "https://en.wikipedia.org/w/api.php"
+    params = {
+        'action': 'opensearch',
+        'search': company_name,
+        'limit': 10,
+        'namespace': 0,
+        'format': 'json'
+    }
+    
+    try:
+        response = requests.get(search_url, params=params, headers={'User-Agent': 'Mozilla/5.0'})
+        response.raise_for_status()
+        data = response.json()
+        
+        # data[1] contains the page titles, data[3] contains URLs
+        titles = data[1] if len(data) > 1 else []
+        
+        # Look for company-related pages
+        company_keywords = ['(company)', '(corporation)', 'inc.', 'inc', 'corp', 'corp.', 'ltd', 'ltd.']
+        
+        # First, try to find pages with company indicators
+        for title in titles:
+            title_lower = title.lower()
+            if any(keyword in title_lower for keyword in company_keywords):
+                return title
+        
+        # If no company indicator found, try to find pages that mention business terms
+        # Use the search API to get more context
+        for title in titles[:5]:  # Check first 5 results
+            # Get summary to check if it's about a company
+            summary_url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{title.replace(' ', '_')}"
+            try:
+                summary_response = requests.get(summary_url, headers={'User-Agent': 'Mozilla/5.0'})
+                if summary_response.status_code == 200:
+                    summary_data = summary_response.json()
+                    extract = summary_data.get('extract', '').lower()
+                    # Check for business/company indicators
+                    business_terms = ['company', 'corporation', 'multinational', 'technology', 
+                                     'business', 'founded', 'headquartered', 'revenue', 'stock']
+                    if any(term in extract for term in business_terms):
+                        return title
+            except:
+                continue
+        
+        # If still nothing, return the first result (might be the company)
+        if titles:
+            return titles[0]
+        
+        return None
+        
+    except Exception as e:
+        return None
+
+
+def is_disambiguation_page(summary_text: str) -> bool:
+    """Check if a Wikipedia page is a disambiguation page."""
+    if not summary_text:
+        return False
+    
+    disambiguation_indicators = [
+        'most often refers to',
+        'may refer to',
+        'commonly refers to',
+        'disambiguation',
+        'usually refers to'
+    ]
+    
+    summary_lower = summary_text.lower()
+    return any(indicator in summary_lower for indicator in disambiguation_indicators)
+
+
 def get_company_segments_from_wikipedia(company_name: str) -> Dict[str, any]:
     """
     Fetch company business segments from Wikipedia.
@@ -26,11 +103,29 @@ def get_company_segments_from_wikipedia(company_name: str) -> Dict[str, any]:
     # Wikipedia API endpoint
     api_url = "https://en.wikipedia.org/api/rest_v1/page/summary/"
     
+    # For common ambiguous names, try with "(company)" suffix first
+    ambiguous_names = ['amazon', 'apple', 'target', 'shell', 'tesla', 'nike', 'adidas']
+    original_name = company_name
+    if company_name.lower() in ambiguous_names and "(company)" not in company_name.lower():
+        # Try with (company) suffix first
+        company_name_with_suffix = f"{company_name} (company)"
+        url_name = company_name_with_suffix.replace(" ", "_")
+        try:
+            test_response = requests.get(f"{api_url}{url_name}", 
+                                      headers={'User-Agent': 'Mozilla/5.0'})
+            if test_response.status_code == 200:
+                company_name = company_name_with_suffix
+        except:
+            pass
+    
     # Clean company name for URL
     url_name = company_name.replace(" ", "_")
     
+    # Store original name for display
+    display_name = original_name
+    
     result = {
-        "company_name": company_name,
+        "company_name": display_name,
         "segments": [],
         "description": "",
         "source": "Wikipedia",
@@ -44,7 +139,29 @@ def get_company_segments_from_wikipedia(company_name: str) -> Dict[str, any]:
         response.raise_for_status()
         summary_data = response.json()
         
-        result["description"] = summary_data.get("extract", "")
+        summary_text = summary_data.get("extract", "")
+        result["description"] = summary_text
+        
+        # Check if this is a disambiguation page
+        if is_disambiguation_page(summary_text):
+            # Search for the company page (use original name for search)
+            print(f"  Detected disambiguation page. Searching for company page...")
+            company_page = search_wikipedia_for_company(original_name)
+            
+            if company_page and company_page != url_name:
+                print(f"  Found company page: {company_page}")
+                # Update to use the company page
+                url_name = company_page.replace(" ", "_")
+                # Keep original display name but update URL
+                result["url"] = f"https://en.wikipedia.org/wiki/{url_name}"
+                
+                # Fetch the correct page
+                response = requests.get(f"{api_url}{url_name}", 
+                                      headers={'User-Agent': 'Mozilla/5.0'})
+                response.raise_for_status()
+                summary_data = response.json()
+                summary_text = summary_data.get("extract", "")
+                result["description"] = summary_text
         
         # Now get full page content to extract segments
         content_url = f"https://en.wikipedia.org/api/rest_v1/page/html/{url_name}"
@@ -57,7 +174,7 @@ def get_company_segments_from_wikipedia(company_name: str) -> Dict[str, any]:
         segments = extract_segments_from_html(soup, company_name)
         
         # Also try to extract from summary (often more reliable)
-        summary_segments = extract_segments_from_summary(summary_data.get("extract", ""))
+        summary_segments = extract_segments_from_summary(summary_text)
         
         # Combine and deduplicate
         all_segments = segments + summary_segments
