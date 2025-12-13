@@ -262,19 +262,32 @@ def main():
         print("Cost:")
         print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
         
-        # Option to save to file
-        save_option = input("\nSave to file? (y/n): ").strip().lower()
-        if save_option == 'y':
-            output_format = input("Format (json/comma/list) [list]: ").strip().lower() or "list"
-            filename = input(f"Filename [keywords_{company_name.replace(' ', '_')}.txt]: ").strip()
-            if not filename:
-                filename = f"keywords_{company_name.replace(' ', '_').replace('/', '_')}.txt"
-            
-            output = format_keywords_output(keywords, output_format)
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(output)
-            
-            print(f"\nSaved {len(keywords)} keywords to {filename}")
+        # Automatically save to JSON file
+        safe_company_name = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
+        safe_company_name = ''.join(c for c in safe_company_name if c.isalnum() or c in ('_', '-'))
+        if ticker:
+            filename = f"keywords_{ticker}_{safe_company_name}.json"
+        else:
+            filename = f"keywords_{safe_company_name}.json"
+        
+        # Create data structure with metadata
+        output_data = {
+            "company_name": company_name,
+            "ticker": ticker,
+            "keywords": keywords,
+            "count": len(keywords),
+            "token_usage": token_usage,
+            "cost": {
+                "dollars": cost_dollars,
+                "cents": cost_cents
+            },
+            "model": "grok-4-1-fast-reasoning"
+        }
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"\n✓ Saved {len(keywords)} keywords to {filename}")
         
         # Also print comma-separated version for easy copying
         print("\n" + "=" * 80)
