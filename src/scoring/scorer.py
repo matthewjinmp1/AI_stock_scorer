@@ -3664,20 +3664,24 @@ def get_peers_for_ticker(ticker, force_redo=False):
                             print(f"  {peer_num}. {item['ticker']}: {item['name']}")
                     
                     while True:
-                        response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or Enter for all): ").strip().lower()
+                        response = input(f"\nEnter peer numbers to score (e.g., '1 2 3' or 'all' or Enter to skip): ").strip().lower()
                         
-                        # Empty input or "all" means score all unscored peers
-                        if not response or response == 'all':
+                        # Empty input (Enter) means skip
+                        if not response:
+                            break
+                        
+                        # "all" means score all unscored peers
+                        if response == 'all':
                             peers_to_score = unscored_peers
                         else:
-                            # Parse numbers from input (e.g., "5, 7" or "5 7" or "5,7")
+                            # Parse numbers from input (e.g., "1 2 3" or "1,2,3")
                             try:
                                 # Replace commas with spaces and split
                                 numbers_str = response.replace(',', ' ').split()
                                 selected_numbers = [int(num.strip()) for num in numbers_str if num.strip().isdigit()]
                                 
                                 if not selected_numbers:
-                                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
+                                    print("Please enter valid peer numbers (e.g., '1 2 3') or 'all' or Enter to skip")
                                     continue
                                 
                                 # Validate numbers are within range
@@ -3700,7 +3704,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                                     continue
                                 
                             except ValueError:
-                                print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
+                                print("Please enter valid peer numbers (e.g., '1 2 3') or 'all' or Enter to skip")
                                 continue
                         
                         # Score selected peers
@@ -3942,20 +3946,24 @@ def get_peers_for_ticker(ticker, force_redo=False):
                 print(f"  {peer_num}. {item['ticker']}: {item['name']}")
         
         while True:
-            response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or Enter for all): ").strip().lower()
+            response = input(f"\nEnter peer numbers to score (e.g., '1 2 3' or 'all' or Enter to skip): ").strip().lower()
             
-            # Empty input or "all" means score all unscored peers
-            if not response or response == 'all':
+            # Empty input (Enter) means skip
+            if not response:
+                break
+            
+            # "all" means score all unscored peers
+            if response == 'all':
                 peers_to_score = unscored_peers
             else:
-                # Parse numbers from input (e.g., "5, 7" or "5 7" or "5,7")
+                # Parse numbers from input (e.g., "1 2 3" or "1,2,3")
                 try:
                     # Replace commas with spaces and split
                     numbers_str = response.replace(',', ' ').split()
                     selected_numbers = [int(num.strip()) for num in numbers_str if num.strip().isdigit()]
                     
                     if not selected_numbers:
-                        print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
+                        print("Please enter valid peer numbers (e.g., '1 2 3') or 'all' or Enter to skip")
                         continue
                     
                     # Validate numbers are within range
@@ -3978,7 +3986,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                         continue
                     
                 except ValueError:
-                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
+                    print("Please enter valid peer numbers (e.g., '1 2 3') or 'all' or Enter to skip")
                     continue
             
             # Score selected peers
