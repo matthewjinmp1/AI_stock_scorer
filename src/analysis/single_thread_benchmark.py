@@ -16,16 +16,20 @@ def compute():
     return 1
 
 
-def single_thread_benchmark():
-    """Run single-threaded computation at max capacity for 5 seconds."""
+def single_thread_benchmark(duration=5.0):
+    """Run single-threaded computation at max capacity for specified duration.
+    
+    Args:
+        duration: Duration in seconds (default 5.0)
+    """
     print("=" * 80)
     print("SINGLE-THREADED BENCHMARK")
     print("=" * 80)
-    print("Starting single-threaded computation benchmark...")
-    print("Running for 5 seconds at max capacity...")
+    print(f"Starting single-threaded computation benchmark...")
+    print(f"Running for {duration} seconds at max capacity...")
     
     start_time = time.time()
-    end_time = start_time + 5.0  # Run for 5 seconds
+    end_time = start_time + duration
     computation_count = 0
     
     # Run computations as fast as possible until 5 seconds have passed
@@ -80,13 +84,14 @@ def worker_process(end_time, result_queue, process_id):
     return local_count
 
 
-def multithread_benchmark(num_threads=None):
-    """Run multithreaded computation at max capacity for 5 seconds.
+def multithread_benchmark(num_threads=None, duration=5.0):
+    """Run multithreaded computation at max capacity for specified duration.
     
     Uses multiprocessing for true parallelism (bypasses Python's GIL).
     
     Args:
         num_threads: Number of processes to use. If None, uses CPU count.
+        duration: Duration in seconds (default 5.0)
     """
     import os
     if num_threads is None:
@@ -96,10 +101,10 @@ def multithread_benchmark(num_threads=None):
     print("MULTITHREADED BENCHMARK (using multiprocessing)")
     print("=" * 80)
     print(f"Starting multithreaded computation benchmark with {num_threads} processes...")
-    print("Running for 5 seconds at max capacity...")
+    print(f"Running for {duration} seconds at max capacity...")
     
     start_time = time.time()
-    end_time = start_time + 5.0  # Run for 5 seconds
+    end_time = start_time + duration
     
     # Use multiprocessing for true parallelism (bypasses GIL)
     result_queue = multiprocessing.Queue()
@@ -141,18 +146,39 @@ def main():
     print("\nChoose benchmark type:")
     print("  1 - Single-threaded")
     print("  2 - Multithreaded")
+    print("\nYou can specify duration: '1 60' for single-threaded 60 seconds")
+    print("                        or '2 60' for multithreaded 60 seconds")
+    print("                        (default is 5 seconds)")
     
     while True:
-        choice = input("\nEnter choice (1 or 2): ").strip()
+        user_input = input("\nEnter choice (1 or 2, optionally followed by duration): ").strip()
+        parts = user_input.split()
+        
+        if not parts:
+            print("Invalid input. Please enter 1 or 2, optionally followed by duration.")
+            continue
+        
+        choice = parts[0]
+        duration = 5.0  # Default duration
+        
+        # Parse duration if provided
+        if len(parts) > 1:
+            try:
+                duration = float(parts[1])
+                if duration <= 0:
+                    print("Duration must be positive. Using default 5 seconds.")
+                    duration = 5.0
+            except ValueError:
+                print(f"Invalid duration '{parts[1]}'. Using default 5 seconds.")
         
         if choice == "1":
-            single_thread_benchmark()
+            single_thread_benchmark(duration)
             break
         elif choice == "2":
-            multithread_benchmark()
+            multithread_benchmark(duration=duration)
             break
         else:
-            print("Invalid choice. Please enter 1 or 2.")
+            print("Invalid choice. Please enter 1 or 2, optionally followed by duration.")
 
 
 if __name__ == "__main__":
