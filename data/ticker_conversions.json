@@ -559,5 +559,109 @@
       "is_public": true,
       "method": "exact_match"
     }
+  ],
+  "Goodman Group": [
+    {
+      "timestamp": "2025-12-12T21:40:23.366928",
+      "company_name": "Goodman Group",
+      "ticker": "GMG",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "GMG",
+      "prompt": "Given the company name \"Goodman Group\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 299,
+        "total_tokens": 550
+      }
+    }
+  ],
+  "Segro plc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.003823",
+      "company_name": "Segro plc",
+      "ticker": "SGRO",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "SGRO",
+      "prompt": "Given the company name \"Segro plc\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 201,
+        "total_tokens": 452
+      }
+    }
+  ],
+  "Rexford Industrial Realty, Inc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.012900",
+      "company_name": "Rexford Industrial Realty, Inc",
+      "ticker": "REXR",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "First Industrial Realty Trust, Inc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.016976",
+      "company_name": "First Industrial Realty Trust, Inc",
+      "ticker": "FR",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "STAG Industrial, Inc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.021741",
+      "company_name": "STAG Industrial, Inc",
+      "ticker": "STAG",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "EastGroup Properties, Inc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.025316",
+      "company_name": "EastGroup Properties, Inc",
+      "ticker": "EGP",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Terreno Realty Corporation": [
+    {
+      "timestamp": "2025-12-12T21:40:30.029065",
+      "company_name": "Terreno Realty Corporation",
+      "ticker": "TRNO",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "LXP Industrial Trust": [
+    {
+      "timestamp": "2025-12-12T21:40:30.032901",
+      "company_name": "LXP Industrial Trust",
+      "ticker": "LXP",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Americold Realty Trust": [
+    {
+      "timestamp": "2025-12-12T21:40:30.036828",
+      "company_name": "Americold Realty Trust",
+      "ticker": "ABR",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Plymouth Industrial REIT, Inc": [
+    {
+      "timestamp": "2025-12-12T21:40:30.038594",
+      "company_name": "Plymouth Industrial REIT, Inc",
+      "ticker": "PLYM",
+      "is_public": true,
+      "method": "exact_match"
+    }
   ]
 }
