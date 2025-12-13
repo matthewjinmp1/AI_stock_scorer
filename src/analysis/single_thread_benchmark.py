@@ -12,10 +12,10 @@ from concurrent.futures import ThreadPoolExecutor
 
 def compute():
     """Perform a CPU-intensive computation."""
-    # Do some actual computation to keep CPU busy
+    # Do substantial computation to keep CPU busy and minimize overhead
     result = 0
-    for i in range(1000):
-        result += i * i
+    for i in range(10000):
+        result += i * i * i  # More intensive computation
     return result
 
 
@@ -32,9 +32,17 @@ def single_thread_benchmark():
     computation_count = 0
     
     # Run computations as fast as possible until 5 seconds have passed
-    while time.time() < end_time:
-        compute()
-        computation_count += 1
+    # Check time less frequently to reduce overhead
+    check_interval = 100
+    while True:
+        # Do a batch of computations before checking time
+        for _ in range(check_interval):
+            compute()
+            computation_count += 1
+        
+        # Check time after batch
+        if time.time() >= end_time:
+            break
     
     elapsed_time = time.time() - start_time
     
@@ -58,12 +66,20 @@ def worker_thread(end_time, result_list, thread_id):
 def worker_process(end_time, result_queue, process_id):
     """Worker process that performs computations until end_time."""
     local_count = 0
-    while time.time() < end_time:
-        # Do some actual computation to keep CPU busy
-        result = 0
-        for i in range(1000):
-            result += i * i
-        local_count += 1
+    # Check time less frequently to reduce overhead
+    check_interval = 100  # Check time every 100 computations
+    while True:
+        # Do a batch of computations before checking time
+        for _ in range(check_interval):
+            result = 0
+            for i in range(10000):
+                result += i * i * i
+            local_count += 1
+        
+        # Check time after batch
+        if time.time() >= end_time:
+            break
+    
     result_queue.put((process_id, local_count))
     return local_count
 
