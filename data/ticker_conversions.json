@@ -462,5 +462,102 @@
       "is_public": true,
       "method": "exact_match"
     }
+  ],
+  "Meta Platforms, Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:39.718877",
+      "company_name": "Meta Platforms, Inc",
+      "ticker": "META",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Amazon.com, Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:39.722460",
+      "company_name": "Amazon.com, Inc",
+      "ticker": "AMZN",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Microsoft Corporation": [
+    {
+      "timestamp": "2025-12-12T20:42:39.726144",
+      "company_name": "Microsoft Corporation",
+      "ticker": "MSFT",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Apple Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:39.729791",
+      "company_name": "Apple Inc",
+      "ticker": "AAPL",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Netflix, Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:41.255508",
+      "company_name": "Netflix, Inc",
+      "ticker": "NFLX",
+      "is_public": true,
+      "method": "ai_public",
+      "ai_response": "NFLX",
+      "prompt": "Given the company name \"Netflix, Inc\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 88,
+        "total_tokens": 339
+      }
+    }
+  ],
+  "Adobe Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:41.262057",
+      "company_name": "Adobe Inc",
+      "ticker": "ADBE",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Salesforce, Inc": [
+    {
+      "timestamp": "2025-12-12T20:42:41.265609",
+      "company_name": "Salesforce, Inc",
+      "ticker": "CRM",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Oracle Corporation": [
+    {
+      "timestamp": "2025-12-12T20:42:41.269722",
+      "company_name": "Oracle Corporation",
+      "ticker": "ORCL",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "NVIDIA Corporation": [
+    {
+      "timestamp": "2025-12-12T20:42:41.273220",
+      "company_name": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "International Business Machines Corporation": [
+    {
+      "timestamp": "2025-12-12T20:42:41.276597",
+      "company_name": "International Business Machines Corporation",
+      "ticker": "IBM",
+      "is_public": true,
+      "method": "exact_match"
+    }
   ]
 }

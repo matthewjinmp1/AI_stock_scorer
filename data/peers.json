@@ -1,10 +1,15 @@
 {
   "GOOGL": [
     "META",
-    "MSFT",
     "AMZN",
+    "MSFT",
     "AAPL",
-    "NVDA"
+    "NFLX",
+    "ADBE",
+    "CRM",
+    "ORCL",
+    "NVDA",
+    "IBM"
   ],
   "META": [
     "SNAP",
