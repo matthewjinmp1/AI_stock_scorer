@@ -3610,96 +3610,96 @@ def get_peers_for_ticker(ticker, force_redo=False):
             cached_peer_tickers = peers_data[ticker_upper]
             # Limit to 10 for consistency
             cached_peer_tickers = cached_peer_tickers[:10]
-        if cached_peer_tickers:
-            print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
-            print(f"  {len(cached_peer_tickers)} peer(s): {', '.join(cached_peer_tickers)}")
-            
-            # Convert cached tickers to peer_data_list format for display
-            peer_data_list = []
-            scores_data = load_scores()
-            ticker_lookup = load_ticker_lookup()
-            
-            for peer_ticker in cached_peer_tickers:
-                # Check if this peer has scores
-                has_score = False
-                total = None
-                percentage = None
-                percentile = None
+            if cached_peer_tickers:
+                print(f"\n{ticker_upper} ({company_name}) - Found cached peers:")
+                print(f"  {len(cached_peer_tickers)} peer(s): {', '.join(cached_peer_tickers)}")
                 
-                for company_key in scores_data.get("companies", {}).keys():
-                    if company_key.upper() == peer_ticker:
-                        has_score = True
-                        company_data = scores_data["companies"][company_key]
-                        total = calculate_total_score(company_data)
-                        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-                        percentage = (total / max_score) * 100
-                        all_totals = get_all_total_scores()
-                        percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
-                        break
+                # Convert cached tickers to peer_data_list format for display
+                peer_data_list = []
+                scores_data = load_scores()
+                ticker_lookup = load_ticker_lookup()
                 
-                peer_display_name = ticker_lookup.get(peer_ticker, peer_ticker)
+                for peer_ticker in cached_peer_tickers:
+                    # Check if this peer has scores
+                    has_score = False
+                    total = None
+                    percentage = None
+                    percentile = None
+                    
+                    for company_key in scores_data.get("companies", {}).keys():
+                        if company_key.upper() == peer_ticker:
+                            has_score = True
+                            company_data = scores_data["companies"][company_key]
+                            total = calculate_total_score(company_data)
+                            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                            percentage = (total / max_score) * 100
+                            all_totals = get_all_total_scores()
+                            percentile = calculate_percentile_rank(total, all_totals) if all_totals and len(all_totals) > 1 else None
+                            break
+                    
+                    peer_display_name = ticker_lookup.get(peer_ticker, peer_ticker)
+                    
+                    peer_data_list.append({
+                        'ticker': peer_ticker,
+                        'name': peer_display_name,
+                        'has_score': has_score,
+                        'total': total,
+                        'percentage': percentage,
+                        'percentile': percentile
+                    })
                 
-                peer_data_list.append({
-                    'ticker': peer_ticker,
-                    'name': peer_display_name,
-                    'has_score': has_score,
-                    'total': total,
-                    'percentage': percentage,
-                    'percentile': percentile
-                })
-            
-            # Display scores comparison
-            display_peer_scores_comparison(ticker_upper, peer_data_list)
-            
-            # Ask user if they want to score peers without scores
-            unscored_peers = [item for item in peer_data_list if not item.get('has_score')]
-            if unscored_peers:
-                print(f"\nFound {len(unscored_peers)} peer(s) without scores:")
-                for item in unscored_peers:
-                    print(f"  - {item['ticker']}: {item['name']}")
+                # Display scores comparison
+                display_peer_scores_comparison(ticker_upper, peer_data_list)
                 
-                while True:
-                    response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
-                    # Treat empty input (just pressing Enter) as 'no'
-                    if not response:
-                        response = 'n'
-                    if response in ['y', 'yes']:
-                        # Score each unscored peer
-                        for item in unscored_peers:
-                            peer_ticker = item['ticker']
-                            peer_name = item['name']
-                            print(f"\nScoring {peer_ticker} ({peer_name})...")
-                            result = score_single_ticker(peer_ticker, silent=False, batch_mode=False, force_rescore=False)
-                            if result and result.get('success'):
-                                print(f"✓ Successfully scored {peer_ticker}")
-                            else:
-                                print(f"✗ Failed to score {peer_ticker}")
-                        
-                        # Reload scores and redisplay
-                        scores_data = load_scores()
-                        for item in peer_data_list:
-                            if not item.get('has_score'):
+                # Ask user if they want to score peers without scores
+                unscored_peers = [item for item in peer_data_list if not item.get('has_score')]
+                if unscored_peers:
+                    print(f"\nFound {len(unscored_peers)} peer(s) without scores:")
+                    for item in unscored_peers:
+                        print(f"  - {item['ticker']}: {item['name']}")
+                    
+                    while True:
+                        response = input(f"\nWould you like to score these {len(unscored_peers)} peer(s)? (y/n): ").strip().lower()
+                        # Treat empty input (just pressing Enter) as 'no'
+                        if not response:
+                            response = 'n'
+                        if response in ['y', 'yes']:
+                            # Score each unscored peer
+                            for item in unscored_peers:
                                 peer_ticker = item['ticker']
-                                for company_key in scores_data.get("companies", {}).keys():
-                                    if company_key.upper() == peer_ticker:
-                                        item['has_score'] = True
-                                        company_data = scores_data["companies"][company_key]
-                                        item['total'] = calculate_total_score(company_data)
-                                        max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
-                                        item['percentage'] = (item['total'] / max_score) * 100
-                                        all_totals = get_all_total_scores()
-                                        item['percentile'] = calculate_percentile_rank(item['total'], all_totals) if all_totals and len(all_totals) > 1 else None
-                                        break
-                        
-                        print("\nUpdated scores comparison:")
-                        display_peer_scores_comparison(ticker_upper, peer_data_list)
-                        break
-                    elif response in ['n', 'no']:
-                        break
-                    else:
-                        print("Please enter 'y' or 'n'")
-            
-            return cached_peer_tickers
+                                peer_name = item['name']
+                                print(f"\nScoring {peer_ticker} ({peer_name})...")
+                                result = score_single_ticker(peer_ticker, silent=False, batch_mode=False, force_rescore=False)
+                                if result and result.get('success'):
+                                    print(f"✓ Successfully scored {peer_ticker}")
+                                else:
+                                    print(f"✗ Failed to score {peer_ticker}")
+                            
+                            # Reload scores and redisplay
+                            scores_data = load_scores()
+                            for item in peer_data_list:
+                                if not item.get('has_score'):
+                                    peer_ticker = item['ticker']
+                                    for company_key in scores_data.get("companies", {}).keys():
+                                        if company_key.upper() == peer_ticker:
+                                            item['has_score'] = True
+                                            company_data = scores_data["companies"][company_key]
+                                            item['total'] = calculate_total_score(company_data)
+                                            max_score = sum(SCORE_WEIGHTS.get(key, 1.0) for key in SCORE_DEFINITIONS) * 10
+                                            item['percentage'] = (item['total'] / max_score) * 100
+                                            all_totals = get_all_total_scores()
+                                            item['percentile'] = calculate_percentile_rank(item['total'], all_totals) if all_totals and len(all_totals) > 1 else None
+                                            break
+                            
+                            print("\nUpdated scores comparison:")
+                            display_peer_scores_comparison(ticker_upper, peer_data_list)
+                            break
+                        elif response in ['n', 'no']:
+                            break
+                        else:
+                            print("Please enter 'y' or 'n'")
+                
+                return cached_peer_tickers
     
     # Not cached or force_redo is True, query AI for peers (returns company names)
     if force_redo:
