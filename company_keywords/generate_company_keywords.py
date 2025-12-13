@@ -18,7 +18,8 @@ import json
 from typing import List, Optional
 
 # Add parent directory to path to import modules
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+# Script is now in company_keywords/ folder in root, so go up one level to root
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 try:
     from src.clients.openrouter_client import OpenRouterClient
@@ -262,13 +263,16 @@ def main():
         print("Cost:")
         print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
         
-        # Automatically save to JSON file
+        # Automatically save to JSON file in the same directory as the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
         safe_company_name = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
         safe_company_name = ''.join(c for c in safe_company_name if c.isalnum() or c in ('_', '-'))
         if ticker:
             filename = f"keywords_{ticker}_{safe_company_name}.json"
         else:
             filename = f"keywords_{safe_company_name}.json"
+        
+        filepath = os.path.join(script_dir, filename)
         
         # Create data structure with metadata
         output_data = {
@@ -284,10 +288,10 @@ def main():
             "model": "grok-4-1-fast-reasoning"
         }
         
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
         
-        print(f"\n✓ Saved {len(keywords)} keywords to {filename}")
+        print(f"\n✓ Saved {len(keywords)} keywords to {filepath}")
         
         # Also print comma-separated version for easy copying
         print("\n" + "=" * 80)
