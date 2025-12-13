@@ -162,5 +162,130 @@
       "is_public": true,
       "method": "partial_match"
     }
+  ],
+  "Tencent Holdings Limited": [
+    {
+      "timestamp": "2025-12-12T20:24:57.898344",
+      "company_name": "Tencent Holdings Limited",
+      "ticker": "TCEHY",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "TCEHY",
+      "prompt": "Given the company name \"Tencent Holdings Limited\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 564,
+        "total_tokens": 816
+      }
+    }
+  ],
+  "Sea Limited": [
+    {
+      "timestamp": "2025-12-12T20:24:58.054144",
+      "company_name": "Sea Limited",
+      "ticker": "SE",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Bilibili Inc": [
+    {
+      "timestamp": "2025-12-12T20:24:58.169184",
+      "company_name": "Bilibili Inc",
+      "ticker": "BILI",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Nexon Co., Ltd": [
+    {
+      "timestamp": "2025-12-12T20:25:19.411367",
+      "company_name": "Nexon Co., Ltd",
+      "ticker": "NEXOY",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "NEXOY",
+      "prompt": "Given the company name \"Nexon Co., Ltd\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 254,
+        "completion_tokens": 2302,
+        "total_tokens": 2556
+      }
+    }
+  ],
+  "Netmarble Corporation": [
+    {
+      "timestamp": "2025-12-12T20:25:37.524829",
+      "company_name": "Netmarble Corporation",
+      "ticker": "NCX",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"Netmarble Corporation\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 1609,
+        "total_tokens": 1861
+      }
+    }
+  ],
+  "NCsoft Corporation": [
+    {
+      "timestamp": "2025-12-12T20:25:59.302504",
+      "company_name": "NCsoft Corporation",
+      "ticker": "NCX1",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"NCsoft Corporation\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 2172,
+        "total_tokens": 2423
+      }
+    }
+  ],
+  "Krafton, Inc": [
+    {
+      "timestamp": "2025-12-12T20:26:09.220984",
+      "company_name": "Krafton, Inc",
+      "ticker": "KIX",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"Krafton, Inc\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 848,
+        "total_tokens": 1101
+      }
+    }
+  ],
+  "Electronic Arts Inc": [
+    {
+      "timestamp": "2025-12-12T20:26:09.322000",
+      "company_name": "Electronic Arts Inc",
+      "ticker": "EA",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Take-Two Interactive Software, Inc": [
+    {
+      "timestamp": "2025-12-12T20:26:09.375840",
+      "company_name": "Take-Two Interactive Software, Inc",
+      "ticker": "TTWO",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Roblox Corporation": [
+    {
+      "timestamp": "2025-12-12T20:26:09.429742",
+      "company_name": "Roblox Corporation",
+      "ticker": "RBLX",
+      "is_public": true,
+      "method": "exact_match"
+    }
   ]
 }
