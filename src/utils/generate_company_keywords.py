@@ -59,7 +59,16 @@ def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -
     
     # Create prompt
     ticker_context = f" (stock ticker: {ticker})" if ticker else ""
-    prompt = f"""Generate exactly 100 keywords and phrases that describe what {company_name}{ticker_context} does.
+    prompt = f"""Generate exactly 100 general keywords and phrases that describe what {company_name}{ticker_context} does.
+
+IMPORTANT: These must be GENERAL business keywords/phrases, NOT company-specific product names or brand names.
+- Use generic terms like "Email Services" NOT "Gmail"
+- Use "Navigation Services" or "Maps" NOT "Google Maps"
+- Use "Mobile Operating System" NOT "Android Operating System"
+- Use "Video Platform" or "Video Streaming" NOT "YouTube Platform"
+- Use "Productivity Suite" NOT "Google Workspace"
+- Use "Cloud Platform" NOT "Google Cloud Platform"
+- Use "Cloud Storage" NOT "Google Drive"
 
 These should be general keywords/phrases about the company's business, products, services, industry, and operations.
 Include:
@@ -71,7 +80,12 @@ Include:
 - Market segments (e.g., "Enterprise Software", "Consumer Electronics")
 - And any other relevant keywords that describe the company's activities
 
-Return ONLY a comma-separated list of exactly 100 keywords/phrases. Do not include numbers, bullets, or any other formatting.
+DO NOT include:
+- Company-specific product names (e.g., "Gmail", "Google Maps", "Android")
+- Brand names or proprietary terms
+- Company-specific service names
+
+Return ONLY a comma-separated list of exactly 100 general keywords/phrases. Do not include numbers, bullets, or any other formatting.
 Just the keywords separated by commas.
 
 Example format:
@@ -84,7 +98,7 @@ Search, Cloud Computing, Artificial Intelligence, Information Technology, Softwa
         messages=[
             {
                 "role": "system",
-                "content": "You are a helpful assistant that generates comprehensive keyword lists about companies. Always return exactly the requested number of keywords in a clean, comma-separated format."
+                "content": "You are a helpful assistant that generates comprehensive keyword lists about companies. Always use GENERAL business terms, NOT company-specific product names or brand names. For example, use 'Email Services' not 'Gmail', 'Navigation Services' not 'Google Maps', 'Mobile Operating System' not 'Android'. Always return exactly the requested number of keywords in a clean, comma-separated format."
             },
             {
                 "role": "user",
