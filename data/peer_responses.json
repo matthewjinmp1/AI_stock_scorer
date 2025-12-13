@@ -240,5 +240,33 @@
         "total_tokens": 4158
       }
     }
+  ],
+  "ASML": [
+    {
+      "timestamp": "2025-12-12T21:46:35.098192",
+      "ticker": "ASML",
+      "company_name": "ASML Holding N.V. - New York Registry Shares",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to ASML Holding N.V. - New York Registry Shares.\n\nYour task is to find the 10 MOST comparable companies to ASML Holding N.V. - New York Registry Shares.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., \"Nike, Inc.\").\nEach company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\", \"Nike, Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.\n\nExample format: \"Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, separated by semicolons, nothing else.",
+      "raw_response": "Applied Materials, Inc.; Lam Research Corporation; KLA Corporation; Tokyo Electron Limited; Nikon Corporation; Canon Inc.; ASM International N.V.; Teradyne, Inc.; Advantest Corporation; SCREEN Holdings Corporation",
+      "parsed_company_names": [
+        "Applied Materials, Inc",
+        "Lam Research Corporation",
+        "KLA Corporation",
+        "Tokyo Electron Limited",
+        "Nikon Corporation",
+        "Canon Inc",
+        "ASM International N.V",
+        "Teradyne, Inc",
+        "Advantest Corporation",
+        "SCREEN Holdings Corporation"
+      ],
+      "elapsed_time": 19.19439721107483,
+      "token_usage": {
+        "prompt_tokens": 478,
+        "completion_tokens": 1782,
+        "total_tokens": 2260
+      }
+    }
   ]
 }

@@ -663,5 +663,123 @@
       "is_public": true,
       "method": "exact_match"
     }
+  ],
+  "Applied Materials, Inc": [
+    {
+      "timestamp": "2025-12-12T21:46:35.101794",
+      "company_name": "Applied Materials, Inc",
+      "ticker": "AMAT",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Lam Research Corporation": [
+    {
+      "timestamp": "2025-12-12T21:46:35.105758",
+      "company_name": "Lam Research Corporation",
+      "ticker": "LRCX",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "KLA Corporation": [
+    {
+      "timestamp": "2025-12-12T21:46:35.109384",
+      "company_name": "KLA Corporation",
+      "ticker": "KLAC",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Tokyo Electron Limited": [
+    {
+      "timestamp": "2025-12-12T21:46:35.119089",
+      "company_name": "Tokyo Electron Limited",
+      "ticker": "TEL",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Nikon Corporation": [
+    {
+      "timestamp": "2025-12-12T21:46:43.277097",
+      "company_name": "Nikon Corporation",
+      "ticker": "NINOY",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "NINOY",
+      "prompt": "Given the company name \"Nikon Corporation\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 815,
+        "total_tokens": 1066
+      }
+    }
+  ],
+  "Canon Inc": [
+    {
+      "timestamp": "2025-12-12T21:46:43.287869",
+      "company_name": "Canon Inc",
+      "ticker": "CAN",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "ASM International N.V": [
+    {
+      "timestamp": "2025-12-12T21:46:46.570309",
+      "company_name": "ASM International N.V",
+      "ticker": "ASMI",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "ASMI",
+      "prompt": "Given the company name \"ASM International N.V\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 207,
+        "total_tokens": 459
+      }
+    }
+  ],
+  "Teradyne, Inc": [
+    {
+      "timestamp": "2025-12-12T21:46:46.582238",
+      "company_name": "Teradyne, Inc",
+      "ticker": "TER",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Advantest Corporation": [
+    {
+      "timestamp": "2025-12-12T21:46:58.469345",
+      "company_name": "Advantest Corporation",
+      "ticker": "ATEYY",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "ATEYY",
+      "prompt": "Given the company name \"Advantest Corporation\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 686,
+        "total_tokens": 938
+      }
+    }
+  ],
+  "SCREEN Holdings Corporation": [
+    {
+      "timestamp": "2025-12-12T21:47:13.549002",
+      "company_name": "SCREEN Holdings Corporation",
+      "ticker": "SHC1",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"SCREEN Holdings Corporation\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 251,
+        "completion_tokens": 1643,
+        "total_tokens": 1894
+      }
+    }
   ]
 }

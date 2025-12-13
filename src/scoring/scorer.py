@@ -3905,14 +3905,14 @@ def main():
     print("  Type 'peer TICKER' to find peers and competitors for a ticker")
     print("  Type 'redopeer TICKER' to force a new peer calculation (bypasses cache)")
     print("  Type 'clear' to clear the terminal")
-    print("  Type 'quit' or 'exit' to stop")
+    print("  Type 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'redopeer'/'clear'/'quit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'redopeer'/'clear'/'exit'): ").strip()
             
-            if user_input.lower() in ['quit', 'exit', 'q']:
+            if user_input.lower() in ['exit', 'q']:
                 print("Goodbye!")
                 break
             elif user_input.lower() == 'clear':
