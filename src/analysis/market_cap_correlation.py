@@ -7,6 +7,8 @@ Gets market cap for all companies in scores.json and calculates correlation.
 import json
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 
 # Add project root to path to allow imports
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -171,6 +173,39 @@ def get_market_cap(ticker):
         return None
 
 
+def process_ticker(ticker_key, scores_dict, excluded_tickers):
+    """Process a single ticker: calculate score and fetch market cap.
+    
+    Args:
+        ticker_key: Ticker key from scores.json
+        scores_dict: Dictionary of scores for this ticker
+        excluded_tickers: Set of tickers to exclude
+        
+    Returns:
+        tuple: (ticker, total_score, market_cap) or None if excluded/failed
+    """
+    # Normalize ticker (handle lowercase keys)
+    ticker = ticker_key.upper()
+    
+    # Skip tickers in ticker_definitions.json (not real tickers)
+    if ticker in excluded_tickers:
+        return None
+    
+    # Calculate total score
+    total_score = calculate_total_score(scores_dict)
+    
+    # Get market cap
+    market_cap = get_market_cap(ticker)
+    
+    if market_cap is not None:
+        return {
+            'ticker': ticker,
+            'total_score': total_score,
+            'market_cap': market_cap
+        }
+    return None
+
+
 def calculate_pearson_correlation(x, y):
     """Calculate Pearson correlation coefficient.
     
@@ -231,43 +266,56 @@ def main():
     
     print(f"Found {len(companies)} companies")
     
-    # Collect data for each company
-    print("\nFetching market cap data...")
+    # Collect data for each company using multithreading
+    print("\nFetching market cap data (using multithreading)...")
     print("(This may take a while for many companies)")
     
     company_data = []
     failed_tickers = []
     excluded_count = 0
     
-    for i, (ticker_key, scores_dict) in enumerate(companies.items(), 1):
-        # Normalize ticker (handle lowercase keys)
+    # Prepare list of tickers to process (excluding those in ticker_definitions.json)
+    tickers_to_process = []
+    for ticker_key, scores_dict in companies.items():
         ticker = ticker_key.upper()
-        
-        # Skip tickers in ticker_definitions.json (not real tickers)
         if ticker in excluded_tickers:
             excluded_count += 1
-            continue
-        
-        if i % 10 == 0:
-            print(f"  Progress: {i}/{len(companies)}")
-        
-        # Calculate total score
-        total_score = calculate_total_score(scores_dict)
-        
-        # Get market cap
-        market_cap = get_market_cap(ticker)
-        
-        if market_cap is not None:
-            company_data.append({
-                'ticker': ticker,
-                'total_score': total_score,
-                'market_cap': market_cap
-            })
         else:
-            failed_tickers.append(ticker)
+            tickers_to_process.append((ticker_key, scores_dict))
     
     if excluded_count > 0:
-        print(f"\nExcluded {excluded_count} ticker(s) from ticker_definitions.json")
+        print(f"Excluding {excluded_count} ticker(s) from ticker_definitions.json")
+    
+    # Use ThreadPoolExecutor to fetch market caps in parallel
+    # Use a reasonable number of threads (yfinance API may rate limit, so don't go too high)
+    max_workers = min(20, len(tickers_to_process))
+    
+    completed = 0
+    total = len(tickers_to_process)
+    
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_ticker = {
+            executor.submit(process_ticker, ticker_key, scores_dict, excluded_tickers): ticker_key
+            for ticker_key, scores_dict in tickers_to_process
+        }
+        
+        # Process completed tasks as they finish
+        for future in as_completed(future_to_ticker):
+            completed += 1
+            if completed % 10 == 0 or completed == total:
+                print(f"  Progress: {completed}/{total}")
+            
+            try:
+                result = future.result()
+                if result is not None:
+                    company_data.append(result)
+                else:
+                    ticker_key = future_to_ticker[future]
+                    failed_tickers.append(ticker_key.upper())
+            except Exception as e:
+                ticker_key = future_to_ticker[future]
+                failed_tickers.append(ticker_key.upper())
     
     if failed_tickers:
         print(f"\nWarning: Could not fetch market cap for {len(failed_tickers)} tickers:")
