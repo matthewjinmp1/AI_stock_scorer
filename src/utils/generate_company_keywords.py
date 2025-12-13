@@ -31,7 +31,7 @@ except ImportError:
 
 # Import ticker lookup functionality
 try:
-    from src.scoring.scorer import load_ticker_lookup, resolve_to_company_name
+    from src.scoring.scorer import load_ticker_lookup, resolve_to_company_name, calculate_token_cost
 except ImportError:
     print("Error: Could not import scorer module.")
     sys.exit(1)
@@ -249,6 +249,18 @@ def main():
         print(f"  Total tokens:  {token_usage.get('total_tokens', 0):,}")
         if 'cached_tokens' in token_usage:
             print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
+        
+        # Calculate and display cost
+        cost = calculate_token_cost(
+            token_usage.get('total_tokens', 0),
+            model="grok-4-1-fast-reasoning",
+            token_usage=token_usage
+        )
+        cost_cents = cost * 100
+        cost_dollars = cost
+        print()
+        print("Cost:")
+        print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
         
         # Option to save to file
         save_option = input("\nSave to file? (y/n): ").strip().lower()
