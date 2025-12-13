@@ -3664,15 +3664,10 @@ def get_peers_for_ticker(ticker, force_redo=False):
                             print(f"  {peer_num}. {item['ticker']}: {item['name']}")
                     
                     while True:
-                        response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or 'y' for all, 'n' to skip): ").strip().lower()
-                        # Treat empty input (just pressing Enter) as 'no'
-                        if not response:
-                            response = 'n'
+                        response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or Enter for all): ").strip().lower()
                         
-                        if response in ['n', 'no']:
-                            break
-                        elif response in ['y', 'yes', 'all']:
-                            # Score all unscored peers
+                        # Empty input or "all" means score all unscored peers
+                        if not response or response == 'all':
                             peers_to_score = unscored_peers
                         else:
                             # Parse numbers from input (e.g., "5, 7" or "5 7" or "5,7")
@@ -3682,7 +3677,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                                 selected_numbers = [int(num.strip()) for num in numbers_str if num.strip().isdigit()]
                                 
                                 if not selected_numbers:
-                                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or 'n'")
+                                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
                                     continue
                                 
                                 # Validate numbers are within range
@@ -3705,7 +3700,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                                     continue
                                 
                             except ValueError:
-                                print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or 'n'")
+                                print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
                                 continue
                         
                         # Score selected peers
@@ -3880,6 +3875,18 @@ def get_peers_for_ticker(ticker, force_redo=False):
     if not peer_tickers:
         print(f"\nWarning: No valid peers found for {ticker_upper} after processing.")
     
+    # Save to cache immediately after calculating peers (before user interaction)
+    # This ensures peers are cached even if user interaction fails or is interrupted
+    peers_data = load_peers()
+    peers_data[ticker_upper] = peer_tickers
+    if save_peers(peers_data):
+        if force_redo:
+            print(f"\n✓ Peers recalculated and saved to {PEERS_FILE}")
+        else:
+            print(f"\n✓ Peers saved to {PEERS_FILE}")
+    else:
+        print(f"\n✗ Error: Failed to save peers to {PEERS_FILE}")
+    
     # Display timing and cost information (peer query + ticker conversions)
     print(f"\nTime taken: {elapsed_time:.2f}s")
     
@@ -3935,15 +3942,10 @@ def get_peers_for_ticker(ticker, force_redo=False):
                 print(f"  {peer_num}. {item['ticker']}: {item['name']}")
         
         while True:
-            response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or 'y' for all, 'n' to skip): ").strip().lower()
-            # Treat empty input (just pressing Enter) as 'no'
-            if not response:
-                response = 'n'
+            response = input(f"\nEnter peer numbers to score (e.g., '5, 7' or '5 7' or 'all' or Enter for all): ").strip().lower()
             
-            if response in ['n', 'no']:
-                break
-            elif response in ['y', 'yes', 'all']:
-                # Score all unscored peers
+            # Empty input or "all" means score all unscored peers
+            if not response or response == 'all':
                 peers_to_score = unscored_peers
             else:
                 # Parse numbers from input (e.g., "5, 7" or "5 7" or "5,7")
@@ -3953,7 +3955,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                     selected_numbers = [int(num.strip()) for num in numbers_str if num.strip().isdigit()]
                     
                     if not selected_numbers:
-                        print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or 'n'")
+                        print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
                         continue
                     
                     # Validate numbers are within range
@@ -3976,7 +3978,7 @@ def get_peers_for_ticker(ticker, force_redo=False):
                         continue
                     
                 except ValueError:
-                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or 'n'")
+                    print("Please enter valid peer numbers (e.g., '5, 7' or '5 7') or 'all' or Enter")
                     continue
             
             # Score selected peers
@@ -4009,17 +4011,6 @@ def get_peers_for_ticker(ticker, force_redo=False):
             print("\nUpdated scores comparison:")
             display_peer_scores_comparison(ticker_upper, peer_data_list)
             break
-    
-    # Save to cache (always save, even if force_redo was used)
-    peers_data = load_peers()
-    peers_data[ticker_upper] = peer_tickers
-    if save_peers(peers_data):
-        if force_redo:
-            print(f"\n✓ Peers recalculated and saved to {PEERS_FILE}")
-        else:
-            print(f"\n✓ Peers saved to {PEERS_FILE}")
-    else:
-        print(f"\n✗ Error: Failed to save peers to {PEERS_FILE}")
     
     return peer_tickers
 

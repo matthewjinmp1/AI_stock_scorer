@@ -131,6 +131,58 @@
         "completion_tokens": 2742,
         "total_tokens": 3206
       }
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.326596",
+      "ticker": "NTES",
+      "company_name": "NetEase, Inc",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to NetEase, Inc.\n\nYour task is to find the 10 MOST comparable companies to NetEase, Inc.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., \"Nike, Inc.\").\nEach company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\", \"Nike, Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.\n\nExample format: \"Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, separated by semicolons, nothing else.",
+      "raw_response": "Tencent Holdings Limited; Sea Limited; Bilibili Inc.; Nexon Co., Ltd.; Netmarble Corporation; NCsoft Corporation; KRAFTON, Inc.; GungHo Online Entertainment, Inc.; DeNA Co., Ltd.; CyberAgent, Inc.",
+      "parsed_company_names": [
+        "Tencent Holdings Limited",
+        "Sea Limited",
+        "Bilibili Inc",
+        "Nexon Co., Ltd",
+        "Netmarble Corporation",
+        "NCsoft Corporation",
+        "KRAFTON, Inc",
+        "GungHo Online Entertainment, Inc",
+        "DeNA Co., Ltd",
+        "CyberAgent, Inc"
+      ],
+      "elapsed_time": 26.215412139892578,
+      "token_usage": {
+        "prompt_tokens": 464,
+        "completion_tokens": 2435,
+        "total_tokens": 2899
+      }
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.143040",
+      "ticker": "NTES",
+      "company_name": "NetEase, Inc",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to NetEase, Inc.\n\nYour task is to find the 10 MOST comparable companies to NetEase, Inc.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., \"Nike, Inc.\").\nEach company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\", \"Nike, Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.\n\nExample format: \"Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, separated by semicolons, nothing else.",
+      "raw_response": "Tencent Holdings Limited; Sea Limited; Bilibili Inc.; Huya Inc.; DouYu International Holdings Limited; NEXON Co., Ltd.; NCsoft Corporation; Netmarble Corporation; KRAFTON, Inc.; Roblox Corporation",
+      "parsed_company_names": [
+        "Tencent Holdings Limited",
+        "Sea Limited",
+        "Bilibili Inc",
+        "Huya Inc",
+        "DouYu International Holdings Limited",
+        "NEXON Co., Ltd",
+        "NCsoft Corporation",
+        "Netmarble Corporation",
+        "KRAFTON, Inc",
+        "Roblox Corporation"
+      ],
+      "elapsed_time": 22.425409078598022,
+      "token_usage": {
+        "prompt_tokens": 464,
+        "completion_tokens": 2104,
+        "total_tokens": 2568
+      }
     }
   ]
 }

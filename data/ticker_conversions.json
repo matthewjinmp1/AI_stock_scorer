@@ -177,6 +177,20 @@
         "completion_tokens": 564,
         "total_tokens": 816
       }
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.329886",
+      "company_name": "Tencent Holdings Limited",
+      "ticker": "TCEHY",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.147200",
+      "company_name": "Tencent Holdings Limited",
+      "ticker": "TCEHY",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Sea Limited": [
@@ -186,11 +200,39 @@
       "ticker": "SE",
       "is_public": true,
       "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.331411",
+      "company_name": "Sea Limited",
+      "ticker": "SE",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.148872",
+      "company_name": "Sea Limited",
+      "ticker": "SE",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Bilibili Inc": [
     {
       "timestamp": "2025-12-12T20:24:58.169184",
+      "company_name": "Bilibili Inc",
+      "ticker": "BILI",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.334821",
+      "company_name": "Bilibili Inc",
+      "ticker": "BILI",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.152228",
       "company_name": "Bilibili Inc",
       "ticker": "BILI",
       "is_public": true,
@@ -211,6 +253,13 @@
         "completion_tokens": 2302,
         "total_tokens": 2556
       }
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.338326",
+      "company_name": "Nexon Co., Ltd",
+      "ticker": "NEXOY",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Netmarble Corporation": [
@@ -227,6 +276,20 @@
         "completion_tokens": 1609,
         "total_tokens": 1861
       }
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.339693",
+      "company_name": "Netmarble Corporation",
+      "ticker": "NCX",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.160998",
+      "company_name": "Netmarble Corporation",
+      "ticker": "NCX",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "NCsoft Corporation": [
@@ -243,6 +306,20 @@
         "completion_tokens": 2172,
         "total_tokens": 2423
       }
+    },
+    {
+      "timestamp": "2025-12-12T20:34:02.340963",
+      "company_name": "NCsoft Corporation",
+      "ticker": "NCX1",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.159530",
+      "company_name": "NCsoft Corporation",
+      "ticker": "NCX1",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Krafton, Inc": [
@@ -284,6 +361,104 @@
       "timestamp": "2025-12-12T20:26:09.429742",
       "company_name": "Roblox Corporation",
       "ticker": "RBLX",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.163804",
+      "company_name": "Roblox Corporation",
+      "ticker": "RBLX",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "KRAFTON, Inc": [
+    {
+      "timestamp": "2025-12-12T20:34:02.342280",
+      "company_name": "KRAFTON, Inc",
+      "ticker": "KIX",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-12T20:37:37.162460",
+      "company_name": "KRAFTON, Inc",
+      "ticker": "KIX",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "GungHo Online Entertainment, Inc": [
+    {
+      "timestamp": "2025-12-12T20:34:09.707381",
+      "company_name": "GungHo Online Entertainment, Inc",
+      "ticker": "GOEI",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"GungHo Online Entertainment, Inc\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 255,
+        "completion_tokens": 770,
+        "total_tokens": 1025
+      }
+    }
+  ],
+  "DeNA Co., Ltd": [
+    {
+      "timestamp": "2025-12-12T20:34:18.869825",
+      "company_name": "DeNA Co., Ltd",
+      "ticker": "DCL",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"DeNA Co., Ltd\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 846,
+        "total_tokens": 1099
+      }
+    }
+  ],
+  "CyberAgent, Inc": [
+    {
+      "timestamp": "2025-12-12T20:34:29.305061",
+      "company_name": "CyberAgent, Inc",
+      "ticker": "CIX1",
+      "is_public": false,
+      "method": "ai_private",
+      "ai_response": "PRIVATE",
+      "prompt": "Given the company name \"CyberAgent, Inc\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 1110,
+        "total_tokens": 1362
+      }
+    }
+  ],
+  "Huya Inc": [
+    {
+      "timestamp": "2025-12-12T20:37:37.155511",
+      "company_name": "Huya Inc",
+      "ticker": "HUYA",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "DouYu International Holdings Limited": [
+    {
+      "timestamp": "2025-12-12T20:37:37.156752",
+      "company_name": "DouYu International Holdings Limited",
+      "ticker": "DOYU",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "NEXON Co., Ltd": [
+    {
+      "timestamp": "2025-12-12T20:37:37.158167",
+      "company_name": "NEXON Co., Ltd",
+      "ticker": "NEXOY",
       "is_public": true,
       "method": "exact_match"
     }
