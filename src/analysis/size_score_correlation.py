@@ -7,6 +7,12 @@ Uses binary search to find the weight of size_well_known_score that zeros out th
 
 import json
 import os
+import sys
+
+# Add project root to path to allow imports
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 # Score weights (copied from scorer.py to match exactly)
 SCORE_WEIGHTS = {
@@ -65,7 +71,7 @@ def load_excluded_tickers():
     Returns:
         set: Set of ticker symbols (uppercase) to exclude
     """
-    ticker_def_file = "data/ticker_definitions.json"
+    ticker_def_file = os.path.join(project_root, "data", "ticker_definitions.json")
     if not os.path.exists(ticker_def_file):
         return set()
     
@@ -155,7 +161,8 @@ def calculate_pearson_correlation(x, y):
 
 def load_scores():
     """Load scores from scores.json."""
-    scores_file = "data/scores.json"
+    # Get path relative to project root
+    scores_file = os.path.join(project_root, "data", "scores.json")
     if not os.path.exists(scores_file):
         print(f"Error: {scores_file} not found")
         return None
