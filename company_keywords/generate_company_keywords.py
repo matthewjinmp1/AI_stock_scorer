@@ -619,7 +619,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
     print()
 
 
-def run_all_tickers(ticker_lookup, max_workers=5):
+def run_all_tickers(ticker_lookup, max_workers=20):
     """Generate keywords for all tickers that have been scored (from scores.json)."""
     cached_data = load_cached_keywords()
     cached_tickers = set(cached_data.get("companies", {}).keys())
