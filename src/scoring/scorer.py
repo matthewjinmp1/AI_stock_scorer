@@ -64,6 +64,42 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # Get project root directory (two levels up from this file: src/scoring/scorer.py -> project root)
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
+# =============================================================================
+# API CONFIGURATION - Change these to switch between Grok API and OpenRouter
+# =============================================================================
+
+# Set to True to use Grok API directly, False to use OpenRouter
+USE_GROK_API = True
+
+# Model to use for all API calls
+# For Grok API: "grok-4-1-fast-reasoning", "grok-3-fast", "grok-3"
+# For OpenRouter: "x-ai/grok-4-1-fast-reasoning", etc.
+DEFAULT_MODEL = "grok-4-1-fast-reasoning"
+
+def get_api_client():
+    """Get the configured API client (Grok or OpenRouter).
+    
+    Returns:
+        API client instance (GrokClient or OpenRouterClient)
+    """
+    if USE_GROK_API:
+        return GrokClient(api_key=XAI_API_KEY)
+    else:
+        return OpenRouterClient(api_key=OPENROUTER_KEY)
+
+def get_model_for_ticker(ticker):
+    """Get the model name to use for a given ticker.
+    
+    Args:
+        ticker: Ticker symbol (uppercase)
+        
+    Returns:
+        str: Model name configured in DEFAULT_MODEL
+    """
+    return DEFAULT_MODEL
+
+# =============================================================================
+
 # JSON file to store moat scores (paths relative to project root)
 SCORES_FILE = os.path.join(PROJECT_ROOT, "data", "scores.json")
 HEAVY_SCORES_FILE = os.path.join(PROJECT_ROOT, "data", "scores_heavy.json")
@@ -79,18 +115,6 @@ PEER_RESPONSES_FILE = os.path.join(PROJECT_ROOT, "data", "peer_responses.json")
 
 # Ticker conversions file
 TICKER_CONVERSIONS_FILE = os.path.join(PROJECT_ROOT, "data", "ticker_conversions.json")
-
-def get_model_for_ticker(ticker):
-    """Get the model name to use for a given ticker.
-    
-    Args:
-        ticker: Ticker symbol (uppercase)
-        
-    Returns:
-        str: Model name to use (always grok-4-1-fast-reasoning)
-    """
-    # All tickers now use grok-4-1-fast-reasoning
-    return "grok-4-1-fast-reasoning"
 
 # Model pricing per 1M tokens (update these based on current Grok API pricing)
 # Format: (input_cost_per_1M_tokens, output_cost_per_1M_tokens, cached_input_cost_per_1M_tokens) in USD
@@ -1338,7 +1362,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
                 print(f"\nFilling missing scores for {ticker.upper()} ({company_name})...")
                 if not batch_mode:
                     print("Querying missing metrics in parallel...")
-            grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+            grok = get_api_client()
             
             # Get list of missing score keys
             missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
@@ -1394,7 +1418,7 @@ def score_single_ticker(input_str, silent=False, batch_mode=False, force_rescore
             print(f"\nAnalyzing {ticker.upper()} ({company_name})...")
             if not batch_mode:
                 print("Querying all metrics in parallel...")
-        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        grok = get_api_client()
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()), 
@@ -1700,7 +1724,7 @@ def get_company_moat_score(input_str):
                 print(f"{'Total':<35} {total_str:>8}")
                 return
             
-            grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+            grok = get_api_client()
             
             # Get list of missing score keys
             missing_keys = [key for key in SCORE_DEFINITIONS if not current_scores[key]]
@@ -1739,7 +1763,7 @@ def get_company_moat_score(input_str):
         else:
             print(f"\nAnalyzing {company_name}...")
         print("Querying all metrics in parallel...")
-        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        grok = get_api_client()
         
         # Query all scores in parallel
         all_scores, total_tokens, token_usage, model_used = query_all_scores_async(grok, company_name, list(SCORE_DEFINITIONS.keys()),
@@ -2074,7 +2098,7 @@ def fill_missing_barriers_scores():
     Processes companies in batches of 20 using async."""
     try:
         scores_data = load_scores()
-        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        grok = get_api_client()
         
         companies_to_score = []
         for company_name, data in scores_data["companies"].items():
@@ -3100,9 +3124,9 @@ Example format: "Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amaz
 Return exactly 10 complete company names in ranked order, separated by semicolons, nothing else."""
 
     try:
-        # Use Grok API directly instead of OpenRouter
-        grok = GrokClient(api_key=XAI_API_KEY)
-        model = "grok-4-1-fast-reasoning"  # Fast reasoning model
+        # Use configured API client (Grok or OpenRouter)
+        grok = get_api_client()
+        model = get_model_for_ticker(ticker)
         
         # Track time
         start_time = time.time()
@@ -3306,7 +3330,7 @@ If it is a private company or not publicly traded, return ONLY the word "PRIVATE
 Do not include any explanations, company names, or other text - just the ticker symbol or the word "PRIVATE"."""
 
     try:
-        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
+        grok = get_api_client()
         model = get_model_for_ticker("AAPL")  # Use default model
         
         response, token_usage = grok.simple_query_with_tokens(prompt, model=model)

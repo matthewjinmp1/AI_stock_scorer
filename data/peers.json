@@ -93,5 +93,29 @@
     "NCX",
     "KIX",
     "RBLX"
+  ],
+  "AAPL": [
+    "SAM",
+    "GOOG",
+    "MSFT",
+    "AMZN",
+    "SONY",
+    "META",
+    "DELL",
+    "HPQ",
+    "LGL1",
+    "QCOM"
+  ],
+  "DNP": [
+    "JMSS",
+    "ESX",
+    "BBMA",
+    "EFCN",
+    "TPX",
+    "CSX1",
+    "PHG",
+    "JSP",
+    "KOX",
+    "IGA1"
   ]
 }

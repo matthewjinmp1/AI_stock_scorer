@@ -470,6 +470,13 @@
       "ticker": "META",
       "is_public": true,
       "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-14T11:47:00.066520",
+      "company_name": "Meta Platforms, Inc",
+      "ticker": "META",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Amazon.com, Inc": [
@@ -479,11 +486,25 @@
       "ticker": "AMZN",
       "is_public": true,
       "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-14T11:47:00.057035",
+      "company_name": "Amazon.com, Inc",
+      "ticker": "AMZN",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Microsoft Corporation": [
     {
       "timestamp": "2025-12-12T20:42:39.726144",
+      "company_name": "Microsoft Corporation",
+      "ticker": "MSFT",
+      "is_public": true,
+      "method": "exact_match"
+    },
+    {
+      "timestamp": "2025-12-14T11:47:00.052864",
       "company_name": "Microsoft Corporation",
       "ticker": "MSFT",
       "is_public": true,
@@ -780,6 +801,159 @@
         "completion_tokens": 1643,
         "total_tokens": 1894
       }
+    }
+  ],
+  "Samsung Electronics Co., Ltd": [
+    {
+      "timestamp": "2025-12-14T11:47:00.044130",
+      "company_name": "Samsung Electronics Co., Ltd",
+      "ticker": "SAM",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Alphabet Inc": [
+    {
+      "timestamp": "2025-12-14T11:47:00.048821",
+      "company_name": "Alphabet Inc",
+      "ticker": "GOOG",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Sony Group Corporation": [
+    {
+      "timestamp": "2025-12-14T11:47:00.061763",
+      "company_name": "Sony Group Corporation",
+      "ticker": "SONY",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Dell Technologies Inc": [
+    {
+      "timestamp": "2025-12-14T11:47:00.070616",
+      "company_name": "Dell Technologies Inc",
+      "ticker": "DELL",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "HP Inc": [
+    {
+      "timestamp": "2025-12-14T11:47:00.074626",
+      "company_name": "HP Inc",
+      "ticker": "HPQ",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Lenovo Group Limited": [
+    {
+      "timestamp": "2025-12-14T11:47:00.492489",
+      "company_name": "Lenovo Group Limited",
+      "ticker": "LGL1",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Qualcomm Incorporated": [
+    {
+      "timestamp": "2025-12-14T11:47:00.500948",
+      "company_name": "Qualcomm Incorporated",
+      "ticker": "QCOM",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Jer\u00f3nimo Martins, SGPS, S.A": [
+    {
+      "timestamp": "2025-12-14T11:50:44.166604",
+      "company_name": "Jer\u00f3nimo Martins, SGPS, S.A",
+      "ticker": "JMSS",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Eurocash S.A": [
+    {
+      "timestamp": "2025-12-14T11:50:44.588033",
+      "company_name": "Eurocash S.A",
+      "ticker": "ESX",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "BIM Birlesik Magazalar A.S": [
+    {
+      "timestamp": "2025-12-14T11:50:45.085395",
+      "company_name": "BIM Birlesik Magazalar A.S",
+      "ticker": "BBMA",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Etablissements Franz Colruyt NV": [
+    {
+      "timestamp": "2025-12-14T11:50:45.486511",
+      "company_name": "Etablissements Franz Colruyt NV",
+      "ticker": "EFCN",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Tesco PLC": [
+    {
+      "timestamp": "2025-12-14T11:50:45.871645",
+      "company_name": "Tesco PLC",
+      "ticker": "TPX",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Carrefour SA": [
+    {
+      "timestamp": "2025-12-14T11:50:46.293767",
+      "company_name": "Carrefour SA",
+      "ticker": "CSX1",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Koninklijke Ahold Delhaize N.V": [
+    {
+      "timestamp": "2025-12-14T11:50:46.307079",
+      "company_name": "Koninklijke Ahold Delhaize N.V",
+      "ticker": "PHG",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "J Sainsbury plc": [
+    {
+      "timestamp": "2025-12-14T11:50:46.690021",
+      "company_name": "J Sainsbury plc",
+      "ticker": "JSP",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "Kesko Oyj": [
+    {
+      "timestamp": "2025-12-14T11:50:47.050296",
+      "company_name": "Kesko Oyj",
+      "ticker": "KOX",
+      "is_public": false,
+      "method": "exception_fallback"
+    }
+  ],
+  "ICA Gruppen AB": [
+    {
+      "timestamp": "2025-12-14T11:50:47.491801",
+      "company_name": "ICA Gruppen AB",
+      "ticker": "IGA1",
+      "is_public": false,
+      "method": "exception_fallback"
     }
   ]
 }

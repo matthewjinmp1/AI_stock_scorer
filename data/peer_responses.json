@@ -268,5 +268,65 @@
         "total_tokens": 2260
       }
     }
+  ],
+  "AAPL": [
+    {
+      "timestamp": "2025-12-14T11:47:00.034175",
+      "ticker": "AAPL",
+      "company_name": "Apple Inc",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to Apple Inc.\n\nYour task is to find the 10 MOST comparable companies to Apple Inc.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., \"Nike, Inc.\").\nEach company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\", \"Nike, Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.\n\nExample format: \"Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, separated by semicolons, nothing else.",
+      "raw_response": "Samsung Electronics Co., Ltd.; Alphabet Inc.; Microsoft Corporation; Amazon.com, Inc.; Sony Group Corporation; Meta Platforms, Inc.; Dell Technologies Inc.; HP Inc.; Lenovo Group Limited; Qualcomm Incorporated",
+      "parsed_company_names": [
+        "Samsung Electronics Co., Ltd",
+        "Alphabet Inc",
+        "Microsoft Corporation",
+        "Amazon.com, Inc",
+        "Sony Group Corporation",
+        "Meta Platforms, Inc",
+        "Dell Technologies Inc",
+        "HP Inc",
+        "Lenovo Group Limited",
+        "Qualcomm Incorporated"
+      ],
+      "elapsed_time": 44.8115553855896,
+      "token_usage": {
+        "prompt_tokens": 460,
+        "completion_tokens": 3603,
+        "total_tokens": 4063,
+        "thinking_tokens": 3564,
+        "output_tokens": 3603
+      }
+    }
+  ],
+  "DNP": [
+    {
+      "timestamp": "2025-12-14T11:50:43.703684",
+      "ticker": "DNP",
+      "company_name": "Dino Polska",
+      "model": "grok-4-1-fast-reasoning",
+      "prompt": "You are analyzing companies to find the 10 most comparable companies to Dino Polska.\n\nYour task is to find the 10 MOST comparable companies to Dino Polska.\n\nConsider factors such as:\n1. Industry and market segment similarity (MUST be in same or very similar industry)\n2. Business model similarity\n3. Product/service similarity\n4. Market overlap and customer base similarity\n5. Competitive dynamics (direct competitors)\n6. Company size and scale (if relevant)\n\nReturn ONLY a semicolon-separated list of exactly 10 FULL company names, starting with the most comparable company first.\nCRITICAL: Use semicolons (;) to separate company names, NOT commas, because company names often contain commas (e.g., \"Nike, Inc.\").\nEach company name must be complete (e.g., \"Microsoft Corporation\", \"Alphabet Inc.\", \"Meta Platforms Inc.\", \"Nike, Inc.\").\nDO NOT return partial names, suffixes alone (like \"Inc\" or \"Corporation\"), or abbreviations.\nEach name should be the full legal company name or commonly used full name.\nDo not include explanations, ticker symbols, ranking numbers, or any other text - just the 10 complete company names separated by semicolons in order from most to least comparable.\n\nExample format: \"Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amazon.com Inc.; NVIDIA Corporation; Intel Corporation; Advanced Micro Devices Inc.; Salesforce Inc.; Oracle Corporation; Adobe Inc.\"\n\nReturn exactly 10 complete company names in ranked order, separated by semicolons, nothing else.",
+      "raw_response": "Jer\u00f3nimo Martins, SGPS, S.A.; Eurocash S.A.; BIM Birlesik Magazalar A.S.; Etablissements Franz Colruyt NV; Tesco PLC; Carrefour SA; Koninklijke Ahold Delhaize N.V.; J Sainsbury plc; Kesko Oyj; ICA Gruppen AB",
+      "parsed_company_names": [
+        "Jer\u00f3nimo Martins, SGPS, S.A",
+        "Eurocash S.A",
+        "BIM Birlesik Magazalar A.S",
+        "Etablissements Franz Colruyt NV",
+        "Tesco PLC",
+        "Carrefour SA",
+        "Koninklijke Ahold Delhaize N.V",
+        "J Sainsbury plc",
+        "Kesko Oyj",
+        "ICA Gruppen AB"
+      ],
+      "elapsed_time": 52.997215270996094,
+      "token_usage": {
+        "prompt_tokens": 460,
+        "completion_tokens": 3540,
+        "total_tokens": 4000,
+        "thinking_tokens": 3474,
+        "output_tokens": 3540
+      }
+    }
   ]
 }
