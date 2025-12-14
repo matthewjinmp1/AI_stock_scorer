@@ -236,7 +236,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
         
         print()
         print("=" * 80)
-        print("(Use '!refresh <ticker>' to regenerate keywords)")
+        print("(Use 'redo <ticker>' to regenerate keywords)")
         
         # Print comma-separated version for easy copying
         print("\n" + "=" * 80)
@@ -334,9 +334,9 @@ def main():
     print("Uses Grok 4.1 Fast via OpenRouter")
     print("=" * 80)
     print("Commands:")
-    print("  <ticker>           - Get keywords (uses cache if available)")
-    print("  !refresh <ticker>  - Force regenerate keywords")
-    print("  quit/exit          - Exit the program")
+    print("  <ticker>        - Get keywords (uses cache if available)")
+    print("  redo <ticker>   - Force regenerate keywords")
+    print("  quit/exit       - Exit the program")
     print()
     
     if not OPENROUTER_AVAILABLE:
@@ -354,9 +354,9 @@ def main():
     # Process command line argument first if provided
     if len(sys.argv) > 1:
         input_str = " ".join(sys.argv[1:])
-        force_refresh = input_str.startswith('!refresh ')
+        force_refresh = input_str.lower().startswith('redo ')
         if force_refresh:
-            input_str = input_str[9:].strip()
+            input_str = input_str[5:].strip()
         try:
             process_ticker(input_str, ticker_lookup, force_refresh=force_refresh)
         except Exception as e:
@@ -377,10 +377,10 @@ def main():
                 print("Goodbye!")
                 break
             
-            # Check for !refresh command
-            force_refresh = input_str.lower().startswith('!refresh ')
+            # Check for redo command
+            force_refresh = input_str.lower().startswith('redo ')
             if force_refresh:
-                input_str = input_str[9:].strip()
+                input_str = input_str[5:].strip()
             
             process_ticker(input_str, ticker_lookup, force_refresh=force_refresh)
             
