@@ -615,6 +615,128 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
     print()
 
 
+def run_all_tickers(ticker_lookup, max_workers=5):
+    """Generate keywords for all tickers in the scorer's ticker lookup (skips cached)."""
+    cached_data = load_cached_keywords()
+    cached_tickers = set(cached_data.get("companies", {}).keys())
+    
+    # Get all tickers from scorer
+    all_tickers = list(ticker_lookup.keys())
+    
+    # Find tickers that need keywords generated
+    tickers_to_process = [t for t in all_tickers if t not in cached_tickers]
+    
+    if len(tickers_to_process) == 0:
+        print(f"\nAll {len(all_tickers)} tickers already have cached keywords.")
+        print(f"Use 'redoall' to regenerate existing ones.")
+        return
+    
+    print()
+    print("=" * 80)
+    print(f"Generating keywords for {len(tickers_to_process)} new tickers ({max_workers} threads)")
+    print(f"(Skipping {len(cached_tickers)} already cached)")
+    print(f"(Total in scorer: {len(all_tickers)})")
+    print("=" * 80)
+    print()
+    
+    # Thread-safe counters and lock
+    results_lock = threading.Lock()
+    results = []
+    completed_count = [0]
+    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(script_dir, "keywords.json")
+    
+    def process_single_ticker(ticker):
+        """Process a single ticker in a thread."""
+        try:
+            company_name = ticker_lookup.get(ticker, ticker)
+            
+            # Generate new keywords (API call)
+            keywords, token_usage = generate_company_keywords(company_name, ticker)
+            
+            # Calculate cost
+            cost = calculate_grok_cost(token_usage, model="grok-4-1-fast-reasoning")
+            cost_cents = cost * 100
+            
+            return {
+                "ticker": ticker,
+                "company_name": company_name,
+                "keywords": keywords,
+                "token_usage": token_usage,
+                "cost": cost,
+                "cost_cents": cost_cents,
+                "success": True,
+                "error": None
+            }
+        except Exception as e:
+            return {
+                "ticker": ticker,
+                "success": False,
+                "error": str(e)
+            }
+    
+    # Run in parallel using ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_ticker = {executor.submit(process_single_ticker, ticker): ticker for ticker in tickers_to_process}
+        
+        for future in as_completed(future_to_ticker):
+            result = future.result()
+            ticker = result["ticker"]
+            
+            with results_lock:
+                completed_count[0] += 1
+                count = completed_count[0]
+                
+                if result["success"]:
+                    print(f"[{count}/{len(tickers_to_process)}] ✓ {ticker}: {len(result['keywords'])} keywords, {result['cost_cents']:.4f} cents")
+                    results.append(result)
+                else:
+                    print(f"[{count}/{len(tickers_to_process)}] ✗ {ticker}: {result['error']}")
+    
+    # Save all results to file at once
+    print()
+    print("Saving results...")
+    
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            all_data = json.load(f)
+    else:
+        all_data = {"companies": {}}
+    
+    for result in results:
+        all_data["companies"][result["ticker"]] = {
+            "company_name": result["company_name"],
+            "ticker": result["ticker"],
+            "keywords": result["keywords"],
+            "count": len(result["keywords"]),
+            "token_usage": result["token_usage"],
+            "cost": {
+                "dollars": result["cost"],
+                "cents": result["cost_cents"]
+            },
+            "model": "grok-4-1-fast-reasoning"
+        }
+    
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(all_data, f, indent=2, ensure_ascii=False)
+    
+    # Summary
+    total_cost = sum(r["cost_cents"] for r in results)
+    success_count = len(results)
+    fail_count = len(tickers_to_process) - success_count
+    
+    print()
+    print("=" * 80)
+    print(f"Completed: {success_count}/{len(tickers_to_process)} new tickers")
+    if fail_count > 0:
+        print(f"Failed: {fail_count}")
+    print(f"Total cost: {total_cost:.4f} cents")
+    print(f"Total cached: {len(all_data['companies'])}")
+    print("=" * 80)
+    print()
+
+
 def process_ticker(input_str, ticker_lookup, force_refresh=False):
     """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
@@ -752,6 +874,7 @@ def main():
     print("  <ticker>              - Get keywords (uses cache if available)")
     print("  redo <ticker>         - Force regenerate keywords")
     print("  redoall               - Regenerate keywords for all cached tickers")
+    print("  runall                - Generate keywords for all scorer tickers (skips cached)")
     print("  compare <ticker>      - Compare ticker against all others")
     print("  compare <t1> <t2>     - Compare keywords between two tickers")
     print("  all                   - Compare all pairs and rank by match %")
@@ -804,6 +927,11 @@ def main():
             # Check for redoall command
             if input_str.lower() == 'redoall':
                 redo_all_tickers(ticker_lookup)
+                continue
+            
+            # Check for runall command
+            if input_str.lower() == 'runall':
+                run_all_tickers(ticker_lookup)
                 continue
             
             # Check for compare command
