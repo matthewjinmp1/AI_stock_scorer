@@ -260,6 +260,80 @@ def compare_tickers(ticker1, ticker2, ticker_lookup):
     print()
 
 
+def compare_all_tickers():
+    """Compare all pairs of cached tickers and rank by match percentage."""
+    cached_data = load_cached_keywords()
+    companies = cached_data.get("companies", {})
+    
+    tickers = list(companies.keys())
+    
+    if len(tickers) < 2:
+        print("Error: Need at least 2 tickers in cache to compare.")
+        return
+    
+    print()
+    print("=" * 80)
+    print(f"Comparing all {len(tickers)} tickers ({len(tickers) * (len(tickers) - 1) // 2} pairs)")
+    print("=" * 80)
+    print()
+    
+    # Calculate all pair comparisons
+    comparisons = []
+    
+    for i in range(len(tickers)):
+        for j in range(i + 1, len(tickers)):
+            key1 = tickers[i]
+            key2 = tickers[j]
+            
+            data1 = companies[key1]
+            data2 = companies[key2]
+            keywords1 = data1.get("keywords", [])
+            keywords2 = data2.get("keywords", [])
+            name1 = data1.get("company_name", key1)
+            name2 = data2.get("company_name", key2)
+            
+            # Normalize keywords for comparison (lowercase)
+            keywords1_lower = set(k.lower() for k in keywords1)
+            keywords2_lower = set(k.lower() for k in keywords2)
+            
+            # Find matches
+            matches = keywords1_lower & keywords2_lower
+            
+            # Calculate percentage using the smaller count as base
+            base_count = min(len(keywords1), len(keywords2))
+            if base_count == 0:
+                match_percent = 0.0
+            else:
+                match_percent = (len(matches) / base_count) * 100
+            
+            comparisons.append({
+                'ticker1': key1,
+                'ticker2': key2,
+                'name1': name1,
+                'name2': name2,
+                'matches': len(matches),
+                'base': base_count,
+                'percent': match_percent
+            })
+    
+    # Sort by match percentage (descending)
+    comparisons.sort(key=lambda x: x['percent'], reverse=True)
+    
+    # Display results
+    print(f"{'Rank':<6} {'Ticker 1':<10} {'Ticker 2':<10} {'Match %':<10} {'Matches':<10}")
+    print("-" * 80)
+    
+    for rank, comp in enumerate(comparisons, 1):
+        print(f"{rank:<6} {comp['ticker1']:<10} {comp['ticker2']:<10} {comp['percent']:.1f}%{'':<5} {comp['matches']}/{comp['base']}")
+    
+    print()
+    print(f"Total comparisons: {len(comparisons)}")
+    if comparisons:
+        avg_match = sum(c['percent'] for c in comparisons) / len(comparisons)
+        print(f"Average match: {avg_match:.1f}%")
+    print()
+
+
 def process_ticker(input_str, ticker_lookup, force_refresh=False):
     """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
@@ -396,6 +470,7 @@ def main():
     print("  <ticker>              - Get keywords (uses cache if available)")
     print("  redo <ticker>         - Force regenerate keywords")
     print("  compare <t1> <t2>     - Compare keywords between two tickers")
+    print("  all                   - Compare all pairs and rank by match %")
     print("  exit                  - Exit the program")
     print()
     
@@ -436,6 +511,11 @@ def main():
             if input_str.lower() == 'exit':
                 print("Goodbye!")
                 break
+            
+            # Check for all command
+            if input_str.lower() == 'all':
+                compare_all_tickers()
+                continue
             
             # Check for compare command
             if input_str.lower().startswith('compare '):
