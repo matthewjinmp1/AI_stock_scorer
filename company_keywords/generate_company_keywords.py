@@ -508,6 +508,8 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
         print("Error: No tickers in cache to regenerate.")
         return
     
+    start_time = time.time()
+    
     print()
     print("=" * 80)
     print(f"Regenerating keywords for {len(tickers)} tickers ({max_workers} threads)")
@@ -604,6 +606,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
     total_cost = sum(r["cost_cents"] for r in results)
     success_count = len(results)
     fail_count = len(tickers) - success_count
+    elapsed_time = time.time() - start_time
     
     print()
     print("=" * 80)
@@ -611,6 +614,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
     if fail_count > 0:
         print(f"Failed: {fail_count}")
     print(f"Total cost: {total_cost:.4f} cents")
+    print(f"Total time: {elapsed_time:.1f}s")
     print("=" * 80)
     print()
 
@@ -630,6 +634,8 @@ def run_all_tickers(ticker_lookup, max_workers=5):
         print(f"\nAll {len(all_tickers)} tickers already have cached keywords.")
         print(f"Use 'redoall' to regenerate existing ones.")
         return
+    
+    start_time = time.time()
     
     print()
     print("=" * 80)
@@ -725,6 +731,7 @@ def run_all_tickers(ticker_lookup, max_workers=5):
     total_cost = sum(r["cost_cents"] for r in results)
     success_count = len(results)
     fail_count = len(tickers_to_process) - success_count
+    elapsed_time = time.time() - start_time
     
     print()
     print("=" * 80)
@@ -732,6 +739,7 @@ def run_all_tickers(ticker_lookup, max_workers=5):
     if fail_count > 0:
         print(f"Failed: {fail_count}")
     print(f"Total cost: {total_cost:.4f} cents")
+    print(f"Total time: {elapsed_time:.1f}s")
     print(f"Total cached: {len(all_data['companies'])}")
     print("=" * 80)
     print()
