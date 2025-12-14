@@ -263,19 +263,26 @@ def main():
         print("Cost:")
         print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
         
-        # Automatically save to JSON file in the same directory as the script
+        # Automatically save to single JSON file in the same directory as the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        safe_company_name = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
-        safe_company_name = ''.join(c for c in safe_company_name if c.isalnum() or c in ('_', '-'))
-        if ticker:
-            filename = f"keywords_{ticker}_{safe_company_name}.json"
+        filepath = os.path.join(script_dir, "keywords.json")
+        
+        # Load existing data or create new structure
+        if os.path.exists(filepath):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                all_data = json.load(f)
         else:
-            filename = f"keywords_{safe_company_name}.json"
+            all_data = {"companies": {}}
         
-        filepath = os.path.join(script_dir, filename)
+        # Use ticker as key if available, otherwise use sanitized company name
+        if ticker:
+            key = ticker
+        else:
+            key = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
+            key = ''.join(c for c in key if c.isalnum() or c in ('_', '-'))
         
-        # Create data structure with metadata
-        output_data = {
+        # Add/update the company's keywords
+        all_data["companies"][key] = {
             "company_name": company_name,
             "ticker": ticker,
             "keywords": keywords,
@@ -288,10 +295,12 @@ def main():
             "model": "grok-4-1-fast-reasoning"
         }
         
+        # Save back to file
         with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(output_data, f, indent=2, ensure_ascii=False)
+            json.dump(all_data, f, indent=2, ensure_ascii=False)
         
-        print(f"\n✓ Saved {len(keywords)} keywords to {filepath}")
+        print(f"\n✓ Saved {len(keywords)} keywords for {key} to {filepath}")
+        print(f"  Total companies in file: {len(all_data['companies'])}")
         
         # Also print comma-separated version for easy copying
         print("\n" + "=" * 80)
