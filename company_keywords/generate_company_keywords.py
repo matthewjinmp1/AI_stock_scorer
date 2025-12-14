@@ -60,37 +60,31 @@ def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -
     
     # Create prompt
     ticker_context = f" (stock ticker: {ticker})" if ticker else ""
-    prompt = f"""Generate exactly 100 general keywords and phrases that describe what {company_name}{ticker_context} does.
+    prompt = f"""List exactly 100 industries and sectors that {company_name}{ticker_context} operates in or is related to.
 
-IMPORTANT: These must be GENERAL business keywords/phrases, NOT company-specific product names or brand names.
-- Use generic terms like "Email Services" NOT "Gmail"
-- Use "Navigation Services" or "Maps" NOT "Google Maps"
-- Use "Mobile Operating System" NOT "Android Operating System"
-- Use "Video Platform" or "Video Streaming" NOT "YouTube Platform"
-- Use "Productivity Suite" NOT "Google Workspace"
-- Use "Cloud Platform" NOT "Google Cloud Platform"
-- Use "Cloud Storage" NOT "Google Drive"
+Focus on:
+- Primary industries the company operates in (e.g., "Semiconductors", "Software", "Retail")
+- Sub-sectors and niches (e.g., "Cloud Computing", "Artificial Intelligence", "E-commerce")
+- Adjacent industries they serve or partner with (e.g., "Automotive", "Healthcare", "Finance")
+- Technology sectors (e.g., "Data Analytics", "Cybersecurity", "Internet of Things")
+- Market segments (e.g., "Enterprise Software", "Consumer Electronics", "B2B Services")
+- Business categories (e.g., "SaaS", "Digital Advertising", "Payment Processing")
 
-These should be general keywords/phrases about the company's business, products, services, industry, and operations.
-Include:
-- Industry sectors (e.g., "Information Technology", "Software", "Cloud Computing")
-- Product categories (e.g., "Search Engine", "Web Browser", "Operating System")
-- Services offered (e.g., "Cloud Services", "Advertising", "E-commerce")
-- Technologies used (e.g., "Artificial Intelligence", "Machine Learning", "Data Analytics")
-- Business models (e.g., "SaaS", "B2B", "Consumer Products")
-- Market segments (e.g., "Enterprise Software", "Consumer Electronics")
-- And any other relevant keywords that describe the company's activities
+IMPORTANT: Use GENERIC industry/sector terms only.
+- Say "Email Services" NOT "Gmail"
+- Say "Cloud Computing" NOT "Google Cloud"
+- Say "Search Engine" NOT "Google Search"
+- Say "Streaming Video" NOT "YouTube"
 
 DO NOT include:
-- Company-specific product names (e.g., "Gmail", "Google Maps", "Android")
-- Brand names or proprietary terms
-- Company-specific service names
+- Company-specific product names or brand names
+- Proprietary terms or trademarks
+- Individual product names
 
-Return ONLY a comma-separated list of exactly 100 general keywords/phrases. Do not include numbers, bullets, or any other formatting.
-Just the keywords separated by commas.
+Return ONLY a comma-separated list of exactly 100 industries/sectors. No numbers, bullets, or formatting.
 
-Example format:
-Search, Cloud Computing, Artificial Intelligence, Information Technology, Software, Web Services, Advertising, Data Analytics, Machine Learning, Mobile Apps, Operating Systems, Enterprise Software, Consumer Products, E-commerce, Digital Services, Internet Services, Cloud Storage, Email Services, Maps, Video Streaming, Productivity Software, Developer Tools, Cloud Infrastructure, AI Research, Search Engine, Web Browser, Mobile Operating System, Cloud Platform, Digital Advertising, Analytics, Software Development, Cloud Services, Data Centers, Network Infrastructure, Information Retrieval, Natural Language Processing, Computer Vision, Autonomous Vehicles, Smart Home, IoT, Wearables, Health Technology, Financial Services, Payment Processing, Cloud Security, Enterprise Solutions, Collaboration Tools, Communication Platforms, Content Delivery, Media Services, Entertainment, Gaming, Social Media, Messaging, Video Conferencing, Project Management, Customer Relationship Management, Supply Chain Management, Human Resources, Accounting Software, Business Intelligence, Data Warehousing, Database Management, Server Infrastructure, Virtualization, Containerization, DevOps Tools, API Management, Integration Platforms, Workflow Automation, Document Management, File Sharing, Backup Solutions, Disaster Recovery, Network Security, Identity Management, Access Control, Compliance, Regulatory Technology, Risk Management, Fraud Detection, Cybersecurity, Threat Intelligence, Incident Response, Security Operations, Vulnerability Assessment, Penetration Testing, Security Consulting, Managed Security Services, Cloud Migration, Digital Transformation, IT Consulting, System Integration, Application Development, Custom Software, Software Maintenance, Technical Support, Training Services, Professional Services, Outsourcing, Managed Services, Infrastructure as a Service, Platform as a Service, Software as a Service"""
+Example output format:
+Information Technology, Software, Cloud Computing, Artificial Intelligence, Digital Advertising, Search Engine, Internet Services, Data Analytics, Machine Learning, Mobile Operating Systems, Web Browser, Enterprise Software, Consumer Electronics, E-commerce, Video Streaming, Email Services, Productivity Software, Cybersecurity, Data Centers, Autonomous Vehicles"""
 
     print(f"Querying Grok 4.1 Fast to generate keywords for {company_name}...")
     
@@ -99,7 +93,7 @@ Search, Cloud Computing, Artificial Intelligence, Information Technology, Softwa
         messages=[
             {
                 "role": "system",
-                "content": "You are a helpful assistant that generates comprehensive keyword lists about companies. Always use GENERAL business terms, NOT company-specific product names or brand names. For example, use 'Email Services' not 'Gmail', 'Navigation Services' not 'Google Maps', 'Mobile Operating System' not 'Android'. Always return exactly the requested number of keywords in a clean, comma-separated format."
+                "content": "You are a financial analyst that identifies industries and sectors companies operate in. Always use GENERIC industry/sector terms, NOT company-specific product names or brands. For example, use 'Email Services' not 'Gmail', 'Cloud Computing' not 'Google Cloud'. Return exactly the requested number of industries/sectors in a clean, comma-separated format."
             },
             {
                 "role": "user",
