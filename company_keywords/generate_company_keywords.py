@@ -482,12 +482,29 @@ def compare_all_tickers():
     # Sort by weighted percentage (descending)
     comparisons.sort(key=lambda x: x['percent'], reverse=True)
     
-    # Display results
+    # Display top 100 and bottom 100
     print(f"{'Rank':<6} {'Ticker 1':<10} {'Ticker 2':<10} {'Match %':<10} {'Matches':<10}")
     print("-" * 80)
     
-    for rank, comp in enumerate(comparisons, 1):
+    # Top 100
+    print("TOP 100 MATCHES:")
+    for rank, comp in enumerate(comparisons[:100], 1):
         print(f"{rank:<6} {comp['ticker1']:<10} {comp['ticker2']:<10} {comp['percent']:.1f}%{'':<5} {comp['matches']}")
+    
+    if len(comparisons) > 200:
+        print()
+        print(f"... {len(comparisons) - 200} more comparisons ...")
+        print()
+    
+    # Bottom 100
+    if len(comparisons) > 100:
+        print("-" * 80)
+        print("BOTTOM 100 MATCHES:")
+        bottom_100 = comparisons[-100:]
+        start_rank = len(comparisons) - 99
+        for i, comp in enumerate(bottom_100):
+            rank = start_rank + i
+            print(f"{rank:<6} {comp['ticker1']:<10} {comp['ticker2']:<10} {comp['percent']:.1f}%{'':<5} {comp['matches']}")
     
     print()
     print(f"Total comparisons: {len(comparisons)}")
