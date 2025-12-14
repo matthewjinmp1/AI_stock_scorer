@@ -665,6 +665,7 @@ def run_all_tickers(ticker_lookup, max_workers=20):
     def process_single_ticker(ticker):
         """Process a single ticker in a thread."""
         try:
+            ticker_start = time.time()
             company_name = ticker_lookup.get(ticker, ticker)
             
             # Generate new keywords (API call)
@@ -673,6 +674,7 @@ def run_all_tickers(ticker_lookup, max_workers=20):
             # Calculate cost
             cost = calculate_grok_cost(token_usage, model="grok-4-1-fast-reasoning")
             cost_cents = cost * 100
+            elapsed = time.time() - ticker_start
             
             return {
                 "ticker": ticker,
@@ -681,6 +683,7 @@ def run_all_tickers(ticker_lookup, max_workers=20):
                 "token_usage": token_usage,
                 "cost": cost,
                 "cost_cents": cost_cents,
+                "elapsed": elapsed,
                 "success": True,
                 "error": None
             }
@@ -704,7 +707,7 @@ def run_all_tickers(ticker_lookup, max_workers=20):
                 count = completed_count[0]
                 
                 if result["success"]:
-                    print(f"[{count}/{len(tickers_to_process)}] ✓ {ticker}: {len(result['keywords'])} keywords, {result['cost_cents']:.4f} cents")
+                    print(f"[{count}/{len(tickers_to_process)}] ✓ {ticker}: {len(result['keywords'])} keywords, {result['cost_cents']:.4f} cents, {result['elapsed']:.1f}s")
                     results.append(result)
                 else:
                     print(f"[{count}/{len(tickers_to_process)}] ✗ {ticker}: {result['error']}")
