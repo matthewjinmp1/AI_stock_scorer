@@ -1049,5 +1049,104 @@
         "output_tokens": 204
       }
     }
+  ],
+  "Block, Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:03.485443",
+      "company_name": "Block, Inc",
+      "ticker": "XYZ",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Adyen N.V": [
+    {
+      "timestamp": "2025-12-14T12:16:06.194580",
+      "company_name": "Adyen N.V",
+      "ticker": "ADYEN",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "ADYEN",
+      "prompt": "Given the company name \"Adyen N.V\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 162,
+        "total_tokens": 414,
+        "thinking_tokens": 159,
+        "output_tokens": 162
+      }
+    }
+  ],
+  "Toast, Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.204868",
+      "company_name": "Toast, Inc",
+      "ticker": "TOST",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Shift4 Payments, Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.209646",
+      "company_name": "Shift4 Payments, Inc",
+      "ticker": "FOUR",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Shopify Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.214213",
+      "company_name": "Shopify Inc",
+      "ticker": "SHOP",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Global Payments Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.218567",
+      "company_name": "Global Payments Inc",
+      "ticker": "GPN",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Fiserv, Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.222722",
+      "company_name": "Fiserv, Inc",
+      "ticker": "FI",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Fidelity National Information Services, Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.226896",
+      "company_name": "Fidelity National Information Services, Inc",
+      "ticker": "FIS",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Visa Inc": [
+    {
+      "timestamp": "2025-12-14T12:16:06.229187",
+      "company_name": "Visa Inc",
+      "ticker": "V",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "Mastercard Incorporated": [
+    {
+      "timestamp": "2025-12-14T12:16:06.233582",
+      "company_name": "Mastercard Incorporated",
+      "ticker": "MA",
+      "is_public": true,
+      "method": "exact_match"
+    }
   ]
 }

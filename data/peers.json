@@ -117,5 +117,17 @@
     "JSP",
     "KOX",
     "IGA1"
+  ],
+  "PYPL": [
+    "XYZ",
+    "ADYEN",
+    "TOST",
+    "FOUR",
+    "SHOP",
+    "GPN",
+    "FI",
+    "FIS",
+    "V",
+    "MA"
   ]
 }
