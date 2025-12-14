@@ -114,13 +114,14 @@ def evaluate_with_grok(ticker: str, company_name: str,
     Returns:
         Tuple of (winner: 'keywords' | 'peers' | 'tie', token_usage, cost)
     """
-    # Format the lists for the prompt
-    kw_list = "\n".join([f"  {i+1}. {m['ticker']} - {m['name']}" for i, m in enumerate(keyword_matches)])
-    peer_list = "\n".join([f"  {i+1}. {p['ticker']} - {p['name']}" for i, p in enumerate(ai_peers)])
+    # Format the lists for the prompt - USE COMPANY NAMES ONLY, not tickers
+    # Some tickers are made up for private/non-US companies
+    kw_list = "\n".join([f"  {i+1}. {m['name']}" for i, m in enumerate(keyword_matches)])
+    peer_list = "\n".join([f"  {i+1}. {p['name']}" for i, p in enumerate(ai_peers)])
     
     prompt = f"""You are evaluating two methods for finding peer companies (competitors/similar businesses) for a given company.
 
-COMPANY: {ticker} - {company_name}
+COMPANY: {company_name}
 
 METHOD A - KEYWORD MATCHING (based on industry/sector keyword overlap):
 {kw_list}
