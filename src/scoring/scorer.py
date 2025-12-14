@@ -3100,8 +3100,9 @@ Example format: "Microsoft Corporation; Alphabet Inc.; Meta Platforms Inc.; Amaz
 Return exactly 10 complete company names in ranked order, separated by semicolons, nothing else."""
 
     try:
-        grok = OpenRouterClient(api_key=OPENROUTER_KEY)
-        model = get_model_for_ticker(ticker)
+        # Use Grok API directly instead of OpenRouter
+        grok = GrokClient(api_key=XAI_API_KEY)
+        model = "grok-4-1-fast-reasoning"  # Fast reasoning model
         
         # Track time
         start_time = time.time()
