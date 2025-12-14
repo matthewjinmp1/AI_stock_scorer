@@ -68,6 +68,10 @@ def get_peer_matches(ticker):
     peers_data = load_peers()
     ticker_lookup = load_ticker_lookup()
     
+    # Load keywords cache to check which peers have keyword data
+    cached_keywords = load_cached_keywords()
+    keywords_tickers = set(cached_keywords.get("companies", {}).keys())
+    
     ticker_upper = ticker.strip().upper()
     
     if ticker_upper not in peers_data:
@@ -76,13 +80,15 @@ def get_peer_matches(ticker):
     peer_tickers = peers_data[ticker_upper][:10]  # Top 10
     company_name = ticker_lookup.get(ticker_upper, ticker_upper)
     
-    # Build peer list with names
+    # Build peer list with names and keyword availability
     peers = []
     for peer_ticker in peer_tickers:
         peer_name = ticker_lookup.get(peer_ticker, peer_ticker)
+        has_keywords = peer_ticker in keywords_tickers
         peers.append({
             'ticker': peer_ticker,
-            'name': peer_name
+            'name': peer_name,
+            'has_keywords': has_keywords
         })
     
     return peers, company_name
@@ -143,16 +149,21 @@ def display_comparison(ticker):
     
     print("-" * 100)
     
-    # Find overlap
+    # Find overlap - only consider peers that have keywords data
     if keyword_matches and peer_matches:
         kw_tickers = set(m['ticker'] for m in keyword_matches)
-        peer_tickers = set(p['ticker'] for p in peer_matches)
-        overlap = kw_tickers & peer_tickers
+        # Only include peers that have keyword data for fair comparison
+        peer_tickers_with_kw = set(p['ticker'] for p in peer_matches if p.get('has_keywords', False))
+        peer_tickers_without_kw = set(p['ticker'] for p in peer_matches if not p.get('has_keywords', False))
+        
+        overlap = kw_tickers & peer_tickers_with_kw
         
         print()
-        print(f"OVERLAP: {len(overlap)} tickers appear in both lists")
+        print(f"OVERLAP: {len(overlap)}/{len(peer_tickers_with_kw)} peers with keywords appear in keyword top 10")
         if overlap:
-            print(f"  {', '.join(sorted(overlap))}")
+            print(f"  Matching: {', '.join(sorted(overlap))}")
+        if peer_tickers_without_kw:
+            print(f"  Missing keywords: {', '.join(sorted(peer_tickers_without_kw))}")
     
     print()
 
