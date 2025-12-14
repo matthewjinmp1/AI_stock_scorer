@@ -109,10 +109,10 @@ def calculate_weighted_match(keywords1: List[str], keywords2: List[str]) -> tupl
         if kw_lower in weights2:
             w1, orig1 = weights1[kw_lower]
             w2, orig2 = weights2[kw_lower]
-            # Use the average weight from both lists
-            avg_weight = (w1 + w2) / 2
-            weighted_score += avg_weight
-            matching_keywords.append((orig1, avg_weight))
+            # Use the smaller weight to ensure score never exceeds 100%
+            min_weight = min(w1, w2)
+            weighted_score += min_weight
+            matching_keywords.append((orig1, min_weight))
     
     # Calculate max possible score (if all keywords matched)
     # Use the smaller list as base
