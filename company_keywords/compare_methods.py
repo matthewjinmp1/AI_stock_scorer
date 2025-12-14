@@ -134,7 +134,7 @@ def display_comparison(ticker):
         # Keyword match column
         if i < len(keyword_matches):
             kw = keyword_matches[i]
-            kw_str = f"{i+1:2}. {kw['ticker']:<6} {kw['percent']:5.1f}% ({kw['matches']} matches)"
+            kw_str = f"{i+1:2}. {kw['ticker']:<6} {kw['name'][:35]}"
         else:
             kw_str = ""
         
