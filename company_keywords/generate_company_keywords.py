@@ -176,36 +176,10 @@ def format_keywords_output(keywords: List[str], format_type: str = "list") -> st
         return "\n".join(keywords)
 
 
-def main():
-    """Main function to generate company keywords."""
-    print("=" * 80)
-    print("Company Keywords Generator")
-    print("Uses Grok 4.1 Fast via OpenRouter")
-    print("=" * 80)
-    print()
-    
-    if not OPENROUTER_AVAILABLE:
-        print("Error: OpenRouterClient not available.")
-        sys.exit(1)
-    
-    if not OPENROUTER_KEY:
-        print("Error: OPENROUTER_KEY not configured.")
-        print("Please set it in config.py or as an environment variable.")
-        sys.exit(1)
-    
-    # Get input from command line or prompt
-    if len(sys.argv) > 1:
-        input_str = " ".join(sys.argv[1:])
-    else:
-        input_str = input("Enter company name or ticker: ").strip()
-    
-    if not input_str:
-        print("Error: No input provided.")
-        sys.exit(1)
-    
+def process_ticker(input_str, ticker_lookup):
+    """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
     input_upper = input_str.strip().upper()
-    ticker_lookup = load_ticker_lookup()
     
     ticker = None
     company_name = input_str
@@ -228,91 +202,140 @@ def main():
     
     print()
     
-    try:
-        # Generate keywords
-        keywords, token_usage = generate_company_keywords(company_name, ticker)
-        
-        print(f"\nGenerated {len(keywords)} keywords for {company_name}")
-        print("=" * 80)
-        print()
-        
-        # Display keywords
-        print("Keywords:")
-        print("-" * 80)
-        for i, keyword in enumerate(keywords, 1):
-            print(f"{i:3d}. {keyword}")
-        
-        print()
-        print("=" * 80)
-        print("Token Usage:")
-        print(f"  Input tokens:  {token_usage.get('prompt_tokens', 0):,}")
-        print(f"  Output tokens: {token_usage.get('completion_tokens', 0):,}")
-        print(f"  Total tokens:  {token_usage.get('total_tokens', 0):,}")
-        if 'cached_tokens' in token_usage:
-            print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
-        
-        # Calculate and display cost
-        cost = calculate_token_cost(
-            token_usage.get('total_tokens', 0),
-            model="grok-4-1-fast-reasoning",
-            token_usage=token_usage
-        )
-        cost_cents = cost * 100
-        cost_dollars = cost
-        print()
-        print("Cost:")
-        print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
-        
-        # Automatically save to single JSON file in the same directory as the script
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        filepath = os.path.join(script_dir, "keywords.json")
-        
-        # Load existing data or create new structure
-        if os.path.exists(filepath):
-            with open(filepath, 'r', encoding='utf-8') as f:
-                all_data = json.load(f)
-        else:
-            all_data = {"companies": {}}
-        
-        # Use ticker as key if available, otherwise use sanitized company name
-        if ticker:
-            key = ticker
-        else:
-            key = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
-            key = ''.join(c for c in key if c.isalnum() or c in ('_', '-'))
-        
-        # Add/update the company's keywords
-        all_data["companies"][key] = {
-            "company_name": company_name,
-            "ticker": ticker,
-            "keywords": keywords,
-            "count": len(keywords),
-            "token_usage": token_usage,
-            "cost": {
-                "dollars": cost_dollars,
-                "cents": cost_cents
-            },
-            "model": "grok-4-1-fast-reasoning"
-        }
-        
-        # Save back to file
-        with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(all_data, f, indent=2, ensure_ascii=False)
-        
-        print(f"\n✓ Saved {len(keywords)} keywords for {key} to {filepath}")
-        print(f"  Total companies in file: {len(all_data['companies'])}")
-        
-        # Also print comma-separated version for easy copying
-        print("\n" + "=" * 80)
-        print("Comma-separated (for easy copying):")
-        print("-" * 80)
-        print(", ".join(keywords))
-        
-    except Exception as e:
-        print(f"\nError: {e}")
-        import traceback
-        traceback.print_exc()
+    # Generate keywords
+    keywords, token_usage = generate_company_keywords(company_name, ticker)
+    
+    print(f"\nGenerated {len(keywords)} keywords for {company_name}")
+    print("=" * 80)
+    print()
+    
+    # Display keywords
+    print("Keywords:")
+    print("-" * 80)
+    for i, keyword in enumerate(keywords, 1):
+        print(f"{i:3d}. {keyword}")
+    
+    print()
+    print("=" * 80)
+    print("Token Usage:")
+    print(f"  Input tokens:  {token_usage.get('prompt_tokens', 0):,}")
+    print(f"  Output tokens: {token_usage.get('completion_tokens', 0):,}")
+    print(f"  Total tokens:  {token_usage.get('total_tokens', 0):,}")
+    if 'cached_tokens' in token_usage:
+        print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
+    
+    # Calculate and display cost
+    cost = calculate_token_cost(
+        token_usage.get('total_tokens', 0),
+        model="grok-4-1-fast-reasoning",
+        token_usage=token_usage
+    )
+    cost_cents = cost * 100
+    cost_dollars = cost
+    print()
+    print("Cost:")
+    print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
+    
+    # Automatically save to single JSON file in the same directory as the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(script_dir, "keywords.json")
+    
+    # Load existing data or create new structure
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            all_data = json.load(f)
+    else:
+        all_data = {"companies": {}}
+    
+    # Use ticker as key if available, otherwise use sanitized company name
+    if ticker:
+        key = ticker
+    else:
+        key = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
+        key = ''.join(c for c in key if c.isalnum() or c in ('_', '-'))
+    
+    # Add/update the company's keywords
+    all_data["companies"][key] = {
+        "company_name": company_name,
+        "ticker": ticker,
+        "keywords": keywords,
+        "count": len(keywords),
+        "token_usage": token_usage,
+        "cost": {
+            "dollars": cost_dollars,
+            "cents": cost_cents
+        },
+        "model": "grok-4-1-fast-reasoning"
+    }
+    
+    # Save back to file
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(all_data, f, indent=2, ensure_ascii=False)
+    
+    print(f"\n✓ Saved {len(keywords)} keywords for {key} to {filepath}")
+    print(f"  Total companies in file: {len(all_data['companies'])}")
+    
+    # Also print comma-separated version for easy copying
+    print("\n" + "=" * 80)
+    print("Comma-separated (for easy copying):")
+    print("-" * 80)
+    print(", ".join(keywords))
+
+
+def main():
+    """Main function to generate company keywords."""
+    print("=" * 80)
+    print("Company Keywords Generator")
+    print("Uses Grok 4.1 Fast via OpenRouter")
+    print("=" * 80)
+    print("Type 'quit' or 'exit' to stop")
+    print()
+    
+    if not OPENROUTER_AVAILABLE:
+        print("Error: OpenRouterClient not available.")
         sys.exit(1)
+    
+    if not OPENROUTER_KEY:
+        print("Error: OPENROUTER_KEY not configured.")
+        print("Please set it in config.py or as an environment variable.")
+        sys.exit(1)
+    
+    # Load ticker lookup once
+    ticker_lookup = load_ticker_lookup()
+    
+    # Process command line argument first if provided
+    if len(sys.argv) > 1:
+        input_str = " ".join(sys.argv[1:])
+        try:
+            process_ticker(input_str, ticker_lookup)
+        except Exception as e:
+            print(f"\nError: {e}")
+            import traceback
+            traceback.print_exc()
+        print()
+    
+    # Continuous loop
+    while True:
+        try:
+            input_str = input("\nEnter company name or ticker (or 'quit' to exit): ").strip()
+            
+            if not input_str:
+                continue
+            
+            if input_str.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+            
+            process_ticker(input_str, ticker_lookup)
+            
+        except KeyboardInterrupt:
+            print("\n\nGoodbye!")
+            break
+        except Exception as e:
+            print(f"\nError: {e}")
+            import traceback
+            traceback.print_exc()
+            print("\nContinuing...")  # Don't exit on error, just continue
 
 
 if __name__ == "__main__":
