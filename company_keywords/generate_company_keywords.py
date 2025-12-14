@@ -48,7 +48,7 @@ except ImportError:
 # Each keyword is weighted by position: word N has weight = COMPOUNDING_WEIGHT ^ (total_keywords - N)
 # With 1.1, word 1 is ~10% more valuable than word 2, word 54 is ~10% more valuable than word 55
 # Set to 1.0 for equal weighting (no position preference)
-COMPOUNDING_WEIGHT = 1.1
+COMPOUNDING_WEIGHT = 1.0
 
 # =============================================================================
 
@@ -494,6 +494,23 @@ def compare_all_tickers():
     if comparisons:
         avg_match = sum(c['percent'] for c in comparisons) / len(comparisons)
         print(f"Average weighted match: {avg_match:.1f}%")
+    
+    # Save results to JSON
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(script_dir, "comparisons.json")
+    
+    results_data = {
+        "compounding_weight": COMPOUNDING_WEIGHT,
+        "total_tickers": len(tickers),
+        "total_comparisons": len(comparisons),
+        "average_match_percent": avg_match if comparisons else 0.0,
+        "comparisons": comparisons
+    }
+    
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(results_data, f, indent=2, ensure_ascii=False)
+    
+    print(f"\n✓ Saved to {filepath}")
     print()
 
 
