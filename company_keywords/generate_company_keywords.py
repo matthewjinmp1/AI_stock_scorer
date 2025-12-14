@@ -40,22 +40,25 @@ except ImportError:
     sys.exit(1)
 
 # Grok API pricing (per million tokens)
+# Reasoning tokens are charged at output rate
 GROK_PRICING = {
-    "grok-4-1-fast-reasoning": {"input": 0.20, "output": 0.50},  # $0.20/M input, $0.50/M output
-    "grok-3-fast": {"input": 5.0, "output": 15.0},
-    "grok-3": {"input": 3.0, "output": 15.0},
+    "grok-4-1-fast-reasoning": {"input": 0.20, "output": 0.50, "reasoning": 0.50},
+    "grok-3-fast": {"input": 5.0, "output": 15.0, "reasoning": 15.0},
+    "grok-3": {"input": 3.0, "output": 15.0, "reasoning": 15.0},
 }
 
 def calculate_grok_cost(token_usage: dict, model: str = "grok-4-1-fast-reasoning") -> float:
-    """Calculate cost in dollars based on token usage."""
+    """Calculate cost in dollars based on token usage including reasoning tokens."""
     pricing = GROK_PRICING.get(model, GROK_PRICING["grok-4-1-fast-reasoning"])
     input_tokens = token_usage.get('prompt_tokens', 0)
     output_tokens = token_usage.get('completion_tokens', 0)
+    reasoning_tokens = token_usage.get('reasoning_tokens', 0)
     
     input_cost = (input_tokens / 1_000_000) * pricing["input"]
     output_cost = (output_tokens / 1_000_000) * pricing["output"]
+    reasoning_cost = (reasoning_tokens / 1_000_000) * pricing["reasoning"]
     
-    return input_cost + output_cost
+    return input_cost + output_cost + reasoning_cost
 
 
 def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -> tuple[List[str], dict]:
@@ -129,11 +132,27 @@ Information Technology, Software, Cloud Computing, Artificial Intelligence, Digi
     )
     
     response_text = response.choices[0].message.content
+    
+    # Capture all token usage including reasoning tokens
     token_usage = {
         "prompt_tokens": response.usage.prompt_tokens,
         "completion_tokens": response.usage.completion_tokens,
         "total_tokens": response.usage.total_tokens
     }
+    
+    # Check for reasoning tokens (reasoning models have additional token types)
+    if hasattr(response.usage, 'completion_tokens_details') and response.usage.completion_tokens_details:
+        details = response.usage.completion_tokens_details
+        if hasattr(details, 'reasoning_tokens'):
+            token_usage["reasoning_tokens"] = details.reasoning_tokens
+        if hasattr(details, 'text_tokens'):
+            token_usage["text_tokens"] = details.text_tokens
+    
+    # Calculate reasoning tokens from the difference if not provided
+    if "reasoning_tokens" not in token_usage:
+        calculated_reasoning = token_usage["total_tokens"] - token_usage["prompt_tokens"] - token_usage["completion_tokens"]
+        if calculated_reasoning > 0:
+            token_usage["reasoning_tokens"] = calculated_reasoning
     
     # Parse the response - extract keywords from comma-separated list
     keywords = []
@@ -617,11 +636,13 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     print()
     print("=" * 80)
     print("Token Usage:")
-    print(f"  Input tokens:  {token_usage.get('prompt_tokens', 0):,}")
-    print(f"  Output tokens: {token_usage.get('completion_tokens', 0):,}")
-    print(f"  Total tokens:  {token_usage.get('total_tokens', 0):,}")
+    print(f"  Input tokens:     {token_usage.get('prompt_tokens', 0):,}")
+    print(f"  Output tokens:    {token_usage.get('completion_tokens', 0):,}")
+    if 'reasoning_tokens' in token_usage:
+        print(f"  Reasoning tokens: {token_usage['reasoning_tokens']:,}")
+    print(f"  Total tokens:     {token_usage.get('total_tokens', 0):,}")
     if 'cached_tokens' in token_usage:
-        print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
+        print(f"  Cached tokens:    {token_usage['cached_tokens']:,}")
     
     # Calculate and display cost
     cost = calculate_grok_cost(token_usage, model="grok-4-1-fast-reasoning")
