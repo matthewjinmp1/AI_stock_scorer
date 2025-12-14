@@ -620,12 +620,21 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
 
 
 def run_all_tickers(ticker_lookup, max_workers=5):
-    """Generate keywords for all tickers in the scorer's ticker lookup (skips cached)."""
+    """Generate keywords for all tickers that have been scored (from scores.json)."""
     cached_data = load_cached_keywords()
     cached_tickers = set(cached_data.get("companies", {}).keys())
     
-    # Get all tickers from scorer
-    all_tickers = list(ticker_lookup.keys())
+    # Get tickers from scores.json (not from the full ticker lookup)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    scores_file = os.path.join(script_dir, "..", "data", "scores.json")
+    
+    try:
+        with open(scores_file, 'r', encoding='utf-8') as f:
+            scores_data = json.load(f)
+        all_tickers = list(scores_data.get("companies", {}).keys())
+    except Exception as e:
+        print(f"Error loading scores.json: {e}")
+        return
     
     # Find tickers that need keywords generated
     tickers_to_process = [t for t in all_tickers if t not in cached_tickers]
@@ -641,7 +650,7 @@ def run_all_tickers(ticker_lookup, max_workers=5):
     print("=" * 80)
     print(f"Generating keywords for {len(tickers_to_process)} new tickers ({max_workers} threads)")
     print(f"(Skipping {len(cached_tickers)} already cached)")
-    print(f"(Total in scorer: {len(all_tickers)})")
+    print(f"(Total in scores.json: {len(all_tickers)})")
     print("=" * 80)
     print()
     
