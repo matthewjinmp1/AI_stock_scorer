@@ -41,7 +41,7 @@ except ImportError:
 
 # Grok API pricing (per million tokens)
 GROK_PRICING = {
-    "grok-4-1-fast-reasoning": {"input": 3.0, "output": 12.0},  # $3/M input, $12/M output
+    "grok-4-1-fast-reasoning": {"input": 0.20, "output": 0.50},  # $0.20/M input, $0.50/M output
     "grok-3-fast": {"input": 5.0, "output": 15.0},
     "grok-3": {"input": 3.0, "output": 15.0},
 }
