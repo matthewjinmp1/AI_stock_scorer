@@ -176,7 +176,18 @@ def format_keywords_output(keywords: List[str], format_type: str = "list") -> st
         return "\n".join(keywords)
 
 
-def process_ticker(input_str, ticker_lookup):
+def load_cached_keywords():
+    """Load cached keywords from JSON file."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(script_dir, "keywords.json")
+    
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {"companies": {}}
+
+
+def process_ticker(input_str, ticker_lookup, force_refresh=False):
     """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
     input_upper = input_str.strip().upper()
@@ -200,9 +211,43 @@ def process_ticker(input_str, ticker_lookup):
             company_name = resolved_name
             print(f"Using company name: {company_name}")
     
+    # Determine cache key
+    if ticker:
+        cache_key = ticker
+    else:
+        cache_key = company_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
+        cache_key = ''.join(c for c in cache_key if c.isalnum() or c in ('_', '-'))
+    
+    # Check cache
+    cached_data = load_cached_keywords()
+    if cache_key in cached_data.get("companies", {}) and not force_refresh:
+        cached_entry = cached_data["companies"][cache_key]
+        keywords = cached_entry.get("keywords", [])
+        
+        print(f"\n✓ Using cached keywords for {cache_key} ({len(keywords)} keywords)")
+        print("=" * 80)
+        print()
+        
+        # Display keywords
+        print("Keywords (cached):")
+        print("-" * 80)
+        for i, keyword in enumerate(keywords, 1):
+            print(f"{i:3d}. {keyword}")
+        
+        print()
+        print("=" * 80)
+        print("(Use '!refresh <ticker>' to regenerate keywords)")
+        
+        # Print comma-separated version for easy copying
+        print("\n" + "=" * 80)
+        print("Comma-separated (for easy copying):")
+        print("-" * 80)
+        print(", ".join(keywords))
+        return
+    
     print()
     
-    # Generate keywords
+    # Generate keywords (not cached or force refresh)
     keywords, token_usage = generate_company_keywords(company_name, ticker)
     
     print(f"\nGenerated {len(keywords)} keywords for {company_name}")
@@ -288,7 +333,10 @@ def main():
     print("Company Keywords Generator")
     print("Uses Grok 4.1 Fast via OpenRouter")
     print("=" * 80)
-    print("Type 'quit' or 'exit' to stop")
+    print("Commands:")
+    print("  <ticker>           - Get keywords (uses cache if available)")
+    print("  !refresh <ticker>  - Force regenerate keywords")
+    print("  quit/exit          - Exit the program")
     print()
     
     if not OPENROUTER_AVAILABLE:
@@ -306,8 +354,11 @@ def main():
     # Process command line argument first if provided
     if len(sys.argv) > 1:
         input_str = " ".join(sys.argv[1:])
+        force_refresh = input_str.startswith('!refresh ')
+        if force_refresh:
+            input_str = input_str[9:].strip()
         try:
-            process_ticker(input_str, ticker_lookup)
+            process_ticker(input_str, ticker_lookup, force_refresh=force_refresh)
         except Exception as e:
             print(f"\nError: {e}")
             import traceback
@@ -317,7 +368,7 @@ def main():
     # Continuous loop
     while True:
         try:
-            input_str = input("\nEnter company name or ticker (or 'quit' to exit): ").strip()
+            input_str = input("\nEnter ticker (or 'quit' to exit): ").strip()
             
             if not input_str:
                 continue
@@ -326,7 +377,12 @@ def main():
                 print("Goodbye!")
                 break
             
-            process_ticker(input_str, ticker_lookup)
+            # Check for !refresh command
+            force_refresh = input_str.lower().startswith('!refresh ')
+            if force_refresh:
+                input_str = input_str[9:].strip()
+            
+            process_ticker(input_str, ticker_lookup, force_refresh=force_refresh)
             
         except KeyboardInterrupt:
             print("\n\nGoodbye!")
