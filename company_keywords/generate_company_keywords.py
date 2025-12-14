@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Company Keywords Generator
-Uses Grok 4.1 Fast via OpenRouter to generate 100 keywords/phrases about what a company does.
+Uses Grok API directly to generate 100 keywords/phrases about what a company does.
 
 Example: If you input "Google", it will return keywords like:
 - Search
@@ -24,25 +24,42 @@ from typing import List, Optional
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 try:
-    from src.clients.openrouter_client import OpenRouterClient
-    from config import OPENROUTER_KEY
-    OPENROUTER_AVAILABLE = True
+    from openai import OpenAI
+    from config import XAI_API_KEY
+    GROK_AVAILABLE = True
 except ImportError:
-    OPENROUTER_AVAILABLE = False
-    print("Error: Could not import OpenRouterClient. Make sure dependencies are installed.")
+    GROK_AVAILABLE = False
+    print("Error: Could not import OpenAI client or XAI_API_KEY. Make sure dependencies are installed.")
     sys.exit(1)
 
 # Import ticker lookup functionality
 try:
-    from src.scoring.scorer import load_ticker_lookup, resolve_to_company_name, calculate_token_cost
+    from src.scoring.scorer import load_ticker_lookup, resolve_to_company_name
 except ImportError:
     print("Error: Could not import scorer module.")
     sys.exit(1)
 
+# Grok API pricing (per million tokens)
+GROK_PRICING = {
+    "grok-3-fast": {"input": 5.0, "output": 15.0},  # $5/M input, $15/M output
+    "grok-3": {"input": 3.0, "output": 15.0},
+}
+
+def calculate_grok_cost(token_usage: dict, model: str = "grok-3-fast") -> float:
+    """Calculate cost in dollars based on token usage."""
+    pricing = GROK_PRICING.get(model, GROK_PRICING["grok-3-fast"])
+    input_tokens = token_usage.get('prompt_tokens', 0)
+    output_tokens = token_usage.get('completion_tokens', 0)
+    
+    input_cost = (input_tokens / 1_000_000) * pricing["input"]
+    output_cost = (output_tokens / 1_000_000) * pricing["output"]
+    
+    return input_cost + output_cost
+
 
 def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -> tuple[List[str], dict]:
     """
-    Generate 100 keywords/phrases about what a company does using Grok 4.1 Fast.
+    Generate 100 keywords/phrases about what a company does using Grok API.
     
     Args:
         company_name: Name of the company
@@ -51,14 +68,17 @@ def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -
     Returns:
         Tuple of (keywords_list, token_usage_dict)
     """
-    if not OPENROUTER_AVAILABLE:
-        raise Exception("OpenRouterClient not available.")
+    if not GROK_AVAILABLE:
+        raise Exception("Grok API client not available.")
     
-    if not OPENROUTER_KEY:
-        raise Exception("OPENROUTER_KEY not configured. Please set it in config.py or as an environment variable.")
+    if not XAI_API_KEY:
+        raise Exception("XAI_API_KEY not configured. Please set it in config.py or as an environment variable.")
     
-    # Initialize OpenRouter client
-    client = OpenRouterClient(api_key=OPENROUTER_KEY)
+    # Initialize xAI Grok client
+    client = OpenAI(
+        api_key=XAI_API_KEY,
+        base_url="https://api.x.ai/v1"
+    )
     
     # Create prompt
     ticker_context = f" (stock ticker: {ticker})" if ticker else ""
@@ -88,10 +108,10 @@ Return ONLY a comma-separated list of exactly 100 industries/sectors. No numbers
 Example output format:
 Information Technology, Software, Cloud Computing, Artificial Intelligence, Digital Advertising, Search Engine, Internet Services, Data Analytics, Machine Learning, Mobile Operating Systems, Web Browser, Enterprise Software, Consumer Electronics, E-commerce, Video Streaming, Email Services, Productivity Software, Cybersecurity, Data Centers, Autonomous Vehicles"""
 
-    print(f"Querying Grok 4.1 Fast to generate keywords for {company_name}...")
+    print(f"Querying Grok API to generate keywords for {company_name}...")
     
-    # Call Grok 4.1 Fast
-    response_text, token_usage = client.chat_completion_with_tokens(
+    # Call Grok API directly
+    response = client.chat.completions.create(
         messages=[
             {
                 "role": "system",
@@ -102,10 +122,17 @@ Information Technology, Software, Cloud Computing, Artificial Intelligence, Digi
                 "content": prompt
             }
         ],
-        model="grok-4-1-fast-reasoning",
+        model="grok-3-fast",
         temperature=0.7,
-        max_tokens=2000  # Enough for 100 keywords
+        max_tokens=2000
     )
+    
+    response_text = response.choices[0].message.content
+    token_usage = {
+        "prompt_tokens": response.usage.prompt_tokens,
+        "completion_tokens": response.usage.completion_tokens,
+        "total_tokens": response.usage.total_tokens
+    }
     
     # Parse the response - extract keywords from comma-separated list
     keywords = []
@@ -364,11 +391,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
             keywords, token_usage = generate_company_keywords(company_name, ticker)
             
             # Calculate cost
-            cost = calculate_token_cost(
-                token_usage.get('total_tokens', 0),
-                model="grok-4-1-fast-reasoning",
-                token_usage=token_usage
-            )
+            cost = calculate_grok_cost(token_usage, model="grok-3-fast")
             cost_cents = cost * 100
             
             return {
@@ -431,7 +454,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
                 "dollars": result["cost"],
                 "cents": result["cost_cents"]
             },
-            "model": "grok-4-1-fast-reasoning"
+            "model": "grok-3-fast"
         }
     
     with open(filepath, 'w', encoding='utf-8') as f:
@@ -528,11 +551,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
         print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
     
     # Calculate and display cost
-    cost = calculate_token_cost(
-        token_usage.get('total_tokens', 0),
-        model="grok-4-1-fast-reasoning",
-        token_usage=token_usage
-    )
+    cost = calculate_grok_cost(token_usage, model="grok-3-fast")
     cost_cents = cost * 100
     cost_dollars = cost
     print()
@@ -567,7 +586,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
             "dollars": cost_dollars,
             "cents": cost_cents
         },
-        "model": "grok-4-1-fast-reasoning"
+        "model": "grok-3-fast"
     }
     
     # Save back to file
@@ -582,7 +601,7 @@ def main():
     """Main function to generate company keywords."""
     print("=" * 80)
     print("Company Keywords Generator")
-    print("Uses Grok 4.1 Fast via OpenRouter")
+    print("Uses Grok API (grok-3-fast)")
     print("=" * 80)
     print("Commands:")
     print("  <ticker>              - Get keywords (uses cache if available)")
@@ -593,12 +612,12 @@ def main():
     print("  exit                  - Exit the program")
     print()
     
-    if not OPENROUTER_AVAILABLE:
-        print("Error: OpenRouterClient not available.")
+    if not GROK_AVAILABLE:
+        print("Error: Grok API client not available.")
         sys.exit(1)
     
-    if not OPENROUTER_KEY:
-        print("Error: OPENROUTER_KEY not configured.")
+    if not XAI_API_KEY:
+        print("Error: XAI_API_KEY not configured.")
         print("Please set it in config.py or as an environment variable.")
         sys.exit(1)
     
