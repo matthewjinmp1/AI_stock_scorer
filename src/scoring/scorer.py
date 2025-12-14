@@ -1161,30 +1161,35 @@ def query_score(grok, company_name, score_key, show_timing=True, ticker=None):
         grok: OpenRouterClient instance
         company_name: Company name to score
         score_key: Score metric key
-        show_timing: If True, print timing and token information
+        show_timing: If True, print timing, token, and cost information
         ticker: Optional ticker symbol to determine model
     """
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
-    model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+    model = get_model_for_ticker(ticker) if ticker else DEFAULT_MODEL
     start_time = time.time()
     response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
     if show_timing:
-        print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+        cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage)
+        cost_cents = cost * 100
+        print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens} | Cost: {cost_cents:.4f}¢")
     return response.strip()
 
 
 def query_score_heavy(grok, company_name, score_key):
-    """Query a single score from Grok using grok-4-1-fast-reasoning model."""
+    """Query a single score from Grok using the default model."""
     score_def = SCORE_DEFINITIONS[score_key]
     prompt = score_def['prompt'].format(company_name=company_name)
+    model = DEFAULT_MODEL
     start_time = time.time()
-    response, token_usage = grok.simple_query_with_tokens(prompt, model="grok-4-1-fast-reasoning")
+    response, token_usage = grok.simple_query_with_tokens(prompt, model=model)
     elapsed_time = time.time() - start_time
     total_tokens = token_usage.get('total_tokens', 0)
-    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+    cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage)
+    cost_cents = cost * 100
+    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens} | Cost: {cost_cents:.4f}¢")
     return response.strip()
 
 
@@ -1205,7 +1210,7 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
     """
     # Determine model if not provided
     if model is None:
-        model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
+        model = get_model_for_ticker(ticker) if ticker else DEFAULT_MODEL
     
     def query_single_score(score_key):
         """Helper function to query a single score."""
@@ -1222,8 +1227,10 @@ def query_all_scores_async(grok, company_name, score_keys, batch_mode=False, sil
                 if batch_mode:
                     print(f"  {score_def['display_name']}: {result}/10")
                 else:
+                    cost = calculate_token_cost(total_tokens, model=model, token_usage=token_usage)
+                    cost_cents = cost * 100
                     print(f"Querying {score_def['display_name']}...")
-                    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens}")
+                    print(f"  Time: {elapsed_time:.2f}s | Tokens: {total_tokens} | Cost: {cost_cents:.4f}¢")
                     print(f"{score_def['display_name']} Score: {result}/10")
                     print()
             
@@ -1533,6 +1540,18 @@ def score_multiple_tickers(input_str):
     # Get all totals for percentile calculation (will be updated as we score)
     all_totals = get_all_total_scores()
     
+    # Track totals for summary
+    batch_start_time = time.time()
+    batch_total_tokens = 0
+    batch_total_cost = 0.0
+    batch_token_usage_combined = {
+        'input_tokens': 0,
+        'output_tokens': 0,
+        'cached_tokens': 0,
+        'thinking_tokens': 0
+    }
+    newly_scored_count = 0
+    
     for i, ticker in enumerate(tickers, 1):
         ticker_upper = ticker.strip().upper()
         company_name = ticker_lookup.get(ticker_upper, ticker_upper)
@@ -1540,6 +1559,22 @@ def score_multiple_tickers(input_str):
         result = score_single_ticker(ticker, silent=True, batch_mode=True)
         if result:
             if result['success']:
+                # Accumulate tokens and cost for newly scored tickers
+                if not result.get('already_scored'):
+                    newly_scored_count += 1
+                    tokens = result.get('total_tokens', 0)
+                    batch_total_tokens += tokens
+                    token_usage = result.get('token_usage')
+                    if token_usage:
+                        batch_token_usage_combined['input_tokens'] += token_usage.get('input_tokens', token_usage.get('prompt_tokens', 0) or 0)
+                        batch_token_usage_combined['output_tokens'] += token_usage.get('output_tokens', token_usage.get('completion_tokens', 0) or 0)
+                        cached = token_usage.get('cached_tokens', 0) or token_usage.get('cached_input_tokens', 0) or token_usage.get('prompt_cache_hit_tokens', 0) or 0
+                        batch_token_usage_combined['cached_tokens'] += cached
+                        batch_token_usage_combined['thinking_tokens'] += token_usage.get('thinking_tokens', 0) or 0
+                    model_used = result.get('model_used', get_model_for_ticker(ticker_upper))
+                    cost = calculate_token_cost(tokens, model=model_used, token_usage=token_usage)
+                    batch_total_cost += cost
+                
                 # Calculate and display total score and percentile
                 total = result.get('total')
                 if total is not None:
@@ -1564,6 +1599,8 @@ def score_multiple_tickers(input_str):
             results.append(result)
         else:
             print(f"  ✗ '{ticker}' is not a valid ticker. Skipping.")
+    
+    batch_elapsed_time = time.time() - batch_start_time
     
     if not results:
         print("\nNo valid tickers were processed.")
@@ -1619,6 +1656,21 @@ def score_multiple_tickers(input_str):
         print(f"{rank:<6} {display_name:<{max_name_len}} {percentage_str:>15} {percentile_str:>12}")
     
     print("=" * 80)
+    
+    # Display summary of tokens and cost for newly scored tickers
+    if newly_scored_count > 0:
+        print(f"\nBatch Summary ({newly_scored_count} newly scored):")
+        print(f"  Time: {batch_elapsed_time:.2f}s")
+        print(f"  Total tokens: {batch_total_tokens:,}")
+        if batch_token_usage_combined['thinking_tokens'] > 0:
+            print(f"  Token breakdown: input={batch_token_usage_combined['input_tokens']:,}, output={batch_token_usage_combined['output_tokens']:,} (includes {batch_token_usage_combined['thinking_tokens']:,} thinking), cached={batch_token_usage_combined['cached_tokens']:,}")
+        else:
+            print(f"  Token breakdown: input={batch_token_usage_combined['input_tokens']:,}, output={batch_token_usage_combined['output_tokens']:,}, cached={batch_token_usage_combined['cached_tokens']:,}")
+        batch_cost_cents = batch_total_cost * 100
+        print(f"  Total cost: {batch_cost_cents:.4f} cents")
+    else:
+        print(f"\nBatch Summary: All {len(results)} tickers were already scored (no API calls needed)")
+        print(f"  Time: {batch_elapsed_time:.2f}s")
 
 
 def get_company_moat_score(input_str):
@@ -1836,6 +1888,18 @@ def handle_redo_command(tickers_input):
         print(f"\nProcessing {len(tickers)} ticker(s) for rescoring...")
         print("=" * 80)
         
+        # Track totals for summary
+        batch_start_time = time.time()
+        batch_total_tokens = 0
+        batch_total_cost = 0.0
+        batch_token_usage_combined = {
+            'input_tokens': 0,
+            'output_tokens': 0,
+            'cached_tokens': 0,
+            'thinking_tokens': 0
+        }
+        successful_count = 0
+        
         for i, ticker in enumerate(tickers, 1):
             ticker_upper = ticker.strip().upper()
             ticker_lookup = load_ticker_lookup()
@@ -1844,6 +1908,21 @@ def handle_redo_command(tickers_input):
             result = score_single_ticker(ticker, silent=True, batch_mode=True, force_rescore=True)
             if result:
                 if result['success']:
+                    successful_count += 1
+                    # Accumulate tokens and cost
+                    tokens = result.get('total_tokens', 0)
+                    batch_total_tokens += tokens
+                    token_usage = result.get('token_usage')
+                    if token_usage:
+                        batch_token_usage_combined['input_tokens'] += token_usage.get('input_tokens', token_usage.get('prompt_tokens', 0) or 0)
+                        batch_token_usage_combined['output_tokens'] += token_usage.get('output_tokens', token_usage.get('completion_tokens', 0) or 0)
+                        cached = token_usage.get('cached_tokens', 0) or token_usage.get('cached_input_tokens', 0) or token_usage.get('prompt_cache_hit_tokens', 0) or 0
+                        batch_token_usage_combined['cached_tokens'] += cached
+                        batch_token_usage_combined['thinking_tokens'] += token_usage.get('thinking_tokens', 0) or 0
+                    model_used = result.get('model_used', get_model_for_ticker(ticker_upper))
+                    cost = calculate_token_cost(tokens, model=model_used, token_usage=token_usage)
+                    batch_total_cost += cost
+                    
                     total = result.get('total')
                     model_name = result.get('scores', {}).get('model', 'Unknown') if result.get('scores') else 'Unknown'
                     if total is not None:
@@ -1855,6 +1934,19 @@ def handle_redo_command(tickers_input):
                         print(f"  ✓ {ticker_upper} rescored successfully (Model: {model_name})")
                 else:
                     print(f"  ✗ Error rescoring {ticker_upper}: {result.get('error', 'Unknown error')}")
+        
+        # Display summary
+        batch_elapsed_time = time.time() - batch_start_time
+        print("\n" + "=" * 80)
+        print(f"Redo Summary ({successful_count}/{len(tickers)} successful):")
+        print(f"  Time: {batch_elapsed_time:.2f}s")
+        print(f"  Total tokens: {batch_total_tokens:,}")
+        if batch_token_usage_combined['thinking_tokens'] > 0:
+            print(f"  Token breakdown: input={batch_token_usage_combined['input_tokens']:,}, output={batch_token_usage_combined['output_tokens']:,} (includes {batch_token_usage_combined['thinking_tokens']:,} thinking), cached={batch_token_usage_combined['cached_tokens']:,}")
+        else:
+            print(f"  Token breakdown: input={batch_token_usage_combined['input_tokens']:,}, output={batch_token_usage_combined['output_tokens']:,}, cached={batch_token_usage_combined['cached_tokens']:,}")
+        batch_cost_cents = batch_total_cost * 100
+        print(f"  Total cost: {batch_cost_cents:.4f} cents")
 
 
 def handle_upgrade_command():
@@ -2032,7 +2124,11 @@ def migrate_scores_to_uppercase():
 
 
 async def fill_single_company_async(grok, company_name, company_scores, ticker_lookup, company_index, total_companies):
-    """Async function to fill missing scores for a single company."""
+    """Async function to fill missing scores for a single company.
+    
+    Returns:
+        tuple: (company_name, company_scores, tokens_used, cost)
+    """
     try:
         # Determine if company_name is a ticker and get actual company name
         ticker = None
@@ -2068,6 +2164,10 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
         if not existing_model:
             existing_model = get_model_for_ticker(ticker) if ticker else "grok-4-1-fast-reasoning"
         
+        tokens_used = 0
+        token_usage = None
+        cost = 0.0
+        
         if missing_keys:
             # Query missing scores in parallel (this uses ThreadPoolExecutor internally)
             # Run in executor to make it async-compatible
@@ -2076,7 +2176,7 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
             except RuntimeError:
                 loop = asyncio.get_event_loop()
             
-            missing_scores, _, _, model_used = await loop.run_in_executor(
+            missing_scores, tokens_used, token_usage, model_used = await loop.run_in_executor(
                 None,
                 lambda: query_all_scores_async(grok, actual_company_name, missing_keys,
                                               batch_mode=True, silent=True, ticker=ticker)
@@ -2085,12 +2185,17 @@ async def fill_single_company_async(grok, company_name, company_scores, ticker_l
             company_scores.update(missing_scores)
             # Use the model from the query (should match existing_model, but use query result)
             company_scores['model'] = model_used
+            
+            # Calculate cost
+            if tokens_used > 0:
+                cost = calculate_token_cost(tokens_used, model=model_used, token_usage=token_usage)
+            
             print(f"  ✓ {display_name} - filled {len(missing_keys)} missing score(s)")
         
-        return company_name, company_scores
+        return company_name, company_scores, tokens_used, token_usage, cost
     except Exception as e:
         print(f"  ✗ Error processing {company_name}: {e}")
-        return company_name, company_scores
+        return company_name, company_scores, 0, None, 0.0
 
 
 def fill_missing_barriers_scores():
@@ -2134,8 +2239,20 @@ def fill_missing_barriers_scores():
         
         ticker_lookup = load_ticker_lookup()
         
+        # Track totals for summary
+        fill_start_time = time.time()
+        fill_total_tokens = 0
+        fill_total_cost = 0.0
+        fill_token_usage_combined = {
+            'input_tokens': 0,
+            'output_tokens': 0,
+            'cached_tokens': 0,
+            'thinking_tokens': 0
+        }
+        
         # Process companies in batches of 20 using async
         async def process_all_batches():
+            nonlocal fill_total_tokens, fill_total_cost, fill_token_usage_combined
             batch_size = 20
             total_batches = (len(companies_to_score) + batch_size - 1) // batch_size
             
@@ -2156,9 +2273,17 @@ def fill_missing_barriers_scores():
                 # Run all tasks in the batch concurrently
                 results = await asyncio.gather(*tasks)
                 
-                # Update scores_data with results and save
-                for company_name, updated_scores in results:
+                # Update scores_data with results and save, accumulate tokens/cost
+                for company_name, updated_scores, tokens_used, token_usage, cost in results:
                     scores_data["companies"][company_name] = updated_scores
+                    fill_total_tokens += tokens_used
+                    fill_total_cost += cost
+                    if token_usage:
+                        fill_token_usage_combined['input_tokens'] += token_usage.get('input_tokens', token_usage.get('prompt_tokens', 0) or 0)
+                        fill_token_usage_combined['output_tokens'] += token_usage.get('output_tokens', token_usage.get('completion_tokens', 0) or 0)
+                        cached = token_usage.get('cached_tokens', 0) or token_usage.get('cached_input_tokens', 0) or token_usage.get('prompt_cache_hit_tokens', 0) or 0
+                        fill_token_usage_combined['cached_tokens'] += cached
+                        fill_token_usage_combined['thinking_tokens'] += token_usage.get('thinking_tokens', 0) or 0
                 
                 save_scores(scores_data)
                 print(f"  Batch {batch_num + 1} complete - saved progress")
@@ -2166,8 +2291,19 @@ def fill_missing_barriers_scores():
         # Run the async function
         asyncio.run(process_all_batches())
         
+        fill_elapsed_time = time.time() - fill_start_time
+        
         print("\n" + "=" * 60)
         print("All missing scores have been filled!")
+        print(f"\nFill Summary ({len(companies_to_score)} companies):")
+        print(f"  Time: {fill_elapsed_time:.2f}s")
+        print(f"  Total tokens: {fill_total_tokens:,}")
+        if fill_token_usage_combined['thinking_tokens'] > 0:
+            print(f"  Token breakdown: input={fill_token_usage_combined['input_tokens']:,}, output={fill_token_usage_combined['output_tokens']:,} (includes {fill_token_usage_combined['thinking_tokens']:,} thinking), cached={fill_token_usage_combined['cached_tokens']:,}")
+        else:
+            print(f"  Token breakdown: input={fill_token_usage_combined['input_tokens']:,}, output={fill_token_usage_combined['output_tokens']:,}, cached={fill_token_usage_combined['cached_tokens']:,}")
+        fill_cost_cents = fill_total_cost * 100
+        print(f"  Total cost: {fill_cost_cents:.4f} cents")
         
     except ValueError as e:
         print(f"Error: {e}")

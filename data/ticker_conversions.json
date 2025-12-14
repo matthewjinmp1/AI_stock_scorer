@@ -873,6 +873,13 @@
       "ticker": "JMSS",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:16.112062",
+      "company_name": "Jer\u00f3nimo Martins, SGPS, S.A",
+      "ticker": "JMSS",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Eurocash S.A": [
@@ -882,6 +889,13 @@
       "ticker": "ESX",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:19.683146",
+      "company_name": "Eurocash S.A",
+      "ticker": "ESX",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "BIM Birlesik Magazalar A.S": [
@@ -909,6 +923,13 @@
       "ticker": "TPX",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:22.326186",
+      "company_name": "Tesco PLC",
+      "ticker": "TPX",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Carrefour SA": [
@@ -927,6 +948,13 @@
       "ticker": "PHG",
       "is_public": true,
       "method": "partial_match"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:22.335064",
+      "company_name": "Koninklijke Ahold Delhaize N.V",
+      "ticker": "PHG",
+      "is_public": true,
+      "method": "partial_match"
     }
   ],
   "J Sainsbury plc": [
@@ -936,6 +964,13 @@
       "ticker": "JSP",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:22.339525",
+      "company_name": "J Sainsbury plc",
+      "ticker": "JSP",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "Kesko Oyj": [
@@ -945,6 +980,13 @@
       "ticker": "KOX",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:22.344179",
+      "company_name": "Kesko Oyj",
+      "ticker": "KOX",
+      "is_public": true,
+      "method": "exact_match"
     }
   ],
   "ICA Gruppen AB": [
@@ -954,6 +996,58 @@
       "ticker": "IGA1",
       "is_public": false,
       "method": "exception_fallback"
+    },
+    {
+      "timestamp": "2025-12-14T12:06:22.348743",
+      "company_name": "ICA Gruppen AB",
+      "ticker": "IGA1",
+      "is_public": true,
+      "method": "exact_match"
+    }
+  ],
+  "BIM Birle\u015fik Ma\u011fazalar A.\u015e": [
+    {
+      "timestamp": "2025-12-14T12:06:19.673753",
+      "company_name": "BIM Birle\u015fik Ma\u011fazalar A.\u015e",
+      "ticker": "BIMAS",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "BIMAS",
+      "prompt": "Given the company name \"BIM Birle\u015fik Ma\u011fazalar A.\u015e\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 260,
+        "completion_tokens": 231,
+        "total_tokens": 491,
+        "thinking_tokens": 228,
+        "output_tokens": 231
+      }
+    }
+  ],
+  "Distribuidora Internacional de Alimentaci\u00f3n, S.A": [
+    {
+      "timestamp": "2025-12-14T12:06:19.689467",
+      "company_name": "Distribuidora Internacional de Alimentaci\u00f3n, S.A",
+      "ticker": "EDN",
+      "is_public": true,
+      "method": "partial_match"
+    }
+  ],
+  "Carrefour S.A": [
+    {
+      "timestamp": "2025-12-14T12:06:22.317802",
+      "company_name": "Carrefour S.A",
+      "ticker": "CA",
+      "is_public": false,
+      "method": "ai_public",
+      "ai_response": "CA",
+      "prompt": "Given the company name \"Carrefour S.A\", determine if it is a publicly traded company.\n\nIf it is a publicly traded company, return ONLY the ticker symbol (1-5 uppercase letters, e.g., \"AAPL\", \"MSFT\", \"GOOGL\").\nIf it is a private company or not publicly traded, return ONLY the word \"PRIVATE\".\n\nDo not include any explanations, company names, or other text - just the ticker symbol or the word \"PRIVATE\".",
+      "token_usage": {
+        "prompt_tokens": 252,
+        "completion_tokens": 204,
+        "total_tokens": 456,
+        "thinking_tokens": 203,
+        "output_tokens": 204
+      }
     }
   ]
 }
