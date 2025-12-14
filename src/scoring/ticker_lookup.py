@@ -103,69 +103,163 @@ def normalize_company_name(name):
     return name.lower().strip()
 
 
-def search_company_name(query, ticker_db, ticker_defs):
-    """Search for tickers matching a company name query.
+def extract_company_keywords(name):
+    """Extract meaningful keywords from a company name, removing common suffixes.
+    
+    Args:
+        name: Company name string
+        
+    Returns:
+        list: List of keywords (words, excluding common suffixes)
+    """
+    # Common suffixes to remove
+    suffixes = ['inc', 'inc.', 'corp', 'corp.', 'corporation', 'ltd', 'ltd.', 'limited', 
+                'llc', 'plc', 'sa', 'ag', 'nv', 'bv', 'gmbh', 'se', 'co', 'company',
+                'holdings', 'holding', 'group', 'companies', 'enterprises', 'industries']
+    
+    normalized = normalize_company_name(name)
+    words = normalized.split()
+    
+    # Remove suffixes
+    keywords = [w for w in words if w.rstrip('.,') not in suffixes]
+    
+    return keywords
+
+
+def calculate_match_score(query, company_name, query_words, name_keywords):
+    """Calculate a relevance score for a match.
+    
+    Higher score = better match.
+    
+    Args:
+        query: Original query (normalized)
+        company_name: Company name (normalized)
+        query_words: Set of query words
+        name_keywords: List of company name keywords
+        
+    Returns:
+        int: Match score (higher is better)
+    """
+    score = 0
+    name_keywords_set = set(name_keywords)
+    
+    # Exact match = highest score
+    if query == company_name:
+        return 1000
+    
+    # Query starts with company name or vice versa
+    if company_name.startswith(query) or query.startswith(company_name):
+        score += 500
+    
+    # All query words match as standalone words (word boundary match)
+    # Check if query words appear as complete words in company name
+    all_words_match = True
+    word_boundary_matches = 0
+    
+    for qword in query_words:
+        # Check if query word appears as a standalone word (with word boundaries)
+        # Use word boundaries: space, start, end, or punctuation
+        import re
+        pattern = r'\b' + re.escape(qword) + r'\b'
+        if re.search(pattern, company_name):
+            word_boundary_matches += 1
+        else:
+            all_words_match = False
+    
+    if all_words_match and len(query_words) > 0:
+        score += 400 + (word_boundary_matches * 50)
+    elif word_boundary_matches > 0:
+        score += 200 + (word_boundary_matches * 30)
+    
+    # First word of query matches first word of company name
+    if query_words and name_keywords:
+        if list(query_words)[0] == name_keywords[0]:
+            score += 300
+    
+    # Query words are subset of company keywords
+    if query_words.issubset(name_keywords_set):
+        score += 100
+    
+    # Partial word matches (substring, but not as word boundary) - lower score
+    if query in company_name or company_name in query:
+        score += 50
+    
+    # Penalize matches where query is embedded in a longer word (e.g., "ford" in "ashford")
+    # Check if query appears as substring but not as word
+    if query in company_name:
+        import re
+        pattern = r'\b' + re.escape(query) + r'\b'
+        if not re.search(pattern, company_name):
+            # Query is embedded in a word, penalize
+            score -= 200
+    
+    # Boost custom definitions slightly
+    # (This will be handled by the caller)
+    
+    return score
+
+
+def search_company_name(query, ticker_db, ticker_defs, max_results=20):
+    """Search for tickers matching a company name query with smart ranking.
     
     Args:
         query: Company name to search for
         ticker_db: dict mapping ticker -> company name from main database
         ticker_defs: dict mapping ticker -> company name from definitions
+        max_results: Maximum number of results to return
         
     Returns:
-        list: List of (ticker, company_name, source) tuples where source is 'database' or 'definitions'
+        list: List of (ticker, company_name, source, score) tuples, sorted by score descending
     """
     query_normalized = normalize_company_name(query)
-    results = []
+    query_words = set(query_normalized.split())
+    # Filter out very short words (1-2 chars) unless query is very short
+    if len(query_normalized) > 3:
+        query_words = {w for w in query_words if len(w) > 2}
+    else:
+        query_words = {w for w in query_words if len(w) > 0}
+    
+    scored_results = []
     
     # Combine both sources (definitions take precedence if same ticker)
     all_tickers = {**ticker_db, **ticker_defs}
     
-    # Create reverse lookup
-    reverse_map = create_reverse_lookup(all_tickers)
-    
-    # Exact match
-    if query_normalized in reverse_map:
-        for ticker, company_name in reverse_map[query_normalized]:
-            source = 'definitions' if ticker in ticker_defs else 'database'
-            results.append((ticker, company_name, source))
-    
-    # Partial match (company name contains query or query contains company name)
-    if not results:
-        for normalized_name, ticker_list in reverse_map.items():
-            if query_normalized in normalized_name or normalized_name in query_normalized:
-                for ticker, company_name in ticker_list:
-                    source = 'definitions' if ticker in ticker_defs else 'database'
-                    results.append((ticker, company_name, source))
-    
-    # Word-based matching (check if query words appear in company name)
-    if not results:
-        query_words = set(query_normalized.split())
-        query_words = {w for w in query_words if len(w) > 2}  # Ignore short words
+    # Search through all tickers
+    for ticker, company_name in all_tickers.items():
+        name_normalized = normalize_company_name(company_name)
+        name_keywords = extract_company_keywords(company_name)
         
-        for normalized_name, ticker_list in reverse_map.items():
-            name_words = set(normalized_name.split())
-            if query_words and query_words.issubset(name_words):
-                for ticker, company_name in ticker_list:
-                    source = 'definitions' if ticker in ticker_defs else 'database'
-                    results.append((ticker, company_name, source))
+        # Calculate match score
+        score = calculate_match_score(query_normalized, name_normalized, query_words, name_keywords)
+        
+        # Only include if score > 0 (some match found)
+        if score > 0:
+            source = 'definitions' if ticker in ticker_defs else 'database'
+            # Small boost for custom definitions
+            if source == 'definitions':
+                score += 10
+            scored_results.append((ticker, company_name, source, score))
     
-    # Remove duplicates (same ticker)
-    seen_tickers = set()
-    unique_results = []
-    for ticker, company_name, source in results:
-        if ticker not in seen_tickers:
-            seen_tickers.add(ticker)
-            unique_results.append((ticker, company_name, source))
+    # Remove duplicates (keep highest scoring ticker)
+    ticker_scores = {}
+    for ticker, company_name, source, score in scored_results:
+        if ticker not in ticker_scores or score > ticker_scores[ticker][3]:
+            ticker_scores[ticker] = (ticker, company_name, source, score)
     
-    return unique_results
+    # Sort by score descending
+    unique_results = sorted(ticker_scores.values(), key=lambda x: x[3], reverse=True)
+    
+    # Return top results (without score in output)
+    return [(ticker, company_name, source) for ticker, company_name, source, _ in unique_results[:max_results]]
 
 
-def display_results(query, results):
-    """Display search results.
+def display_results(query, results, max_display=10):
+    """Display search results, showing top matches first.
     
     Args:
         query: Original search query
-        results: List of (ticker, company_name, source) tuples
+        results: List of (ticker, company_name, source) tuples (already sorted by relevance)
+        max_display: Maximum number of results to display
     """
     if not results:
         print(f"\nNo ticker found for '{query}'")
@@ -175,21 +269,32 @@ def display_results(query, results):
         print("  - The company might not be in the database")
         return
     
-    print(f"\nFound {len(results)} match(es) for '{query}':")
+    # Show top results
+    display_count = min(len(results), max_display)
+    top_results = results[:display_count]
+    
+    print(f"\nFound {len(results)} match(es) for '{query}' (showing top {display_count}):")
     print("-" * 80)
     print(f"{'Ticker':<10} {'Company Name':<50} {'Source':<15}")
     print("-" * 80)
     
-    for ticker, company_name, source in results:
+    for ticker, company_name, source in top_results:
         source_label = 'Custom Def' if source == 'definitions' else 'Database'
         print(f"{ticker:<10} {company_name:<50} {source_label:<15}")
     
     print("-" * 80)
     
+    if len(results) > max_display:
+        print(f"\n... and {len(results) - max_display} more result(s) (showing top {max_display} by relevance)")
+    
     if len(results) == 1:
         ticker, company_name, _ = results[0]
         print(f"\n✓ Ticker: {ticker}")
         print(f"  Company: {company_name}")
+    elif len(top_results) > 0:
+        # Show the top match
+        ticker, company_name, _ = top_results[0]
+        print(f"\nTop match: {ticker} - {company_name}")
 
 
 def main():
