@@ -308,14 +308,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
             print(f"{i:3d}. {keyword}")
         
         print()
-        print("=" * 80)
         print("(Use 'redo <ticker>' to regenerate keywords)")
-        
-        # Print comma-separated version for easy copying
-        print("\n" + "=" * 80)
-        print("Comma-separated (for easy copying):")
-        print("-" * 80)
-        print(", ".join(keywords))
         return
     
     print()
@@ -389,14 +382,8 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(all_data, f, indent=2, ensure_ascii=False)
     
-    print(f"\n✓ Saved {len(keywords)} keywords for {key} to {filepath}")
+    print(f"\n✓ Saved {len(keywords)} keywords for {key}")
     print(f"  Total companies in file: {len(all_data['companies'])}")
-    
-    # Also print comma-separated version for easy copying
-    print("\n" + "=" * 80)
-    print("Comma-separated (for easy copying):")
-    print("-" * 80)
-    print(", ".join(keywords))
 
 
 def main():
