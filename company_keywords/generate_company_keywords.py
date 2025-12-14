@@ -336,7 +336,7 @@ def main():
     print("Commands:")
     print("  <ticker>        - Get keywords (uses cache if available)")
     print("  redo <ticker>   - Force regenerate keywords")
-    print("  quit/exit       - Exit the program")
+    print("  exit            - Exit the program")
     print()
     
     if not OPENROUTER_AVAILABLE:
@@ -373,7 +373,7 @@ def main():
             if not input_str:
                 continue
             
-            if input_str.lower() in ['quit', 'exit', 'q']:
+            if input_str.lower() == 'exit':
                 print("Goodbye!")
                 break
             
