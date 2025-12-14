@@ -3909,6 +3909,52 @@ def handle_redopeer_command(command_input):
     get_peers_for_ticker(ticker, force_redo=True)
 
 
+def handle_fillpeer_command(command_input):
+    """Handle the fillpeer command - score all unscored peers for a ticker.
+    
+    Args:
+        command_input: Command input after 'fillpeer' keyword (ticker symbol)
+    """
+    command_input = command_input.strip()
+    
+    if not command_input:
+        print("Usage: fillpeer TICKER")
+        print("Example: fillpeer GOOGL")
+        print("This will score all peers of GOOGL that don't already have scores.")
+        return
+    
+    ticker = command_input.upper()
+    
+    # Load peers and scores
+    peers_data = load_peers()
+    scores_data = load_scores()
+    scored_tickers = set(scores_data.get("companies", {}).keys())
+    
+    # Check if ticker has peers
+    if ticker not in peers_data:
+        print(f"No peers found for {ticker}. Run 'peer {ticker}' first to find peers.")
+        return
+    
+    peer_tickers = peers_data[ticker]
+    
+    # Find unscored peers
+    unscored_peers = [p for p in peer_tickers if p not in scored_tickers]
+    
+    if not unscored_peers:
+        print(f"All {len(peer_tickers)} peers of {ticker} already have scores.")
+        return
+    
+    print(f"\n{ticker} has {len(peer_tickers)} peers, {len(unscored_peers)} need scoring:")
+    for p in unscored_peers:
+        ticker_lookup = load_ticker_lookup()
+        name = ticker_lookup.get(p, p)
+        print(f"  - {p}: {name}")
+    print()
+    
+    # Score the unscored peers
+    score_multiple_tickers(' '.join(unscored_peers))
+
+
 def main():
     """Main function to run the moat scorer."""
     print("Company Competitive Moat Scorer")
@@ -3929,13 +3975,14 @@ def main():
     print("  Type 'correl TICKER1 TICKER2' to show correlation between two companies' scores")
     print("  Type 'peer TICKER' to find peers and competitors for a ticker")
     print("  Type 'redopeer TICKER' to force a new peer calculation (bypasses cache)")
+    print("  Type 'fillpeer TICKER' to score all unscored peers of a ticker")
     print("  Type 'clear' to clear the terminal")
     print("  Type 'exit' to stop")
     print()
     
     while True:
         try:
-            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'redopeer'/'clear'/'exit'): ").strip()
+            user_input = input("Enter ticker or company name (or 'view'/'rank'/'delete'/'fill'/'redo'/'upgrade'/'define'/'redefine'/'correl'/'peer'/'redopeer'/'fillpeer'/'clear'/'exit'): ").strip()
             
             if user_input.lower() in ['exit', 'q']:
                 print("Goodbye!")
@@ -4018,6 +4065,15 @@ def main():
             elif user_input.lower().startswith('redopeer '):
                 command_input = user_input[9:].strip()  # Remove 'redopeer ' prefix
                 handle_redopeer_command(command_input)
+                print()
+            elif user_input.lower() == 'fillpeer':
+                print("Usage: fillpeer TICKER")
+                print("Example: fillpeer GOOGL")
+                print("This will score all peers of GOOGL that don't already have scores.")
+                print()
+            elif user_input.lower().startswith('fillpeer '):
+                command_input = user_input[9:].strip()  # Remove 'fillpeer ' prefix
+                handle_fillpeer_command(command_input)
                 print()
             elif user_input:
                 # Check if input contains multiple space-separated tickers
