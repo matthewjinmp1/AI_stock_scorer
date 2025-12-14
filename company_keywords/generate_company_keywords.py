@@ -15,6 +15,7 @@ Example: If you input "Google", it will return keywords like:
 import os
 import sys
 import json
+import time
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
@@ -621,7 +622,9 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     print()
     
     # Generate keywords (not cached or force refresh)
+    start_time = time.time()
     keywords, token_usage = generate_company_keywords(company_name, ticker)
+    elapsed_time = time.time() - start_time
     
     print(f"\nGenerated {len(keywords)} keywords for {company_name}")
     print("=" * 80)
@@ -650,6 +653,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     cost_dollars = cost
     print()
     print(f"Cost: {cost_cents:.4f} cents")
+    print(f"Time: {elapsed_time:.2f}s")
     
     # Automatically save to single JSON file in the same directory as the script
     script_dir = os.path.dirname(os.path.abspath(__file__))
