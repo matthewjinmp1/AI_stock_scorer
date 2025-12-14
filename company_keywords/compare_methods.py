@@ -173,11 +173,25 @@ def main():
     print("=" * 100)
     print("Keyword vs AI Peer Comparison Tool")
     print("=" * 100)
+    
+    # Load data and find tickers in both files
+    ticker_lookup = load_ticker_lookup()
+    peers_data = load_peers()
+    keywords_data = load_cached_keywords()
+    
+    peers_tickers = set(peers_data.keys())
+    keywords_tickers = set(keywords_data.get("companies", {}).keys())
+    common_tickers = sorted(peers_tickers & keywords_tickers)
+    
+    print(f"\nTickers in peers.json: {len(peers_tickers)}")
+    print(f"Tickers in keywords.json: {len(keywords_tickers)}")
+    print(f"Tickers in BOTH: {len(common_tickers)}")
+    if common_tickers:
+        print(f"  {', '.join(common_tickers)}")
+    print()
     print("Enter a ticker to compare keyword-based matches vs AI peer matches.")
     print("Type 'exit' to quit.")
     print()
-    
-    ticker_lookup = load_ticker_lookup()
     
     while True:
         try:
