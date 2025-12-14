@@ -328,6 +328,84 @@ def compare_all_tickers():
     print()
 
 
+def redo_all_tickers(ticker_lookup):
+    """Regenerate keywords for all cached tickers."""
+    cached_data = load_cached_keywords()
+    companies = cached_data.get("companies", {})
+    
+    tickers = list(companies.keys())
+    
+    if len(tickers) == 0:
+        print("Error: No tickers in cache to regenerate.")
+        return
+    
+    print()
+    print("=" * 80)
+    print(f"Regenerating keywords for {len(tickers)} tickers")
+    print("=" * 80)
+    print()
+    
+    total_cost = 0.0
+    
+    for i, ticker in enumerate(tickers, 1):
+        print(f"\n[{i}/{len(tickers)}] Processing {ticker}...")
+        print("-" * 40)
+        
+        try:
+            # Get company name from cache
+            company_name = companies[ticker].get("company_name", ticker)
+            
+            # Generate new keywords
+            keywords, token_usage = generate_company_keywords(company_name, ticker)
+            
+            # Calculate cost
+            cost = calculate_token_cost(
+                token_usage.get('total_tokens', 0),
+                model="grok-4-1-fast-reasoning",
+                token_usage=token_usage
+            )
+            cost_cents = cost * 100
+            total_cost += cost_cents
+            
+            print(f"  Generated {len(keywords)} keywords")
+            print(f"  Cost: {cost_cents:.4f} cents")
+            
+            # Update cache
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            filepath = os.path.join(script_dir, "keywords.json")
+            
+            # Reload to get latest
+            with open(filepath, 'r', encoding='utf-8') as f:
+                all_data = json.load(f)
+            
+            all_data["companies"][ticker] = {
+                "company_name": company_name,
+                "ticker": ticker,
+                "keywords": keywords,
+                "count": len(keywords),
+                "token_usage": token_usage,
+                "cost": {
+                    "dollars": cost,
+                    "cents": cost_cents
+                },
+                "model": "grok-4-1-fast-reasoning"
+            }
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(all_data, f, indent=2, ensure_ascii=False)
+            
+        except Exception as e:
+            print(f"  Error: {e}")
+            continue
+    
+    print()
+    print("=" * 80)
+    print(f"Completed regenerating {len(tickers)} tickers")
+    print(f"Total cost: {total_cost:.4f} cents")
+    print("=" * 80)
+    print()
+
+
 def process_ticker(input_str, ticker_lookup, force_refresh=False):
     """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
@@ -463,6 +541,7 @@ def main():
     print("Commands:")
     print("  <ticker>              - Get keywords (uses cache if available)")
     print("  redo <ticker>         - Force regenerate keywords")
+    print("  redoall               - Regenerate keywords for all cached tickers")
     print("  compare <t1> <t2>     - Compare keywords between two tickers")
     print("  all                   - Compare all pairs and rank by match %")
     print("  exit                  - Exit the program")
@@ -509,6 +588,11 @@ def main():
             # Check for all command
             if input_str.lower() == 'all':
                 compare_all_tickers()
+                continue
+            
+            # Check for redoall command
+            if input_str.lower() == 'redoall':
+                redo_all_tickers(ticker_lookup)
                 continue
             
             # Check for compare command
