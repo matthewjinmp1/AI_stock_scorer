@@ -187,6 +187,79 @@ def load_cached_keywords():
     return {"companies": {}}
 
 
+def compare_tickers(ticker1, ticker2, ticker_lookup):
+    """Compare keywords between two tickers and calculate match percentage."""
+    cached_data = load_cached_keywords()
+    companies = cached_data.get("companies", {})
+    
+    # Resolve ticker1
+    ticker1_upper = ticker1.strip().upper()
+    if ticker1_upper in ticker_lookup:
+        key1 = ticker1_upper
+    else:
+        key1 = ticker1_upper
+    
+    # Resolve ticker2
+    ticker2_upper = ticker2.strip().upper()
+    if ticker2_upper in ticker_lookup:
+        key2 = ticker2_upper
+    else:
+        key2 = ticker2_upper
+    
+    # Check if both tickers are cached
+    if key1 not in companies:
+        print(f"Error: {key1} not found in cache. Run it first to generate keywords.")
+        return
+    if key2 not in companies:
+        print(f"Error: {key2} not found in cache. Run it first to generate keywords.")
+        return
+    
+    # Get keywords
+    data1 = companies[key1]
+    data2 = companies[key2]
+    keywords1 = data1.get("keywords", [])
+    keywords2 = data2.get("keywords", [])
+    name1 = data1.get("company_name", key1)
+    name2 = data2.get("company_name", key2)
+    
+    # Normalize keywords for comparison (lowercase)
+    keywords1_lower = set(k.lower() for k in keywords1)
+    keywords2_lower = set(k.lower() for k in keywords2)
+    
+    # Find matches
+    matches = keywords1_lower & keywords2_lower
+    
+    # Calculate percentage using the smaller count as base
+    base_count = min(len(keywords1), len(keywords2))
+    if base_count == 0:
+        match_percent = 0.0
+    else:
+        match_percent = (len(matches) / base_count) * 100
+    
+    # Display results
+    print()
+    print("=" * 80)
+    print(f"Keyword Comparison: {key1} vs {key2}")
+    print("=" * 80)
+    print(f"  {key1} ({name1}): {len(keywords1)} keywords")
+    print(f"  {key2} ({name2}): {len(keywords2)} keywords")
+    print()
+    print(f"  Matching keywords: {len(matches)}")
+    print(f"  Base count (min): {base_count}")
+    print(f"  Match percentage: {match_percent:.1f}%")
+    print()
+    
+    if matches:
+        print("Matching keywords:")
+        print("-" * 80)
+        # Get original case versions of matches
+        matching_keywords = sorted([k for k in keywords1 if k.lower() in matches])
+        for i, keyword in enumerate(matching_keywords, 1):
+            print(f"  {i:3d}. {keyword}")
+    
+    print()
+
+
 def process_ticker(input_str, ticker_lookup, force_refresh=False):
     """Process a single ticker/company and generate keywords."""
     # Try to resolve to company name and ticker
@@ -334,9 +407,10 @@ def main():
     print("Uses Grok 4.1 Fast via OpenRouter")
     print("=" * 80)
     print("Commands:")
-    print("  <ticker>        - Get keywords (uses cache if available)")
-    print("  redo <ticker>   - Force regenerate keywords")
-    print("  exit            - Exit the program")
+    print("  <ticker>              - Get keywords (uses cache if available)")
+    print("  redo <ticker>         - Force regenerate keywords")
+    print("  compare <t1> <t2>     - Compare keywords between two tickers")
+    print("  exit                  - Exit the program")
     print()
     
     if not OPENROUTER_AVAILABLE:
@@ -368,7 +442,7 @@ def main():
     # Continuous loop
     while True:
         try:
-            input_str = input("\nEnter ticker (or 'quit' to exit): ").strip()
+            input_str = input("\nEnter ticker (or 'exit' to quit): ").strip()
             
             if not input_str:
                 continue
@@ -376,6 +450,15 @@ def main():
             if input_str.lower() == 'exit':
                 print("Goodbye!")
                 break
+            
+            # Check for compare command
+            if input_str.lower().startswith('compare '):
+                parts = input_str[8:].strip().split()
+                if len(parts) >= 2:
+                    compare_tickers(parts[0], parts[1], ticker_lookup)
+                else:
+                    print("Usage: compare <ticker1> <ticker2>")
+                continue
             
             # Check for redo command
             force_refresh = input_str.lower().startswith('redo ')
