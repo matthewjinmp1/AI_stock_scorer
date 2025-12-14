@@ -41,13 +41,14 @@ except ImportError:
 
 # Grok API pricing (per million tokens)
 GROK_PRICING = {
-    "grok-3-fast": {"input": 5.0, "output": 15.0},  # $5/M input, $15/M output
+    "grok-4-1-fast-reasoning": {"input": 3.0, "output": 12.0},  # $3/M input, $12/M output
+    "grok-3-fast": {"input": 5.0, "output": 15.0},
     "grok-3": {"input": 3.0, "output": 15.0},
 }
 
-def calculate_grok_cost(token_usage: dict, model: str = "grok-3-fast") -> float:
+def calculate_grok_cost(token_usage: dict, model: str = "grok-4-1-fast-reasoning") -> float:
     """Calculate cost in dollars based on token usage."""
-    pricing = GROK_PRICING.get(model, GROK_PRICING["grok-3-fast"])
+    pricing = GROK_PRICING.get(model, GROK_PRICING["grok-4-1-fast-reasoning"])
     input_tokens = token_usage.get('prompt_tokens', 0)
     output_tokens = token_usage.get('completion_tokens', 0)
     
@@ -122,7 +123,7 @@ Information Technology, Software, Cloud Computing, Artificial Intelligence, Digi
                 "content": prompt
             }
         ],
-        model="grok-3-fast",
+        model="grok-4-1-fast-reasoning",
         temperature=0.7,
         max_tokens=2000
     )
@@ -391,7 +392,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
             keywords, token_usage = generate_company_keywords(company_name, ticker)
             
             # Calculate cost
-            cost = calculate_grok_cost(token_usage, model="grok-3-fast")
+            cost = calculate_grok_cost(token_usage, model="grok-4-1-fast-reasoning")
             cost_cents = cost * 100
             
             return {
@@ -454,7 +455,7 @@ def redo_all_tickers(ticker_lookup, max_workers=5):
                 "dollars": result["cost"],
                 "cents": result["cost_cents"]
             },
-            "model": "grok-3-fast"
+            "model": "grok-4-1-fast-reasoning"
         }
     
     with open(filepath, 'w', encoding='utf-8') as f:
@@ -551,7 +552,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
         print(f"  Cached tokens: {token_usage['cached_tokens']:,}")
     
     # Calculate and display cost
-    cost = calculate_grok_cost(token_usage, model="grok-3-fast")
+    cost = calculate_grok_cost(token_usage, model="grok-4-1-fast-reasoning")
     cost_cents = cost * 100
     cost_dollars = cost
     print()
@@ -586,7 +587,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
             "dollars": cost_dollars,
             "cents": cost_cents
         },
-        "model": "grok-3-fast"
+        "model": "grok-4-1-fast-reasoning"
     }
     
     # Save back to file
@@ -601,7 +602,7 @@ def main():
     """Main function to generate company keywords."""
     print("=" * 80)
     print("Company Keywords Generator")
-    print("Uses Grok API (grok-3-fast)")
+    print("Uses Grok API (grok-4-1-fast-reasoning)")
     print("=" * 80)
     print("Commands:")
     print("  <ticker>              - Get keywords (uses cache if available)")
