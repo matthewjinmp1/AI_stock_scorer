@@ -266,7 +266,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     input_upper = input_str.strip().upper()
     
     ticker = None
-    company_name = input_str
+    company_name = None
     
     # Check if it's a ticker
     if input_upper in ticker_lookup:
@@ -281,8 +281,8 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
             company_name = resolved_name
             print(f"Resolved: {ticker} = {company_name}")
         else:
-            company_name = resolved_name
-            print(f"Using company name: {company_name}")
+            print(f"Error: '{input_str}' is not a valid ticker symbol.")
+            return
     
     # Determine cache key
     if ticker:
