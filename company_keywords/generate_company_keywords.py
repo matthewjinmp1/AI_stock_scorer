@@ -40,6 +40,18 @@ except ImportError:
     print("Error: Could not import scorer module.")
     sys.exit(1)
 
+# =============================================================================
+# CONFIGURABLE SETTINGS
+# =============================================================================
+
+# Compounding weight for keyword matching
+# Each keyword is weighted by position: word N has weight = COMPOUNDING_WEIGHT ^ (total_keywords - N)
+# With 1.1, word 1 is ~10% more valuable than word 2, word 54 is ~10% more valuable than word 55
+# Set to 1.0 for equal weighting (no position preference)
+COMPOUNDING_WEIGHT = 1.1
+
+# =============================================================================
+
 # Grok API pricing (per million tokens)
 # Reasoning tokens are charged at output rate
 GROK_PRICING = {
@@ -60,6 +72,59 @@ def calculate_grok_cost(token_usage: dict, model: str = "grok-4-1-fast-reasoning
     reasoning_cost = (reasoning_tokens / 1_000_000) * pricing["reasoning"]
     
     return input_cost + output_cost + reasoning_cost
+
+
+def calculate_weighted_match(keywords1: List[str], keywords2: List[str]) -> tuple[float, float, list]:
+    """
+    Calculate weighted match score between two keyword lists.
+    
+    Keywords earlier in the list have higher weight based on COMPOUNDING_WEIGHT.
+    Word at position i has weight = COMPOUNDING_WEIGHT ^ (n - i) where n = total keywords.
+    
+    Returns:
+        Tuple of (weighted_match_score, max_possible_score, list of matching keywords with weights)
+    """
+    n1 = len(keywords1)
+    n2 = len(keywords2)
+    
+    # Create weighted dictionaries (keyword -> weight) for each list
+    # Position 0 (first keyword) has highest weight
+    weights1 = {}
+    for i, kw in enumerate(keywords1):
+        kw_lower = kw.lower()
+        weight = COMPOUNDING_WEIGHT ** (n1 - 1 - i)  # First word: weight^(n-1), last word: weight^0 = 1
+        weights1[kw_lower] = (weight, kw)  # Store weight and original case
+    
+    weights2 = {}
+    for i, kw in enumerate(keywords2):
+        kw_lower = kw.lower()
+        weight = COMPOUNDING_WEIGHT ** (n2 - 1 - i)
+        weights2[kw_lower] = (weight, kw)
+    
+    # Find matches and calculate weighted score
+    matching_keywords = []
+    weighted_score = 0.0
+    
+    for kw_lower in weights1:
+        if kw_lower in weights2:
+            w1, orig1 = weights1[kw_lower]
+            w2, orig2 = weights2[kw_lower]
+            # Use the average weight from both lists
+            avg_weight = (w1 + w2) / 2
+            weighted_score += avg_weight
+            matching_keywords.append((orig1, avg_weight))
+    
+    # Calculate max possible score (if all keywords matched)
+    # Use the smaller list as base
+    if n1 <= n2:
+        max_score = sum(COMPOUNDING_WEIGHT ** (n1 - 1 - i) for i in range(n1))
+    else:
+        max_score = sum(COMPOUNDING_WEIGHT ** (n2 - 1 - i) for i in range(n2))
+    
+    # Sort matching keywords by weight (highest first)
+    matching_keywords.sort(key=lambda x: x[1], reverse=True)
+    
+    return weighted_score, max_score, matching_keywords
 
 
 def generate_company_keywords(company_name: str, ticker: Optional[str] = None) -> tuple[List[str], dict]:
@@ -266,19 +331,14 @@ def compare_tickers(ticker1, ticker2, ticker_lookup):
     name1 = data1.get("company_name", key1)
     name2 = data2.get("company_name", key2)
     
-    # Normalize keywords for comparison (lowercase)
-    keywords1_lower = set(k.lower() for k in keywords1)
-    keywords2_lower = set(k.lower() for k in keywords2)
+    # Calculate weighted match
+    weighted_score, max_score, matching_keywords = calculate_weighted_match(keywords1, keywords2)
     
-    # Find matches
-    matches = keywords1_lower & keywords2_lower
-    
-    # Calculate percentage using the smaller count as base
-    base_count = min(len(keywords1), len(keywords2))
-    if base_count == 0:
-        match_percent = 0.0
+    # Calculate weighted percentage
+    if max_score == 0:
+        weighted_percent = 0.0
     else:
-        match_percent = (len(matches) / base_count) * 100
+        weighted_percent = (weighted_score / max_score) * 100
     
     # Display results
     print()
@@ -288,24 +348,23 @@ def compare_tickers(ticker1, ticker2, ticker_lookup):
     print(f"  {key1} ({name1}): {len(keywords1)} keywords")
     print(f"  {key2} ({name2}): {len(keywords2)} keywords")
     print()
-    print(f"  Matching keywords: {len(matches)}")
-    print(f"  Base count (min): {base_count}")
-    print(f"  Match percentage: {match_percent:.1f}%")
+    print(f"  Matching keywords: {len(matching_keywords)}")
+    print(f"  Weighted score:    {weighted_score:.2f} / {max_score:.2f}")
+    print(f"  Weighted match:    {weighted_percent:.1f}%")
+    print(f"  (Compounding weight: {COMPOUNDING_WEIGHT})")
     print()
     
-    if matches:
-        print("Matching keywords:")
+    if matching_keywords:
+        print("Matching keywords (sorted by weight):")
         print("-" * 80)
-        # Get original case versions of matches
-        matching_keywords = sorted([k for k in keywords1 if k.lower() in matches])
-        for i, keyword in enumerate(matching_keywords, 1):
-            print(f"  {i:3d}. {keyword}")
+        for i, (keyword, weight) in enumerate(matching_keywords, 1):
+            print(f"  {i:3d}. {keyword} (weight: {weight:.2f})")
     
     print()
 
 
 def compare_one_vs_all(ticker):
-    """Compare one ticker against all other cached tickers and rank by match percentage."""
+    """Compare one ticker against all other cached tickers and rank by weighted match score."""
     cached_data = load_cached_keywords()
     companies = cached_data.get("companies", {})
     
@@ -325,11 +384,11 @@ def compare_one_vs_all(ticker):
     data1 = companies[ticker_upper]
     keywords1 = data1.get("keywords", [])
     name1 = data1.get("company_name", ticker_upper)
-    keywords1_lower = set(k.lower() for k in keywords1)
     
     print()
     print("=" * 80)
     print(f"Comparing {ticker_upper} ({name1}) against {len(other_tickers)} other tickers")
+    print(f"(Compounding weight: {COMPOUNDING_WEIGHT})")
     print("=" * 80)
     print()
     
@@ -341,24 +400,23 @@ def compare_one_vs_all(ticker):
         keywords2 = data2.get("keywords", [])
         name2 = data2.get("company_name", other_ticker)
         
-        keywords2_lower = set(k.lower() for k in keywords2)
-        matches = keywords1_lower & keywords2_lower
+        weighted_score, max_score, matching_keywords = calculate_weighted_match(keywords1, keywords2)
         
-        base_count = min(len(keywords1), len(keywords2))
-        if base_count == 0:
-            match_percent = 0.0
+        if max_score == 0:
+            weighted_percent = 0.0
         else:
-            match_percent = (len(matches) / base_count) * 100
+            weighted_percent = (weighted_score / max_score) * 100
         
         comparisons.append({
             'ticker': other_ticker,
             'name': name2,
-            'matches': len(matches),
-            'base': base_count,
-            'percent': match_percent
+            'matches': len(matching_keywords),
+            'weighted_score': weighted_score,
+            'max_score': max_score,
+            'percent': weighted_percent
         })
     
-    # Sort by match percentage (descending)
+    # Sort by weighted percentage (descending)
     comparisons.sort(key=lambda x: x['percent'], reverse=True)
     
     # Display results
@@ -367,17 +425,17 @@ def compare_one_vs_all(ticker):
     
     for rank, comp in enumerate(comparisons, 1):
         name_truncated = comp['name'][:28] + '..' if len(comp['name']) > 30 else comp['name']
-        print(f"{rank:<6} {comp['ticker']:<10} {name_truncated:<30} {comp['percent']:.1f}%{'':<5} {comp['matches']}/{comp['base']}")
+        print(f"{rank:<6} {comp['ticker']:<10} {name_truncated:<30} {comp['percent']:.1f}%{'':<5} {comp['matches']}")
     
     print()
     if comparisons:
         avg_match = sum(c['percent'] for c in comparisons) / len(comparisons)
-        print(f"Average match with {ticker_upper}: {avg_match:.1f}%")
+        print(f"Average weighted match with {ticker_upper}: {avg_match:.1f}%")
     print()
 
 
 def compare_all_tickers():
-    """Compare all pairs of cached tickers and rank by match percentage."""
+    """Compare all pairs of cached tickers and rank by weighted match score."""
     cached_data = load_cached_keywords()
     companies = cached_data.get("companies", {})
     
@@ -390,6 +448,7 @@ def compare_all_tickers():
     print()
     print("=" * 80)
     print(f"Comparing all {len(tickers)} tickers ({len(tickers) * (len(tickers) - 1) // 2} pairs)")
+    print(f"(Compounding weight: {COMPOUNDING_WEIGHT})")
     print("=" * 80)
     print()
     
@@ -405,34 +464,22 @@ def compare_all_tickers():
             data2 = companies[key2]
             keywords1 = data1.get("keywords", [])
             keywords2 = data2.get("keywords", [])
-            name1 = data1.get("company_name", key1)
-            name2 = data2.get("company_name", key2)
             
-            # Normalize keywords for comparison (lowercase)
-            keywords1_lower = set(k.lower() for k in keywords1)
-            keywords2_lower = set(k.lower() for k in keywords2)
+            weighted_score, max_score, matching_keywords = calculate_weighted_match(keywords1, keywords2)
             
-            # Find matches
-            matches = keywords1_lower & keywords2_lower
-            
-            # Calculate percentage using the smaller count as base
-            base_count = min(len(keywords1), len(keywords2))
-            if base_count == 0:
-                match_percent = 0.0
+            if max_score == 0:
+                weighted_percent = 0.0
             else:
-                match_percent = (len(matches) / base_count) * 100
+                weighted_percent = (weighted_score / max_score) * 100
             
             comparisons.append({
                 'ticker1': key1,
                 'ticker2': key2,
-                'name1': name1,
-                'name2': name2,
-                'matches': len(matches),
-                'base': base_count,
-                'percent': match_percent
+                'matches': len(matching_keywords),
+                'percent': weighted_percent
             })
     
-    # Sort by match percentage (descending)
+    # Sort by weighted percentage (descending)
     comparisons.sort(key=lambda x: x['percent'], reverse=True)
     
     # Display results
@@ -440,13 +487,13 @@ def compare_all_tickers():
     print("-" * 80)
     
     for rank, comp in enumerate(comparisons, 1):
-        print(f"{rank:<6} {comp['ticker1']:<10} {comp['ticker2']:<10} {comp['percent']:.1f}%{'':<5} {comp['matches']}/{comp['base']}")
+        print(f"{rank:<6} {comp['ticker1']:<10} {comp['ticker2']:<10} {comp['percent']:.1f}%{'':<5} {comp['matches']}")
     
     print()
     print(f"Total comparisons: {len(comparisons)}")
     if comparisons:
         avg_match = sum(c['percent'] for c in comparisons) / len(comparisons)
-        print(f"Average match: {avg_match:.1f}%")
+        print(f"Average weighted match: {avg_match:.1f}%")
     print()
 
 
