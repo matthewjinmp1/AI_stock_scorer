@@ -351,8 +351,7 @@ def process_ticker(input_str, ticker_lookup, force_refresh=False):
     cost_cents = cost * 100
     cost_dollars = cost
     print()
-    print("Cost:")
-    print(f"  Total cost: ${cost_dollars:.6f} ({cost_cents:.4f} cents)")
+    print(f"Cost: {cost_cents:.4f} cents")
     
     # Automatically save to single JSON file in the same directory as the script
     script_dir = os.path.dirname(os.path.abspath(__file__))
