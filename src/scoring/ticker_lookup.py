@@ -20,11 +20,51 @@ TICKER_FILE = os.path.join(PROJECT_ROOT, "data", "stock_tickers_clean.json")
 TICKER_DEFINITIONS_FILE = os.path.join(PROJECT_ROOT, "data", "ticker_definitions.json")
 
 
+def is_bond(ticker, name):
+    """Check if a ticker/name represents a bond rather than a stock.
+    
+    Args:
+        ticker: Ticker symbol
+        name: Company name
+        
+    Returns:
+        bool: True if this appears to be a bond
+    """
+    ticker_upper = ticker.upper()
+    name_lower = name.lower()
+    
+    # Bonds typically have tickers with hyphens (e.g., "F-B", "F-C", "F-D")
+    if '-' in ticker_upper:
+        return True
+    
+    # Bonds have names containing "Notes due", "Bond", or percentage with dates
+    bond_indicators = [
+        'notes due',
+        'bond',
+        '% notes',
+        '% note',
+        'due ',
+        ' maturing',
+        ' maturity',
+        ' preferred',
+        ' preferred stock',
+        ' series ',
+        ' class ',
+    ]
+    
+    for indicator in bond_indicators:
+        if indicator in name_lower:
+            return True
+    
+    return False
+
+
 def load_ticker_database():
     """Load ticker to company name mappings from stock_tickers_clean.json.
+    Filters out bonds - only includes stocks.
     
     Returns:
-        dict: Mapping of ticker -> company name
+        dict: Mapping of ticker -> company name (stocks only)
     """
     ticker_map = {}
     
@@ -40,7 +80,9 @@ def load_ticker_database():
                 name = company.get('name', '').strip()
                 
                 if ticker and name:
-                    ticker_map[ticker] = name
+                    # Skip bonds
+                    if not is_bond(ticker, name):
+                        ticker_map[ticker] = name
     except Exception as e:
         print(f"Warning: Could not load ticker database: {e}")
     
