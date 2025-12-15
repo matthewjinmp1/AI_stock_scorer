@@ -23,3 +23,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Data files (JSON)
+data/*.json
+company_keywords/*.json
+*.json
